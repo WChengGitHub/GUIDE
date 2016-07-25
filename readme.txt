@@ -8,5 +8,9 @@
 
 数据库密码大家都统一下 密码 1234
 
+<<<<<<< HEAD
 
 hello world!
+=======
+eeeeeeeeee
+>>>>>>> 03b1235d9d5a9a863f3c525bf91b6e113aabbb53
