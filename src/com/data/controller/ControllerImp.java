@@ -23,17 +23,17 @@ import com.data.model.User;
 				HttpServletResponse response) throws Exception {
 			PrintWriter out = response.getWriter();
 			System.out.println("sss");//检查是否运行到这里
-			String N = request.getParameter("name");//获取
-			String P = request.getParameter("pass");
-			System.out.println(N+P);//调试时 用于检查获取得是否与用户输入的一致
+			String name = request.getParameter("name");//获取
+			String password = request.getParameter("pass");
+			System.out.println(name+password);//调试时 用于检查获取得是否与用户输入的一致
 			
 			
 		try {
 			@SuppressWarnings("resource")
 			ClassPathXmlApplicationContext factory= new ClassPathXmlApplicationContext("applicationContext.xml");//应用上下文
 			User U=(User)factory.getBean("user");//将数据传给Model
-			U.setName(N);
-			U.setPassword(P);
+			U.setName(name);
+			U.setPassword(password);
 			
 			LoginService LS=(LoginService)factory.getBean("service");//getBean("service")相当于调用这个service来处理事务
 			int b=LS.Login(U);//用LoginService中的方法查找用户 实现登录验证

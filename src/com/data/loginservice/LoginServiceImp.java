@@ -9,15 +9,15 @@ import com.data.model.User;
 
 public class LoginServiceImp implements LoginService{
 	
-	public int Login(User U){
+	public int Login(User user){
 		@SuppressWarnings("resource")
 		ClassPathXmlApplicationContext factory= new ClassPathXmlApplicationContext("applicationContext.xml");
 		 QueryUserDao Dq=(QueryUserDao) factory.getBean("QueryDao");
 		 
 		 try{
-		 int count1=Dq.query_user(U.getName());
+		 int count1=Dq.query_user(user.getName());
 		 if(count1==1){
-			 int count2=Dq.query_password(U.getName(),U.getPassword());
+			 int count2=Dq.query_password(user.getName(),user.getPassword());
 			 if(count2==1){
 					return 0;//密码正确返回0
 				}

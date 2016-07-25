@@ -16,6 +16,7 @@ public class QueryUserDao{
 		JdbcTemplate jt=impdao.getJdbcTemple();
 		try {
 			String 	sql="select count(*) from user "+" where Name= ? ";//+Name;
+			@SuppressWarnings("deprecation")
 			int count=jt.queryForInt(sql, new Object[]{Name});
 			return count;
 		} catch (Exception e) {
@@ -23,6 +24,7 @@ public class QueryUserDao{
 		}
 	}
 	
+	@SuppressWarnings("deprecation")
 	public int query_password(String Name,String Password){
 		@SuppressWarnings("resource")
 		ClassPathXmlApplicationContext factory= new ClassPathXmlApplicationContext("applicationContext.xml");

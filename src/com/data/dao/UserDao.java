@@ -10,11 +10,8 @@ public interface UserDao {
 	
 	public void setJdbcTemplate(JdbcTemplate jdbcTemplate);
 	public JdbcTemplate getJdbcTemple();
-	
-//	public int query_name(String Name,String Password);
-//	public String query_password(String Name,String Password);
 
-	public void add(User U);//增
+	public void add(User user);//增
 	
 	public void delete(String Name);//删
 	
