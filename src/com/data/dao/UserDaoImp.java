@@ -29,11 +29,11 @@ public class UserDaoImp implements UserDao{
 	
 	
 	@Override
-	public void add(User U) {
+	public void add(User user) {
 		JdbcTemplate jt=this.getJdbcTemple();
 		try{
 		String add=" insert into tb_visitor (name, password) VALUES(?,?) ";
-		jt.update(add,new Object[] {U.getName(), U.getPassword()});
+		jt.update(add,new Object[] {user.getName(), user.getPassword()});
 		
 		} catch (Exception e) {
 		  System.out.println("error");
