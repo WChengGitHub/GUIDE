@@ -9,11 +9,12 @@ package com.data.dao;
 //import com.mysql.jdbc.PreparedStatement;
 
 import java.util.List;
+
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import com.data.model.User;
 
-public class UserDaoImp implements UserDao{
+public class UserDaoImp implements Dao{
 
 	
 	private JdbcTemplate jdbcTemplate;
@@ -56,7 +57,7 @@ public class UserDaoImp implements UserDao{
 	
 	
 	@Override
-	public List<Object> query() {
+	public List<Object> query(String sql, List<Object> param) {
 		// TODO Auto-generated method stub
 		return null;
 	}
