@@ -12,12 +12,12 @@ public class LoginServiceImp implements LoginService{
 	public int Login(Visitor visitor){
 		@SuppressWarnings("resource")
 		ClassPathXmlApplicationContext factory= new ClassPathXmlApplicationContext("applicationContext.xml");
-		 QueryUserDao Dq=(QueryUserDao) factory.getBean("QueryDao");
+		 QueryVisitorDao Dq=(QueryVisitorDao) factory.getBean("QueryVisitorDao");
 		 
 		 try{
-		 int count1=Dq.query_user(visitor.getName());
+		 int count1=Dq.queryVisitor(visitor.getVisitor());
 		 if(count1==1){
-			 int count2=Dq.query_password(visitor.getName(),visitor.getPassword());
+			 int count2=Dq.queryPassword(visitor.getVisitor(),visitor.getPassword());
 			 if(count2==1){
 					return 0;//密码正确返回0
 				}

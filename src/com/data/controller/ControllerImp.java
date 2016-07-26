@@ -22,24 +22,26 @@ import com.data.model.Visitor;
 		public ModelAndView handleRequest(HttpServletRequest request,
 				HttpServletResponse response) throws Exception {
 			PrintWriter out = response.getWriter();
-			System.out.println("sss");//检查是否运行到这里
-			String name = request.getParameter("name");//获取
-			String password = request.getParameter("pass");
-			System.out.println(name+password);//调试时 用于检查获取得是否与用户输入的一致
+			System.out.println("test");//检查是否运行到这里
+			String Visitor = request.getParameter("visitor");//获取 //避免与Visitor的对象visitor重复命名 后台的游客名 命名为Visitor
+			String password = request.getParameter("password");
+			System.out.println(Visitor+password);//调试时 用于检查获取得是否与用户输入的一致
 			
 			
 		try {
 			@SuppressWarnings("resource")
 			ClassPathXmlApplicationContext factory= new ClassPathXmlApplicationContext("applicationContext.xml");//应用上下文
-			Visitor U=(Visitor)factory.getBean("user");//将数据传给Model
-			U.setName(name);
-			U.setPassword(password);
+			Visitor visitor=(Visitor)factory.getBean("visitor");//将数据传给Model
+			visitor.setVisitor(Visitor);
+			visitor.setPassword(password);
 			
 			LoginService LS=(LoginService)factory.getBean("service");//getBean("service")相当于调用这个service来处理事务
-			int b=LS.Login(U);//用LoginService中的方法查找用户 实现登录验证
+			int b=LS.Login(visitor);//用LoginService中的方法查找用户 实现登录验证
 			
 			out.print(b);
-
+			System.out.println("test");
+			System.out.println("test");
+			System.out.println("test");
 			} catch (Exception e) {
 				System.out.println("Loading...");
 			e.printStackTrace();

@@ -84,8 +84,8 @@
 	var xmlhttp;
 	function loadXMLDoc()//传参
 	{
-		var name=document.getElementById("N").value;
-		var pass=document.getElementById("P").value;
+		var visitor=document.getElementById("Visitor").value;
+		var password=document.getElementById("Password").value;
 		xmlhttp=null;
 	if (window.XMLHttpRequest)
 	  {
@@ -97,7 +97,7 @@
 	  }
 	if (xmlhttp!=null)
 	  {
-	  	var json="name="+name+"&pass="+pass;
+	  	var json="visitor="+visitor+"&password="+password;
 	  	xmlhttp.onreadystatechange=state_Change;
 	  	xmlhttp.open("POST","login.html",true);//这里的请求地址URL 随便填也不会出错//？这整部分去掉也可以运行
 	  	xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
@@ -131,8 +131,8 @@ function state_Change()
 	 			else
 	 			{
 	 				
-	 					var name=document.getElementById("N").value;
-						var cookieString="username="+name; 
+	 				//	var visitor=document.getElementById("Visitor").value;
+						var cookieString="Visitor="+visitor; 
 						//判断是否设置过期时间 
 						var expiresHours=1;
 						if(expiresHours>0){ 
@@ -207,7 +207,7 @@ function state_Change()
 									</div>
 									<!-- <img src="图标/用户.jpg" class="logo_"> -->
 									<input type="text" placeholder="手机号码/电子邮箱 " 
-									name="name" value="" class="word1" class="login" id="N" />
+									name="visitor" value="" class="word1" class="login" id="Visitor" />
 									
 								</td>
 							</tr>
@@ -217,7 +217,7 @@ function state_Change()
 										<div class="password-img" ></div>
 									</div>
 									<!-- <img src="图标/密码.jpg" class="logo_"> -->
-									<input type="password" placeholder="密码" name="pass" class="word2" id="P" />
+									<input type="password" placeholder="密码" name="password" class="word2" id="Password" />
 								</td>
 							</tr>
 							<tr>

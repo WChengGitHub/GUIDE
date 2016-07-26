@@ -22,14 +22,14 @@
 	<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate" 
 		p:dataSource-ref="dataSource"/>
 		
-	 <bean id="impdao" class="com.data.dao.UserDaoImp"
+	 <bean id="impdao" class="com.data.dao.VisitorDaoImp"
 		 p:jdbcTemplate-ref="jdbcTemplate"/>
 		 
-	<bean id="user" class="com.data.model.Visitor"/>
+	<bean id="visitor" class="com.data.model.Visitor"/>
 	
 	<bean id="service" class="com.data.loginservice.LoginServiceImp"/>	
 	
-	<bean id="QueryDao" class="com.data.dao.QueryUserDao"/>
+	<bean id="QueryVisitorDao" class="com.data.dao.QueryVisitorDao"/>
 	
 <!-- 	<bean id="dao" class="com.data.dao.ImpDao"/>  -->
 	 

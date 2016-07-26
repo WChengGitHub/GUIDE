@@ -13,7 +13,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 
 import com.data.model.Visitor;
 
-public class UserDaoImp implements UserDao{
+public class VisitorDaoImp implements VisitorDao{
 
 	
 	private JdbcTemplate jdbcTemplate;
@@ -33,7 +33,7 @@ public class UserDaoImp implements UserDao{
 		JdbcTemplate jt=this.getJdbcTemple();
 		try{
 		String add=" insert into tb_visitor (name, password) VALUES(?,?) ";
-		jt.update(add,new Object[] {visitor.getName(), visitor.getPassword()});
+		jt.update(add,new Object[] {visitor.getVisitor(), visitor.getPassword()});
 		
 		} catch (Exception e) {
 		  System.out.println("error");
@@ -43,11 +43,11 @@ public class UserDaoImp implements UserDao{
 	
 	
 	@Override
-	public void delete(String Name) {
+	public void delete(String Visitor) {
 		JdbcTemplate jt=this.getJdbcTemple();
 		try{
 		String del="delete from test where name=?";
-		jt.update(del,new Object[] {Name}); 
+		jt.update(del,new Object[] {Visitor}); 
 		} catch (Exception e){
 			System.out.println("error");
 		}
@@ -64,12 +64,12 @@ public class UserDaoImp implements UserDao{
 	
 	
 	@Override
-	public void update(String Name) {
+	public void update(String Visitor) {
 		JdbcTemplate jt=this.getJdbcTemple();
 		try{
 		String update=" update tb_visitor "+
 				" Password=?"+" where Name=? ";
-		jt.update(update,new Object[]{"1","2",Name});
+		jt.update(update,new Object[]{"1","2",Visitor});
 		
 		} catch (Exception e){
 			System.out.println("error");
