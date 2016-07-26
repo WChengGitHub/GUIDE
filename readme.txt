@@ -1,4 +1,1 @@
-<<<<<<< HEAD
-just test!
-=======
->>>>>>> 8abeef610c7a366da9b5806fdfe7f91c5fec7369
+﻿2016年7月26日	解决readme.txt中文乱码问题
