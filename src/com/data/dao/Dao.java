@@ -6,17 +6,17 @@ import org.springframework.jdbc.core.JdbcTemplate;
 
 import com.data.model.Visitor;
 
-public interface VisitorDao {
+public interface Dao {
 	
 	public void setJdbcTemplate(JdbcTemplate jdbcTemplate);
 	public JdbcTemplate getJdbcTemple();
 
-	public void add(Visitor visitor);//增
+	public void add(Visitor visitor);//澧�
 	
-	public void delete(String Visitor);//删
+	public void delete(String Visitor);//鍒�
 	
-	public List<Object> query();//查
+	public List<Object> query(String sql, List<Object> param);//鏌�
 	
-	public void update(String Visitor);//改
+	public void update(String Visitor);//鏀�
 
 }

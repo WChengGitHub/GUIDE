@@ -99,7 +99,7 @@
 	  {
 	  	var json="visitor="+visitor+"&password="+password;
 	  	xmlhttp.onreadystatechange=state_Change;
-	  	xmlhttp.open("POST","login.html",true);//这里的请求地址URL 随便填也不会出错//？这整部分去掉也可以运行
+	  	xmlhttp.open("POST","login.html",true);
 	  	xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
 	  	xmlhttp.send(json);
 	  }
@@ -131,7 +131,7 @@ function state_Change()
 	 			else
 	 			{
 	 				
-	 				//	var visitor=document.getElementById("Visitor").value;
+	 					var visitor=document.getElementById("Visitor").value;
 						var cookieString="Visitor="+visitor; 
 						//判断是否设置过期时间 
 						var expiresHours=1;
@@ -143,7 +143,6 @@ function state_Change()
 						document.cookie=cookieString; 
 						alert(document.cookie);
 						window.open('Home.html','_self','width=200,height=100,,_left=0,_top=100');
-	 				//window.open('http://www.imooc.com','_self','width=200,height=100,,_left=0,_top=100');
 	 			}
 	 	}
 	    

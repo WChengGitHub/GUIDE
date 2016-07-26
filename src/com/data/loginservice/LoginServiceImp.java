@@ -13,7 +13,7 @@ public class LoginServiceImp implements LoginService{
 		@SuppressWarnings("resource")
 		ClassPathXmlApplicationContext factory= new ClassPathXmlApplicationContext("applicationContext.xml");
 		 QueryVisitorDao Dq=(QueryVisitorDao) factory.getBean("QueryVisitorDao");
-		 
+
 		 try{
 		 int count1=Dq.queryVisitor(visitor.getVisitor());
 		 if(count1==1){

@@ -9,11 +9,13 @@ package com.data.dao;
 //import com.mysql.jdbc.PreparedStatement;
 
 import java.util.List;
+
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import com.data.model.Visitor;
 
-public class VisitorDaoImp implements VisitorDao{
+public class VisitorDaoImp implements Dao{
+
 
 	
 	private JdbcTemplate jdbcTemplate;
@@ -56,7 +58,7 @@ public class VisitorDaoImp implements VisitorDao{
 	
 	
 	@Override
-	public List<Object> query() {
+	public List<Object> query(String sql, List<Object> param) {
 		// TODO Auto-generated method stub
 		return null;
 	}

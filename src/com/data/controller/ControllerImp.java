@@ -39,11 +39,9 @@ import com.data.model.Visitor;
 			int b=LS.Login(visitor);//用LoginService中的方法查找用户 实现登录验证
 			
 			out.print(b);
-			System.out.println("test");
-			System.out.println("test");
-			System.out.println("test");
+
 			} catch (Exception e) {
-				System.out.println("Loading...");
+				System.out.println("error");
 			e.printStackTrace();
 			}
 		return null;
