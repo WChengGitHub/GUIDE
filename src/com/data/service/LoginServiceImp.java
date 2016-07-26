@@ -1,7 +1,9 @@
-package com.data.loginservice;
+package com.data.service;
 
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 //import org.springframework.jdbc.core.JdbcTemplate;
+
+
 
 
 import com.data.dao.*;

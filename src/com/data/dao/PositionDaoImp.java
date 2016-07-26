@@ -28,7 +28,7 @@ public class PositionDaoImp implements Dao{
 	}
 
 	@Override
-	public void add(Visitor visitor) {
+	public void add(String string1,String string2) {
 		// TODO Auto-generated method stub
 		
 	}
@@ -39,6 +39,11 @@ public class PositionDaoImp implements Dao{
 		
 	}
 
+	
+	
+	
+	
+	
 	@Override
 	public List<Object> query(String sql, final List<Object> param) {
 		return jdbcTemplate.query(sql,new PreparedStatementSetter()
@@ -74,6 +79,10 @@ public class PositionDaoImp implements Dao{
 });
 	}
 
+	
+	
+	
+	
 	@Override
 	public void update(String Name) {
 		// TODO Auto-generated method stub

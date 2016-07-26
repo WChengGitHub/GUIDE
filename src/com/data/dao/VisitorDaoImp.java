@@ -31,14 +31,20 @@ public class VisitorDaoImp implements Dao{
 	
 	
 	@Override
-	public void add(Visitor visitor) {
+	public void add(String visitor,String password) {
 		JdbcTemplate jt=this.getJdbcTemple();
-		try{
-		String add=" insert into tb_visitor (name, password) VALUES(?,?) ";
-		jt.update(add,new Object[] {visitor.getVisitor(), visitor.getPassword()});
 		
+		try{
+		//" insert into tb_visitor (Visitor, password) VALUES(?,?) "
+		//jt.update(Sql,new Object[] {visitor,password});//visitor.getVisitor(), visitor.getPassword()
+			String sql = "insert into tb_visitor(Visitor, Password) values(visitor,password)";
+	        Object[] args = { visitor, password};System.out.println("test2");
+	        jt.update(sql);//.update(sql, args);//出错！！！！！！！！！！！！！！！！！！！！！
+	        System.out.println("test3");
+	       // if (res == 1)
+            System.out.println("add success");
 		} catch (Exception e) {
-		  System.out.println("error");
+		  System.out.println("error4");
 		}
 	}
 

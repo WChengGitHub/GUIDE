@@ -23,8 +23,10 @@
 		 >
     <mvc:default-servlet-handler/>
 	      <mvc:annotation-driven/>
-	<bean name="/login.html" class="com.data.controller.ControllerImp" scope="prototype" /><!-- ? 改变name就出错 -->
-
+	<bean name="/login.html" class="com.data.controller.LoginController" scope="prototype" />
+	
+	<bean name="/register.html" class="com.data.controller.RegisterController" scope="prototype" />
+	
 	<context:component-scan base-package="com.data.controller" />
     
 	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource"
@@ -41,9 +43,13 @@
 		 
 	<bean id="visitor" class="com.data.model.Visitor"/>
 	
-	<bean id="service" class="com.data.loginservice.LoginServiceImp"/>	
+	<bean id="loginservice" class="com.data.service.LoginServiceImp"/>	
+	
+	<bean id="registerservice" class="com.data.service.RegisterServiceImp"/><!-- class为...RegisterService时会有黄线提示，运行后则打不开主页？ -->	
 	
 	<bean id="QueryVisitorDao" class="com.data.dao.QueryVisitorDao"/>
+	
+	<bean id="visitordaoimp" class="com.data.dao.VisitorDaoImp"/>
 	
 	<!-- 增加PositionDao -->
 	<bean id="PositionDao" class="com.data.dao.PositionDaoImp" 

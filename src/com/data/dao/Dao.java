@@ -11,7 +11,7 @@ public interface Dao {
 	public void setJdbcTemplate(JdbcTemplate jdbcTemplate);
 	public JdbcTemplate getJdbcTemple();
 
-	public void add(Visitor visitor);//澧�
+	public void add(String string1,String string2);//澧�
 	
 	public void delete(String Visitor);//鍒�
 	

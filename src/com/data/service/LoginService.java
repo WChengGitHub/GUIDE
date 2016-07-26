@@ -1,4 +1,4 @@
-package com.data.loginservice;
+package com.data.service;
 
 import com.data.model.Visitor;
 
