@@ -1,6 +1,6 @@
 package com.data.model;
 
-public class User {
+public class Visitor {
 	private String name;
 	private String password;
 	public String getName() {

@@ -15,7 +15,7 @@
 
 	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource"
 		p:driverClassName="com.mysql.jdbc.Driver"
-		p:url="jdbc:mysql://127.0.0.1:3306/user"
+		p:url="jdbc:mysql://127.0.0.1:3306/guide"
 		p:username="root"
 		p:password="1234"/>
 		
@@ -25,7 +25,7 @@
 	 <bean id="impdao" class="com.data.dao.UserDaoImp"
 		 p:jdbcTemplate-ref="jdbcTemplate"/>
 		 
-	<bean id="user" class="com.data.model.User"/>
+	<bean id="user" class="com.data.model.Visitor"/>
 	
 	<bean id="service" class="com.data.loginservice.LoginServiceImp"/>	
 	

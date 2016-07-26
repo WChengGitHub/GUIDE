@@ -11,7 +11,7 @@ package com.data.dao;
 import java.util.List;
 import org.springframework.jdbc.core.JdbcTemplate;
 
-import com.data.model.User;
+import com.data.model.Visitor;
 
 public class UserDaoImp implements UserDao{
 
@@ -29,11 +29,11 @@ public class UserDaoImp implements UserDao{
 	
 	
 	@Override
-	public void add(User user) {
+	public void add(Visitor visitor) {
 		JdbcTemplate jt=this.getJdbcTemple();
 		try{
 		String add=" insert into tb_visitor (name, password) VALUES(?,?) ";
-		jt.update(add,new Object[] {user.getName(), user.getPassword()});
+		jt.update(add,new Object[] {visitor.getName(), visitor.getPassword()});
 		
 		} catch (Exception e) {
 		  System.out.println("error");

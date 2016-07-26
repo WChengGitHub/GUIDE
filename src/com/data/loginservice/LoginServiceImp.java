@@ -5,19 +5,19 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 
 import com.data.dao.*;
-import com.data.model.User;
+import com.data.model.Visitor;
 
 public class LoginServiceImp implements LoginService{
 	
-	public int Login(User user){
+	public int Login(Visitor visitor){
 		@SuppressWarnings("resource")
 		ClassPathXmlApplicationContext factory= new ClassPathXmlApplicationContext("applicationContext.xml");
 		 QueryUserDao Dq=(QueryUserDao) factory.getBean("QueryDao");
 		 
 		 try{
-		 int count1=Dq.query_user(user.getName());
+		 int count1=Dq.query_user(visitor.getName());
 		 if(count1==1){
-			 int count2=Dq.query_password(user.getName(),user.getPassword());
+			 int count2=Dq.query_password(visitor.getName(),visitor.getPassword());
 			 if(count2==1){
 					return 0;//密码正确返回0
 				}

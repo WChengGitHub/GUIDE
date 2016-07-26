@@ -14,7 +14,7 @@ import org.springframework.web.servlet.mvc.Controller;
 
 
 import com.data.loginservice.LoginService;
-import com.data.model.User;
+import com.data.model.Visitor;
 
 //    @RequestMapping(method = RequestMethod.POST) 
 	public class ControllerImp implements Controller{
@@ -31,7 +31,7 @@ import com.data.model.User;
 		try {
 			@SuppressWarnings("resource")
 			ClassPathXmlApplicationContext factory= new ClassPathXmlApplicationContext("applicationContext.xml");//应用上下文
-			User U=(User)factory.getBean("user");//将数据传给Model
+			Visitor U=(Visitor)factory.getBean("user");//将数据传给Model
 			U.setName(name);
 			U.setPassword(password);
 			

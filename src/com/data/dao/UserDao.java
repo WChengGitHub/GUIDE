@@ -4,14 +4,14 @@ import java.util.List;
 
 import org.springframework.jdbc.core.JdbcTemplate;
 
-import com.data.model.User;
+import com.data.model.Visitor;
 
 public interface UserDao {
 	
 	public void setJdbcTemplate(JdbcTemplate jdbcTemplate);
 	public JdbcTemplate getJdbcTemple();
 
-	public void add(User user);//增
+	public void add(Visitor visitor);//增
 	
 	public void delete(String Name);//删
 	
