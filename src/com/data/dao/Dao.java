@@ -16,6 +16,8 @@ public interface Dao {
 	public void delete(String Name);//鍒�
 	
 	public List<Object> query(String sql, List<Object> param);//鏌�
+    
+
 	
 	public void update(String Name);//鏀�
 
