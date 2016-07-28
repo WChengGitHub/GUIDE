@@ -79,6 +79,83 @@
 			}
 	}
 	</style>
+
+	<script language="javascript">
+	// 	function Click(){
+	// 	if(window.event.srcElement.tagName=="IMG")
+	// 	{
+	// 		window.event.returnValue=false;
+	// 	}
+	// 	}		
+	// 		document.oncontextmenu=Click;
+	// </script>
+	
+	<script type="text/javascript">
+
+	var xmlhttp;
+	function loadXMLDoc()//传参
+	{
+		var visitor=document.getElementById("Visitor").value;
+		var password=document.getElementById("Password").value;
+		xmlhttp=null;
+	if (window.XMLHttpRequest)
+	  {
+	  	xmlhttp=new XMLHttpRequest();
+	  }
+	else if (window.ActiveXObject)
+	  {
+	  	xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+	  }
+	if (xmlhttp!=null)
+	  {
+	  	var json="visitor="+visitor+"&password="+password;
+	  	xmlhttp.onreadystatechange=state_Change;
+	  	xmlhttp.open("POST","register.html",true);
+	  	xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+	  	xmlhttp.send(json);
+	  }
+	else
+	  {
+	  	alert("Your browser does not support XMLHTTP.");
+	  }
+	};
+	
+function state_Change()
+	{
+	if (xmlhttp.readyState==4)
+	  {
+	  if (xmlhttp.status==200)
+	    {
+	    	var result;
+	    	var registered=2
+	    	//var register_success=1;
+	    	var register_failed=0;
+	 		result=xmlhttp.responseText;
+	 		
+	 		if(result==register_failed)
+	 		{
+	 			alert("注册失败!请重试");
+	 		}
+	 		else if(result==registered)
+	 		{
+	 			alert("用户已注册!请直接登录");
+	 			window.open('in.html','_self','width=200,height=100,,_left=0,_top=100');
+	 		}
+	 			else
+	 			{
+					alert("恭喜您,注册成功!");
+					window.open('in.html','_self','width=200,height=100,,_left=0,_top=100');
+	 			}
+	 	}
+	    
+	  	else
+	    {
+	    	alert("Problem retrieving XML data:" + xmlhttp.statusText);
+	    }
+	  }
+	}
+
+	</script>
 	</head>
 	
 	<body>
@@ -152,7 +229,7 @@
 										<div class="user-img" ></div>
 									</div>
 									<!-- <img src="图标/用户.jpg" class="logo_"> -->
-									<input type="text" placeholder="选一个昵称" name="pass" class="word2" />
+									<input type="text" placeholder="选一个昵称" name="pass" class="word2" id="Visitor"/>
 								</td>
 							</tr>
 							<tr>
@@ -161,12 +238,12 @@
 										<div class="password-img" ></div>
 									</div>
 									<!-- <img src="图标/密码.jpg" class="logo_"> -->
-									<input type="password" placeholder="输入密码" name="pass" class="word3" />
+									<input type="password" placeholder="输入密码" name="pass" class="word3" id="Password"/>
 								</td>
 							</tr>
 							<tr>
 								<td>
-									<input type="submit" name="submit" value="注  册" class="button" />
+									<input type="submit" name="submit" value="注  册" class="button" onclick="loadXMLDoc()"/>
 								</td>
 							</tr>
 							<tr>

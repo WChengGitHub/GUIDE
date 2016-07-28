@@ -1,4 +1,4 @@
-package com.data.dao;
+package com.data.dao.singleForm;
 
 //import java.sql.SQLClientInfoException;
 //import java.sql.SQLException;
@@ -9,13 +9,16 @@ package com.data.dao;
 //import com.mysql.jdbc.PreparedStatement;
 
 import java.util.List;
+
 import org.springframework.jdbc.core.JdbcTemplate;
 
-import com.data.model.User;
+import com.data.dao.Dao;
+import com.data.model.tb_visitorModel;
 
-public class UserDaoImp implements UserDao{
+public class tb_visitorDaoImp implements Dao{
 
-	
+
+	//JdbcTemplate注入
 	private JdbcTemplate jdbcTemplate;
 	@Override
 	public void setJdbcTemplate(JdbcTemplate jdbcTemplate) {
@@ -28,26 +31,31 @@ public class UserDaoImp implements UserDao{
 
 	
 	
-	@Override
-	public void add(User user) {
+	//已用(用于注册)
+	public void add(Object object,String Sql) {  //增
+		tb_visitorModel tb_visitormodel=(tb_visitorModel)object;
 		JdbcTemplate jt=this.getJdbcTemple();
 		try{
-		String add=" insert into tb_visitor (name, password) VALUES(?,?) ";
-		jt.update(add,new Object[] {user.getName(), user.getPassword()});
-		
+			String sqlInsert=Sql;System.out.println("aaaaaaaaaaaaaa");//test
+			System.out.println(tb_visitormodel.getVisitor()+tb_visitormodel.getPassword()+tb_visitormodel.getVid());
+			jt.update(sqlInsert, tb_visitormodel.getVisitor(), tb_visitormodel.getPassword(), 12345);
+			
+	        System.out.println("test3");
+            System.out.println("add success");
 		} catch (Exception e) {
-		  System.out.println("error");
+		  System.out.println("error4");
 		}
 	}
 
 	
 	
 	@Override
-	public void delete(String Name) {
+	public void delete(Object object) {  //删
+		tb_visitorModel tb_visitormodel=(tb_visitorModel)object;
 		JdbcTemplate jt=this.getJdbcTemple();
 		try{
-		String del="delete from test where name=?";
-		jt.update(del,new Object[] {Name}); 
+		String del="delete from test where Visitor=?";
+		jt.update(del,new Object[] {tb_visitormodel.getVisitor()}); 
 		} catch (Exception e){
 			System.out.println("error");
 		}
@@ -56,20 +64,32 @@ public class UserDaoImp implements UserDao{
 	
 	
 	@Override
-	public List<Object> query() {
-		// TODO Auto-generated method stub
+	public List<Object> query(String sql, List<Object> param) {
+		//String sqlSelect = "SELECT * FROM contact";//外部传进的参数
+      /*  List<Contact> listContact = jdbcTemplate.query(sqlSelect, new RowMapper<Contact>() {
+ 
+            public Contact mapRow(ResultSet result, int rowNum) throws SQLException {
+                Contact contact = new Contact();
+                contact.setName(result.getString("name"));
+                contact.setEmail(result.getString("email"));
+                contact.setAddress(result.getString("address"));
+                contact.setPhone(result.getString("telephone"));
+                 
+                return contact;
+            }*/
 		return null;
 	}
 
 	
 	
 	@Override
-	public void update(String Name) {
+	public void update(Object object) { //改
+		tb_visitorModel tb_visitormodel=(tb_visitorModel)object;
 		JdbcTemplate jt=this.getJdbcTemple();
 		try{
 		String update=" update tb_visitor "+
-				" Password=?"+" where Name=? ";
-		jt.update(update,new Object[]{"1","2",Name});
+				" Password=?"+" where Visitor=? ";
+		jt.update(update,new Object[]{"1","2",tb_visitormodel.getPassword(),tb_visitormodel.getVisitor()});
 		
 		} catch (Exception e){
 			System.out.println("error");
