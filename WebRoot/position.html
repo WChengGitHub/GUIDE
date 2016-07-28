@@ -22,24 +22,25 @@
    {
      //alert(document.cookie);
 	 var strCookie=document.cookie;
-	 //alert(strCookie);
+	 alert(strCookie);
 //将多cookie切割为多个名/值对
     var arrCookie=strCookie.split(";");
 	//以分号分割开，把每一个cook键与对分开
-    var username="0";
-    //alert("aaarr:"+arrCookie.length);
+    var Visitor="0";
+    alert("aaarr:"+arrCookie.length);
+    alert("helloWordl");
 //遍历cookie数组，处理每个cookie对
    for(var i=0;i<arrCookie.length;i++){
              var arr=arrCookie[i].split("=");
              //找到名称为userId的cookie，并返回它的值，在与等号分开
-             if("username"==arr[0]){
+             if("Visitor"==arr[0]){
 			// alert(arr[0]);
-                   username=arr[1];
+                   Visitor=arr[1];
                    break;
              }
       }
-     alert(username);
-	if(username=="0")
+     alert("sss:"+Visitor);
+	if(Visitor=="0")
 	 {
 	 window.open("in.html");}
 	 else{
