@@ -1,6 +1,6 @@
 package com.data.model;
 
-public class Spot {
+public class tb_spotModel {
 	private String Sid;
 	private String Spot;
 	private String Aid;

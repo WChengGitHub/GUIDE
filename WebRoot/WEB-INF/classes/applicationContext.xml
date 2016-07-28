@@ -21,45 +21,58 @@
 		 http://www.springframework.org/schema/mvc  
          http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd " 
 		 >
+<!-- ??? -->		 
     <mvc:default-servlet-handler/>
 	      <mvc:annotation-driven/>
-	<bean name="/login.html" class="com.data.controller.LoginController" scope="prototype" />
+	      
+	      
+<!-- 前台请求发送到对应控制器 -->	      
+	<bean name="/login.html" class="com.data.controller.visitorController.LoginController" scope="prototype" />
 	
-	<bean name="/register.html" class="com.data.controller.RegisterController" scope="prototype" />
+	<bean name="/register.html" class="com.data.controller.visitorController.RegisterController" scope="prototype" />
 	
+	
+	
+	
+<!-- 扫包 暂时没用 -->	
 	<context:component-scan base-package="com.data.controller" />
-    
+
+
+
+<!-- JdbcTemplate -->    
 	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource"
 		p:driverClassName="com.mysql.jdbc.Driver"
 		p:url="jdbc:mysql://127.0.0.1:3306/guide"
 		p:username="root"
 		p:password="1234"/>
-		
+			
 	<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate" 
 		p:dataSource-ref="dataSource"/>
 		
-	 <bean id="impdao" class="com.data.dao.VisitorDaoImp"
+	 <bean id="tb_visitordaoimp" class="com.data.dao.singleForm.tb_visitorDaoImp"
 		 p:jdbcTemplate-ref="jdbcTemplate"/>
 		 
-	<bean id="visitor" class="com.data.model.Visitor"/>
+		 		 
+		 
+<!-- model -->		 
+	<bean id="tb_visitormodel" class="com.data.model.tb_visitorModel"/>
 	
-	<bean id="loginservice" class="com.data.service.LoginServiceImp"/>	
 	
-	<bean id="registerservice" class="com.data.service.RegisterServiceImp"/><!-- class为...RegisterService时会有黄线提示，运行后则打不开主页？ -->	
 	
-	<bean id="QueryVisitorDao" class="com.data.dao.QueryVisitorDao"/>
-	
-	<bean id="visitordaoimp" class="com.data.dao.VisitorDaoImp"/>
-	
-	<!-- 增加PositionDao -->
-	<bean id="PositionDao" class="com.data.dao.PositionDaoImp" 
-	p:jdbcTemplate-ref="jdbcTemplate"></bean>
-	<bean id="PositionService" class="com.data.service.PositionServiceImp">
-	<property name="dao" ref="PositionDao"></property>
-	</bean>
+<!-- visitorService -->	
+	<bean id="loginservice" class="com.data.service.visitorService.loginService.LoginServiceImp"/>	
+	<bean id="registerservice" class="com.data.service.visitorService.registerService.RegisterServiceImp"/><!-- class为...RegisterService时会有黄线提示，运行后则打不开主页？ -->	
 
-<!-- 	<bean id="dao" class="com.data.dao.ImpDao"/>  -->
-	 
+
+<!-- singleForm -->	
+	<bean id="QueryVisitorDao" class="com.data.dao.singleForm.QueryVisitorDao"/>
+	
+
+<!-- 增加MD5 -->
+	<bean id="encryption" class="com.data.md5.Encryption"/>
+	
+
+<!-- 视图解析  暂时没用 -->	 
 	 <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="order" value="1"></property>
         <property name="prefix" value="classpath:wwww"/>  

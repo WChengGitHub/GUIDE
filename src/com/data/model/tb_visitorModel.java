@@ -1,6 +1,6 @@
 package com.data.model;
 
-public class Visitor {
+public class tb_visitorModel {
 	private String Vid;
 	private String Visitor;
 	private String Gender;

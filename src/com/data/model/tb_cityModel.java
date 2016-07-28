@@ -1,6 +1,6 @@
 package com.data.model;
 
-public class City {
+public class tb_cityModel {
 	private String Cid;
 	private String City;
 	private String Pid;

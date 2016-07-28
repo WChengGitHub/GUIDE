@@ -1,6 +1,6 @@
 package com.data.model;
 
-public class Advice {
+public class tb_adviceModel {
 	private String Aid;
 	private String Adivice;
 	private String type;

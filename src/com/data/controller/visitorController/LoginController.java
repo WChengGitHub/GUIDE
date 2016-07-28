@@ -1,4 +1,4 @@
-package com.data.controller;
+package com.data.controller.visitorController;
 
 import java.io.PrintWriter;
 
@@ -8,14 +8,16 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.Controller;
+
 //import org.springframework.web.bind.annotation.RequestMapping;
 //import org.springframework.web.bind.annotation.RequestMethod;
 
 
 
 
-import com.data.model.Visitor;
-import com.data.service.LoginService;
+import com.data.md5.Encryption;
+import com.data.model.tb_visitorModel;
+import com.data.service.visitorService.loginService.LoginService;
 
 //    @RequestMapping(method = RequestMethod.POST) 
 	public class LoginController implements Controller{
@@ -32,12 +34,16 @@ import com.data.service.LoginService;
 		try {
 			@SuppressWarnings("resource")
 			ClassPathXmlApplicationContext factory= new ClassPathXmlApplicationContext("applicationContext.xml");//应用上下文
-			Visitor visitor=(Visitor)factory.getBean("visitor");//将数据传给Model
-			visitor.setVisitor(Visitor);
-			visitor.setPassword(password);
-			
+			tb_visitorModel tb_visitorModel=(tb_visitorModel)factory.getBean("tb_visitormodel");//将数据传给Model
+			Encryption encryption=(Encryption)factory.getBean("encryption");
+			@SuppressWarnings("static-access")
+			String MD5password=encryption.generatePassword(password);
+		
+			tb_visitorModel.setVisitor(Visitor);
+			tb_visitorModel.setPassword(MD5password);
+			System.out.println(tb_visitorModel.getPassword());
 			LoginService LS=(LoginService)factory.getBean("loginservice");//getBean("service")相当于调用这个service来处理事务
-			int b=LS.Login(visitor);//用LoginService中的方法查找用户 实现登录验证
+			int b=LS.Login(tb_visitorModel);//用LoginService中的方法查找用户 实现登录验证
 			
 			out.print(b);
 

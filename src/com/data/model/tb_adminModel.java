@@ -1,6 +1,6 @@
 package com.data.model;
 
-public class Admin {
+public class tb_adminModel {
 	private String Aid;
 	private String Admin;
 	private String Password;

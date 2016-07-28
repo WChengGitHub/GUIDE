@@ -1,6 +1,6 @@
 package com.data.model;
 
-public class Province {
+public class tb_provinceModel {
 	private String Pid;
 	private String Province;
 	public String getPid() {

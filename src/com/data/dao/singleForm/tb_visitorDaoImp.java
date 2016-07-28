@@ -1,4 +1,4 @@
-package com.data.dao;
+package com.data.dao.singleForm;
 
 //import java.sql.SQLClientInfoException;
 //import java.sql.SQLException;
@@ -12,12 +12,13 @@ import java.util.List;
 
 import org.springframework.jdbc.core.JdbcTemplate;
 
-import com.data.model.Visitor;
+import com.data.dao.Dao;
+import com.data.model.tb_visitorModel;
 
-public class VisitorDaoImp implements Dao{
+public class tb_visitorDaoImp implements Dao{
 
 
-	
+	//JdbcTemplate注入
 	private JdbcTemplate jdbcTemplate;
 	@Override
 	public void setJdbcTemplate(JdbcTemplate jdbcTemplate) {
@@ -30,18 +31,16 @@ public class VisitorDaoImp implements Dao{
 
 	
 	
-	@Override
-	public void add(String visitor,String password) {
+	//已用(用于注册)
+	public void add(Object object,String Sql) {  //增
+		tb_visitorModel tb_visitormodel=(tb_visitorModel)object;
 		JdbcTemplate jt=this.getJdbcTemple();
-		
 		try{
-		//" insert into tb_visitor (Visitor, password) VALUES(?,?) "
-		//jt.update(Sql,new Object[] {visitor,password});//visitor.getVisitor(), visitor.getPassword()
-			String sql = "insert into tb_visitor(Visitor, Password) values(visitor,password)";
-	        Object[] args = { visitor, password};System.out.println("test2");
-	        jt.update(sql);//.update(sql, args);//出错！！！！！！！！！！！！！！！！！！！！！
+			String sqlInsert=Sql;System.out.println("aaaaaaaaaaaaaa");//test
+			System.out.println(tb_visitormodel.getVisitor()+tb_visitormodel.getPassword()+tb_visitormodel.getVid());
+			jt.update(sqlInsert, tb_visitormodel.getVisitor(), tb_visitormodel.getPassword(), 12345);
+			
 	        System.out.println("test3");
-	       // if (res == 1)
             System.out.println("add success");
 		} catch (Exception e) {
 		  System.out.println("error4");
@@ -51,11 +50,12 @@ public class VisitorDaoImp implements Dao{
 	
 	
 	@Override
-	public void delete(String Visitor) {
+	public void delete(Object object) {  //删
+		tb_visitorModel tb_visitormodel=(tb_visitorModel)object;
 		JdbcTemplate jt=this.getJdbcTemple();
 		try{
-		String del="delete from test where name=?";
-		jt.update(del,new Object[] {Visitor}); 
+		String del="delete from test where Visitor=?";
+		jt.update(del,new Object[] {tb_visitormodel.getVisitor()}); 
 		} catch (Exception e){
 			System.out.println("error");
 		}
@@ -65,19 +65,31 @@ public class VisitorDaoImp implements Dao{
 	
 	@Override
 	public List<Object> query(String sql, List<Object> param) {
-		// TODO Auto-generated method stub
+		//String sqlSelect = "SELECT * FROM contact";//外部传进的参数
+      /*  List<Contact> listContact = jdbcTemplate.query(sqlSelect, new RowMapper<Contact>() {
+ 
+            public Contact mapRow(ResultSet result, int rowNum) throws SQLException {
+                Contact contact = new Contact();
+                contact.setName(result.getString("name"));
+                contact.setEmail(result.getString("email"));
+                contact.setAddress(result.getString("address"));
+                contact.setPhone(result.getString("telephone"));
+                 
+                return contact;
+            }*/
 		return null;
 	}
 
 	
 	
 	@Override
-	public void update(String Visitor) {
+	public void update(Object object) { //改
+		tb_visitorModel tb_visitormodel=(tb_visitorModel)object;
 		JdbcTemplate jt=this.getJdbcTemple();
 		try{
 		String update=" update tb_visitor "+
-				" Password=?"+" where Name=? ";
-		jt.update(update,new Object[]{"1","2",Visitor});
+				" Password=?"+" where Visitor=? ";
+		jt.update(update,new Object[]{"1","2",tb_visitormodel.getPassword(),tb_visitormodel.getVisitor()});
 		
 		} catch (Exception e){
 			System.out.println("error");

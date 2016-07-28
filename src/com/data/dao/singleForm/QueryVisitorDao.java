@@ -1,4 +1,4 @@
-package com.data.dao;
+package com.data.dao.singleForm;
 
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -12,8 +12,8 @@ public class QueryVisitorDao{
 	public int queryVisitor(String Visitor){
 		@SuppressWarnings("resource")
 		ClassPathXmlApplicationContext factory= new ClassPathXmlApplicationContext("applicationContext.xml");
-		 VisitorDaoImp impdao=(VisitorDaoImp) factory.getBean("impdao");
-		JdbcTemplate jt=impdao.getJdbcTemple();
+		 tb_visitorDaoImp visitordaoimp=(tb_visitorDaoImp) factory.getBean("tb_visitordaoimp");
+		JdbcTemplate jt=visitordaoimp.getJdbcTemple();
 		try {
 			String 	sql="select count(*) from tb_visitor  where Visitor= ? ";//+Name;
 			@SuppressWarnings("deprecation")
@@ -28,8 +28,8 @@ public class QueryVisitorDao{
 	public int queryPassword(String Visitor,String Password){
 		@SuppressWarnings("resource")
 		ClassPathXmlApplicationContext factory= new ClassPathXmlApplicationContext("applicationContext.xml");
-		VisitorDaoImp impdao=(VisitorDaoImp)factory.getBean("impdao");
-		JdbcTemplate jt=impdao.getJdbcTemple();
+		tb_visitorDaoImp visitordaoimp=(tb_visitorDaoImp)factory.getBean("tb_visitordaoimp");
+		JdbcTemplate jt=visitordaoimp.getJdbcTemple();
 		try {
 			String 	sql="select count(*) from tb_visitor "+" where Visitor= ? ";//+Name;
 			
@@ -41,4 +41,21 @@ public class QueryVisitorDao{
 		}
 	}
 }
-
+/*public int queryVisitor(String Visitor){
+		@SuppressWarnings("resource")
+		ClassPathXmlApplicationContext factory= new ClassPathXmlApplicationContext("applicationContext.xml");
+		 VisitorDaoImp visitordaoimp=(VisitorDaoImp) factory.getBean("visitordaoimp");
+		JdbcTemplate jt=visitordaoimp.getJdbcTemple();
+		try {
+			String 	sql2="select count(*) from tb_visitor "+" where Visitor= ? and Password= ? ";
+			int count=jt.queryForInt(sql2, new Object[]{Visitor,Password});
+			
+			
+			
+			@SuppressWarnings("deprecation")
+			int count=jt.queryForInt(sql, new Object[]{Visitor});
+			return count;
+		} catch (Exception e) {
+		  return 0;
+		}
+	}*/

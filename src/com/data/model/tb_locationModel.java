@@ -1,33 +1,33 @@
 package com.data.model;
 
-public class Line {
+public class tb_locationModel {
 	private String Lid;
-	private String Line;
+	private String Vid;
+	private String Sid;
 	private String Time;
-	private String Style;
 	public String getLid() {
 		return Lid;
 	}
 	public void setLid(String lid) {
 		Lid = lid;
 	}
-	public String getLine() {
-		return Line;
+	public String getVid() {
+		return Vid;
 	}
-	public void setLine(String line) {
-		Line = line;
+	public void setVid(String vid) {
+		Vid = vid;
+	}
+	public String getSid() {
+		return Sid;
+	}
+	public void setSid(String sid) {
+		Sid = sid;
 	}
 	public String getTime() {
 		return Time;
 	}
 	public void setTime(String time) {
 		Time = time;
-	}
-	public String getStyle() {
-		return Style;
-	}
-	public void setStyle(String style) {
-		Style = style;
 	}
 	
 }

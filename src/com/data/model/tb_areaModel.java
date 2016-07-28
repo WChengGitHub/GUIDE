@@ -1,6 +1,6 @@
 package com.data.model;
 
-public class Area {
+public class tb_areaModel {
 	private String Aid;
 	private String Area;
 	private String Cid;
