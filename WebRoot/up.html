@@ -94,9 +94,10 @@
 
 	var xmlhttp;
 	function loadXMLDoc()//传参
-	{
+	{	
 		var visitor=document.getElementById("Visitor").value;
 		var password=document.getElementById("Password").value;
+		var email=document.getElementById("Email").value;
 		xmlhttp=null;
 	if (window.XMLHttpRequest)
 	  {
@@ -108,7 +109,7 @@
 	  }
 	if (xmlhttp!=null)
 	  {
-	  	var json="visitor="+visitor+"&password="+password;
+	  	var json="visitor="+visitor+"&password="+password+"&email="+email;
 	  	xmlhttp.onreadystatechange=state_Change;
 	  	xmlhttp.open("POST","register.html",true);
 	  	xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
@@ -128,7 +129,7 @@ function state_Change()
 	    {
 	    	var result;
 	    	var registered=2
-	    	//var register_success=1;
+	    	//var register_failed2=3;
 	    	var register_failed=0;
 	 		result=xmlhttp.responseText;
 	 		
@@ -219,7 +220,7 @@ function state_Change()
 										<div class="email-img" ></div>
 									</div>
 									<input type="email" placeholder="你的邮件地址 " 
-									name="name" value="" class="word1" class="login" />
+									name="name" value="" class="word1" class="login" id="Email"/>
 									
 								</td>
 							</tr>

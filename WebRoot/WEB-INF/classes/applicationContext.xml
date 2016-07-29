@@ -65,8 +65,8 @@
 
 
 <!-- singleForm -->	
-	<bean id="QueryVisitorDao" class="com.data.dao.singleForm.QueryVisitorDao"/>
-	
+
+
 
 <!-- 增加MD5 -->
 	<bean id="encryption" class="com.data.md5.Encryption"/>

@@ -54,7 +54,7 @@ public class Encryption{
      */  
     private static String byteArrayToHexString(byte[] b){  
         StringBuffer resultSb = new StringBuffer();  
-        for (int i = 0; i < b.length/3.2*2; i++){  
+        for (int i = 0; i < b.length; i++){  
             resultSb.append(byteToHexString(b[i]));  
         }  //b.length为32 可以对其运算改变加密后密码的字符个数！
         return resultSb.toString();  
