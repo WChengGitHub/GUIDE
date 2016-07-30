@@ -70,14 +70,9 @@
 <!-- 增加MD5 -->
 	<bean id="encryption" class="com.data.md5.Encryption"/>
 	
-<!-- 实时定位-->	
+<!-- 暂时不用-->
 	<context:component-scan base-package="com.data.controller.visitorController.positionController"/>
-	<bean id="positionDao" class="com.data.dao.multipleForm.pageOne.PositionDao">
-	  <property name="jdbcTemplate" ref="jdbcTemplate"></property>
-	</bean>
-	<bean id="PositionService" class="com.data.service.visitorService.positionService.PositionServiceImp">
-	   <property name="positionDao" ref="positionDao"></property>
-	</bean>
+	
 	
 	
 <!-- 视图解析  暂时没用 -->	 

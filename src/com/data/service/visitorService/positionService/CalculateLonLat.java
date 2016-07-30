@@ -8,7 +8,7 @@ public class CalculateLonLat {
 	     }  
 	       
 	     /** *//** 
-	      * 根据两点间经纬度坐标（double值），计算两点间距离，单位为米 
+	      * 杩欎釜鏄绠楃粡绾害鐨勫伐鍏风被
 	      * @param lng1 
 	      * @param lat1 
 	      * @param lng2 
@@ -34,7 +34,7 @@ public class CalculateLonLat {
 	      */  
 	     public static void main(String[] args)  
 	     {  
-	     // TODO 自动生成方法存根  
+	     // TODO 锟皆讹拷锟斤拷煞锟斤拷锟斤拷锟斤拷  
 	         double distance = GetDistance(114.4096,23.0362,114.374183,23.07901);  
 	         System.out.println("Distance is:"+distance);  
 	     }  
