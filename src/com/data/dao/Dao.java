@@ -15,7 +15,13 @@ public interface Dao {
 	
 	public void delete(Object object);
 	
-	public List<Object> query(String sql, List<Object> param);
+
+	public List<Object> query(String sql, List<Object> param);//鏌�
+    
+
+
+	
+
 	
 	public void update(Object object);
 

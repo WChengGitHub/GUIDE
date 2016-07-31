@@ -1,0 +1,121 @@
+<html>
+<head>
+<title>投诉与建议</title>
+<meta charset="utf-8">
+<script type="text/javascript">
+	var visitor;
+	var title;
+	var advice;
+	var type;
+	/*function setCookie() {
+		now = new Date();
+		now.setTime(now.getTime() + 5 * 60 * 1000);
+		document.cookie = "Visitor=guide;expires=" + now.toGMTString();
+
+	}*/
+	
+	function getCookie() {
+		var strCookie = document.cookie;
+		var arrCookie = strCookie.split(";");
+		var Visitor = "0";
+		for (var i = 0; i < arrCookie.length; i++) {
+			var arr = arrCookie[i].split("=");
+			if ("Visitor" == arr[0]) {
+				Visitor = arr[1];
+				break;
+			}
+		}
+		if (Visitor == "0") {
+			alert("Visitor:" + Visitor);
+			window.open("in.html","_self");
+		} else {
+			visitor = "guide";
+			//alert(visitor);
+		}
+	}
+	getCookie();
+	function getRadioValue() {
+		var itemradio = document.getElementsByName("advice");
+		var itemvalue = '';
+		for (i = 0; i < itemradio.length; i++) {
+			if (itemradio[i].checked) {
+				itemvalue = itemradio[i].value;
+			}
+		}
+		if (itemvalue != "") {
+			alert(itemvalue);
+			type = itemvalue;
+		} else {
+			alert('还未选择');
+		}
+	}
+	function sendRequest(province, city, area, longitude, latitude) {
+		//alert("1");
+		if (window.XMLHttpRequest) {
+			xmlhttp = new XMLHttpRequest();
+			//创建一个XMLHttpRequest对象，用于在后台与服务器交换数据
+		} else {
+			xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+			//老版本使用ActiveX对象
+		}
+		//alert("111");
+		xmlhttp.onreadystatechange = function() {
+			if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+
+			}
+		}
+		//alert(1111);
+		//这是一个onreadystatechange事件，readyState存有xmlhttp的状态，4代表请求已经完成，status：200表示OK，404表示找不到页面
+		//responseText用于返回out.write()写的数据
+		/* if(window.XMLHttpRequest){
+		   XMLHttpReq = new XMLHttpRequest();
+		}else if(window.ActiveXObject){
+		   try{
+		       XMLHttpReq = new ActiveXObject("MSXML2.XMLHTTP");
+		   }catch(e){
+		       try{
+		          XMLHttpReq = new ActiveXObject("Mircsoft.XMLHTTP");
+		       }catch(e1){}
+		   }*/
+		// alert("kkkkk");
+		//var uname = document.myform.keyname.value;
+		//提取表单数据
+		
+		getRadioValue();
+		var title = document.getElementById("Title").value;
+		var advice = document.getElementById("Advice").value;
+		alert(title + " " + advice);
+		alert(visitor + " " + type + " " + title + " " + advice);
+		var url = "visitorAdvice?visitor=" + visitor + "&type=" + type
+				+ "&title=" + title + "&advice=" + advice;
+		url = encodeURI(encodeURI(url));
+		//alert(url);
+		// xmlhttp.open("GET",url,true);
+		xmlhttp.open("post", url, true);
+		//规定请求的类型，url,及是否进行异步处理
+		//alert(1);
+		//XMLHTTpReq.open("POST","hello",true);
+		xmlhttp.send();
+		//把请求发送到服务器
+		//alert(2);
+		//XMLHTTpReq.send(url);
+	}
+</script>
+</head>
+<body>
+	<center>
+		<form>
+			<input style="width:300px;height:40px;" ;type="text" id="Title"
+				placeholder="标题" /> <br /> <br /> <br />
+			<textarea style="border:1px solid;width:300px;height:400px;"
+				id="Advice" placeholder="请输入您要写的内容"></textarea>
+			<br /> <br /> <input type="radio" name="advice" id="spotAdvice"
+				value="s" />景点建议和体验 <input type="radio" name="advice"
+				id="softwareAdvice" value="a" />软件建议和体验 <br /> <br />
+			<button type="button" value="提交" onclick="sendRequest()" />
+			提交
+			</button>
+		</form>
+	</center>
+</body>
+</html>
