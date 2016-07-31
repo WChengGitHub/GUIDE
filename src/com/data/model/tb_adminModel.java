@@ -2,7 +2,7 @@ package com.data.model;
 
 public class tb_adminModel {
 	private String Aid;
-	private String Admin;
+	private String Account;
 	private String Password;
 	private String Privilege;
 	private String Sid;
@@ -12,11 +12,11 @@ public class tb_adminModel {
 	public void setAid(String aid) {
 		Aid = aid;
 	}
-	public String getAdmin() {
-		return Admin;
+	public String getAccount() {
+		return Account;
 	}
-	public void setAdmin(String admin) {
-		Admin = admin;
+	public void setAccount(String account) {
+		Account = account;
 	}
 	public String getPassword() {
 		return Password;
@@ -36,5 +36,7 @@ public class tb_adminModel {
 	public void setSid(String sid) {
 		Sid = sid;
 	}
+	
+
 	
 }

@@ -31,7 +31,8 @@ public class LoginServiceImp implements LoginService{
 			 //System.out.println(tb_visitormodelList.get(1)+"444");
 			 
 			 if(tb_visitormodellist.size()==0)
-					return 1;
+			 {System.out.println("??????????????!!");
+					return 1;}
 			 else{
 				 	//将查询返回的模型层集合转为模型层
 					 tb_visitorModel tb_visitormodel2=(tb_visitorModel) tb_visitormodellist.get(0);
@@ -55,36 +56,3 @@ public class LoginServiceImp implements LoginService{
 		 }
 	}
 }
-	
-		 
-		 
-		 
-		 
-		 
-		 
-		 
-		 
-		 
-		 
-		 
-		 
-		 
-		 
-//		 JdbcTemplate jt=impdao.getJdbcTemple();
-//		 try {
-//				String 	sql="select count(*) from tb_visitor "+" where Vid= "+Name;
-//				int count=jt.queryForInt(sql);
-//				if(count==1){
-//					String 	sql2="select Telephone from tb_visitor "+" where Vid= "+Name;
-//					String Telephone=jt.queryForObject(sql2,String.class);
-//					if(Password.equals(Telephone)==true){
-//						return 0;//密码正确返回0
-//					}
-//					else
-//						return 2;//密码错误返回2
-//				}
-//				else
-//					return 1;//cout为零 即查找到0个 用户不存在返回1
-//			} catch (Exception e) {
-//				return 1;//查找出错作为用户不存在返回1
-//			}
