@@ -25,25 +25,33 @@ import com.data.service.visitorService.loginService.LoginService;
 		public ModelAndView handleRequest(HttpServletRequest request,
 				HttpServletResponse response) throws Exception {
 			PrintWriter out = response.getWriter();
-			System.out.println("test");//检查是否运行到这里
-			String Visitor = request.getParameter("visitor");//获取 //避免与Visitor的对象visitor重复命名 后台的游客名 命名为Visitor
+			//检查是否运行到这里
+			System.out.println("test");
+			//获取 //避免与Visitor的对象visitor重复命名 后台的游客名 命名为Visitor
+			String Visitor = request.getParameter("visitor");
 			String password = request.getParameter("password");
-			System.out.println(Visitor+password);//调试时 用于检查获取得是否与用户输入的一致
+			//调试时 用于检查获取得是否与用户输入的一致
+			System.out.println(Visitor+password);
 			
 			
 		try {
 			@SuppressWarnings("resource")
-			ClassPathXmlApplicationContext factory= new ClassPathXmlApplicationContext("applicationContext.xml");//应用上下文
-			tb_visitorModel tb_visitorModel=(tb_visitorModel)factory.getBean("tb_visitormodel");//将数据传给Model
+			//应用上下文
+			ClassPathXmlApplicationContext factory= new ClassPathXmlApplicationContext("applicationContext.xml");
+			//将数据传给Model
+			tb_visitorModel tb_visitorModel=(tb_visitorModel)factory.getBean("tb_visitormodel");
 			Encryption encryption=(Encryption)factory.getBean("encryption");
 			@SuppressWarnings("static-access")
 			String MD5password=encryption.generatePassword(password);
 		
 			tb_visitorModel.setVisitor(Visitor);
 			tb_visitorModel.setPassword(MD5password);
+			//test
 			System.out.println(tb_visitorModel.getPassword());
-			LoginService LS=(LoginService)factory.getBean("loginservice");//getBean("service")相当于调用这个service来处理事务
-			int b=LS.Login(tb_visitorModel);//用LoginService中的方法查找用户 实现登录验证
+			//getBean("service")相当于调用这个service来处理事务
+			LoginService LS=(LoginService)factory.getBean("loginservice");
+			//用LoginService中的方法查找用户 实现登录验证
+			int b=LS.Login(tb_visitorModel);
 			
 			out.print(b);
 

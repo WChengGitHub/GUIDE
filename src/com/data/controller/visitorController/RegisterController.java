@@ -1,6 +1,9 @@
 package com.data.controller.visitorController;
 
 import java.io.PrintWriter;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.TimeZone;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -18,22 +21,38 @@ public class RegisterController implements Controller{
 	public ModelAndView handleRequest(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
 		PrintWriter out = response.getWriter();
-		System.out.println("test");//检查是否运行到这里
-		String Visitor = request.getParameter("visitor");//用户名
-		String password = request.getParameter("password");//密码
-		System.out.println(Visitor+password);//调试时 用于检查获取得是否与用户输入的一致
+		//检查是否运行到这里
+		System.out.println("test");
+		//用户名//避免与Visitor的对象visitor重复命名 后台的游客名 命名为Visitor
+		String Visitor = request.getParameter("visitor");
+		//密码
+		String password = request.getParameter("password");
+		String email=request.getParameter("email");
+		//调试时 用于检查获取得是否与用户输入的一致
+		System.out.println(Visitor+password);
 		
 		try {
 			@SuppressWarnings("resource")
-			ClassPathXmlApplicationContext factory= new ClassPathXmlApplicationContext("applicationContext.xml");//应用上下文
-			tb_visitorModel tb_visitormodel=(tb_visitorModel)factory.getBean("tb_visitormodel");//将数据传给Model
+			//应用上下文
+			ClassPathXmlApplicationContext factory= new ClassPathXmlApplicationContext("applicationContext.xml");
+			//将数据传给Model
+			tb_visitorModel tb_visitormodel=(tb_visitorModel)factory.getBean("tb_visitormodel");
+			
 			Encryption encryption=(Encryption)factory.getBean("encryption");
 			@SuppressWarnings("static-access")
 			String MD5password=encryption.generatePassword(password);
-		
-			tb_visitormodel.setVisitor(Visitor);
 			tb_visitormodel.setPassword(MD5password);
-			System.out.println(tb_visitormodel.getPassword());//test
+			tb_visitormodel.setEmail(email);
+			tb_visitormodel.setVisitor(Visitor);
+
+			
+			/*在这里setVid提示错误?
+			Calendar cal1 = Calendar.getInstance();  
+			TimeZone.setDefault(TimeZone.getTimeZone("GMT+8:00"));       //非常关键的！！！ 
+	        java.text.SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddkkmmss");
+	        System.out.println(sdf.format(cal1.getTime()));//test 
+			tb_visitorModel.setVid(sdf.format(cal1.getTime()));
+			System.out.println(tb_visitorModel.getVid());//test*/
 			
 			RegisterService RS=(RegisterService)factory.getBean("registerservice");
 			int result=RS.Register(tb_visitormodel);

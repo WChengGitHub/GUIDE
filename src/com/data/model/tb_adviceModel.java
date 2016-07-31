@@ -1,47 +1,57 @@
 package com.data.model;
 
+import java.sql.Timestamp;
+
 public class tb_adviceModel {
-	private String Aid;
-	private String Adivice;
-	private String type;
-	private String Atime;
-	private String Response;
-	private String Rtiom;
-	public String getAid() {
-		return Aid;
+	String ADid;
+	String Title;
+	String Advice;
+	String type;
+	Timestamp Atime;
+	String Status;
+	String Vid;
+	public String getADid() {
+		return ADid;
 	}
-	public void setAid(String aid) {
-		Aid = aid;
+	public void setADid(String aDid) {
+		ADid = aDid;
 	}
-	public String getAdivice() {
-		return Adivice;
+	public String getTitle() {
+		return Title;
 	}
-	public void setAdivice(String adivice) {
-		Adivice = adivice;
+	public void setTitle(String title) {
+		Title = title;
+	}
+	public String getAdvice() {
+		return Advice;
+	}
+	public void setAdvice(String advice) {
+		Advice = advice;
 	}
 	public String getType() {
 		return type;
 	}
+	public Timestamp getAtime() {
+		return Atime;
+	}
+	public void setAtime(Timestamp atime) {
+		Atime = atime;
+	}
 	public void setType(String type) {
 		this.type = type;
 	}
-	public String getAtime() {
-		return Atime;
+	
+	public String getStatus() {
+		return Status;
 	}
-	public void setAtime(String atime) {
-		Atime = atime;
+	public void setStatus(String status) {
+		Status = status;
 	}
-	public String getResponse() {
-		return Response;
+	public String getVid() {
+		return Vid;
 	}
-	public void setResponse(String response) {
-		Response = response;
-	}
-	public String getRtiom() {
-		return Rtiom;
-	}
-	public void setRtiom(String rtiom) {
-		Rtiom = rtiom;
+	public void setVid(String vid) {
+		Vid = vid;
 	}
 	
 }
