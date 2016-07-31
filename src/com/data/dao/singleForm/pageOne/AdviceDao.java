@@ -1,4 +1,4 @@
-package com.data.dao.multipleForm.pageOne;
+package com.data.dao.singleForm.pageOne;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

@@ -1,4 +1,4 @@
-package com.data.controller.visitorController.adviceController;
+package com.data.controller.visitorController;
 
 import java.io.UnsupportedEncodingException;
 

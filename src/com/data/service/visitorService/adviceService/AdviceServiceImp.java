@@ -7,8 +7,7 @@ import java.util.Calendar;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.TimeZone;
-
-import com.data.dao.multipleForm.pageOne.AdviceDao;
+import com.data.dao.singleForm.pageOne.AdviceDao;
 import com.data.model.tb_visitorModel;
 
 public class AdviceServiceImp implements AdviceService {
