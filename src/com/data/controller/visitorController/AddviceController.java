@@ -23,10 +23,10 @@ public class AddviceController {
   	   adviceService.addAdviceService(title, advice, type, visitor);
   	   return null;
 	}
-     /*  public static void main(String[]args)
+      /* public static void main(String[]args)
        {
     	   ApplicationContext factory=new ClassPathXmlApplicationContext("applicationContext.xml");
     	   AdviceService adviceService=(AdviceService) factory.getBean("AdviceService");
-    	   adviceService.updateAdviceService("hello", "wordl","s", "guide");
+    	   adviceService.addAdviceService("hello", "wordl","s", "guide");
        }*/
 }
