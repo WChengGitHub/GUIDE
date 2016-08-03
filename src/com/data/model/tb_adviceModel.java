@@ -7,7 +7,7 @@ public class tb_adviceModel {
 	String Title;
 	String Advice;
 	String type;
-	Timestamp Atime;
+	String Atime;
 	String Status;
 	String Vid;
 	public String getADid() {
@@ -31,10 +31,10 @@ public class tb_adviceModel {
 	public String getType() {
 		return type;
 	}
-	public Timestamp getAtime() {
+	public String getAtime() {
 		return Atime;
 	}
-	public void setAtime(Timestamp atime) {
+	public void setAtime(String atime) {
 		Atime = atime;
 	}
 	public void setType(String type) {

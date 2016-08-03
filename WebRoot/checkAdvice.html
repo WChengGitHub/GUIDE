@@ -29,7 +29,7 @@
          }
 	 }
 	  //alert(333);
-	  function requestJson()
+	  function getAdviceNumber()
 	  { 
 		  var i=1;
 	  //alert("jsonData"+1);
@@ -53,10 +53,10 @@
 	  {
 	      document.getElementById("adviceNumber").innerHTML="";
 	  }
-	  var t="t"+i;
-	  alert(t);
-	  html+="<tr class=\"spotAdvice\"> <td>3</td><td>10</td><td><a id=\"t1\" onclick=getHref()>3:29 PM</a></td><td>Heoo</td></tr>";
-	  $("#allAdvice").html(html);
+	  //var t="t"+i;
+	  //alert(t);
+	  //html+="<tr class=\"spotAdvice\"> <td>3</td><td>10</td><td><a id=\"t1\" onclick=getHref()>3:29 PM</a></td><td>Heoo</td></tr>";
+	  //$("#allAdvice").html(html);
 	   //var arr= eval (data);  
                     //alert(arr.length);  
                     /*for(var m = 0;m<arr.length;m++){  
@@ -65,7 +65,38 @@
 	  }
 	  });
 	  }
-	  function getHref()
+	  function getAdviceRecordList()
+	  {
+		  //alert("getAdviceRecordList");
+		  $.ajax({   
+		        type: 'post',   
+		        url: "getAdviceRecordList",   
+		        contentType:'application/json;charset=utf-8', 
+		        dataType: 'json',   
+		        success: function(data){
+		        	//alert("返回成功");
+		        	//alert(data.length);
+		        	 var html ='';
+		        	for (var i = 0; i < data.length; i++) {
+		        	    //alert(data[i]);
+		        	    //alert(data[i].ADid+" "+data[i].type+" "+data[i].atime+data[i].title);
+		        	    if(data[i].type=='s')
+		        	    {
+		        	    html+="<tr class=\"spotAdvice\"> <td>"+data[i].title+"</td><td>"+data[i].atime+"</td><td>"+data[i].type+"</td><td>"+data[i].ADid+"</td></tr>";
+		        	    }
+		        	    else
+		        	    	{
+		        	    	html+="<tr class=\"softwareAdvice\"> <td>"+data[i].title+"</td><td>"+data[i].atime+"</td><td>"+data[i].type+"</td><td>"+data[i].ADid+"</td></tr>";
+		        	    	}
+		        	}
+		        	 $("#allAdvice").html(html);   
+		        },   
+		        error: function(){   
+		            return;   
+		        }   
+		    });  
+	  }
+	  /*(function getHref()
 		{
 		   var x='t'+1;
 		   var y='a'+y;
@@ -76,8 +107,8 @@
 		
 		    var s=document.getElementById(y).innerHTML;
 		   alert(s);
-		}
-	  requestJson();
+		}*/
+	  getAdviceNumber();
 	</script>
 </head>
 <body>
@@ -87,7 +118,7 @@
 				<a href="##" class="navbar-brand">审核管理员</a>
 			</div>
 			<ul class="nav navbar-nav pull-right">
-				<li class="dropdown"><a href="##" data-toggle="dropdown"
+				<li class="dropdown"><a href="##" data-toggle="dropdown" onclick="getAdviceRecordList()"
 					class="dropdown-toggle "><span
 						class="fa fa-fw fa-envelope fa-lg"></span><span id="adviceNumber"
 						class="badge"></span><span class="caret"></span></a>
@@ -112,13 +143,13 @@
 						<thead>
 							<tr>
 								<th>标题</th>
-								<th>类型</th>
 								<th>时间</th>
-								<th>用户邮箱</th>
+								<th>类型</th>
+								<th>建议ID</th>
 							</tr>
 						</thead>
 						<tbody id="allAdvice">
-							<tr class="spotAdvice">
+							<!--<tr class="spotAdvice">
 								<td>33555526</td>
 								<td>10/21/2013</td>
 								<td>3:29 PM</td>
@@ -165,7 +196,7 @@
 								<td>10/21/2013</td>
 								<td>3:29 PM</td>
 								<td>Helloooo</td>
-							</tr>
+							</tr>-->
 						</tbody>
 					</table>
 				</div>
