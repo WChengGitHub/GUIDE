@@ -30,10 +30,25 @@ public class CheckAdviceDao {
 	@SuppressWarnings("deprecation")
 	public int query(String sql) {
 		return jdbcTemplate.queryForInt(sql);
+
+	}
+
+	public Object query1(String sql) {
+		return jdbcTemplate.queryForObject(sql, new RowMapper<Object>() {
+			@Override
+			public tb_adviceModel mapRow(ResultSet rs, int arg1)
+					throws SQLException {
+				tb_adviceModel adviceModel = new tb_adviceModel();
+                adviceModel.setVid(rs.getString("Vid"));
+				adviceModel.setTitle(rs.getString("Title"));
+				adviceModel.setAdvice(rs.getString("Advice"));
+				return adviceModel;
+			}
+		});
 	}
 
 	public List<Object> query(String sql, final List<Object> param) {
-		  final DateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");  
+		final DateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 		return jdbcTemplate.query(sql, new PreparedStatementSetter() {
 			@Override
 			public void setValues(PreparedStatement ps) throws SQLException {

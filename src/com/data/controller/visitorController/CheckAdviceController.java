@@ -13,11 +13,11 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.data.model.tb_adviceModel;
 import com.data.service.visitorService.checkAdviceService.CheckAdvice;
-import com.fasterxml.jackson.databind.jsonFormatVisitors.JsonArrayFormatVisitor;
 
 @Controller
 public class CheckAdviceController {
@@ -64,18 +64,33 @@ public class CheckAdviceController {
 		
 		return null;
 	}
-
+	
+	@RequestMapping("/getTitleAndAdvice")
+	@ResponseBody
+    public JSONArray getTitleAndAdvice(@RequestParam(value = "ADid", required = false) String ADid)
+    {
+		ApplicationContext factory = new ClassPathXmlApplicationContext(
+				"applicationContext.xml");
+		CheckAdvice checkAdvice = (CheckAdvice) factory.getBean("CheckAdvice");
+		tb_adviceModel tbAdviceModel=(tb_adviceModel) checkAdvice.queryTitleAndAdvice(ADid);
+		JSONArray jsonArray=JSONArray.fromObject(tbAdviceModel);
+		System.out.println(jsonArray);
+		return jsonArray;
+    }
 	public static void main(String[] args) {
 		ApplicationContext factory = new ClassPathXmlApplicationContext(
 				"applicationContext.xml");
 		CheckAdvice checkAdvice = (CheckAdvice) factory.getBean("CheckAdvice");
-		System.out.println(checkAdvice.queryAdviceNumber());
+		
+		/*System.out.println(checkAdvice.queryAdviceNumber());
 		List<Object> adviceRecordList = new LinkedList<Object>();
 		adviceRecordList = checkAdvice.queryAdviceRecord();
 		if (adviceRecordList != null)
 			System.out.println(adviceRecordList.size());
 		else {
 			System.out.println(0);
-		}
+		}*/
+		tb_adviceModel tbAdviceModel=(tb_adviceModel) checkAdvice.queryTitleAndAdvice("201608031535331");
+		System.out.println(tbAdviceModel.getTitle()+" "+tbAdviceModel.getAdvice());
 	}
 }

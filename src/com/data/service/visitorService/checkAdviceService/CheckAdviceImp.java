@@ -4,6 +4,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import com.data.dao.singleForm.checkAdvicePage.CheckAdviceDao;
+import com.data.model.tb_adviceModel;
 
 public class CheckAdviceImp implements CheckAdvice{
     private CheckAdviceDao checkAdviceDao;
@@ -36,6 +37,13 @@ public class CheckAdviceImp implements CheckAdvice{
 		else {
 			return adviceRecordList;
 		}
+	}
+	@Override
+	public Object queryTitleAndAdvice(String ADid) {
+        String sql="select Title ,Advice,Vid from tb_advice where ADid="+ADid;
+        tb_adviceModel tbAdviceModel=(tb_adviceModel) checkAdviceDao.query1(sql);
+		// TODO Auto-generated method stub
+		return tbAdviceModel;
 	}
 
 }

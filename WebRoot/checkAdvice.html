@@ -12,104 +12,130 @@
 <script src="./css/jquery.js"></script>
 <script src="./css/bootstrap.min.js"></script>
 <script>
-	   function hiddenSpotAdvice()
-	 {
-	      var x = document.getElementsByClassName("spotAdvice");
-	    for(var i=0;i<x.length;i++)
-	     { 
-	       x[i].style.display="none";
-         }
-	 }
-	 function hiddenSoftwareAdvice()
-	 { 
-	     var x = document.getElementsByClassName("softwareAdvice");
-	    for(var i=0;i<x.length;i++)
-	     { 
-	       x[i].style.display="none";
-         }
-	 }
-	  //alert(333);
-	  function getAdviceNumber()
-	  { 
-		  var i=1;
-	  //alert("jsonData"+1);
-	  var jsonData = { "name" : "手机", "price" : "999" };
-	  $.ajax({ 
-	  type:'post', 
-	  url:'getAdviceNumber',
-	  contentType:'application/json;charset=utf-8',//指定为json类型 //数据格式是json串，商品信息 
-	  dataType: "json",
-	  success:function(data)
-	  {//返回json结果 
-	  var html ='';
-	  //alert("dataSuccess");
-	  //alert(data); 
-	  //alert(data.number);
-	  if(data.number!=0)
-	  {
-	  document.getElementById("adviceNumber").innerHTML=data.number;
-	  }
-	  else
-	  {
-	      document.getElementById("adviceNumber").innerHTML="";
-	  }
-	  //var t="t"+i;
-	  //alert(t);
-	  //html+="<tr class=\"spotAdvice\"> <td>3</td><td>10</td><td><a id=\"t1\" onclick=getHref()>3:29 PM</a></td><td>Heoo</td></tr>";
-	  //$("#allAdvice").html(html);
-	   //var arr= eval (data);  
-                    //alert(arr.length);  
-                    /*for(var m = 0;m<arr.length;m++){  
-                        alert(arr[m].number);  
-                    }*/  
-	  }
-	  });
-	  }
-	  function getAdviceRecordList()
-	  {
-		  //alert("getAdviceRecordList");
-		  $.ajax({   
-		        type: 'post',   
-		        url: "getAdviceRecordList",   
-		        contentType:'application/json;charset=utf-8', 
-		        dataType: 'json',   
-		        success: function(data){
-		        	//alert("返回成功");
-		        	//alert(data.length);
-		        	 var html ='';
-		        	for (var i = 0; i < data.length; i++) {
-		        	    //alert(data[i]);
-		        	    //alert(data[i].ADid+" "+data[i].type+" "+data[i].atime+data[i].title);
-		        	    if(data[i].type=='s')
-		        	    {
-		        	    html+="<tr class=\"spotAdvice\"> <td>"+data[i].title+"</td><td>"+data[i].atime+"</td><td>"+data[i].type+"</td><td>"+data[i].ADid+"</td></tr>";
-		        	    }
-		        	    else
-		        	    	{
-		        	    	html+="<tr class=\"softwareAdvice\"> <td>"+data[i].title+"</td><td>"+data[i].atime+"</td><td>"+data[i].type+"</td><td>"+data[i].ADid+"</td></tr>";
-		        	    	}
-		        	}
-		        	 $("#allAdvice").html(html);   
-		        },   
-		        error: function(){   
-		            return;   
-		        }   
-		    });  
-	  }
-	  /*(function getHref()
-		{
-		   var x='t'+1;
-		   var y='a'+y;
-		   alert(1111);
-		   alert(x);
-		   var s=document.getElementById(x).innerHTML;
-		   alert(s);
-		
-		    var s=document.getElementById(y).innerHTML;
-		   alert(s);
-		}*/
-	  getAdviceNumber();
-	</script>
+	function hiddenSpotAdvice() {
+		var x = document.getElementsByClassName("spotAdvice");
+		for (var i = 0; i < x.length; i++) {
+			x[i].style.display = "none";
+		}
+	}
+	function hiddenSoftwareAdvice() {
+		var x = document.getElementsByClassName("softwareAdvice");
+		for (var i = 0; i < x.length; i++) {
+			x[i].style.display = "none";
+		}
+	}
+	//alert(333);
+	function getAdviceNumber() {
+		var i = 1;
+		//alert("jsonData"+1);
+		var jsonData = {
+			"name" : "手机",
+			"price" : "999"
+		};
+		$
+				.ajax({
+					type : 'post',
+					url : 'getAdviceNumber',
+					contentType : 'application/json;charset=utf-8',//指定为json类型 //数据格式是json串，商品信息 
+					dataType : "json",
+					success : function(data) {//返回json结果 
+						var html = '';
+						//alert("dataSuccess");
+						//alert(data); 
+						//alert(data.number);
+						if (data.number != 0) {
+							document.getElementById("adviceNumber").innerHTML = data.number;
+						} else {
+							document.getElementById("adviceNumber").innerHTML = "";
+						}
+						//var t="t"+i;
+						//alert(t);
+						//html+="<tr class=\"spotAdvice\"> <td>3</td><td>10</td><td><a id=\"t1\" onclick=getHref()>3:29 PM</a></td><td>Heoo</td></tr>";
+						//$("#allAdvice").html(html);
+						//var arr= eval (data);  
+						//alert(arr.length);  
+						/*for(var m = 0;m<arr.length;m++){  
+						    alert(arr[m].number);  
+						}*/
+					}
+				});
+	}
+	function getAdviceRecordList() {
+		//alert("getAdviceRecordList");
+		$.ajax({
+			type : 'post',
+			url : "getAdviceRecordList",
+			contentType : 'application/json;charset=utf-8',
+			dataType : 'json',
+			success : function(data) {
+				//alert("返回成功");
+				//alert(data.length);
+				var html = '';
+				for (var i = 0; i < data.length; i++) {
+					//alert(data[i]);
+					//alert(data[i].ADid+" "+data[i].type+" "+data[i].atime+data[i].title);
+					if (data[i].type == 's') {
+						html += "<tr class=\"spotAdvice\"> <td>"
+								+ data[i].title + "</td><td>" + data[i].atime
+								+ "</td><td>" + data[i].type + "</td><td>"
+								+ data[i].ADid + "</td></tr>";
+					} else {
+						html += "<tr class=\"softwareAdvice\"> <td>"
+								+ data[i].title + "</td><td>" + data[i].atime
+								+ "</td><td>" + data[i].type + "</td><td>"
+								+ data[i].ADid + "</td></tr>";
+					}
+				}
+				$("#allAdvice").html(html);
+			},
+			error : function() {
+				return;
+			}
+		});
+	}
+	function getTitleAndAdvice() {
+		var ADid = document.getElementById("ADid").value;
+		alert(ADid);
+		var vid = document.getElementById("Vid").innerHTML;
+		alert(vid);
+		$.ajax({
+			type : 'post',
+			url : "getTitleAndAdvice?ADid="+ADid,
+			contentType : 'application/json;charset=utf-8',
+			dataType : 'json',
+			success : function(data) {
+				alert("返回成功");
+				alert(data.length);
+				//alert(data.length);
+				for(var i=0;i<data.length;i++)
+				{
+				alert(data[i].advice+""+data[i].title);
+				document.getElementById("Title").innerHTML = data[i].title;
+				document.getElementById("Advice").innerHTML = data[i].advice;
+				document.getElementById("Vid").innerHTML = data[i].vid;
+				var vid = document.getElementById("Vid").innerHTML;
+				alert(vid);
+				}
+			},
+			error : function() {
+				return;
+			}
+		});
+	}
+	/*(function getHref()
+	{
+	   var x='t'+1;
+	   var y='a'+y;
+	   alert(1111);
+	   alert(x);
+	   var s=document.getElementById(x).innerHTML;
+	   alert(s);
+	
+	    var s=document.getElementById(y).innerHTML;
+	   alert(s);
+	}*/
+	getAdviceNumber();
+</script>
 </head>
 <body>
 	<div style="background-color:#222;width:100%">
@@ -118,8 +144,8 @@
 				<a href="##" class="navbar-brand">审核管理员</a>
 			</div>
 			<ul class="nav navbar-nav pull-right">
-				<li class="dropdown"><a href="##" data-toggle="dropdown" onclick="getAdviceRecordList()"
-					class="dropdown-toggle "><span
+				<li class="dropdown"><a href="##" data-toggle="dropdown"
+					onclick="getAdviceRecordList()" class="dropdown-toggle "><span
 						class="fa fa-fw fa-envelope fa-lg"></span><span id="adviceNumber"
 						class="badge"></span><span class="caret"></span></a>
 					<ul class="dropdown-menu">
@@ -204,6 +230,43 @@
 			</div>
 		</div>
 
+	</div>
+	<div class="col-lg-6 text-center">
+		<h3>联系我们</h3>
+		<form>
+			<div class="form-group">
+				<input type="text" id="ADid" placeholder="请输入你要看内容的ID:"
+					class="form-control input-lg " />
+			</div>
+			<button class="btn btn-default mybutton btn-primary" type="button"
+				value="提交" onclick="getTitleAndAdvice()" />
+			查看
+			</button>
+			<div class="form-group">
+				<textarea id="Title" placeholder="标题:"
+					class="form-control col-lg-12 col-md-12" style="height:50%"></textarea>
+			</div>
+			<div class="form-group">
+				<textarea id="Advice" placeholder="内容:"
+					class="form-control col-lg-12 col-md-12" style="height:50%"></textarea>
+			</div>
+			<div class="footer">
+				<div class="radio">
+					<label class="radio-inline"> <input type="radio"
+						name="advice" id="spotAdvice" value="s" checked />s
+					</label> <label class="radio-inline"> <input type="radio"
+						name="advice" id="softwareAdvice" value="a" />a
+					</label> <label class="radio-inline"> <input type="radio"
+						name="advice" id="softwareAdvice" value="f" />f
+					</label>
+				</div>
+				<button class="btn btn-default mybutton btn-primary" type="button"
+					value="提交" onclick="" />
+				提交
+				<p id="Vid" style="display:none;">qq</p>
+				</button>
+			</div>
+		</form>
 	</div>
 </body>
 </html>
