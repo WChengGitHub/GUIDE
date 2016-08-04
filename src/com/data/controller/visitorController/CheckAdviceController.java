@@ -70,6 +70,10 @@ public class CheckAdviceController {
 	@ResponseBody
     public JSONArray getTitleAndAdvice(@RequestParam(value = "ADid", required = false) String ADid)
     {
+		System.out.println(ADid);
+		System.out.println(ADid.length()==0);
+		if(ADid.length()==0)
+			return null;
 		ApplicationContext factory = new ClassPathXmlApplicationContext(
 				"applicationContext.xml");
 		CheckAdvice checkAdvice = (CheckAdvice) factory.getBean("CheckAdvice");
