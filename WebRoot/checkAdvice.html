@@ -12,6 +12,7 @@
 <script src="./css/jquery.js"></script>
 <script src="./css/bootstrap.min.js"></script>
 <script>
+    var Status;
 	function hiddenSpotAdvice() {
 		var x = document.getElementsByClassName("spotAdvice");
 		for (var i = 0; i < x.length; i++) {
@@ -26,12 +27,7 @@
 	}
 	//alert(333);
 	function getAdviceNumber() {
-		var i = 1;
-		//alert("jsonData"+1);
-		var jsonData = {
-			"name" : "手机",
-			"price" : "999"
-		};
+
 		$
 				.ajax({
 					type : 'post',
@@ -48,15 +44,7 @@
 						} else {
 							document.getElementById("adviceNumber").innerHTML = "";
 						}
-						//var t="t"+i;
-						//alert(t);
-						//html+="<tr class=\"spotAdvice\"> <td>3</td><td>10</td><td><a id=\"t1\" onclick=getHref()>3:29 PM</a></td><td>Heoo</td></tr>";
-						//$("#allAdvice").html(html);
-						//var arr= eval (data);  
-						//alert(arr.length);  
-						/*for(var m = 0;m<arr.length;m++){  
-						    alert(arr[m].number);  
-						}*/
+
 					}
 				});
 	}
@@ -98,29 +86,70 @@
 		alert(ADid);
 		var vid = document.getElementById("Vid").innerHTML;
 		alert(vid);
+		$
+				.ajax({
+					type : 'post',
+					url : "getTitleAndAdvice?ADid=" + ADid,
+					contentType : 'application/json;charset=utf-8',
+					dataType : 'json',
+					success : function(data) {
+						alert("返回成功");
+						alert(data.length);
+						//alert(data.length);
+						for (var i = 0; i < data.length; i++) {
+							alert(data[i].advice + "" + data[i].title);
+							document.getElementById("Title").innerHTML = data[i].title;
+							document.getElementById("Advice").innerHTML = data[i].advice;
+							document.getElementById("Vid").innerHTML = data[i].vid;
+							var vid = document.getElementById("Vid").innerHTML;
+							alert(vid);
+						}
+					},
+					error : function() {
+						return;
+					}
+				});
+	}
+	function sendAdviceStatus()
+	{
+		var ADid = document.getElementById("ADid").value;
+		alert(ADid);
+		var Vid = document.getElementById("Vid").innerHTML;
+		alert(Vid);
+		getRadioValue();
+		alert("Status:"+Status)
 		$.ajax({
 			type : 'post',
-			url : "getTitleAndAdvice?ADid="+ADid,
+			url : "sendAdviceStatus?ADid=" + ADid+"&Vid="+Vid+"&Status="+Status,
 			contentType : 'application/json;charset=utf-8',
 			dataType : 'json',
 			success : function(data) {
-				alert("返回成功");
-				alert(data.length);
+				alert("sendAdviceStatus:success");
+				getAdviceNumber();
+				getAdviceRecordList();
 				//alert(data.length);
-				for(var i=0;i<data.length;i++)
-				{
-				alert(data[i].advice+""+data[i].title);
-				document.getElementById("Title").innerHTML = data[i].title;
-				document.getElementById("Advice").innerHTML = data[i].advice;
-				document.getElementById("Vid").innerHTML = data[i].vid;
-				var vid = document.getElementById("Vid").innerHTML;
-				alert(vid);
-				}
+				
 			},
 			error : function() {
 				return;
 			}
 		});
+	}
+	function getRadioValue() {
+		var itemradio = document.getElementsByName("advice");
+		var itemvalue = '';
+		for (i = 0; i < itemradio.length; i++) {
+			if (itemradio[i].checked) {
+				itemvalue = itemradio[i].value;
+			}
+		}
+		if (itemvalue != "") {
+			alert(itemvalue);
+			Status = itemvalue;
+			alert(Status);
+		} else {
+			alert('还未选择');
+		}
 	}
 	/*(function getHref()
 	{
@@ -175,54 +204,7 @@
 							</tr>
 						</thead>
 						<tbody id="allAdvice">
-							<!--<tr class="spotAdvice">
-								<td>33555526</td>
-								<td>10/21/2013</td>
-								<td>3:29 PM</td>
-								<td>Helloooo</td>
-							</tr>
-							<tr class="spotAdvice">
-								<td>33555526</td>
-								<td>10/21/2013</td>
-								<td>3:29 PM</td>
-								<td>Helloooo</td>
-							</tr>
-							<tr class="spotAdvice">
-								<td>33555526</td>
-								<td>10/21/2013</td>
-								<td>3:29 PM</td>
-								<td>Helloooo</td>
-							</tr>
-							<tr class="spotAdvice">
-								<td>33555526</td>
-								<td>10/21/2013</td>
-								<td>3:29 PM</td>
-								<td>Helloooo</td>
-							</tr>
-							<tr class="softwareAdvice">
-								<td>33555526</td>
-								<td>10/21/2013</td>
-								<td>3:29 PM</td>
-								<td>Helloooo</td>
-							</tr>
-							<tr class="softwareAdvice">
-								<td>33555526</td>
-								<td>10/21/2013</td>
-								<td>3:29 PM</td>
-								<td>Helloooo</td>
-							</tr>
-							<tr class="softwareAdvice">
-								<td>33555526</td>
-								<td>10/21/2013</td>
-								<td>3:29 PM</td>
-								<td>Helloooo</td>
-							</tr>
-							<tr class="softwareAdvice">
-								<td>33555526</td>
-								<td>10/21/2013</td>
-								<td>3:29 PM</td>
-								<td>Helloooo</td>
-							</tr>-->
+							
 						</tbody>
 					</table>
 				</div>
@@ -244,7 +226,7 @@
 			</button>
 			<div class="form-group">
 				<textarea id="Title" placeholder="标题:"
-					class="form-control col-lg-12 col-md-12" style="height:50%"></textarea>
+					class="form-control col-lg-6 col-md-12" ></textarea>
 			</div>
 			<div class="form-group">
 				<textarea id="Advice" placeholder="内容:"
@@ -257,11 +239,11 @@
 					</label> <label class="radio-inline"> <input type="radio"
 						name="advice" id="softwareAdvice" value="a" />a
 					</label> <label class="radio-inline"> <input type="radio"
-						name="advice" id="softwareAdvice" value="f" />f
+						name="advice" id="failedAdvice" value="f" />f
 					</label>
 				</div>
 				<button class="btn btn-default mybutton btn-primary" type="button"
-					value="提交" onclick="" />
+					value="提交" onclick="sendAdviceStatus()" />
 				提交
 				<p id="Vid" style="display:none;">qq</p>
 				</button>

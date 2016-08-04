@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.data.model.tb_adviceModel;
 import com.data.service.visitorService.checkAdviceService.CheckAdvice;
+import com.data.service.visitorService.checkAdviceService.SendEmail;
 
 @Controller
 public class CheckAdviceController {
@@ -77,6 +78,28 @@ public class CheckAdviceController {
 		System.out.println(jsonArray);
 		return jsonArray;
     }
+	@RequestMapping("/sendAdviceStatus")
+	@ResponseBody
+	public String sendAdviceStatus(HttpServletResponse response,@RequestParam(value = "ADid", required = false) String ADid,@RequestParam(value = "Vid", required = false) String Vid,@RequestParam(value = "Status", required = false) String Status) throws IOException
+	{
+		ApplicationContext factory = new ClassPathXmlApplicationContext(
+				"applicationContext.xml");
+		CheckAdvice checkAdvice = (CheckAdvice) factory.getBean("CheckAdvice");
+		checkAdvice.updateAdviceStatus(ADid, Status);
+		System.out.println(ADid+" "+Vid+" "+Status);
+		System.out.println("Status:"+Status);
+		String string="f";
+		System.out.println(Status.equals(string));
+		if(Status.equals("f"))
+		{
+			String visitorEmail=checkAdvice.queryVisitorEmail(Vid);
+			SendEmail.sendEmail(visitorEmail);
+		}
+		Writer writer = response.getWriter();
+		String json = "{\"status\":\"success\"}";
+		writer.write(json);
+		return null;
+	}
 	public static void main(String[] args) {
 		ApplicationContext factory = new ClassPathXmlApplicationContext(
 				"applicationContext.xml");
@@ -90,7 +113,11 @@ public class CheckAdviceController {
 		else {
 			System.out.println(0);
 		}*/
-		tb_adviceModel tbAdviceModel=(tb_adviceModel) checkAdvice.queryTitleAndAdvice("201608031535331");
-		System.out.println(tbAdviceModel.getTitle()+" "+tbAdviceModel.getAdvice());
+		//tb_adviceModel tbAdviceModel=(tb_adviceModel) checkAdvice.queryTitleAndAdvice("201608031535331");
+		//checkAdvice.updateAdviceStatus("201608020854105","0");
+		//System.out.println(checkAdvice.queryVisitorEmail("1"));
+		//String visitorEmail=checkAdvice.queryVisitorEmail("1");
+		//SendEmail.sendEmail(visitorEmail);
+		//System.out.println(tbAdviceModel.getTitle()+" "+tbAdviceModel.getAdvice());
 	}
 }
