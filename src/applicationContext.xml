@@ -93,6 +93,9 @@
 		class="com.data.service.visitorService.checkAdviceService.CheckAdviceImp">
 		<property name="checkAdviceDao" ref="CheckAdviceDao"></property>
 	</bean>
+	<bean id="TestDao" class="com.data.dao.singleForm.checkAdvicePage.TestDao">
+	     <property name="jdbcTemplate" ref="jdbcTemplate"></property>
+	</bean>
 
 	<!-- 视图解析 暂时没用 -->
 	<bean id="viewResolver"
