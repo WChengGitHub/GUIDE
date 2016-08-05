@@ -12,7 +12,12 @@
 <link rel="stylesheet" href="./css/font-awesome.min.css">
 <script src="./css/jquery.js"></script>
 <script src="./css/bootstrap.min.js"></script>
-
+<style>
+ a:hover
+ {
+   text-decoration:none;
+ }
+</style>
 <script>
     var Status;
 	function hiddenSpotAdvice() {
@@ -67,13 +72,13 @@
 					if (data[i].type == 's') {
 						html += "<tr class=\"spotAdvice\"> <td>"
 								+ data[i].title + "</td><td>" + data[i].atime
-								+ "</td><td>" + data[i].type + "</td><td>"
-								+ data[i].ADid + "</td></tr>";
+								+ "</td><td>" + data[i].type + "</td><td><a onclick=\'getAdviceID("+data[i].ADid+")\'>"
+								+ data[i].ADid + "</a></td></tr>";
 					} else {
 						html += "<tr class=\"softwareAdvice\"> <td>"
 								+ data[i].title + "</td><td>" + data[i].atime
-								+ "</td><td>" + data[i].type + "</td><td>"
-								+ data[i].ADid + "</td></tr>";
+								+ "</td><td>" + data[i].type + "</td><td><a onclick=getAdviceID("+data[i].ADid+")>"
+								+ data[i].ADid + "</a></td></tr>";
 					}
 				}
 				$("#allAdvice").html(html);
@@ -83,9 +88,10 @@
 			}
 		});
 	}
-	function getTitleAndAdvice() {
-		var ADid = document.getElementById("ADid").value;
+	function getTitleAndAdvice(y) {
+		var ADid =y; //document.getElementById("ADid").value;
 		alert(ADid);
+		document.getElementById("ADid").innerHTML=ADid;
 		var vid = document.getElementById("Vid").innerHTML;
 		alert(vid);
 		$
@@ -153,6 +159,13 @@
 			alert('还未选择');
 		}
 	}
+	var y;
+	function getAdviceID(y)
+	{
+		alert("Hello");
+		alert(y);
+		getTitleAndAdvice(y);
+	}
 	/*(function getHref()
 	{
 	   var x='t'+1;
@@ -217,17 +230,10 @@
 
 	</div>
 	<div class="col-lg-6 text-center panel panel-default adviceContent"  >
+		<h2>用户投诉与建议</h2>
+		    
+			
 		
-		    <div class="col-lg-12 adviceContentHeader" >
-			<div class="form-group col-lg-9 col-md-9 col-sm-9" >
-				<input type="text" id="ADid" placeholder="请输入你要看内容的ID:" 
-					class="form-control input-lg " />
-			</div>
-			<button class="btn btn-default mybutton input-lg btn-primary col-lg-3 col-md-12" type="button" 
-				value="提交" onclick="getTitleAndAdvice()" >
-			<span>查看</span>
-			</button>
-			</div>
 			<div class="form-group contentTitle" >
 				<textarea id="Title" placeholder="标题:"
 					class="form-control col-lg-6 col-md-12" ></textarea>
@@ -252,7 +258,9 @@
 				<p id="Vid" style="display:none;">qq</p>
 				</button>
 			</div>
-		
+		<textarea  id="ADid" placeholder="请输入你要看内容的ID:" 
+					class="form-control " style="display:none;"></textarea>
+			
 	</div>
 </body>
 </html>

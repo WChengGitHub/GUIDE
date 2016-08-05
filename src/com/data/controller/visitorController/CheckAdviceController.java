@@ -53,7 +53,7 @@ public class CheckAdviceController {
 			System.out.println(adviceRecordList.size());
 			System.out.println("数据提取成功");
 			JSONArray jsonArray=JSONArray.fromObject(adviceRecordList);
-			//System.out.println(jsonArray);
+			System.out.println(jsonArray);
 			//tb_adviceModel t=(tb_adviceModel) adviceRecordList.get(0);
 			//System.out.println(t.getADid());
 			return jsonArray;
