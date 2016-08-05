@@ -86,6 +86,8 @@ public class CheckAdviceController {
 	@ResponseBody
 	public String sendAdviceStatus(HttpServletResponse response,@RequestParam(value = "ADid", required = false) String ADid,@RequestParam(value = "Vid", required = false) String Vid,@RequestParam(value = "Status", required = false) String Status) throws IOException
 	{
+		if(ADid.length()==0||Vid.length()==0||Status.length()==0)
+			return null;
 		ApplicationContext factory = new ClassPathXmlApplicationContext(
 				"applicationContext.xml");
 		CheckAdvice checkAdvice = (CheckAdvice) factory.getBean("CheckAdvice");

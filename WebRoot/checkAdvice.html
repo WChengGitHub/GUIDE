@@ -17,6 +17,32 @@
  {
    text-decoration:none;
  }
+ .myModal
+ {
+   width:300px;
+   
+ }
+ .mybutton
+ {
+   width:400px;
+ }
+ .footer
+ {
+   position:relative;
+   top:30px;
+ }
+ @media(max-width:768px) {
+ .myModal
+ {
+	 position:absolute;
+	 left:20px;
+	 right:20px;
+ }
+ .myThead
+ {
+    width:300px;
+ }
+ }
 </style>
 <script>
     var Status;
@@ -90,10 +116,10 @@
 	}
 	function getTitleAndAdvice(y) {
 		var ADid =y; //document.getElementById("ADid").value;
-		alert(ADid);
+		//alert(ADid);
 		document.getElementById("ADid").innerHTML=ADid;
 		var vid = document.getElementById("Vid").innerHTML;
-		alert(vid);
+		//alert(vid);
 		$
 				.ajax({
 					type : 'post',
@@ -101,16 +127,16 @@
 					contentType : 'application/json;charset=utf-8',
 					dataType : 'json',
 					success : function(data) {
-						alert("返回成功");
-						alert(data.length);
+						//alert("返回成功");
+						//alert(data.length);
 						//alert(data.length);
 						for (var i = 0; i < data.length; i++) {
-							alert(data[i].advice + "" + data[i].title);
+							//alert(data[i].advice + "" + data[i].title);
 							document.getElementById("Title").innerHTML = data[i].title;
 							document.getElementById("Advice").innerHTML = data[i].advice;
 							document.getElementById("Vid").innerHTML = data[i].vid;
 							var vid = document.getElementById("Vid").innerHTML;
-							alert(vid);
+							//alert(vid);
 						}
 					},
 					error : function() {
@@ -121,18 +147,19 @@
 	function sendAdviceStatus()
 	{
 		var ADid = document.getElementById("ADid").value;
-		alert(ADid);
+		//alert(ADid);
 		var Vid = document.getElementById("Vid").innerHTML;
-		alert(Vid);
+		//alert(Vid);
 		getRadioValue();
-		alert("Status:"+Status)
+		//alert("Status:"+Status)
 		$.ajax({
 			type : 'post',
 			url : "sendAdviceStatus?ADid=" + ADid+"&Vid="+Vid+"&Status="+Status,
 			contentType : 'application/json;charset=utf-8',
 			dataType : 'json',
 			success : function(data) {
-				alert("sendAdviceStatus:success");
+				//alert("sendAdviceStatus:success");
+				 $("#mymodal").modal("toggle");
 				getAdviceNumber();
 				getAdviceRecordList();
 				//alert(data.length);
@@ -152,9 +179,9 @@
 			}
 		}
 		if (itemvalue != "") {
-			alert(itemvalue);
+			//alert(itemvalue);
 			Status = itemvalue;
-			alert(Status);
+			//alert(Status);
 		} else {
 			alert('还未选择');
 		}
@@ -162,8 +189,8 @@
 	var y;
 	function getAdviceID(y)
 	{
-		alert("Hello");
-		alert(y);
+		//alert("Hello");
+		//alert(y);
 		getTitleAndAdvice(y);
 	}
 	/*(function getHref()
@@ -211,7 +238,7 @@
 					<!--响应式表格-->
 					<table class="table table-bordered table-hover table-striped">
 						<!--带边框表格,斑马线表格-->
-						<thead>
+						<thead class="myThead">
 							<tr>
 								<th>标题</th>
 								<th>时间</th>
@@ -245,15 +272,15 @@
 			<div class="footer">
 				<div class="radio">
 					<label class="radio-inline"> <input type="radio"
-						name="advice" id="spotAdvice" value="s" checked />s
+						name="advice" id="spotAdvice" value="s" checked />审核管理员
 					</label> <label class="radio-inline"> <input type="radio"
-						name="advice" id="softwareAdvice" value="a" />a
+						name="advice" id="softwareAdvice" value="a" />超级管理员
 					</label> <label class="radio-inline"> <input type="radio"
-						name="advice" id="failedAdvice" value="f" />f
+						name="advice" id="failedAdvice" value="f" />未通过
 					</label>
 				</div>
-				<button class="btn btn-default mybutton btn-primary " type="button" 
-					value="提交" onclick="sendAdviceStatus()" />
+				<button class="btn btn-default mybutton btn-primary input-lg" type="button" 
+					value="提交" onclick="sendAdviceStatus()" style="width:300px;"/>
 				提交
 				<p id="Vid" style="display:none;">qq</p>
 				</button>
@@ -262,5 +289,21 @@
 					class="form-control " style="display:none;"></textarea>
 			
 	</div>
+	<div class="modal fade text-center " id="mymodal">
+    <div class="modal-dialog myModal">
+        <div class="modal-content">
+            <div class="modal-header">
+				
+				
+			</div>
+			<div class="modal-body">
+				<h3>提交成功</h3>
+			</div>
+			<div class="modal-footer">
+				
+			</div>
+		</div><!-- /.modal-content -->
+	</div><!-- /.modal-dialog -->
+</div>
 </body>
 </html>

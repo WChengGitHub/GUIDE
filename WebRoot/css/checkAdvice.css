@@ -75,6 +75,14 @@
  {
 	 width:100px;
  }
+ a:hover
+ {
+   text-decoration:none;
+ }
+ .myModal
+ {
+   width:300px;
+ }
  @media(max-width:768px) {
 	 .header{display:inline;}
 	 .adviceContentHeader button
@@ -105,5 +113,10 @@
  .userAdviceDiv
  {
 	 height:100%;
+ }
+ .myModal
+ {
+	 position:relative;
+	 left:20px;
  }
  }
