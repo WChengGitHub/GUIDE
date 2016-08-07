@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.data.model.tb_adviceModel;
+import com.data.model.tb_visitorModel;
 import com.data.service.visitorService.checkAdviceService.CheckAdvice;
 import com.data.service.visitorService.checkAdviceService.SendEmail;
 
@@ -24,34 +25,34 @@ import com.data.service.visitorService.checkAdviceService.SendEmail;
 public class CheckAdviceController {
 	@RequestMapping("/getAdviceNumber")
 	@ResponseBody
-	public String getAdviceNumber(HttpServletResponse response)
+	public void getAdviceNumber(HttpServletResponse response)
 			throws IOException {
 		ApplicationContext factory = new ClassPathXmlApplicationContext(
 				"applicationContext.xml");
 		CheckAdvice checkAdvice = (CheckAdvice) factory.getBean("CheckAdvice");
-		System.out.println(checkAdvice.queryAdviceNumber());
+		//System.out.println(checkAdvice.getAdviceNumber());
 		Writer writer = response.getWriter();
-		int number = checkAdvice.queryAdviceNumber();
+		//long number = checkAdvice.getAdviceNumber();
+		int number=checkAdvice.queryAdviceNumber();
 		String json = "{\"number\":" + number + "}";
 		writer.write(json);
-		System.out.println("/getAdviceNumber");
-		return null;
+		//System.out.println("/getAdviceNumber");
 	}
 
 	@RequestMapping("/getAdviceRecordList")
 	@ResponseBody
 	public List<Object> getAdviceRecordList() throws IOException {
-		System.out.println("getAdviceRecordList");
+		//System.out.println("getAdviceRecordList");
 		ApplicationContext factory = new ClassPathXmlApplicationContext(
 				"applicationContext.xml");
 		CheckAdvice checkAdvice = (CheckAdvice) factory.getBean("CheckAdvice");
 		List<Object> adviceRecordList = new LinkedList<Object>();
-		adviceRecordList = checkAdvice.queryAdviceRecord();
-		
+		//adviceRecordList = checkAdvice.getAdviceRecord();
+		adviceRecordList=checkAdvice.queryAdviceRecord();
 		if (adviceRecordList != null)
 		{
-			System.out.println(adviceRecordList.size());
-			System.out.println("数据提取成功");
+			//System.out.println(adviceRecordList.size());
+			//System.out.println("数据提取成功");
 			JSONArray jsonArray=JSONArray.fromObject(adviceRecordList);
 			System.out.println(jsonArray);
 			//tb_adviceModel t=(tb_adviceModel) adviceRecordList.get(0);
@@ -59,58 +60,75 @@ public class CheckAdviceController {
 			return jsonArray;
 			
 		}
-		else {
-			System.out.println(0);
-		}
 		
 		return null;
 	}
 	
-	@RequestMapping("/getTitleAndAdvice")
+	@RequestMapping("/getAdvice")
 	@ResponseBody
-    public JSONArray getTitleAndAdvice(@RequestParam(value = "ADid", required = false) String ADid)
+    public JSONArray getAdvice(@RequestParam(value = "ADid", required = false) String ADid)
     {
-		System.out.println(ADid);
-		System.out.println(ADid.length()==0);
+		//System.out.println(ADid);
+		//System.out.println(ADid.length()==0);
 		if(ADid.length()==0)
 			return null;
 		ApplicationContext factory = new ClassPathXmlApplicationContext(
 				"applicationContext.xml");
 		CheckAdvice checkAdvice = (CheckAdvice) factory.getBean("CheckAdvice");
-		tb_adviceModel tbAdviceModel=(tb_adviceModel) checkAdvice.queryTitleAndAdvice(ADid);
+		tb_adviceModel tbAdviceModel=new tb_adviceModel();
+		tbAdviceModel.setADid(ADid);
+		//tbAdviceModel=checkAdvice.getAdvice(tbAdviceModel);
+		tbAdviceModel=(tb_adviceModel) checkAdvice.queryTitleAndAdvice(ADid);
 		JSONArray jsonArray=JSONArray.fromObject(tbAdviceModel);
 		System.out.println(jsonArray);
 		return jsonArray;
     }
 	@RequestMapping("/sendAdviceStatus")
 	@ResponseBody
-	public String sendAdviceStatus(HttpServletResponse response,@RequestParam(value = "ADid", required = false) String ADid,@RequestParam(value = "Vid", required = false) String Vid,@RequestParam(value = "Status", required = false) String Status) throws IOException
+	public void sendAdviceStatus(HttpServletResponse response,@RequestParam(value = "ADid", required = false) String ADid,@RequestParam(value = "Vid", required = false) String Vid,@RequestParam(value = "Status", required = false) String Status) throws IOException
 	{
+		//System.out.println("sendAdviceStatus");
+		//System.out.println("ADid:"+ADid+" Vid:"+Vid+" Status:"+Status);
 		if(ADid.length()==0||Vid.length()==0||Status.length()==0)
-			return null;
+			return;
 		ApplicationContext factory = new ClassPathXmlApplicationContext(
 				"applicationContext.xml");
 		CheckAdvice checkAdvice = (CheckAdvice) factory.getBean("CheckAdvice");
+		tb_adviceModel adviceModel=new tb_adviceModel();
+		adviceModel.setADid(ADid);
+		adviceModel.setStatus(Status);
+		adviceModel.setVid(Vid);
+		//System.out.println("chanceAdviceStatus:before");
+		//checkAdvice.chanceAdviceStatus(adviceModel);
 		checkAdvice.updateAdviceStatus(ADid, Status);
-		System.out.println(ADid+" "+Vid+" "+Status);
-		System.out.println("Status:"+Status);
-		String string="f";
-		System.out.println(Status.equals(string));
+		//System.out.println("chanceAdviceStatus:after");
+		//System.out.println(ADid+" "+Vid+" "+Status);
+		//System.out.println("Status:"+Status);
+		//String string="f";
+		//System.out.println(Status.equals(string));
 		if(Status.equals("f"))
-		{
-			String visitorEmail=checkAdvice.queryVisitorEmail(Vid);
-			SendEmail.sendEmail(visitorEmail);
+		{   
+			System.out.println("Vid:Hello"+Vid);
+			tb_visitorModel visitorModel=new tb_visitorModel();
+			//visitorModel=checkAdvice.getAdviceEmail(adviceModel);
+			if(visitorModel==null)
+				return;
+			//System.out.println("visitorEmail:"+visitorModel.getEmail());
+		    String title="Hello";
+		    String content="Hello　World";	
+			//SendEmail.sendEmail(visitorModel.getEmail(),title,content);
+		    SendEmail.sendEmail(checkAdvice.queryVisitorEmail(Vid), title, content);
+			System.out.println("SendEmail:successful");
 		}
 		Writer writer = response.getWriter();
 		String json = "{\"status\":\"success\"}";
 		writer.write(json);
-		return null;
 	}
 	public static void main(String[] args) {
 		ApplicationContext factory = new ClassPathXmlApplicationContext(
 				"applicationContext.xml");
 		CheckAdvice checkAdvice = (CheckAdvice) factory.getBean("CheckAdvice");
-		
+		//checkAdvice.getAdviceNumber();
 		/*System.out.println(checkAdvice.queryAdviceNumber());
 		List<Object> adviceRecordList = new LinkedList<Object>();
 		adviceRecordList = checkAdvice.queryAdviceRecord();

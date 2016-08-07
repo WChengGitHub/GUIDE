@@ -26,7 +26,7 @@ public class SendEmail {
   this.affixName = affixName;  
  }  
    
- public void send(String host,String user,String pwd) {  
+ public void send(String host,String user,String pwd,String content) {  
   this.host = host;  
   this.user = user;  
   this.pwd  = pwd;  
@@ -61,7 +61,7 @@ public class SendEmail {
             
             //设置邮件的文本内容  
             BodyPart contentPart = new MimeBodyPart();  
-            contentPart.setText("第二种方法···");  
+            contentPart.setText(content);  
             multipart.addBodyPart(contentPart);  
             //添加附件  
             BodyPart messageBodyPart= new MimeBodyPart();  
@@ -97,25 +97,27 @@ public class SendEmail {
             e.printStackTrace();  
         }  
     }    
-    public static void sendEmail(String email)
+    public static void sendEmail(String email,String Title,String content)
     {
+    	
     	SendEmail cn = new SendEmail();  
         //设置发件人地址、收件人地址和邮件标题  
-        cn.setAddress("13794566179@163.com",email,"HelloWorld");  
+        cn.setAddress("13794566179@163.com",email,Title);  
         //设置要发送附件的位置和标题  
         //cn.setAffix("D:\\1.jpg","1.jpg");  
         //设置smtp服务器以及邮箱的帐号和密码  
         
-        cn.send("smtp.163.com","13794566179@163.com","a154468");  
+        cn.send("smtp.163.com","13794566179@163.com","a154468",content); 
+    	
     }
     public static void main(String[] args){  
         SendEmail cn = new SendEmail();  
      //设置发件人地址、收件人地址和邮件标题  
-     cn.setAddress("13794566179@163.com","154468476@qq.com","HelloWorld");  
+     cn.setAddress("13794566179@163.com","154468476@qq.com","你好肉肉肉肉");  
      //设置要发送附件的位置和标题  
      //cn.setAffix("D:\\1.jpg","1.jpg");  
      //设置smtp服务器以及邮箱的帐号和密码  
      
-     cn.send("smtp.163.com","13794566179@163.com","a154468");  
+     cn.send("smtp.163.com","13794566179@163.com","a154468","谁说了算");  
     }  
 }  

@@ -25,18 +25,19 @@ public class TestDaoMain {
 		  String aDid="201607302152143";
 		  String sql="select Title ,Advice,Vid from tb_advice where ADid=?";
 		  String sql1="select ADid,Title,Atime,type from tb_advice where status=?";
+		  String sql2="select  count(*) from tb_advice where status=?";
 		  param=new LinkedList<Object>();
 		  param.add("0");
 		  advice=new LinkedList<Object>();
-		  advice=testDao.query(sql1, param);
+		  advice=testDao.query(sql2, param);
 		  JSONArray jsonArray=JSONArray.fromObject(advice);
 		  System.out.println(jsonArray);
 		
 		  Map map=new HashedMap();
 		  map=(Map) advice.get(0);
 		  System.out.println(map);
-		  tb_adviceModel tbAdviceModel=new tb_adviceModel();
-		  tbAdviceModel.setTitle((String) map.get("Title"));
-		  System.out.println(tbAdviceModel.getTitle());
+		  //tb_adviceModel tbAdviceModel=new tb_adviceModel();
+		  //tbAdviceModel.setTitle((String) map.get("Title"));
+		  //System.out.println(tbAdviceModel.getTitle());
 	  }
 }
