@@ -29,12 +29,12 @@ public class CheckAdviceDao {
 	}
     
 	@SuppressWarnings("deprecation")
-	public int query(String sql) {
+	public int queryRecordNumber(String sql) {
 		return jdbcTemplate.queryForInt(sql);
 
 	}
     
-	public Object query2(String sql) {
+	public Object queryEmail(String sql) {
 		return jdbcTemplate.queryForObject(sql, new RowMapper<Object>() {
 			@Override
 			public tb_visitorModel mapRow(ResultSet rs, int arg1)
@@ -46,7 +46,7 @@ public class CheckAdviceDao {
 		});
 	}
 	
-	public Object query1(String sql) {
+	public Object queryAdvice(String sql) {
 		return jdbcTemplate.queryForObject(sql, new RowMapper<Object>() {
 			@Override
 			public tb_adviceModel mapRow(ResultSet rs, int arg1)
