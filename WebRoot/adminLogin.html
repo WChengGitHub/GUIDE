@@ -84,16 +84,50 @@ function state_Change()
 	 		}
 	 			else if(result==superadmin)
 	 			{
+	 					
+	 					var account=document.getElementById("Account").value;
+						var cookieString="Account="+account; 
+						//判断是否设置过期时间 
+						var expiresHours=1;
+						if(expiresHours>0){ 
+						var date=new Date(); 
+						date.setTime(date.getTime+expiresHours*30*1000); 
+						cookieString=cookieString+"; expires="+date.toGMTString(); 
+						} 
+						document.cookie=cookieString; 
+						alert(document.cookie);
 						alert("超级管理员登录成功");
 						//window.open('Home.html','_self','width=200,height=100,,_left=0,_top=100');
 	 			}
 	 			else if(result==checkadmin)
-	 			{
+	 			{	
+	 				var account=document.getElementById("Account").value;
+						var cookieString="Account="+account; 
+						//判断是否设置过期时间 
+						var expiresHours=1;
+						if(expiresHours>0){ 
+						var date=new Date(); 
+						date.setTime(date.getTime+expiresHours*30*1000); 
+						cookieString=cookieString+"; expires="+date.toGMTString(); 
+						} 
+						document.cookie=cookieString; 
+						alert(document.cookie);
 	 				alert("审核管理员登录成功");
 	 			}
 	 			else
-	 			{
-	 				alert("景区管理员登录成功");
+	 			{	
+	 					var account=document.getElementById("Account").value;
+						var cookieString="Account="+account; 
+						//判断是否设置过期时间 
+						var expiresHours=1;
+						if(expiresHours>0){ 
+						var date=new Date(); 
+						date.setTime(date.getTime+expiresHours*30*1000); 
+						cookieString=cookieString+"; expires="+date.toGMTString(); 
+						} 
+						document.cookie=cookieString; 
+						alert(document.cookie);
+	 					alert("景区管理员登录成功");
 	 			}
 	 	}
 	    

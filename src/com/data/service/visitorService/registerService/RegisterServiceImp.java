@@ -28,7 +28,8 @@ public class RegisterServiceImp implements RegisterService{
 			 param.add(tb_visitormodel.getVisitor());
 			// param.add(tb_visitormodel.getPassword());
 			//System.out.println(param.get(1)+"8888");	
-			 tb_visitormodellist=tb_visitordaoimp.query(sql, param);	
+			 tb_visitormodellist=tb_visitordaoimp.query(sql, param);
+			 //判断用户是否已存在
 			 if(tb_visitormodellist.size()!=0)
 					return 2;
 			 else{
