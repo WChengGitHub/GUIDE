@@ -12,6 +12,7 @@ import com.data.model.tb_visitorModel;
 import com.data.dao.singleForm.tb_visitorDaoImp;
 public class RegisterServiceImp implements RegisterService{
 	
+	final int registerfailed=0,registersuccess=1;
 	static List<Object> param;
 	List<Object> tb_visitormodellist;
 	
@@ -50,21 +51,19 @@ public class RegisterServiceImp implements RegisterService{
 				 if(tb_visitormodel.getVisitor().length()>11 ||
 						 tb_visitormodel.getPassword().length()>33 ||
 						 tb_visitormodel.getEmail().length()>31)
-					 return 0;
+					 return registerfailed;
 				 else{
 				 tb_visitordaoimp.add(tb_visitormodel, sqlInsert);
 				 System.out.println("test1");//test
 				 }
 				}
-				
+			 return registersuccess;
 			 } catch (Exception e) {
 					System.out.println("error2");
 					//表示注册失败
-					return 0;
+					return registerfailed;
 	//			e.printStackTrace();
 		  }
-		  //表示注册成功
-		  return 1;
 	}
 
 }
