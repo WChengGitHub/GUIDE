@@ -18,7 +18,10 @@
 a:hover {
 	text-decoration: none;
 }
-
+#replyAdvice
+{
+height:300px;
+}
 .myModal {
 	width: 300px;
 }
@@ -26,17 +29,23 @@ a:hover {
 .mybutton {
 	width: 400px;
 }
-.mybutton1
-{
-  width: 400px;
-  position:relative;
-  top:50px;
+
+.mybutton1 {
+	width: 400px;
+	position: relative;
+	top: 50px;
 }
+
 .footer {
 	position: relative;
 	top: 30px;
 }
-
+ .mymodal1div
+ {
+ width:40%;
+ }
+ .mymodal1divdiv
+ {width:100%;}
 @media ( max-width :768px) {
 	.myModal {
 		position: absolute;
@@ -46,6 +55,52 @@ a:hover {
 	.myThead {
 		width: 300px;
 	}
+
+}
+#replyTitle{height:60px;line-height:46px;font-size:14px;}
+#Title{height:60px;line-height:46px;font-size:14px;}
+#Advice{text-indent:2em;line-height:2em;}
+.mybutton1
+{width:300px;
+}
+@media ( max-width :768px){
+#replyAdvice
+{
+height:100%;
+}
+.mymodal1div
+ {
+ width:95%;
+ height:500px;
+ }
+ .mymodal1divdiv
+ {width:100%;height:500px;}
+.myModal1
+{
+	margin:0 auto;
+	width:100%;
+	height:500px;
+}
+.mybutton1 {
+	
+	position: relative;
+	top: 20px;
+}
+#replyTitle{height:50px;line-height:36px;font-size:14px;}
+.reply
+{
+	width:100%;
+	height:100%;
+}
+.replycontentTitle
+{
+	margin-top:10px;
+}
+.replycontentContent
+{
+	margin-top:10px;
+	height:250px;
+}
 }
 </style>
 <!--<script type="text/javascript">
@@ -90,7 +145,7 @@ $(function(){//相当于$(document).ready(function(){
 		$
 				.ajax({
 					type : 'post',
-					url : "getAdviceNumber?Privilege="+Privilege,
+					url : "getAdviceNumber?Privilege=" + Privilege,
 					contentType : 'application/json;charset=utf-8',//指定为json类型 //数据格式是json串，商品信息 
 					dataType : "json",
 					success : function(data) {//返回json结果 
@@ -112,7 +167,7 @@ $(function(){//相当于$(document).ready(function(){
 		$
 				.ajax({
 					type : 'post',
-					url : "getAdviceRecordList?Privilege="+Privilege,
+					url : "getAdviceRecordList?Privilege=" + Privilege,
 					contentType : 'application/json;charset=utf-8',
 					dataType : 'json',
 					success : function(data) {
@@ -286,104 +341,125 @@ $(function(){//相当于$(document).ready(function(){
 	}*/
 	var Account;
 	var Privilege;
-	function getCookie()
-	   {
-	     //alert(document.cookie);
-		 var strCookie=document.cookie;
-		 //alert(strCookie);
-	//将多cookie切割为多个名/值对
-	    var arrCookie=strCookie.split(";");
+	function getCookie() {
+		//alert(document.cookie);
+		var strCookie = document.cookie;
+		//alert(strCookie);
+		//将多cookie切割为多个名/值对
+		var arrCookie = strCookie.split(";");
 		//以分号分割开，把每一个cook键与对分开
-	    //alert("aaarr:"+arrCookie.length);
-	//遍历cookie数组，处理每个cookie对
-	   for(var i=0;i<arrCookie.length;i++){
-	             var arr=arrCookie[i].split("=");
-	             //找到名称为userId的cookie，并返回它的值，在与等号分开
-	             arr[0]=$.trim(arr[0]);//去掉空格，否则第二个是匹配错误的
-	             if("Account"==arr[0]){
-				     //alert(arr[0]);
-	                   Account=arr[1];
-	 
-	             }
-	             if("Privilege"==arr[0])
-	            	 {
-	            	   
-	            	   Privilege=arr[1];
-	            	 }
-	   }
-	   }
-	function changeDisplay()
-	{
+		//alert("aaarr:"+arrCookie.length);
+		//遍历cookie数组，处理每个cookie对
+		for (var i = 0; i < arrCookie.length; i++) {
+			var arr = arrCookie[i].split("=");
+			//找到名称为userId的cookie，并返回它的值，在与等号分开
+			arr[0] = $.trim(arr[0]);//去掉空格，否则第二个是匹配错误的
+			if ("Account" == arr[0]) {
+				//alert(arr[0]);
+				Account = arr[1];
+
+			}
+			if ("Privilege" == arr[0]) {
+
+				Privilege = arr[1];
+			}
+		}
+	}
+	function changeDisplay() {
 		//alert("Account:"+Account);
-		document.getElementById("AdminName").innerHTML=Account;
+		document.getElementById("AdminName").innerHTML = Account;
 		//alert(111111111111);
-		
-		if(Privilege=="a")
-			{
+
+		if (Privilege == "a") {
 			//alert(1);
-			
-			document.getElementById("Admin").innerHTML="超级管理员";
+
+			document.getElementById("Admin").innerHTML = "超级管理员";
 			hiddenMyMenuAndCaret();
 			hiddenCheckFooter();
 			showReplyButton();
-			}
-		else if(Privilege=="s")
-				{
-				//alert(2);
-				document.getElementById("Admin").innerHTML=("景区管理员");
-				}
-			else if(Privilege=="c")
-			{
-				//alert(3);
-				document.getElementById("Admin").innerHTML=("审核管理员");
-			}
+		} else if (Privilege == "s") {
+			//alert(2);
+			hiddenMyMenuAndCaret();
+			hiddenCheckFooter();
+			showReplyButton();
+			document.getElementById("Admin").innerHTML = ("景区管理员");
+		} else if (Privilege == "c") {
+			//alert(3);
+			document.getElementById("Admin").innerHTML = ("审核管理员");
+		}
 		//alert(22222222);
 	}
-	function hiddenMyMenuAndCaret()
-	{
+	function hiddenMyMenuAndCaret() {
 		$("#myMenu").hide();
 		$("#myCaret").hide();
 	}
-	function hiddenCheckFooter()
-	{
+	function hiddenCheckFooter() {
 		$("#checkFooter").hide();
 	}
-	function showReplyButton()
-	{
+	function showReplyButton() {
 		$("#replyButton").show();
 	}
-	function judgeAdmin()
-	{
+	function judgeAdmin() {
 		getCookie();
 		//alert("Account:"+Account+" "+"Privilege:"+Privilege);
-		if(Account==null||Privilege==null||Account== undefined ||Privilege== undefined)
-			{
-			 window.open("in.html");
-			}
-		else
-			{
-             //alert("changeName");
+		if (Account == null || Privilege == null || Account == undefined
+				|| Privilege == undefined) {
+			window.open("in.html");
+		} else {
+			//alert("changeName");
 			changeDisplay();
-			}
+		}
 	}
-	function setCookie()
-	   {
+	function setCookie() {
 		//alert(1);
-	    var now=new Date();
-		now.setTime(now.getTime()+5*60*1000);
-	    //var x=document.getElementById("username").value;
+		var now = new Date();
+		now.setTime(now.getTime() + 5 * 60 * 1000);
+		//var x=document.getElementById("username").value;
 		//var y=document.getElementById("password").value;
 		//alert(x+" "+y);
 		//document.cookie="username="+x+";expires="+ now.toGMTString();
-		document.cookie="Privilege=a;expires="+now.toGMTString();
+		document.cookie = "Privilege=c;expires=" + now.toGMTString();
 		//document.cookie="Account=Hello;expires="+now.toGMTString();
-		document.cookie="Account=Hello;expires="+now.toGMTString();
+		document.cookie = "Account=Hello;expires=" + now.toGMTString();
 		//alert("cookie:"+document.cookie);
-	   }
-	   setCookie();
-	  
-	
-	
+	}
+	function sendReply() {
+		//setTimeout(function(){$("#mymodal-data").modal("hide")},200);
+		var ADid = document.getElementById("ADid").value;
+		//alert(ADid);
+		var Vid = document.getElementById("Vid").innerHTML;
+		var Title = document.getElementById("replyTitle").value;
+		//alert(ADid);
+		var Reply = document.getElementById("replyAdvice").value;
+		alert("Vid:" + Vid + " " + "ADid:" + ADid + " " + "Title:" + Title
+				+ "Reply:" + Reply + "Account:" + Account);
+		$
+				.ajax({
+					type : 'post',
+					url : encodeURI(encodeURI("sendReply?Vid="+Vid+"&ADid="+ADid+"&Title="+Title+"&Reply="+Reply+"&Account="+Account)),
+					contentType : 'application/json;charset=utf-8',//指定为json类型 //数据格式是json串，商品信息 
+					dataType : "json",
+					success : function(data) {//返回json结果 
+						//var html = '';
+						//alert("dataSuccess");
+						//alert(data); 
+						//alert(data.number);
+						//if (data.number != 0) {
+						//	document.getElementById("adviceNumber").innerHTML = data.number;
+						//} else {
+							//document.getElementById("adviceNumber").innerHTML = "";
+						//}
+						$("#mymodal").modal("toggle");
+						getAdviceNumber();
+						getAdviceRecordList();   
+					}
+				});
+	}
+	function getmymodaldata()
+	{
+		$("#mymodal-data").modal("toggle");
+	}
+	setCookie();
 </script>
 </head>
 <body>
@@ -403,7 +479,8 @@ $(function(){//相当于$(document).ready(function(){
 						<li style="display:block;"><a href="##"
 							onclick="hiddenSpotAdvice()">显示软件建议与投诉</a></li>
 					</ul></li>
-				<li><a href="##"><span class="fa fa-fw fa-user fa-lg"></span><span id="AdminName" ></span></a></li>
+				<li><a href="##"><span class="fa fa-fw fa-user fa-lg"></span><span
+						id="AdminName"></span></a></li>
 
 			</ul>
 		</div>
@@ -414,12 +491,12 @@ $(function(){//相当于$(document).ready(function(){
 				<h3 class="panel-title">用户建议与投诉</h3>
 			</div>
 			<div class="panel-body">
-			    <div id="Pagination1" class="pagination"></div>
+				<div id="Pagination1" class="pagination"></div>
 				<div class="table-responsive myTable">
 					<!--响应式表格-->
-					
+
 					<table class="table table-bordered table-hover table-striped">
-					
+
 						<!--带边框表格,斑马线表格-->
 						<thead class="myThead">
 							<tr>
@@ -432,7 +509,7 @@ $(function(){//相当于$(document).ready(function(){
 						<tbody id="allAdvice">
 
 						</tbody>
-						
+
 					</table>
 				</div>
 
@@ -446,11 +523,11 @@ $(function(){//相当于$(document).ready(function(){
 
 
 		<div class="form-group contentTitle">
-			<textarea id="Title" placeholder="标题:"
-				class="form-control col-lg-6 col-md-12"></textarea>
+			<textarea id="Title" 
+				class="form-control col-lg-6 col-md-12 text-center"></textarea>
 		</div>
 		<div class="form-group contentContent">
-			<textarea id="Advice" placeholder="内容:"
+			<textarea id="Advice" 
 				class="form-control col-lg-12 col-md-12"></textarea>
 		</div>
 		<div class="footer" id="checkFooter">
@@ -470,14 +547,38 @@ $(function(){//相当于$(document).ready(function(){
 			<p id="Vid" style="display:none;">qq</p>
 			</button>
 		</div>
-		<button class="btn btn-default mybutton1 btn-primary input-lg" id="replyButton"
-				type="button" value="回复" data-toggle="modal" data-target="#mymodal-data"
-				style="width:300px;display:none;"/>
-			回复
-			
-			</button>
+		<button class="btn btn-default mybutton1 btn-primary input-lg"
+			id="replyButton" type="button" value="回复" onclick="getmymodaldata()"
+			 style="width:300px;display:none;" />
+		回复
+
+		</button>
 		<textarea id="ADid" placeholder="请输入你要看内容的ID:" class="form-control "
 			style="display:none;"></textarea>
+
+	</div>
+	
+	<div class="modal fade text-center mymodal1" id="mymodal-data">
+		<div class="modal-dialog text-center mymodal1div";>
+			<div class="modal-content mymodal1divdiv ">
+
+				<div class="modal-body reply">
+					<h2 class="modal-title">回复用户</h2>
+					<div class="form-group replycontentTitle">
+						<textarea id="replyTitle" placeholder="标题:"
+							class="form-control col-lg-6 col-md-12"></textarea>
+					</div>
+					<div class="form-group replycontentContent">
+						<textarea id="replyAdvice" placeholder="内容:"
+							class="form-control col-lg-12 col-md-12" style=""></textarea>
+					</div>
+					<button class="btn btn-default mybutton1 btn-primary input-lg"
+						type="button" value="提交" onclick="sendReply()"
+						>提交</button>
+				</div>
+			</div>
+
+		</div>
 
 	</div>
 	<div class="modal fade text-center " id="mymodal">
@@ -493,39 +594,13 @@ $(function(){//相当于$(document).ready(function(){
 		</div>
 		<!-- /.modal-dialog -->
 	</div>
-	<div class="modal fade text-center mymodal1"  id="mymodal-data" >
-	<div class="modal-dialog text-center " style="width:40%";>
-		<div class="modal-content  " style="width:100%">
-		
-			<div class="modal-body reply">
-			    <h2 class="modal-title">回复用户</h2>
-				<div class="form-group replycontentTitle">
-			<textarea id="replyTitle" placeholder="标题:"
-				class="form-control col-lg-6 col-md-12"></textarea>
-		        </div>
-		<div class="form-group replycontentContent">
-			<textarea id="replyAdvice" placeholder="内容:"
-				class="form-control col-lg-12 col-md-12" style="height:300px;"></textarea>
-		</div>
-			<button class="btn btn-default mybutton btn-primary input-lg"
-				type="button" value="提交" onclick=""
-				style="width:300px;margin-top:30px;" >
-			提交
-
-			</button>	
-			</div>
-		</div>
-	
-	</div>
-	
-</div>
 	<div id="Pagination" class="pagination">
 		<!-- 这里显示分页 -->
 	</div>
 	<!--<div id="Searchresult">分页初始化完成后这里的内容会被替换。</div>-->
-<script>
-$(document).ready(judgeAdmin());
-getAdviceNumber();
-</script>
+	<script>
+		$(document).ready(judgeAdmin());
+		getAdviceNumber();
+	</script>
 </body>
 </html>

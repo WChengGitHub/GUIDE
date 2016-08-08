@@ -1,6 +1,7 @@
 package com.data.controller.visitorController;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.io.Writer;
 import java.util.LinkedList;
 import java.util.List;
@@ -27,143 +28,187 @@ import com.data.service.visitorService.checkAdviceService.SendEmail;
 public class CheckAdviceController {
 	@RequestMapping("/getAdviceNumber")
 	@ResponseBody
-	public void getAdviceNumber(HttpServletResponse response,@RequestParam(value = "Privilege", required = false) String Privilege)
+	public void getAdviceNumber(
+			HttpServletResponse response,
+			@RequestParam(value = "Privilege", required = false) String Privilege)
 			throws IOException {
 		ApplicationContext factory = new ClassPathXmlApplicationContext(
 				"applicationContext.xml");
 		CheckAdvice checkAdvice = (CheckAdvice) factory.getBean("CheckAdvice");
-		//System.out.println(checkAdvice.getAdviceNumber());
-		if(Privilege==null)
-		{
+		// System.out.println(checkAdvice.getAdviceNumber());
+		if (Privilege == null) {
 			System.out.println("管理员权限获取失败");
 			return;
 		}
-		//System.out.println("Privilege="+Privilege);
+		// System.out.println("Privilege="+Privilege);
 		Writer writer = response.getWriter();
-		//long number = checkAdvice.getAdviceNumber();
-		int number=checkAdvice.queryAdviceNumber(Privilege);
+		// long number = checkAdvice.getAdviceNumber();
+		int number = checkAdvice.queryAdviceNumber(Privilege);
 		String json = "{\"number\":" + number + "}";
 		writer.write(json);
-		//System.out.println("/getAdviceNumber");
+		// System.out.println("/getAdviceNumber");
 	}
 
 	@RequestMapping("/getAdviceRecordList")
 	@ResponseBody
-	public List<Object> getAdviceRecordList(@RequestParam(value = "Privilege", required = false) String Privilege) throws IOException {
-		//System.out.println("getAdviceRecordList");
+	public List<Object> getAdviceRecordList(
+			@RequestParam(value = "Privilege", required = false) String Privilege)
+			throws IOException {
+		// System.out.println("getAdviceRecordList");
 		ApplicationContext factory = new ClassPathXmlApplicationContext(
 				"applicationContext.xml");
 		CheckAdvice checkAdvice = (CheckAdvice) factory.getBean("CheckAdvice");
-		if(Privilege==null)
-		{
+		if (Privilege == null) {
 			System.out.println("管理员权限获取失败");
 			return null;
 		}
-		System.out.println("Privilege="+Privilege);
+		System.out.println("Privilege=" + Privilege);
 		List<Object> adviceRecordList = new LinkedList<Object>();
-		//adviceRecordList = checkAdvice.getAdviceRecord();
-		adviceRecordList=checkAdvice.queryAdviceRecord(Privilege);
-		if (adviceRecordList != null)
-		{
-			//System.out.println(adviceRecordList.size());
-			//System.out.println("数据提取成功");
-			JSONArray jsonArray=JSONArray.fromObject(adviceRecordList);
+		// adviceRecordList = checkAdvice.getAdviceRecord();
+		adviceRecordList = checkAdvice.queryAdviceRecord(Privilege);
+		if (adviceRecordList != null) {
+			// System.out.println(adviceRecordList.size());
+			// System.out.println("数据提取成功");
+			JSONArray jsonArray = JSONArray.fromObject(adviceRecordList);
 			System.out.println(jsonArray);
-			//tb_adviceModel t=(tb_adviceModel) adviceRecordList.get(0);
-			//System.out.println(t.getADid());
+			// tb_adviceModel t=(tb_adviceModel) adviceRecordList.get(0);
+			// System.out.println(t.getADid());
 			return jsonArray;
-			
+
 		}
-		
+
 		return null;
 	}
-	
+
 	@RequestMapping("/getAdvice")
 	@ResponseBody
-    public JSONArray getAdvice(@RequestParam(value = "ADid", required = false) String ADid)
-    {
-		//System.out.println(ADid);
-		//System.out.println(ADid.length()==0);
-		if(ADid.length()==0)
+	public JSONArray getAdvice(
+			@RequestParam(value = "ADid", required = false) String ADid) {
+		// System.out.println(ADid);
+		// System.out.println(ADid.length()==0);
+		if (ADid.length() == 0)
 			return null;
 		ApplicationContext factory = new ClassPathXmlApplicationContext(
 				"applicationContext.xml");
 		CheckAdvice checkAdvice = (CheckAdvice) factory.getBean("CheckAdvice");
-		tb_adviceModel tbAdviceModel=new tb_adviceModel();
+		tb_adviceModel tbAdviceModel = new tb_adviceModel();
 		tbAdviceModel.setADid(ADid);
-		//tbAdviceModel=checkAdvice.getAdvice(tbAdviceModel);
-		tbAdviceModel=(tb_adviceModel) checkAdvice.queryTitleAndAdvice(ADid);
-		JSONArray jsonArray=JSONArray.fromObject(tbAdviceModel);
+		// tbAdviceModel=checkAdvice.getAdvice(tbAdviceModel);
+		tbAdviceModel = (tb_adviceModel) checkAdvice.queryTitleAndAdvice(ADid);
+		JSONArray jsonArray = JSONArray.fromObject(tbAdviceModel);
 		System.out.println(jsonArray);
 		return jsonArray;
-    }
+	}
+
 	@RequestMapping("/sendAdviceStatus")
 	@ResponseBody
-	public void sendAdviceStatus(HttpServletResponse response,@RequestParam(value = "ADid", required = false) String ADid,@RequestParam(value = "Vid", required = false) String Vid,@RequestParam(value = "Status", required = false) String Status) throws IOException
-	{
-		//System.out.println("sendAdviceStatus");
-		//System.out.println("ADid:"+ADid+" Vid:"+Vid+" Status:"+Status);
-		if(ADid.length()==0||Vid.length()==0||Status.length()==0)
+	public void sendAdviceStatus(HttpServletResponse response,
+			@RequestParam(value = "ADid", required = false) String ADid,
+			@RequestParam(value = "Vid", required = false) String Vid,
+			@RequestParam(value = "Status", required = false) String Status)
+			throws IOException {
+		// System.out.println("sendAdviceStatus");
+		// System.out.println("ADid:"+ADid+" Vid:"+Vid+" Status:"+Status);
+		if (ADid.length() == 0 || Vid.length() == 0 || Status.length() == 0)
 			return;
 		ApplicationContext factory = new ClassPathXmlApplicationContext(
 				"applicationContext.xml");
 		CheckAdvice checkAdvice = (CheckAdvice) factory.getBean("CheckAdvice");
-		tb_adviceModel adviceModel=new tb_adviceModel();
+		tb_adviceModel adviceModel = new tb_adviceModel();
 		adviceModel.setADid(ADid);
 		adviceModel.setStatus(Status);
 		adviceModel.setVid(Vid);
-		//System.out.println("chanceAdviceStatus:before");
-		//checkAdvice.chanceAdviceStatus(adviceModel);
+		// System.out.println("chanceAdviceStatus:before");
+		// checkAdvice.chanceAdviceStatus(adviceModel);
 		checkAdvice.updateAdviceStatus(ADid, Status);
-		//System.out.println("chanceAdviceStatus:after");
-		//System.out.println(ADid+" "+Vid+" "+Status);
-		//System.out.println("Status:"+Status);
-		//String string="f";
-		//System.out.println(Status.equals(string));
-		if(Status.equals("f"))
-		{   
-			System.out.println("Vid:Hello"+Vid);
-			tb_visitorModel visitorModel=new tb_visitorModel();
-			//visitorModel=checkAdvice.getAdviceEmail(adviceModel);
-			if(visitorModel==null)
-				return;
-			//System.out.println("visitorEmail:"+visitorModel.getEmail());
-		    String title="Hello";
-		    String content="Hello　World";	
-			//SendEmail.sendEmail(visitorModel.getEmail(),title,content);
-		    SendEmail.sendEmail(checkAdvice.queryVisitorEmail(Vid), title, content);
+		// System.out.println("chanceAdviceStatus:after");
+		// System.out.println(ADid+" "+Vid+" "+Status);
+		// System.out.println("Status:"+Status);
+		// String string="f";
+		// System.out.println(Status.equals(string));
+		if (Status.equals("f")) {
+			System.out.println("Vid:Hello" + Vid);
+			tb_visitorModel visitorModel = new tb_visitorModel();
+			// visitorModel=checkAdvice.getAdviceEmail(adviceModel);
+			// if (visitorModel == null)
+			// return;
+			// System.out.println("visitorEmail:"+visitorModel.getEmail());
+			String title = "Hello";
+			String content = "Hello　World";
+			// SendEmail.sendEmail(visitorModel.getEmail(),title,content);
+			SendEmail.sendEmail(checkAdvice.queryVisitorEmail(Vid), title,
+					content);
 			System.out.println("SendEmail:successful");
 		}
 		Writer writer = response.getWriter();
 		String json = "{\"status\":\"success\"}";
 		writer.write(json);
 	}
+
+	@RequestMapping("/sendReply")
+	@ResponseBody
+	public void sendReply(HttpServletResponse response,
+			@RequestParam(value = "ADid", required = false) String ADid,
+			@RequestParam(value = "Vid", required = false) String Vid,
+			@RequestParam(value = "Title", required = false) String Title,
+			@RequestParam(value = "Reply", required = false) String Reply,
+			@RequestParam(value = "Account", required = false) String Account)
+			throws IOException {
+
+		Title = java.net.URLDecoder.decode(Title, "UTF-8");
+		Reply = java.net.URLDecoder.decode(Reply, "UTF-8");
+		System.out.println("Vid=" + Vid + "&ADid=" + ADid + "&Title=" + Title
+				+ "&Reply=" + Reply + "&Account=" + Account);
+		if (ADid.length() == 0 || Vid.length() == 0 || Title.length() == 0
+				|| Reply.length() == 0 || Account.length() == 0)
+			return;
+		ApplicationContext factory = new ClassPathXmlApplicationContext(
+				"applicationContext.xml");
+		CheckAdvice checkAdvice = (CheckAdvice) factory.getBean("CheckAdvice");
+		System.out.println(checkAdvice.getAid("Hello"));
+		tb_replyModel replyModel = new tb_replyModel();
+		tb_adminModel adminModel = new tb_adminModel();
+		replyModel.setTitle(Title);
+		replyModel.setReply(Reply);
+		replyModel.setADid(ADid);
+		adminModel.setAccount(Account);
+		try {
+			checkAdvice.reply(replyModel, adminModel);
+		} catch (Exception e) {
+			return;
+		}
+		SendEmail.sendEmail(checkAdvice.queryVisitorEmail(Vid), Title, Reply);
+		Writer writer = response.getWriter();
+		String json = "{\"status\":\"success\"}";
+		writer.write(json);
+	}
+
 	public static void main(String[] args) {
 		ApplicationContext factory = new ClassPathXmlApplicationContext(
 				"applicationContext.xml");
 		CheckAdvice checkAdvice = (CheckAdvice) factory.getBean("CheckAdvice");
 		System.out.println(checkAdvice.getAid("Hello"));
-		tb_replyModel replyModel=new tb_replyModel();
-		tb_adminModel adminModel=new tb_adminModel();
+		tb_replyModel replyModel = new tb_replyModel();
+		tb_adminModel adminModel = new tb_adminModel();
 		replyModel.setTitle("Hello");
 		replyModel.setReply("Hello World");
 		replyModel.setADid("201608071712419");
 		adminModel.setAccount("Hello");
 		checkAdvice.reply(replyModel, adminModel);
-		//checkAdvice.getAdviceNumber();
-		/*System.out.println(checkAdvice.queryAdviceNumber());
-		List<Object> adviceRecordList = new LinkedList<Object>();
-		adviceRecordList = checkAdvice.queryAdviceRecord();
-		if (adviceRecordList != null)
-			System.out.println(adviceRecordList.size());
-		else {
-			System.out.println(0);
-		}*/
-		//tb_adviceModel tbAdviceModel=(tb_adviceModel) checkAdvice.queryTitleAndAdvice("201608031535331");
-		//checkAdvice.updateAdviceStatus("201608020854105","0");
-		//System.out.println(checkAdvice.queryVisitorEmail("1"));
-		//String visitorEmail=checkAdvice.queryVisitorEmail("1");
-		//SendEmail.sendEmail(visitorEmail);
-		//System.out.println(tbAdviceModel.getTitle()+" "+tbAdviceModel.getAdvice());
+		// checkAdvice.getAdviceNumber();
+		/*
+		 * System.out.println(checkAdvice.queryAdviceNumber()); List<Object>
+		 * adviceRecordList = new LinkedList<Object>(); adviceRecordList =
+		 * checkAdvice.queryAdviceRecord(); if (adviceRecordList != null)
+		 * System.out.println(adviceRecordList.size()); else {
+		 * System.out.println(0); }
+		 */
+		// tb_adviceModel tbAdviceModel=(tb_adviceModel)
+		// checkAdvice.queryTitleAndAdvice("201608031535331");
+		// checkAdvice.updateAdviceStatus("201608020854105","0");
+		// System.out.println(checkAdvice.queryVisitorEmail("1"));
+		// String visitorEmail=checkAdvice.queryVisitorEmail("1");
+		// SendEmail.sendEmail(visitorEmail);
+		// System.out.println(tbAdviceModel.getTitle()+" "+tbAdviceModel.getAdvice());
 	}
 }
