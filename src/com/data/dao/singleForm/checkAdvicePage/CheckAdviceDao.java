@@ -11,6 +11,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementSetter;
 import org.springframework.jdbc.core.RowMapper;
 
+import com.data.model.tb_adminModel;
 import com.data.model.tb_adviceModel;
 import com.data.model.tb_visitorModel;
 
@@ -27,13 +28,25 @@ public class CheckAdviceDao {
 		// TODO Auto-generated method stub
 		return jdbcTemplate;
 	}
-    
+
 	@SuppressWarnings("deprecation")
 	public int queryRecordNumber(String sql) {
 		return jdbcTemplate.queryForInt(sql);
 
 	}
-    
+
+	public Object queryAid(String sql) {
+		return jdbcTemplate.queryForObject(sql, new RowMapper<Object>() {
+			@Override
+			public tb_adminModel mapRow(ResultSet rs, int arg1)
+					throws SQLException {
+				tb_adminModel adminModel=new tb_adminModel();
+				adminModel.setAid(rs.getString("Aid"));
+				return adminModel;
+			}
+		});
+	}
+
 	public Object queryEmail(String sql) {
 		return jdbcTemplate.queryForObject(sql, new RowMapper<Object>() {
 			@Override
@@ -45,7 +58,7 @@ public class CheckAdviceDao {
 			}
 		});
 	}
-	
+
 	public Object queryAdvice(String sql) {
 		return jdbcTemplate.queryForObject(sql, new RowMapper<Object>() {
 			@Override
@@ -70,7 +83,8 @@ public class CheckAdviceDao {
 						ps.setObject(i + 1, param.get(i));
 						System.out.println(param.get(i) + "1111111111");
 					} catch (SQLException e) {
-						System.out.println("checkAdviceDao:Pstmt中的Sql语句参数注入异常。。。");
+						System.out
+								.println("checkAdviceDao:Pstmt中的Sql语句参数注入异常。。。");
 						e.printStackTrace();
 					}
 				}
@@ -91,7 +105,7 @@ public class CheckAdviceDao {
 	}
 
 	public void update(String sql, final List<Object> param) {
-  
+
 		jdbcTemplate.update(sql, new PreparedStatementSetter() {
 			public void setValues(PreparedStatement ps) throws SQLException {
 				for (int i = 0; i < param.size(); i++) {
@@ -100,7 +114,8 @@ public class CheckAdviceDao {
 						System.out.println(param.get(i));
 						// System.out.println("dao"+sql);
 					} catch (SQLException e) {
-						System.out.println("checkAdviceDao:Pstmt中的Sql语句参数注入异常。。。");
+						System.out
+								.println("checkAdviceDao:Pstmt中的Sql语句参数注入异常。。。");
 						e.printStackTrace();
 					}
 				}

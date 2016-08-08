@@ -16,7 +16,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.data.model.tb_adminModel;
 import com.data.model.tb_adviceModel;
+import com.data.model.tb_replyModel;
 import com.data.model.tb_visitorModel;
 import com.data.service.visitorService.checkAdviceService.CheckAdvice;
 import com.data.service.visitorService.checkAdviceService.SendEmail;
@@ -25,15 +27,21 @@ import com.data.service.visitorService.checkAdviceService.SendEmail;
 public class CheckAdviceController {
 	@RequestMapping("/getAdviceNumber")
 	@ResponseBody
-	public void getAdviceNumber(HttpServletResponse response)
+	public void getAdviceNumber(HttpServletResponse response,@RequestParam(value = "Privilege", required = false) String Privilege)
 			throws IOException {
 		ApplicationContext factory = new ClassPathXmlApplicationContext(
 				"applicationContext.xml");
 		CheckAdvice checkAdvice = (CheckAdvice) factory.getBean("CheckAdvice");
 		//System.out.println(checkAdvice.getAdviceNumber());
+		if(Privilege==null)
+		{
+			System.out.println("管理员权限获取失败");
+			return;
+		}
+		//System.out.println("Privilege="+Privilege);
 		Writer writer = response.getWriter();
 		//long number = checkAdvice.getAdviceNumber();
-		int number=checkAdvice.queryAdviceNumber();
+		int number=checkAdvice.queryAdviceNumber(Privilege);
 		String json = "{\"number\":" + number + "}";
 		writer.write(json);
 		//System.out.println("/getAdviceNumber");
@@ -41,14 +49,20 @@ public class CheckAdviceController {
 
 	@RequestMapping("/getAdviceRecordList")
 	@ResponseBody
-	public List<Object> getAdviceRecordList() throws IOException {
+	public List<Object> getAdviceRecordList(@RequestParam(value = "Privilege", required = false) String Privilege) throws IOException {
 		//System.out.println("getAdviceRecordList");
 		ApplicationContext factory = new ClassPathXmlApplicationContext(
 				"applicationContext.xml");
 		CheckAdvice checkAdvice = (CheckAdvice) factory.getBean("CheckAdvice");
+		if(Privilege==null)
+		{
+			System.out.println("管理员权限获取失败");
+			return null;
+		}
+		System.out.println("Privilege="+Privilege);
 		List<Object> adviceRecordList = new LinkedList<Object>();
 		//adviceRecordList = checkAdvice.getAdviceRecord();
-		adviceRecordList=checkAdvice.queryAdviceRecord();
+		adviceRecordList=checkAdvice.queryAdviceRecord(Privilege);
 		if (adviceRecordList != null)
 		{
 			//System.out.println(adviceRecordList.size());
@@ -128,6 +142,14 @@ public class CheckAdviceController {
 		ApplicationContext factory = new ClassPathXmlApplicationContext(
 				"applicationContext.xml");
 		CheckAdvice checkAdvice = (CheckAdvice) factory.getBean("CheckAdvice");
+		System.out.println(checkAdvice.getAid("Hello"));
+		tb_replyModel replyModel=new tb_replyModel();
+		tb_adminModel adminModel=new tb_adminModel();
+		replyModel.setTitle("Hello");
+		replyModel.setReply("Hello World");
+		replyModel.setADid("201608071712419");
+		adminModel.setAccount("Hello");
+		checkAdvice.reply(replyModel, adminModel);
 		//checkAdvice.getAdviceNumber();
 		/*System.out.println(checkAdvice.queryAdviceNumber());
 		List<Object> adviceRecordList = new LinkedList<Object>();

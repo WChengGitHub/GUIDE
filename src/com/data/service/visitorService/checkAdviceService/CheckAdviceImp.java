@@ -1,13 +1,22 @@
 package com.data.service.visitorService.checkAdviceService;
 
+import java.sql.Timestamp;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.TimeZone;
+
+import sun.management.counter.Variability;
 
 import com.data.dao.QueryDao;
 import com.data.dao.singleForm.checkAdvicePage.CheckAdviceDao;
+import com.data.model.tb_adminModel;
 import com.data.model.tb_adviceModel;
+import com.data.model.tb_replyModel;
 import com.data.model.tb_visitorModel;
 
 public class CheckAdviceImp implements CheckAdvice {
@@ -34,24 +43,39 @@ public class CheckAdviceImp implements CheckAdvice {
 	}
 
 	@Override
-	public int queryAdviceNumber() {
-		String sql = "select  count(*) from tb_advice where status=\"0\"";
-		int amount = 0;
-		try {
-			amount = checkAdviceDao.queryRecordNumber(sql);
-		} catch (Exception e) {
-			// TODO: handle exception
-			System.out.println("数据库发生异常，请检查sql语句是否正确");
+	public int queryAdviceNumber(String Privilege) {
+		String sql = "";
+		if (Privilege.equals("c")) {
+			sql = "select  count(*) from tb_advice where Status=\"0\"";
+		} else {
+
+			sql = "select  count(*) from tb_advice where  Status=\"p\" and type=\""
+					+ Privilege + "\"";
+			// 字符串拼接得加\"\"
 		}
+		int amount = 0;
+		amount = checkAdviceDao.queryRecordNumber(sql);
+		/*
+		 * try { amount = checkAdviceDao.queryRecordNumber(sql); } catch
+		 * (Exception e) { // TODO: handle exception
+		 * System.out.println("数据库发生异常，请检查sql语句是否正确"); }
+		 */
 
 		return amount;
 	}
 
 	@Override
-	public List<Object> queryAdviceRecord() {
-		String sql = "select ADid,Title,Atime,type from tb_advice where status=?";
+	public List<Object> queryAdviceRecord(String Privilege) {
+		String sql = "";
 		param = new LinkedList<Object>();
-		param.add("0");
+		if (Privilege.equals("c")) {
+			sql = "select ADid,Title,Atime,type from tb_advice where status=?";
+			param.add("0");
+		} else {
+			sql = "select ADid,Title,Atime,type from tb_advice where type=? and status=?";
+			param.add(Privilege);
+			param.add("p");
+		}
 		adviceRecordList = new LinkedList<Object>();
 		try {
 			adviceRecordList = checkAdviceDao.query(sql, param);
@@ -59,7 +83,7 @@ public class CheckAdviceImp implements CheckAdvice {
 			// TODO: handle exception
 			System.out.println("数据库发生异常，请检查sql语句是否正确");
 		}
-		
+
 		// TODO Auto-generated method stub
 		if (adviceRecordList == null) {
 			System.out.println("建议表没有该记录");
@@ -82,8 +106,7 @@ public class CheckAdviceImp implements CheckAdvice {
 			System.out.println("数据库发生异常，请检查sql语句是否正确");
 			return null;
 		}
-		if(tbAdviceModel==null)
-		{
+		if (tbAdviceModel == null) {
 			System.out.println("数据库没有该条记录");
 			return null;
 		}
@@ -139,6 +162,7 @@ public class CheckAdviceImp implements CheckAdvice {
 		}
 		return visitorModel.getEmail();
 	}
+
 	// 使用queryDao实现的
 	/*
 	 * @Override public long getAdviceNumber() { // TODO Auto-generated method
@@ -207,5 +231,73 @@ public class CheckAdviceImp implements CheckAdvice {
 	 * 
 	 * }
 	 */
+
+	@Override
+	public void reply(tb_replyModel replyModel,tb_adminModel adminModel) {
+		Calendar cal1 = Calendar.getInstance();
+		TimeZone.setDefault(TimeZone.getTimeZone("GMT+8:00"));
+		java.text.SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddkkmmss");
+		//System.out.println(sdf.format(cal1.getTime()));
+		int randomNumber = (int) (Math.random() * 10);
+		//System.out.println(randomNumber);// test
+		String Rid = (sdf.format(cal1.getTime()) + randomNumber);
+		
+		Timestamp Time= new Timestamp(System.currentTimeMillis());
+		DateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		Time= Timestamp.valueOf(sdf1.format(Time));
+		String Aid=getAid(adminModel.getAccount());
+		String Title=replyModel.getTitle();
+		String Reply=replyModel.getReply();
+		String ADid=replyModel.getADid();
+		// TODO Auto-generated method stub
+		String sql = "insert into tb_reply values(?,?,?,?,?,?)";
+		param = new LinkedList<Object>();
+		param.add(Rid);
+		param.add(Title);
+		param.add(Reply);
+		param.add(ADid);
+		param.add(Time);
+		param.add(Aid);
+		try {
+			checkAdviceDao.update(sql, param);
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.out.println("tb_reply插入数据失败,请检查sql语句是否正确");
+			return;
+		}
+		param=new LinkedList<Object>();
+		param.add("1");
+		param.add(ADid);
+		sql = "update tb_advice set Status=? where ADid=?";
+		try {
+			checkAdviceDao.update(sql, param);
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.out.println("tb_advice更新数据失败,请检查sql语句是否正确");
+			return;
+		}
+	}
+
+	@Override
+	public String getAid(String Account) {
+		// TODO Auto-generated method stub
+		String sql = "select Aid from tb_admin where Account=\"" + Account
+				+ "\"";
+		String Aid;
+        tb_adminModel adminModel=new tb_adminModel();
+		try {
+			adminModel= (tb_adminModel) checkAdviceDao.queryAid(sql);
+			Aid=adminModel.getAid();
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.out.println("数据库发生异常，请检查sql语句是否正确");
+			return null;
+		}
+		if (Aid == null) {
+			System.out.println("数据库没有该条记录");
+			return null;
+		}
+		return Aid;
+	}
 
 }

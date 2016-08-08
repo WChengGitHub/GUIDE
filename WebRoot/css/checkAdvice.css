@@ -1,8 +1,8 @@
-@media(min-width:768px)
-{html,body
+
+html,body
  {
  height:100%;
-}}
+}
  .headerheader li
  {
 	  display: inline-block;
@@ -31,18 +31,37 @@
     color: #fff;
     background-color: #000;/*点击时背景颜色变白*/
 }
-
+.myModal1
+{
+	margin:0 auto;
+	width:800px;
+}
+.reply
+{
+	
+	height:600px;
+}
+.replycontentTitle
+{
+	margin-top:40px;
+}
+.replycontentContent
+{
+	margin-top:120px;
+}
+@media(min-width:768px)
+{
  .userAdvice
  {
 	 height:100%; margin-top:30px;
  }
  .userAdviceDiv
  {
-	 height:90%;
- }
+	 height:80%;
+}}
  .adviceContent
  {
-	 padding-top:20px;height:90%;margin-top:30px;
+	 padding-top:20px;height:80%;margin-top:30px;
  }
  .adviceContentHeader
  {
@@ -109,7 +128,7 @@
  }
  .userAdvice
  {
-	 height:70%; margin-top:30px;
+	 margin-top:20px;
  }
  .userAdviceDiv
  {
@@ -119,5 +138,10 @@
  {
 	 position:relative;
 	 left:20px;
+ }
+ .myTable
+ {
+	 position:relative;
+	 top:-10px;
  }
  }
