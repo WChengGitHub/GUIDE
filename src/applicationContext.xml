@@ -29,7 +29,8 @@
 		class="com.data.controller.visitorController.RegisterController"
 		scope="prototype" />
 
-	<bean name="/adminlogin.html" class="com.data.controller.adminController.adminFunctions.LoginController"/>
+	<bean name="/adminlogin.html"
+		class="com.data.controller.adminController.adminFunctions.LoginController" />
 
 
 
@@ -47,7 +48,8 @@
 	<!-- dao -->
 	<bean id="tb_visitordaoimp" class="com.data.dao.singleForm.tb_visitorDaoImp"
 		p:jdbcTemplate-ref="jdbcTemplate" />
-	<bean id="tb_admindaoimp" class="com.data.dao.singleForm.tb_adminDaoImp" p:jdbcTemplate-ref="jdbcTemplate" />
+	<bean id="tb_admindaoimp" class="com.data.dao.singleForm.tb_adminDaoImp"
+		p:jdbcTemplate-ref="jdbcTemplate" />
 
 
 	<!-- model -->
@@ -62,9 +64,10 @@
 		class="com.data.service.visitorService.registerService.RegisterServiceImp" /><!-- 
 		class为...RegisterService时会有黄线提示，运行后则打不开主页？ -->
 	<!-- adminService -->
-	<bean id="adminloginservice" class="com.data.service.adminService.adminFunctions.loginService.LoginServiceImp"/>
-	
-	
+	<bean id="adminloginservice"
+		class="com.data.service.adminService.adminFunctions.loginService.LoginServiceImp" />
+
+
 	<!-- singleForm -->
 
 
@@ -72,15 +75,32 @@
 	<!-- 增加MD5 -->
 	<bean id="encryption" class="com.data.md5.Encryption" />
 
-	<!-- 实现游客的建议与投诉功能-->
+	<!-- 实现游客的建议与投诉功能 -->
 	<context:component-scan base-package="com.data.controller.visitorController" />
-	<bean id="AdviceDao" class="com.data.dao.singleForm.pageOne.AdviceDao">
+	<bean id="AdviceDao" class="com.data.dao.singleForm.advicePage.AdviceDao">
 		<property name="jdbcTemplate" ref="jdbcTemplate"></property>
 	</bean>
-	<bean id="AdviceService" class="com.data.service.visitorService.adviceService.AdviceServiceImp">
-	    <property name="adviceDao" ref="AdviceDao"></property>
+	<bean id="AdviceService"
+		class="com.data.service.visitorService.adviceService.AdviceServiceImp">
+		<property name="adviceDao" ref="AdviceDao"></property>
 	</bean>
 
+	<!-- 实现审核投诉的功能 -->
+	<bean id="CheckAdviceDao" class="com.data.dao.singleForm.checkAdvicePage.CheckAdviceDao">
+		<property name="jdbcTemplate" ref="jdbcTemplate"></property>
+	</bean>
+	<bean id="QueryDao" class="com.data.dao.QueryDao">
+	     <property name="jdbcTemplate" ref="jdbcTemplate"></property>
+	</bean>
+	<bean id="CheckAdvice"
+		class="com.data.service.visitorService.checkAdviceService.CheckAdviceImp">
+		<property name="checkAdviceDao" ref="CheckAdviceDao"></property>
+		<property name="queryDao" ref="QueryDao"></property>
+	</bean>
+	
+	<bean id="TestDao" class="com.data.dao.singleForm.checkAdvicePage.TestDao">
+	     <property name="jdbcTemplate" ref="jdbcTemplate"></property>
+	</bean>
 
 	<!-- 视图解析 暂时没用 -->
 	<bean id="viewResolver"
