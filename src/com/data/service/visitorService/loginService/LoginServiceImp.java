@@ -7,10 +7,14 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 //import org.springframework.jdbc.core.JdbcTemplate;
 
 
+
+
 import com.data.dao.singleForm.tb_visitorDaoImp;
 import com.data.model.tb_visitorModel;
 
 public class LoginServiceImp implements LoginService{
+	
+	final int locked=3,passwordwrong=2,undefindvisitor=1,loginsuccess=0;
 	
 	static List<Object> param;
 	List<Object> tb_visitormodellist;
@@ -40,19 +44,21 @@ public class LoginServiceImp implements LoginService{
 					 String password=tb_visitormodel.getPassword();
 					 //查找得到的密码
 					 String password2=tb_visitormodel2.getPassword();
-	
-					 
-				     if(password.equals(password2))
-				    	  //密码正确返回0
-				    	 return 0;
-				     else 
-				    	 //密码错误返回2
-				    	 return 2;
-			 }
+					 //是否冻结的字段
+					 String lockstate=tb_visitormodel2.getLockstate();
+					 System.out.println(lockstate+"lockstate test");
+					 String lock="1";
+				if(tb_visitormodel2.getLockstate().equals(lock)){
+					System.out.println("Lock");
+					return locked;}
+				 else if(password.equals(password2))
+			    	 return loginsuccess;
+			     else 
+			    	 return passwordwrong;
+			 	}
 
-		 }catch (Exception e) {
-			  	//查找出错作为用户不存在返回1
-				return 1;
-		 }
-	}
+	 }catch (Exception e) {
+			return undefindvisitor;
+	 }
+}
 }

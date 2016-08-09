@@ -32,9 +32,15 @@
 	<bean name="/adminlogin.html"
 		class="com.data.controller.adminController.adminFunctions.LoginController" />
 
+	<bean name="/lockvisitor.html" class="com.data.controller.adminController.superAdminController.lockVisitorController"
+		scope="prototype" />
 
-
-
+	<bean name="/unlockvisitor.html" class="com.data.controller.adminController.superAdminController.unlockVisitorController"
+		scope="prototype" />
+		
+	<!-- Json动态加载 -->
+	<bean name="/json" class="com.data.controller.adminController.superAdminController.JSONAction"
+		scope="prototype" />
 
 
 	<!-- JdbcTemplate -->
@@ -66,8 +72,12 @@
 	<!-- adminService -->
 	<bean id="adminloginservice"
 		class="com.data.service.adminService.adminFunctions.loginService.LoginServiceImp" />
-
-
+	
+	<!-- superAdminService -->
+	<bean id="lockvisitorservice" class="com.data.service.adminService.superAdminFunctions.lockVisitorService.lockVisitorServiceImp"/>
+	<bean id="unlockvisitorservice" class="com.data.service.adminService.superAdminFunctions.unlockVisitorService.unlockVisitorServiceImp"/>
+	
+	
 	<!-- singleForm -->
 
 

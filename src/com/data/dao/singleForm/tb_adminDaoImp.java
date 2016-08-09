@@ -61,10 +61,11 @@ public class tb_adminDaoImp implements Dao{
 	
 	@Override
 	//删
-	public void delete(Object object) {  
+	public void delete(Object object,String Sql) {  
 		tb_visitorModel tb_visitormodel=(tb_visitorModel)object;
 		JdbcTemplate jt=this.getJdbcTemple();
 		try{
+		//要用时应改为外部传参
 		String del="delete from test where Visitor=?";
 		jt.update(del,new Object[] {tb_visitormodel.getVisitor()}); 
 		} catch (Exception e){
@@ -98,12 +99,13 @@ public class tb_adminDaoImp implements Dao{
 						
 						tb_adminmodel.setAccount(rs.getString("Account"));
 						System.out.println(tb_adminmodel.getAccount());
-					} catch (Exception e){ System.out.println("error setVisitor");}
+					} catch (Exception e){ System.out.println("error setAccount");}
 					
-//			        try { 
-//			        	tb_visitormodel.setVid(rs.getString("Vid"));
-//					} catch (Exception e){ System.out.println("error setVid");}
-//			        
+					 try { 
+				        	tb_adminmodel.setPrivilege(rs.getString("Privilege"));
+				        	System.out.println(tb_adminmodel.getPrivilege());
+						} catch (Exception e){ System.out.println("error setPrivilege");}
+			        
 			        try { 
 			        	tb_adminmodel.setPassword(rs.getString("Password"));
 			        	System.out.println(tb_adminmodel.getPassword());
@@ -131,10 +133,11 @@ public class tb_adminDaoImp implements Dao{
 		
 	//改	
 	@Override
-	public void update(Object object) { 
+	public void update(Object object,String Sql) { 
 		tb_visitorModel tb_visitormodel=(tb_visitorModel)object;
 		JdbcTemplate jt=this.getJdbcTemple();
 		try{
+		//需要用时得改为外部传参	
 		String update=" update tb_visitor "+
 				" Password=?"+" where Visitor=? ";
 		jt.update(update,new Object[]{"1","2",tb_visitormodel.getPassword(),tb_visitormodel.getVisitor()});

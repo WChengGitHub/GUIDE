@@ -60,12 +60,12 @@ public class tb_visitorDaoImp implements Dao{
 	
 	@Override
 	//删
-	public void delete(Object object) {  
+	public void delete(Object object,String Sql) {  
 		tb_visitorModel tb_visitormodel=(tb_visitorModel)object;
 		JdbcTemplate jt=this.getJdbcTemple();
 		try{
-		String del="delete from test where Visitor=?";
-		jt.update(del,new Object[] {tb_visitormodel.getVisitor()}); 
+		
+		jt.update(Sql,tb_visitormodel.getVid()); 
 		} catch (Exception e){
 			System.out.println("error");
 		}
@@ -82,7 +82,7 @@ public class tb_visitorDaoImp implements Dao{
 					for (int i = 0; i < param.size(); i++) {
 						try {
 								ps.setObject(i + 1, param.get(i));
-							    System.out.println(param.get(i)+"1111111111");
+							//    System.out.println(param.get(i)+"1111111111");
 							} catch (SQLException e){
 								System.out.println("Pstmt中Sql语句参数注入异常");
 								e.printStackTrace();
@@ -96,7 +96,7 @@ public class tb_visitorDaoImp implements Dao{
 					try {
 						
 						tb_visitormodel.setVisitor(rs.getString("Visitor"));
-						System.out.println(tb_visitormodel.getVisitor());
+					//	System.out.println(tb_visitormodel.getVisitor());
 					} catch (Exception e){ System.out.println("error setVisitor");}
 					
 			        try { 
@@ -118,7 +118,11 @@ public class tb_visitorDaoImp implements Dao{
 			        try { 
 			        	tb_visitormodel.setGender(rs.getString("Gender"));
 					} catch (Exception e){ System.out.println("error setGender");}
+			        try { 
+			        	tb_visitormodel.setLockstate(rs.getString("Lockstate"));
+					} catch (Exception e){ System.out.println("error setLockstate");}
 
+			        
 			        return tb_visitormodel;
 		}
 	}); 
@@ -129,14 +133,13 @@ public class tb_visitorDaoImp implements Dao{
 		
 	//改	
 	@Override
-	public void update(Object object) { 
+	public void update(Object object,String Sql) { 
 		tb_visitorModel tb_visitormodel=(tb_visitorModel)object;
 		JdbcTemplate jt=this.getJdbcTemple();
 		try{
-		String update=" update tb_visitor "+
-				" Password=?"+" where Visitor=? ";
-		jt.update(update,new Object[]{"1","2",tb_visitormodel.getPassword(),tb_visitormodel.getVisitor()});
 		
+		
+		jt.update(Sql,tb_visitormodel.getVid());
 		} catch (Exception e){
 			System.out.println("error");
 		}
