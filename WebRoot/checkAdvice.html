@@ -18,10 +18,7 @@
 a:hover {
 	text-decoration: none;
 }
-#replyAdvice
-{
-height:300px;
-}
+
 .myModal {
 	width: 300px;
 }
@@ -40,12 +37,17 @@ height:300px;
 	position: relative;
 	top: 30px;
 }
- .mymodal1div
- {
- width:40%;
- }
- .mymodal1divdiv
- {width:100%;}
+
+.mymodal1div {
+	width: 40%;
+}
+
+.mymodal1divdiv {
+	width: 100%;
+}
+#replyAdvice {
+	height: 300px;
+}
 @media ( max-width :768px) {
 	.myModal {
 		position: absolute;
@@ -55,52 +57,69 @@ height:300px;
 	.myThead {
 		width: 300px;
 	}
+}
 
+#replyTitle {
+	height: 60px;
+	line-height: 46px;
+	font-size: 14px;
 }
-#replyTitle{height:60px;line-height:46px;font-size:14px;}
-#Title{height:60px;line-height:46px;font-size:14px;}
-#Advice{text-indent:2em;line-height:2em;}
-.mybutton1
-{width:300px;
+
+#Title {
+	height: 60px;
+	line-height: 46px;
+	font-size: 14px;
 }
-@media ( max-width :768px){
-#replyAdvice
-{
-height:100%;
+
+#Advice {
+	text-indent: 2em;
+	line-height: 2em;
 }
-.mymodal1div
- {
- width:95%;
- height:500px;
- }
- .mymodal1divdiv
- {width:100%;height:500px;}
-.myModal1
-{
-	margin:0 auto;
-	width:100%;
-	height:500px;
-}
+
 .mybutton1 {
+	width: 300px;
+}
+
+@media ( max-width :768px) {
 	
-	position: relative;
-	top: 20px;
-}
-#replyTitle{height:50px;line-height:36px;font-size:14px;}
-.reply
-{
-	width:100%;
-	height:100%;
-}
-.replycontentTitle
-{
-	margin-top:10px;
-}
-.replycontentContent
-{
-	margin-top:10px;
-	height:250px;
-}
+	.myModal1 {
+		margin: 0 auto;
+		width: 100%;
+		height: 500px;
+	}
+	.mymodal1div {
+		width: 95%;
+		height: 500px;
+	}
+	.mymodal1divdiv {
+		width: 100%;
+		height: 500px;
+	}
+	
+	.mybutton1 {
+		position: relative;
+		top: 20px;
+	}
+	
+	.reply {
+		width: 100%;
+		height: 100%;
+	}
+	.replycontentTitle {
+		margin-top: 10px;
+	}
+	.replycontentContent {
+		margin-top: 10px;
+		height: 250px;
+	}
+	#replyTitle {
+		height: 50px;
+		line-height: 36px;
+		font-size: 14px;
+	}
+	#replyAdvice {
+		height: 100%;
+	}
 }
 </style>
 <!--<script type="text/javascript">
@@ -418,7 +437,7 @@ $(function(){//相当于$(document).ready(function(){
 		//var y=document.getElementById("password").value;
 		//alert(x+" "+y);
 		//document.cookie="username="+x+";expires="+ now.toGMTString();
-		document.cookie = "Privilege=c;expires=" + now.toGMTString();
+		document.cookie = "Privilege=d;expires=" + now.toGMTString();
 		//document.cookie="Account=Hello;expires="+now.toGMTString();
 		document.cookie = "Account=Hello;expires=" + now.toGMTString();
 		//alert("cookie:"+document.cookie);
@@ -431,32 +450,32 @@ $(function(){//相当于$(document).ready(function(){
 		var Title = document.getElementById("replyTitle").value;
 		//alert(ADid);
 		var Reply = document.getElementById("replyAdvice").value;
-		alert("Vid:" + Vid + " " + "ADid:" + ADid + " " + "Title:" + Title
-				+ "Reply:" + Reply + "Account:" + Account);
-		$
-				.ajax({
-					type : 'post',
-					url : encodeURI(encodeURI("sendReply?Vid="+Vid+"&ADid="+ADid+"&Title="+Title+"&Reply="+Reply+"&Account="+Account)),
-					contentType : 'application/json;charset=utf-8',//指定为json类型 //数据格式是json串，商品信息 
-					dataType : "json",
-					success : function(data) {//返回json结果 
-						//var html = '';
-						//alert("dataSuccess");
-						//alert(data); 
-						//alert(data.number);
-						//if (data.number != 0) {
-						//	document.getElementById("adviceNumber").innerHTML = data.number;
-						//} else {
-							//document.getElementById("adviceNumber").innerHTML = "";
-						//}
-						$("#mymodal").modal("toggle");
-						getAdviceNumber();
-						getAdviceRecordList();   
-					}
-				});
+		//alert("Vid:" + Vid + " " + "ADid:" + ADid + " " + "Title:" + Title
+		//+ "Reply:" + Reply + "Account:" + Account);
+		$.ajax({
+			type : 'post',
+			url : encodeURI(encodeURI("sendReply?Vid=" + Vid + "&ADid=" + ADid
+					+ "&Title=" + Title + "&Reply=" + Reply + "&Account="
+					+ Account)),
+			contentType : 'application/json;charset=utf-8',//指定为json类型 //数据格式是json串，商品信息 
+			dataType : "json",
+			success : function(data) {//返回json结果 
+				//var html = '';
+				//alert("dataSuccess");
+				//alert(data); 
+				//alert(data.number);
+				//if (data.number != 0) {
+				//	document.getElementById("adviceNumber").innerHTML = data.number;
+				//} else {
+				//document.getElementById("adviceNumber").innerHTML = "";
+				//}
+				$("#mymodal").modal("toggle");
+				getAdviceNumber();
+				getAdviceRecordList();
+			}
+		});
 	}
-	function getmymodaldata()
-	{
+	function getmymodaldata() {
 		$("#mymodal-data").modal("toggle");
 	}
 	setCookie();
@@ -523,12 +542,11 @@ $(function(){//相当于$(document).ready(function(){
 
 
 		<div class="form-group contentTitle">
-			<textarea id="Title" 
+			<textarea id="Title"
 				class="form-control col-lg-6 col-md-12 text-center"></textarea>
 		</div>
 		<div class="form-group contentContent">
-			<textarea id="Advice" 
-				class="form-control col-lg-12 col-md-12"></textarea>
+			<textarea id="Advice" class="form-control col-lg-12 col-md-12"></textarea>
 		</div>
 		<div class="footer" id="checkFooter">
 			<div class="radio">
@@ -549,7 +567,7 @@ $(function(){//相当于$(document).ready(function(){
 		</div>
 		<button class="btn btn-default mybutton1 btn-primary input-lg"
 			id="replyButton" type="button" value="回复" onclick="getmymodaldata()"
-			 style="width:300px;display:none;" />
+			style="width:300px;display:none;" />
 		回复
 
 		</button>
@@ -557,7 +575,7 @@ $(function(){//相当于$(document).ready(function(){
 			style="display:none;"></textarea>
 
 	</div>
-	
+
 	<div class="modal fade text-center mymodal1" id="mymodal-data">
 		<div class="modal-dialog text-center mymodal1div";>
 			<div class="modal-content mymodal1divdiv ">
@@ -573,8 +591,7 @@ $(function(){//相当于$(document).ready(function(){
 							class="form-control col-lg-12 col-md-12" style=""></textarea>
 					</div>
 					<button class="btn btn-default mybutton1 btn-primary input-lg"
-						type="button" value="提交" onclick="sendReply()"
-						>提交</button>
+						type="button" value="提交" onclick="sendReply()">提交</button>
 				</div>
 			</div>
 
