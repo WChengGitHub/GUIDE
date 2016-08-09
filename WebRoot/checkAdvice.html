@@ -270,6 +270,7 @@ $(function(){//相当于$(document).ready(function(){
 		var ADid = y; //document.getElementById("ADid").value;
 		//alert(ADid);
 		document.getElementById("ADid").innerHTML = ADid;
+		
 		var vid = document.getElementById("Vid").innerHTML;
 		//alert(vid);
 		$
@@ -299,7 +300,7 @@ $(function(){//相当于$(document).ready(function(){
 				});
 	}
 	function sendAdviceStatus() {
-		var ADid = document.getElementById("ADid").value;
+		var ADid = document.getElementById("ADid").innerHTML;
 		//alert(ADid);
 		var Vid = document.getElementById("Vid").innerHTML;
 		//alert(Vid);
@@ -406,6 +407,10 @@ $(function(){//相当于$(document).ready(function(){
 			//alert(3);
 			document.getElementById("Admin").innerHTML = ("审核管理员");
 		}
+		else
+			{
+			window.open("Home.html", "_self");
+			}
 		//alert(22222222);
 	}
 	function hiddenMyMenuAndCaret() {
@@ -423,7 +428,9 @@ $(function(){//相当于$(document).ready(function(){
 		//alert("Account:"+Account+" "+"Privilege:"+Privilege);
 		if (Account == null || Privilege == null || Account == undefined
 				|| Privilege == undefined) {
-			window.open("in.html");
+			
+		     //alert("window.open");
+			window.open("Home.html", "_self");
 		} else {
 			//alert("changeName");
 			changeDisplay();
@@ -437,7 +444,7 @@ $(function(){//相当于$(document).ready(function(){
 		//var y=document.getElementById("password").value;
 		//alert(x+" "+y);
 		//document.cookie="username="+x+";expires="+ now.toGMTString();
-		document.cookie = "Privilege=d;expires=" + now.toGMTString();
+		document.cookie = "Privilege=s;expires=" + now.toGMTString();
 		//document.cookie="Account=Hello;expires="+now.toGMTString();
 		document.cookie = "Account=Hello;expires=" + now.toGMTString();
 		//alert("cookie:"+document.cookie);
@@ -470,8 +477,14 @@ $(function(){//相当于$(document).ready(function(){
 				//document.getElementById("adviceNumber").innerHTML = "";
 				//}
 				$("#mymodal").modal("toggle");
+				document.getElementById("ADid").innerHTML="";
+				//alert("document.getElementById(ADid).value:"+document.getElementById("ADid").innerHTML);
 				getAdviceNumber();
 				getAdviceRecordList();
+			},
+			error : function() {
+				 //alert("myModalError");
+				$("#mymodalerror").modal("toggle");
 			}
 		});
 	}
@@ -479,6 +492,7 @@ $(function(){//相当于$(document).ready(function(){
 		$("#mymodal-data").modal("toggle");
 	}
 	setCookie();
+	//judgeAdmin();
 </script>
 </head>
 <body>
@@ -604,6 +618,19 @@ $(function(){//相当于$(document).ready(function(){
 				<div class="modal-header"></div>
 				<div class="modal-body">
 					<h3>提交成功</h3>
+				</div>
+				<div class="modal-footer"></div>
+			</div>
+			<!-- /.modal-content -->
+		</div>
+		<!-- /.modal-dialog -->
+	</div>
+	<div class="modal fade text-center " id="mymodalerror">
+		<div class="modal-dialog myModal">
+			<div class="modal-content">
+				<div class="modal-header"></div>
+				<div class="modal-body">
+					<h3>提交失败</h3>
 				</div>
 				<div class="modal-footer"></div>
 			</div>

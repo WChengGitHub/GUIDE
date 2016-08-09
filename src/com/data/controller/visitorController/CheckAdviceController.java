@@ -147,7 +147,7 @@ public class CheckAdviceController {
 
 	@RequestMapping("/sendReply")
 	@ResponseBody
-	public void sendReply(HttpServletResponse response,
+	public String sendReply(HttpServletResponse response,
 			@RequestParam(value = "ADid", required = false) String ADid,
 			@RequestParam(value = "Vid", required = false) String Vid,
 			@RequestParam(value = "Title", required = false) String Title,
@@ -161,7 +161,7 @@ public class CheckAdviceController {
 				+ "&Reply=" + Reply + "&Account=" + Account);
 		if (ADid.length() == 0 || Vid.length() == 0 || Title.length() == 0
 				|| Reply.length() == 0 || Account.length() == 0)
-			return;
+			return null;
 		ApplicationContext factory = new ClassPathXmlApplicationContext(
 				"applicationContext.xml");
 		CheckAdvice checkAdvice = (CheckAdvice) factory.getBean("CheckAdvice");
@@ -175,12 +175,13 @@ public class CheckAdviceController {
 		try {
 			checkAdvice.reply(replyModel, adminModel);
 		} catch (Exception e) {
-			return;
+			return null;
 		}
 		SendEmail.sendEmail(checkAdvice.queryVisitorEmail(Vid), Title, Reply);
-		Writer writer = response.getWriter();
+		//Writer writer = response.getWriter();
 		String json = "{\"status\":\"success\"}";
-		writer.write(json);
+		//writer.write(json);
+		return json;
 	}
 
 	public static void main(String[] args) {
