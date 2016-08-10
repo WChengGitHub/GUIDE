@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>checkAdvice</title>
+<title>checkAndReplyAdvice</title>
 <meta charset="utf-8">
 <meta name="viewport"
 	content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
@@ -30,12 +30,12 @@ a:hover {
 .mybutton1 {
 	width: 400px;
 	position: relative;
-	top: 50px;
+	top: 35px;
 }
 
 .footer {
-	position: relative;
-	top: 30px;
+	
+	
 }
 
 .mymodal1div {
@@ -198,12 +198,12 @@ $(function(){//相当于$(document).ready(function(){
 
 							var length = data.length;
 							$("#Pagination1").pagination(length, {
-								items_per_page : 15,
+								items_per_page : 10,
 								callback : pageselectCallback
 							});
 
 							function pageselectCallback(page_index, jq) {
-								var items_per_page = 15;
+								var items_per_page = 10;
 								var max_elem = Math.min((page_index + 1)
 										* items_per_page, length);
 
@@ -444,7 +444,7 @@ $(function(){//相当于$(document).ready(function(){
 		//var y=document.getElementById("password").value;
 		//alert(x+" "+y);
 		//document.cookie="username="+x+";expires="+ now.toGMTString();
-		document.cookie = "Privilege=s;expires=" + now.toGMTString();
+		document.cookie = "Privilege=c;expires=" + now.toGMTString();
 		//document.cookie="Account=Hello;expires="+now.toGMTString();
 		document.cookie = "Account=Hello;expires=" + now.toGMTString();
 		//alert("cookie:"+document.cookie);

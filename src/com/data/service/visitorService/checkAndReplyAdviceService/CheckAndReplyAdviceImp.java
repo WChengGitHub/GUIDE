@@ -10,29 +10,51 @@ import java.util.List;
 import java.util.Map;
 import java.util.TimeZone;
 
-import sun.management.counter.Variability;
-
 import com.data.dao.QueryDao;
-import com.data.dao.singleForm.checkAdvicePage.CheckAdviceDao;
+import com.data.dao.singleForm.tb_adminDao;
+import com.data.dao.singleForm.tb_adviceDao;
+import com.data.dao.singleForm.tb_visitorDao;
 import com.data.model.tb_adminModel;
 import com.data.model.tb_adviceModel;
 import com.data.model.tb_replyModel;
 import com.data.model.tb_visitorModel;
 
 public class CheckAndReplyAdviceImp implements CheckAndReplyAdvice {
-	private CheckAdviceDao checkAdviceDao;
+
 	private QueryDao queryDao;
+	private tb_adviceDao adviceDao;
+	private tb_visitorDao visitorDao;
+	private tb_adminDao adminDao;
+	
+	public tb_adminDao getAdminDao() {
+		return adminDao;
+	}
+
+	public void setAdminDao(tb_adminDao adminDao) {
+		this.adminDao = adminDao;
+	}
+
+	public tb_visitorDao getVisitorDao() {
+		return visitorDao;
+	}
+
+	public void setVisitorDao(tb_visitorDao visitorDao) {
+		this.visitorDao = visitorDao;
+	}
+
+	public tb_adviceDao getAdviceDao() {
+		return adviceDao;
+	}
+
+	public void setAdviceDao(tb_adviceDao adviceDao) {
+		this.adviceDao = adviceDao;
+	}
+
 	private List<Object> param;
 	private List<Object> adviceRecordList;
 	private List<Object> list;
 
-	public CheckAdviceDao getCheckAdviceDao() {
-		return checkAdviceDao;
-	}
-
-	public void setCheckAdviceDao(CheckAdviceDao checkAdviceDao) {
-		this.checkAdviceDao = checkAdviceDao;
-	}
+	
 
 	public QueryDao getQueryDao() {
 		return queryDao;
@@ -54,7 +76,8 @@ public class CheckAndReplyAdviceImp implements CheckAndReplyAdvice {
 			// 字符串拼接得加\"\"
 		}
 		int amount = 0;
-		amount = checkAdviceDao.queryRecordNumber(sql);
+		//amount = checkAdviceDao.queryRecordNumber(sql);
+		amount=adviceDao.queryRecordNumber(sql);
 		/*
 		 * try { amount = checkAdviceDao.queryRecordNumber(sql); } catch
 		 * (Exception e) { // TODO: handle exception
@@ -78,7 +101,8 @@ public class CheckAndReplyAdviceImp implements CheckAndReplyAdvice {
 		}
 		adviceRecordList = new LinkedList<Object>();
 		try {
-			adviceRecordList = checkAdviceDao.query(sql, param);
+			//adviceRecordList = checkAdviceDao.query(sql, param);
+			adviceRecordList=adviceDao.query(sql, param);
 		} catch (Exception e) {
 			// TODO: handle exception
 			System.out.println("数据库发生异常，请检查sql语句是否正确");
@@ -100,7 +124,8 @@ public class CheckAndReplyAdviceImp implements CheckAndReplyAdvice {
 		tb_adviceModel tbAdviceModel;
 
 		try {
-			tbAdviceModel = (tb_adviceModel) checkAdviceDao.queryAdvice(sql);
+			//tbAdviceModel = (tb_adviceModel) checkAdviceDao.queryAdvice(sql);
+			tbAdviceModel=(tb_adviceModel) adviceDao.queryAdvice(sql);
 		} catch (Exception e) {
 			// TODO: handle exception
 			System.out.println("数据库发生异常，请检查sql语句是否正确");
@@ -135,7 +160,8 @@ public class CheckAndReplyAdviceImp implements CheckAndReplyAdvice {
 		}
 
 		try {
-			checkAdviceDao.update(sql, param);
+			//checkAdviceDao.update(sql, param);
+			adviceDao.update(sql, param);
 		} catch (Exception e) {
 			System.out.println("CheckAdviceImp:数据库更新失败");
 			// TODO: handle exception
@@ -151,7 +177,8 @@ public class CheckAndReplyAdviceImp implements CheckAndReplyAdvice {
 		String sql = "select Email from tb_visitor where Vid=" + Vid;
 		tb_visitorModel visitorModel = new tb_visitorModel();
 		try {
-			visitorModel = (tb_visitorModel) checkAdviceDao.queryEmail(sql);
+			//visitorModel = (tb_visitorModel) checkAdviceDao.queryEmail(sql);
+			visitorModel=(tb_visitorModel) visitorDao.queryEmail(sql);
 		} catch (Exception e) {
 			System.out.println("数据库发生异常，请检查sql语句是否正确");
 			return null;
@@ -259,7 +286,8 @@ public class CheckAndReplyAdviceImp implements CheckAndReplyAdvice {
 		param.add(Time);
 		param.add(Aid);
 		try {
-			checkAdviceDao.update(sql, param);
+			//checkAdviceDao.update(sql, param);
+			adminDao.update(sql, param);
 		} catch (Exception e) {
 			// TODO: handle exception
 			System.out.println("tb_reply插入数据失败,请检查sql语句是否正确");
@@ -270,7 +298,8 @@ public class CheckAndReplyAdviceImp implements CheckAndReplyAdvice {
 		param.add(ADid);
 		sql = "update tb_advice set Status=? where ADid=?";
 		try {
-			checkAdviceDao.update(sql, param);
+			//checkAdviceDao.update(sql, param);
+			adviceDao.update(sql, param);
 		} catch (Exception e) {
 			// TODO: handle exception
 			System.out.println("tb_advice更新数据失败,请检查sql语句是否正确");
@@ -286,7 +315,8 @@ public class CheckAndReplyAdviceImp implements CheckAndReplyAdvice {
 		String Aid;
         tb_adminModel adminModel=new tb_adminModel();
 		try {
-			adminModel= (tb_adminModel) checkAdviceDao.queryAid(sql);
+			//adminModel= (tb_adminModel) checkAdviceDao.queryAid(sql);
+			adminModel=(tb_adminModel) adminDao.queryAid(sql);
 			Aid=adminModel.getAid();
 		} catch (Exception e) {
 			// TODO: handle exception

@@ -21,6 +21,10 @@
 	<mvc:annotation-driven />
 
 
+    <!-- 扫描包 -->
+    <context:component-scan base-package="com.data.controller.visitorController" />
+    
+    
 	<!-- 前台请求发送到对应控制器 -->
 	<bean name="/login.html" class="com.data.controller.visitorController.LoginController"
 		scope="prototype" />
@@ -32,14 +36,17 @@
 	<bean name="/adminlogin.html"
 		class="com.data.controller.adminController.adminFunctions.LoginController" />
 
-	<bean name="/lockvisitor.html" class="com.data.controller.adminController.superAdminController.lockVisitorController"
+	<bean name="/lockvisitor.html"
+		class="com.data.controller.adminController.superAdminController.lockVisitorController"
 		scope="prototype" />
 
-	<bean name="/unlockvisitor.html" class="com.data.controller.adminController.superAdminController.unlockVisitorController"
+	<bean name="/unlockvisitor.html"
+		class="com.data.controller.adminController.superAdminController.unlockVisitorController"
 		scope="prototype" />
-		
+
 	<!-- Json动态加载 -->
-	<bean name="/json" class="com.data.controller.adminController.superAdminController.JSONAction"
+	<bean name="/json"
+		class="com.data.controller.adminController.superAdminController.JSONAction"
 		scope="prototype" />
 
 
@@ -56,7 +63,15 @@
 		p:jdbcTemplate-ref="jdbcTemplate" />
 	<bean id="tb_admindaoimp" class="com.data.dao.singleForm.tb_adminDaoImp"
 		p:jdbcTemplate-ref="jdbcTemplate" />
-
+	<bean id="adviceDao" class="com.data.dao.singleForm.tb_adviceDao">
+		<property name="jdbcTemplate" ref="jdbcTemplate"></property>
+	</bean>
+	<bean id="visitorDao" class="com.data.dao.singleForm.tb_visitorDao">
+		<property name="jdbcTemplate" ref="jdbcTemplate"></property>
+	</bean>
+	<bean id="adminDao" class="com.data.dao.singleForm.tb_adminDao">
+		<property name="jdbcTemplate" ref="jdbcTemplate"></property>
+	</bean>
 
 	<!-- model -->
 	<bean id="tb_visitormodel" class="com.data.model.tb_visitorModel" />
@@ -72,12 +87,14 @@
 	<!-- adminService -->
 	<bean id="adminloginservice"
 		class="com.data.service.adminService.adminFunctions.loginService.LoginServiceImp" />
-	
+
 	<!-- superAdminService -->
-	<bean id="lockvisitorservice" class="com.data.service.adminService.superAdminFunctions.lockVisitorService.lockVisitorServiceImp"/>
-	<bean id="unlockvisitorservice" class="com.data.service.adminService.superAdminFunctions.unlockVisitorService.unlockVisitorServiceImp"/>
-	
-	
+	<bean id="lockvisitorservice"
+		class="com.data.service.adminService.superAdminFunctions.lockVisitorService.lockVisitorServiceImp" />
+	<bean id="unlockvisitorservice"
+		class="com.data.service.adminService.superAdminFunctions.unlockVisitorService.unlockVisitorServiceImp" />
+
+
 	<!-- singleForm -->
 
 
@@ -85,8 +102,8 @@
 	<!-- 增加MD5 -->
 	<bean id="encryption" class="com.data.md5.Encryption" />
 
-	<!-- 实现游客的建议与投诉功能 -->
-	<context:component-scan base-package="com.data.controller.visitorController" />
+	<!-- adviceService -->
+	
 	<bean id="AdviceDao" class="com.data.dao.singleForm.advicePage.AdviceDao">
 		<property name="jdbcTemplate" ref="jdbcTemplate"></property>
 	</bean>
@@ -95,22 +112,21 @@
 		<property name="adviceDao" ref="AdviceDao"></property>
 	</bean>
 
-	<!-- 实现审核投诉的功能 -->
-	<bean id="CheckAdviceDao" class="com.data.dao.singleForm.checkAdvicePage.CheckAdviceDao">
-		<property name="jdbcTemplate" ref="jdbcTemplate"></property>
-	</bean>
+	<!-- checkAndReplyAdviceService -->
+	
 	<bean id="QueryDao" class="com.data.dao.QueryDao">
-	     <property name="jdbcTemplate" ref="jdbcTemplate"></property>
+		<property name="jdbcTemplate" ref="jdbcTemplate"></property>
 	</bean>
 	<bean id="CheckAdvice"
 		class="com.data.service.visitorService.checkAndReplyAdviceService.CheckAndReplyAdviceImp">
-		<property name="checkAdviceDao" ref="CheckAdviceDao"></property>
+		
 		<property name="queryDao" ref="QueryDao"></property>
+		<property name="adviceDao" ref="adviceDao"></property>
+		<property name="visitorDao" ref="visitorDao"></property>
+		<property name="adminDao" ref="adminDao"></property>
 	</bean>
+
 	
-	<bean id="TestDao" class="com.data.dao.singleForm.checkAdvicePage.TestDao">
-	     <property name="jdbcTemplate" ref="jdbcTemplate"></property>
-	</bean>
 
 	<!-- 视图解析 暂时没用 -->
 	<bean id="viewResolver"

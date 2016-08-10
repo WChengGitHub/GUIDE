@@ -27,6 +27,12 @@ public class tb_adviceDao {
 		return jdbcTemplate;
 	}
 
+	@SuppressWarnings("deprecation")
+	public int queryRecordNumber(String sql) {
+		return jdbcTemplate.queryForInt(sql);
+
+	}
+
 	public Object queryAdvice(String sql) {// 根据ADid
 		return jdbcTemplate.queryForObject(sql, new RowMapper<Object>() {
 			@Override

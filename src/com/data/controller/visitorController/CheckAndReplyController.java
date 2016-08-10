@@ -25,7 +25,7 @@ import com.data.service.visitorService.checkAndReplyAdviceService.CheckAndReplyA
 import com.data.service.visitorService.checkAndReplyAdviceService.SendEmail;
 
 @Controller
-public class CheckAdviceController {
+public class CheckAndReplyController {
 	@RequestMapping("/getAdviceNumber")
 	@ResponseBody
 	public void getAdviceNumber(
