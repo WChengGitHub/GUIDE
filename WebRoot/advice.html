@@ -27,16 +27,17 @@
 		var Visitor = "0";
 		for (var i = 0; i < arrCookie.length; i++) {
 			var arr = arrCookie[i].split("=");
+			arr[0] = $.trim(arr[0]);
 			if ("Visitor" == arr[0]) {
 				Visitor = arr[1];
 				break;
 			}
 		}
 		if (Visitor == "0") {
-			alert("Visitor:" + Visitor);
+			//alert("Visitor:" + Visitor);
 			window.open("in.html", "_self");
 		} else {
-			visitor = "guide";
+			visitor =Visitor;
 			//alert(visitor);
 		}
 	}
@@ -50,7 +51,7 @@
 			}
 		}
 		if (itemvalue != "") {
-			alert(itemvalue);
+			//alert(itemvalue);
 			type = itemvalue;
 		} else {
 			alert('还未选择');
@@ -68,7 +69,7 @@
 		//alert("111");
 		xmlhttp.onreadystatechange = function() {
 			if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-
+                       alert("提交成功");
 			}
 		}
 		//alert(1111);
@@ -90,8 +91,8 @@
 		getRadioValue();
 		var title = document.getElementById("Title").value;
 		var advice = document.getElementById("Advice").value;
-		alert(title + " " + advice);
-		alert(visitor + " " + type + " " + title + " " + advice);
+		//alert(title + " " + advice);
+		//alert(visitor + " " + type + " " + title + " " + advice);
 		var url = "visitorAdvice?visitor=" + visitor + "&type=" + type
 				+ "&title=" + title + "&advice=" + advice;
 		url = encodeURI(encodeURI(url));
@@ -106,6 +107,20 @@
 		//alert(2);
 		//XMLHTTpReq.send(url);
 	}
+	function setCookie() {
+		//alert(1);
+		var now = new Date();
+		now.setTime(now.getTime() + 5 * 60 * 1000);
+		//var x=document.getElementById("username").value;
+		//var y=document.getElementById("password").value;
+		//alert(x+" "+y);
+		document.cookie="Visitor=guide;expires="+ now.toGMTString();
+		//document.cookie = "Privilege=s;expires=" + now.toGMTString();
+		//document.cookie="Account=Hello;expires="+now.toGMTString();
+		//document.cookie = "Account=Hello;expires=" + now.toGMTString();
+		//alert("cookie:"+document.cookie);
+	}
+	//setCookie();
 </script>
 </head>
 <body>
