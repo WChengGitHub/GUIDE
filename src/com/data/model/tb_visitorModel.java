@@ -7,6 +7,8 @@ public class tb_visitorModel {
 	private String Telephone;
 	private String Email;
 	private String Password;
+	private String Lockstate;
+	
 	public String getVid() {
 		return Vid;
 	}
@@ -42,6 +44,12 @@ public class tb_visitorModel {
 	}
 	public void setPassword(String password) {
 		Password = password;
+	}
+	public String getLockstate() {
+		return Lockstate;
+	}
+	public void setLockstate(String lockstate) {
+		Lockstate = lockstate;
 	}
 	
 	

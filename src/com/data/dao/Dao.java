@@ -13,16 +13,12 @@ public interface Dao {
 
 	public void add(Object object,String Sql);
 	
-	public void delete(Object object);
+	public void delete(Object object,String Sql);
 	
 
 	public List<Object> query(String sql, List<Object> param);//鏌�
     
-
-
 	
-
-	
-	public void update(Object object);
+	public void update(Object object,String Sql);
 
 }
