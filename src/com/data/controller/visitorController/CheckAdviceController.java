@@ -21,8 +21,8 @@ import com.data.model.tb_adminModel;
 import com.data.model.tb_adviceModel;
 import com.data.model.tb_replyModel;
 import com.data.model.tb_visitorModel;
-import com.data.service.visitorService.checkAdviceService.CheckAdvice;
-import com.data.service.visitorService.checkAdviceService.SendEmail;
+import com.data.service.visitorService.checkAndReplyAdviceService.CheckAndReplyAdvice;
+import com.data.service.visitorService.checkAndReplyAdviceService.SendEmail;
 
 @Controller
 public class CheckAdviceController {
@@ -34,7 +34,7 @@ public class CheckAdviceController {
 			throws IOException {
 		ApplicationContext factory = new ClassPathXmlApplicationContext(
 				"applicationContext.xml");
-		CheckAdvice checkAdvice = (CheckAdvice) factory.getBean("CheckAdvice");
+		CheckAndReplyAdvice checkAdvice = (CheckAndReplyAdvice) factory.getBean("CheckAdvice");
 		// System.out.println(checkAdvice.getAdviceNumber());
 		if (Privilege == null) {
 			System.out.println("管理员权限获取失败");
@@ -57,7 +57,7 @@ public class CheckAdviceController {
 		// System.out.println("getAdviceRecordList");
 		ApplicationContext factory = new ClassPathXmlApplicationContext(
 				"applicationContext.xml");
-		CheckAdvice checkAdvice = (CheckAdvice) factory.getBean("CheckAdvice");
+		CheckAndReplyAdvice checkAdvice = (CheckAndReplyAdvice) factory.getBean("CheckAdvice");
 		if (Privilege == null) {
 			System.out.println("管理员权限获取失败");
 			return null;
@@ -90,7 +90,7 @@ public class CheckAdviceController {
 			return null;
 		ApplicationContext factory = new ClassPathXmlApplicationContext(
 				"applicationContext.xml");
-		CheckAdvice checkAdvice = (CheckAdvice) factory.getBean("CheckAdvice");
+		CheckAndReplyAdvice checkAdvice = (CheckAndReplyAdvice) factory.getBean("CheckAdvice");
 		tb_adviceModel tbAdviceModel = new tb_adviceModel();
 		tbAdviceModel.setADid(ADid);
 		// tbAdviceModel=checkAdvice.getAdvice(tbAdviceModel);
@@ -113,7 +113,7 @@ public class CheckAdviceController {
 			return;
 		ApplicationContext factory = new ClassPathXmlApplicationContext(
 				"applicationContext.xml");
-		CheckAdvice checkAdvice = (CheckAdvice) factory.getBean("CheckAdvice");
+		CheckAndReplyAdvice checkAdvice = (CheckAndReplyAdvice) factory.getBean("CheckAdvice");
 		tb_adviceModel adviceModel = new tb_adviceModel();
 		adviceModel.setADid(ADid);
 		adviceModel.setStatus(Status);
@@ -164,7 +164,7 @@ public class CheckAdviceController {
 			return null;
 		ApplicationContext factory = new ClassPathXmlApplicationContext(
 				"applicationContext.xml");
-		CheckAdvice checkAdvice = (CheckAdvice) factory.getBean("CheckAdvice");
+		CheckAndReplyAdvice checkAdvice = (CheckAndReplyAdvice) factory.getBean("CheckAdvice");
 		System.out.println(checkAdvice.getAid("Hello"));
 		tb_replyModel replyModel = new tb_replyModel();
 		tb_adminModel adminModel = new tb_adminModel();
@@ -187,7 +187,7 @@ public class CheckAdviceController {
 	public static void main(String[] args) {
 		ApplicationContext factory = new ClassPathXmlApplicationContext(
 				"applicationContext.xml");
-		CheckAdvice checkAdvice = (CheckAdvice) factory.getBean("CheckAdvice");
+		CheckAndReplyAdvice checkAdvice = (CheckAndReplyAdvice) factory.getBean("CheckAdvice");
 		System.out.println(checkAdvice.getAid("Hello"));
 		tb_replyModel replyModel = new tb_replyModel();
 		tb_adminModel adminModel = new tb_adminModel();

@@ -103,7 +103,7 @@
 	     <property name="jdbcTemplate" ref="jdbcTemplate"></property>
 	</bean>
 	<bean id="CheckAdvice"
-		class="com.data.service.visitorService.checkAdviceService.CheckAdviceImp">
+		class="com.data.service.visitorService.checkAndReplyAdviceService.CheckAndReplyAdviceImp">
 		<property name="checkAdviceDao" ref="CheckAdviceDao"></property>
 		<property name="queryDao" ref="QueryDao"></property>
 	</bean>

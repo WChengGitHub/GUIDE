@@ -1,4 +1,4 @@
-package com.data.service.visitorService.checkAdviceService;
+package com.data.service.visitorService.checkAndReplyAdviceService;
 
 import java.util.List;
 
@@ -7,7 +7,7 @@ import com.data.model.tb_adviceModel;
 import com.data.model.tb_replyModel;
 import com.data.model.tb_visitorModel;
 
-public interface CheckAdvice {
+public interface CheckAndReplyAdvice {
      public int queryAdviceNumber(String Privilege);
      public List<Object> queryAdviceRecord(String Privilege);
      public Object queryTitleAndAdvice(String ADid);

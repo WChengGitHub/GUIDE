@@ -1,4 +1,4 @@
-package com.data.service.visitorService.checkAdviceService;
+package com.data.service.visitorService.checkAndReplyAdviceService;
 
 import java.util.*;  
 import javax.activation.*;  

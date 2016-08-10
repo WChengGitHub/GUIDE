@@ -1,4 +1,4 @@
-package com.data.service.visitorService.checkAdviceService;
+package com.data.service.visitorService.checkAndReplyAdviceService;
 
 import java.sql.Timestamp;
 import java.text.DateFormat;
@@ -19,7 +19,7 @@ import com.data.model.tb_adviceModel;
 import com.data.model.tb_replyModel;
 import com.data.model.tb_visitorModel;
 
-public class CheckAdviceImp implements CheckAdvice {
+public class CheckAndReplyAdviceImp implements CheckAndReplyAdvice {
 	private CheckAdviceDao checkAdviceDao;
 	private QueryDao queryDao;
 	private List<Object> param;
