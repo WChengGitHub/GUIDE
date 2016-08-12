@@ -21,10 +21,10 @@
 	<mvc:annotation-driven />
 
 
-    <!-- 扫描包 -->
-    <context:component-scan base-package="com.data.controller.visitorController" />
-    
-    
+	<!-- 扫描包 -->
+	<context:component-scan base-package="com.data.controller.visitorController" />
+
+
 	<!-- 前台请求发送到对应控制器 -->
 	<bean name="/login.html" class="com.data.controller.visitorController.LoginController"
 		scope="prototype" />
@@ -103,7 +103,7 @@
 	<bean id="encryption" class="com.data.md5.Encryption" />
 
 	<!-- adviceService -->
-	
+
 	<bean id="AdviceDao" class="com.data.dao.singleForm.advicePage.AdviceDao">
 		<property name="jdbcTemplate" ref="jdbcTemplate"></property>
 	</bean>
@@ -113,20 +113,24 @@
 	</bean>
 
 	<!-- checkAndReplyAdviceService -->
-	
+
 	<bean id="QueryDao" class="com.data.dao.QueryDao">
 		<property name="jdbcTemplate" ref="jdbcTemplate"></property>
 	</bean>
 	<bean id="CheckAdvice"
 		class="com.data.service.visitorService.checkAndReplyAdviceService.CheckAndReplyAdviceImp">
-		
+
 		<property name="queryDao" ref="QueryDao"></property>
 		<property name="adviceDao" ref="adviceDao"></property>
 		<property name="visitorDao" ref="visitorDao"></property>
 		<property name="adminDao" ref="adminDao"></property>
 	</bean>
 
-	
+	<!-- changeAndDelAdminService -->
+	<bean id="ChangeAndDelAdminService"
+		class="com.data.service.visitorService.changeAndDelAdminService.ChangeAndDelAdminServiceImp">
+		<property name="adminDao" ref="adminDao"></property>
+	</bean>
 
 	<!-- 视图解析 暂时没用 -->
 	<bean id="viewResolver"
