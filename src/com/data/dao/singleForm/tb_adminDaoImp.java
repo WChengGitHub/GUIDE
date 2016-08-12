@@ -43,17 +43,18 @@ public class tb_adminDaoImp implements Dao{
 		JdbcTemplate jt=this.getJdbcTemple();
 		try{
 			//test
-			String sqlInsert=Sql;System.out.println("aaaaaaaaaaaaaa");
+			String sqlInsert=Sql;
 			System.out.println(tb_adminmodel.getAccount()+" "
-			+tb_adminmodel.getPassword()+" "+tb_adminmodel.getAccount());
+			+tb_adminmodel.getPassword()+" "+tb_adminmodel.getAccount()+"test admindaoimp add");
 			
 			jt.update(sqlInsert, tb_adminmodel.getAccount(), 
-					tb_adminmodel.getPassword(), tb_adminmodel.getAid(),tb_adminmodel.getSid());
+					tb_adminmodel.getPassword(), tb_adminmodel.getAid(),tb_adminmodel.getPrivilege());
 			
-	        System.out.println("test3");
             System.out.println("add success");
 		} catch (Exception e) {
-		  System.out.println("error4");
+			//输出出现的异常 e就是出现的异常
+		    System.out.println(e);
+		    System.out.println("error add admin");
 		}
 	}
 
@@ -69,7 +70,9 @@ public class tb_adminDaoImp implements Dao{
 		String del="delete from test where Visitor=?";
 		jt.update(del,new Object[] {tb_visitormodel.getVisitor()}); 
 		} catch (Exception e){
-			System.out.println("error");
+			//输出出现的异常 e就是出现的异常
+		    System.out.println(e);
+			System.out.println("error admin delete");
 		}
 	}
 
@@ -84,8 +87,10 @@ public class tb_adminDaoImp implements Dao{
 					for (int i = 0; i < param.size(); i++) {
 						try {
 								ps.setObject(i + 1, param.get(i));
-							    System.out.println(param.get(i)+"1111111111");
+							    System.out.println(param.get(i)+"test admindaoimp param.get(i)");
 							} catch (SQLException e){
+								//输出出现的异常 e就是出现的异常
+							    System.out.println(e);
 								System.out.println("Pstmt中Sql语句参数注入异常");
 								e.printStackTrace();
 							}
@@ -98,31 +103,30 @@ public class tb_adminDaoImp implements Dao{
 					try {
 						
 						tb_adminmodel.setAccount(rs.getString("Account"));
-						System.out.println(tb_adminmodel.getAccount());
+						//test
+						System.out.println(tb_adminmodel.getAccount()+"test Account");
 					} catch (Exception e){ System.out.println("error setAccount");}
 					
 					 try { 
 				        	tb_adminmodel.setPrivilege(rs.getString("Privilege"));
-				        	System.out.println(tb_adminmodel.getPrivilege());
 						} catch (Exception e){ System.out.println("error setPrivilege");}
 			        
 			        try { 
 			        	tb_adminmodel.setPassword(rs.getString("Password"));
-			        	System.out.println(tb_adminmodel.getPassword());
 					} catch (Exception e){ System.out.println("error setPassword");}
 //			        
-//			        try { 
-//			        	tb_visitormodel.setTelephone(rs.getString("Telephone"));
-//					} catch (Exception e){ System.out.println("error setTelephone");}
-//			        
-//			        try { 
-//			        	tb_visitormodel.setEmail(rs.getString("Email"));
-//					} catch (Exception e){ System.out.println("error setEmail");}
-//			        
-//			        try { 
-//			        	tb_visitormodel.setGender(rs.getString("Gender"));
-//					} catch (Exception e){ System.out.println("error setGender");}
-
+try {
+						
+						tb_adminmodel.setAid(rs.getString("Aid"));
+					} catch (Exception e){ System.out.println("error setAid");}
+					
+					 try { 
+				        	tb_adminmodel.setSid(rs.getString("Sid"));
+						} catch (Exception e){ System.out.println("error setSid");}
+			        
+			        try { 
+			        	tb_adminmodel.setCreateTime(rs.getString("CreateTime"));
+					} catch (Exception e){ System.out.println("error setCreateTime");}
 			        return tb_adminmodel;
 		}
 	}); 
@@ -134,21 +138,22 @@ public class tb_adminDaoImp implements Dao{
 	//改	
 	@Override
 	public void update(Object object,String Sql) { 
-		tb_visitorModel tb_visitormodel=(tb_visitorModel)object;
+		tb_adminModel tb_adminmodel=(tb_adminModel)object;
 		JdbcTemplate jt=this.getJdbcTemple();
 		try{
-		//需要用时得改为外部传参	
-		String update=" update tb_visitor "+
-				" Password=?"+" where Visitor=? ";
-		jt.update(update,new Object[]{"1","2",tb_visitormodel.getPassword(),tb_visitormodel.getVisitor()});
 		
+		
+		jt.update(Sql,tb_adminmodel.getAccount());
 		} catch (Exception e){
-			System.out.println("error");
+			//输出出现的异常 e就是出现的异常
+		    System.out.println(e);
+			System.out.println("error update admin");
 		}
 	}
+}
 
 	
-}
+
 	
 	
 	

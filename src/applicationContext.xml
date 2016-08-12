@@ -32,16 +32,21 @@
 	<bean name="/adminlogin.html"
 		class="com.data.controller.adminController.adminFunctions.LoginController" />
 
-	<bean name="/lockvisitor.html" class="com.data.controller.adminController.superAdminController.lockVisitorController"
+	<bean name="/lockvisitor.html" class="com.data.controller.adminController.superAdminController.LockVisitorController"
 		scope="prototype" />
 
-	<bean name="/unlockvisitor.html" class="com.data.controller.adminController.superAdminController.unlockVisitorController"
+	<bean name="/unlockvisitor.html" class="com.data.controller.adminController.superAdminController.UnlockVisitorController"
 		scope="prototype" />
+	
+	<bean name="/addAdminRequest.html" class="com.data.controller.adminController.superAdminController.AddAdminController"/>
+		
+	<bean name="/deleteadmin.html" class="com.data.controller.adminController.superAdminController.deleteAdminController"/>
 		
 	<!-- Json动态加载 -->
 	<bean name="/json" class="com.data.controller.adminController.superAdminController.JSONAction"
 		scope="prototype" />
-
+	<bean name="/adminlist" class="com.data.controller.adminController.superAdminController.AdminJsonList"
+		scope="prototype" />
 
 	<!-- JdbcTemplate -->
 	<bean id="dataSource"
@@ -74,9 +79,11 @@
 		class="com.data.service.adminService.adminFunctions.loginService.LoginServiceImp" />
 	
 	<!-- superAdminService -->
-	<bean id="lockvisitorservice" class="com.data.service.adminService.superAdminFunctions.lockVisitorService.lockVisitorServiceImp"/>
-	<bean id="unlockvisitorservice" class="com.data.service.adminService.superAdminFunctions.unlockVisitorService.unlockVisitorServiceImp"/>
-	
+	<bean id="lockvisitorservice" class="com.data.service.adminService.superAdminFunctions.lockVisitorService.LockVisitorServiceImp"/>
+	<bean id="unlockvisitorservice" class="com.data.service.adminService.superAdminFunctions.unlockVisitorService.UnlockVisitorServiceImp"/>
+	<bean id="loginserviceimp" class="com.data.service.adminService.adminFunctions.loginService.LoginServiceImp" />
+	<bean id="addadminserviceimp" class="com.data.service.adminService.superAdminFunctions.addAdminService.AddAdminServiceImp"></bean>
+	<bean id="deleteadminserviceimp" class="com.data.service.adminService.superAdminFunctions.deleteAdminService.deleteAdminServiceImp"/>
 	
 	<!-- singleForm -->
 

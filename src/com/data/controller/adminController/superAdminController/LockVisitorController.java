@@ -10,11 +10,11 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.Controller;
 
 import com.data.model.tb_visitorModel;
-import com.data.service.adminService.superAdminFunctions.lockVisitorService.lockVisitorService;
+import com.data.service.adminService.superAdminFunctions.lockVisitorService.LockVisitorService;
 
 
  
-	public class lockVisitorController implements Controller{
+	public class LockVisitorController implements Controller{
 		
 		public ModelAndView handleRequest(HttpServletRequest request,
 				HttpServletResponse response) throws Exception {
@@ -36,10 +36,12 @@ import com.data.service.adminService.superAdminFunctions.lockVisitorService.lock
 			tb_visitormodel.setVid(Vid);
 			System.out.println(tb_visitormodel.getVid());
 			
-			lockVisitorService lockvisitorservice=(lockVisitorService)factory.getBean("lockvisitorservice");
-System.out.println("controller");
-			int d=lockvisitorservice.lockVisitor(tb_visitormodel);
-			out.print(d);
+			LockVisitorService lockvisitorservice=(LockVisitorService)factory.getBean("lockvisitorservice");
+			//检查是否运行到这里
+			System.out.println("test controller");
+			//冻结情况state
+			int state=lockvisitorservice.lockVisitor(tb_visitormodel);
+			out.print(state);
 			
 
 			} catch (Exception e) {
