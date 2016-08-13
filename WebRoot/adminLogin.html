@@ -9,10 +9,10 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-   <title>SB Admin 2 - Bootstrap Admin Theme</title>
+   <title>Admin Login</title>
 
     <!-- Bootstrap Core CSS -->
-    <link href="../css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/bootstrap.min.css" rel="stylesheet">
 
     <!-- MetisMenu CSS -->
     <link href="../dist/metisMenu.min.css" rel="stylesheet">
@@ -30,114 +30,178 @@
     <![endif]-->
 
 
+
+<script type="text/javascript" src="js/jquery-3.0.0.min.js"></script>
 <script type="text/javascript">
 
-	var xmlhttp;
-	function loadXMLDoc()//传参
-	{
-		var account=document.getElementById("Account").value;
-		var password=document.getElementById("Password").value;
-		xmlhttp=null;
-	if (window.XMLHttpRequest)
-	  {
-	  	xmlhttp=new XMLHttpRequest();
-	  }
-	else if (window.ActiveXObject)
-	  {
-	  	xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
-	  }
-	if (xmlhttp!=null)
-	  {
-	  	var json="account="+account+"&password="+password;
-	  	xmlhttp.onreadystatechange=state_Change;
-	  	xmlhttp.open("POST","adminlogin.html",true);
-	  	xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
-	  	xmlhttp.send(json);
-	  }
-	else
-	  {
-	  	alert("Your browser does not support XMLHTTP.");
-	  }
-	};
-	
-function state_Change()
-	{
-	if (xmlhttp.readyState==4)
-	  {
-	  if (xmlhttp.status==200)
-	    {
-	    	var result;
-	    	var no_user_name=1;
-	    	var worry_password=2;
-	    	var superadmin=3;
-	    	var checkadmin=5;
-	    	var spotadmin=4;
-	 		result=xmlhttp.responseText;
-	 		
-	 		if(result==no_user_name)
-	 		{
-	 			alert("用户名不存在!");
-	 		}
-	 		else if(worry_password==result)
-	 		{
-	 			alert("密码输入错误!");
-	 		}
-	 			else if(result==superadmin)
-	 			{
-	 					
-	 					var account=document.getElementById("Account").value;
-						var cookieString="Account="+account; 
-						//判断是否设置过期时间 
-						var expiresHours=1;
-						if(expiresHours>0){ 
-						var date=new Date(); 
-						date.setTime(date.getTime+expiresHours*30*1000); 
-						cookieString=cookieString+"; expires="+date.toGMTString(); 
-						} 
-						document.cookie=cookieString; 
-						alert(document.cookie);
-						alert("超级管理员登录成功");
-						window.open('visitorManagement.html','_self','width=200,height=100,,_left=0,_top=100');
-	 			}
-	 			else if(result==checkadmin)
-	 			{	
-	 				var account=document.getElementById("Account").value;
-						var cookieString="Account="+account; 
-						//判断是否设置过期时间 
-						var expiresHours=1;
-						if(expiresHours>0){ 
-						var date=new Date(); 
-						date.setTime(date.getTime+expiresHours*30*1000); 
-						cookieString=cookieString+"; expires="+date.toGMTString(); 
-						} 
-						document.cookie=cookieString; 
-						alert(document.cookie);
-	 				alert("审核管理员登录成功");
-	 			}
-	 			else
-	 			{	
-	 					var account=document.getElementById("Account").value;
-						var cookieString="Account="+account; 
-						//判断是否设置过期时间 
-						var expiresHours=1;
-						if(expiresHours>0){ 
-						var date=new Date(); 
-						date.setTime(date.getTime+expiresHours*30*1000); 
-						cookieString=cookieString+"; expires="+date.toGMTString(); 
-						} 
-						document.cookie=cookieString; 
-						alert(document.cookie);
-	 					alert("景区管理员登录成功");
-	 			}
-	 	}
-	    
-	  	else
-	    {
-	    	alert("Problem retrieving XML data:" + xmlhttp.statusText);
-	    }
-	  }
-	}
+/*function adminLogin() {
+    var account=document.getElementById("Account").value;
+    var password=document.getElementById("Password").value;
+    alert(account+password);
 
+     var no_user_name=1;
+     var worry_password=2;
+     var superadmin=3;
+     var checkadmin=5;
+     var spotadmin=4;
+    $.ajax({
+      type : 'post',
+      url : "adminLoginRequert?account="+account+"&password="+password,
+      contentType : 'application/x-www-form-urlencoded; charset=UTF-8',
+      dataType : 'json',
+      success : function(data) {
+
+        alert(data.tip);
+
+       if(data.tip==no_user_name)
+      {
+        alert("用户名不存在!");
+      }
+      else if(worry_password==data.tip)
+      {
+        alert("密码输入错误!");
+      }
+        else if(data.tip==superadmin)
+        {
+            getAdminPrivilege();
+            alert("超级管理员登录成功");
+            window.open('visitorManagement.html','_self','width=200,height=100,,_left=0,_top=100');
+        }
+        else if(data.tip==checkadmin)
+        { 
+       		 getAdminPrivilege();
+          	 alert("审核管理员登录成功");
+        }
+        else if(data.tip==spotadmin)
+        { 
+        	getAdminPrivilege();
+            alert("景区管理员登录成功");
+        }
+        else alert("failed");
+    },
+      error : function() {
+        return;
+      }
+    });
+  }*/
+  
+var xmlhttp;
+  function adminLogin()//传参
+  {
+    var account=document.getElementById("Account").value;
+    var password=document.getElementById("Password").value;
+    xmlhttp=null;
+  if (window.XMLHttpRequest)
+    {
+      xmlhttp=new XMLHttpRequest();
+    }
+  else if (window.ActiveXObject)
+    {
+      xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+    }
+  if (xmlhttp!=null)
+    {
+      var json="account="+account+"&password="+password;
+      xmlhttp.onreadystatechange=state_Change;
+      xmlhttp.open("POST","adminLoginRequert",true);
+      xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+      xmlhttp.send(json);
+    }
+  else
+    {
+      alert("Your browser does not support XMLHTTP.");
+    }
+  };
+  
+function state_Change()
+  {
+  if (xmlhttp.readyState==4)
+    {
+    if (xmlhttp.status==200)
+      {
+        var result;
+        var no_user_name=1;
+        var worry_password=2;
+        var superadmin=3;
+        var checkadmin=5;
+        var spotadmin=4;
+      result=xmlhttp.responseText;
+      
+      if(result==no_user_name)
+      {
+        alert("用户名不存在!");
+      }
+      else if(worry_password==result)
+      {
+        alert("密码输入错误!");
+      }
+        else if(result==superadmin)
+        {
+            getAdminPrivilege();
+            alert("超级管理员登录成功");
+            window.open('visitorManagement.html','_self','width=200,height=100,,_left=0,_top=100');
+        }
+        else if(result==checkadmin)
+        { 
+       		 getAdminPrivilege();
+          	 alert("审核管理员登录成功");
+        }
+        else if(result==spotadmin)
+        { 
+        	getAdminPrivilege();
+            alert("景区管理员登录成功");
+        }
+        else alert("failed");
+   }
+  }
+}  
+
+function getAdminPrivilege() {
+		var superadmin=1,checkadmin=3,spotadmin=2,privilege;
+		$.ajax({
+			type : 'post',
+			url : 'getTheAdminPrivilege',
+			contentType : 'application/json;charset=utf-8',//指定为json类型 //数据格式是json串，商品信息 
+			dataType : "json",
+			success : function(data) {//返回json结果 
+			privilege=data.privilege;
+		//	alert(data.privilege);
+		//	alert(privilege+" 2");
+			if(privilege==superadmin){
+				var account=document.getElementById("Account").value;
+				var cookieString="Account Privilege="+account+" "+"a"; 
+	            var expiresHours=1;
+	            if(expiresHours>0){ 
+	            var date=new Date(); 
+	            date.setTime(date.getTime+expiresHours*60*1000); 
+	            cookieString=cookieString+"; expires="+date.toGMTString(); 
+	            } 
+	            document.cookie=cookieString; 
+	            alert(document.cookie);}
+			else if(privilege==checkadmin){
+				var account=document.getElementById("Account").value;
+				var cookieString="Account Privilege="+account+" "+"c"; 
+	            var expiresHours=1;
+	            if(expiresHours>0){ 
+	            var date=new Date(); 
+	            date.setTime(date.getTime+expiresHours*60*1000); 
+	            cookieString=cookieString+"; expires="+date.toGMTString(); 
+	            } 
+	            document.cookie=cookieString; 
+	            alert(document.cookie);}
+			else if(privilege==spotadmin){
+				var account=document.getElementById("Account").value;
+				var cookieString="Account Privilege="+account+" "+"s"; 
+	            var expiresHours=1;
+	            if(expiresHours>0){ 
+	            var date=new Date(); 
+	            date.setTime(date.getTime+expiresHours*60*1000); 
+	            cookieString=cookieString+"; expires="+date.toGMTString(); 
+	            } 
+	            document.cookie=cookieString; 
+	            alert(document.cookie);}
+			}});
+	}
 	</script>
 
 </head>
@@ -162,8 +226,10 @@ function state_Change()
                                 </div>
                                 
                                 <div>
-                                	<input type="submit" name="submit" value="登 录" class="button" onclick="loadXMLDoc()"/>
+                                	<input class="btn btn-lg btn-success btn-block" type="submit" name="submit" value="登 录" class="button" onclick="adminLogin()"/>
                                 </div>
+                                
+                                
                                 
                             </fieldset>
                         
@@ -173,21 +239,8 @@ function state_Change()
         </div>
     </div>
 
-    <!-- jQuery -->
-    <script src="../bower_components/jquery/dist/jquery.min.js"></script>
 
-    <!-- Bootstrap Core JavaScript -->
-    <script src="../bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-
-    <!-- Metis Menu Plugin JavaScript -->
-    <script src="../bower_components/metisMenu/dist/metisMenu.min.js"></script>
-
-    <!-- Custom Theme JavaScript -->
-    <script src="../dist/js/sb-admin-2.js"></script>
-
-
-
-
+</script>
 </body>
 
 </html>

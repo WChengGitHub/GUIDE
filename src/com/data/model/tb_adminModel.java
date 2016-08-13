@@ -1,11 +1,14 @@
 package com.data.model;
 
+import com.sun.jmx.snmp.Timestamp;
+
 public class tb_adminModel {
 	private String Aid;
 	private String Account;
 	private String Password;
 	private String Privilege;
 	private String Sid;
+	private String CreateTime;
 	public String getAid() {
 		return Aid;
 	}
@@ -35,6 +38,12 @@ public class tb_adminModel {
 	}
 	public void setSid(String sid) {
 		Sid = sid;
+	}
+	public String getCreateTime() {
+		return CreateTime;
+	}
+	public void setCreateTime(String string) {
+		CreateTime = string;
 	}
 	
 

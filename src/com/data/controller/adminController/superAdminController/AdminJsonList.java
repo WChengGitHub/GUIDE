@@ -16,14 +16,13 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.Controller;
 
-
-
+import com.data.dao.singleForm.tb_adminDaoImp;
 import com.data.dao.singleForm.tb_visitorDaoImp;
 
 import net.sf.json.JSONObject;
 
-public class JSONAction extends HttpServlet implements Controller{
-public JSONAction() {
+public class AdminJsonList extends HttpServlet implements Controller{
+public AdminJsonList() {
    super();
 }
 public void destroy() {
@@ -32,24 +31,25 @@ public void destroy() {
 
 
 static List<Object> param;
-List<Object> tb_visitormodellist;
+List<Object> tb_adminmodellist;
 
 @Override
 public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response)
 	    throws ServletException, IOException {
 	
+		@SuppressWarnings("resource")
 		ClassPathXmlApplicationContext factory= new ClassPathXmlApplicationContext("applicationContext.xml");
-		tb_visitorDaoImp tb_visitordaoimp=(tb_visitorDaoImp) factory.getBean("tb_visitordaoimp");
+		tb_adminDaoImp tb_admindaoimp=(tb_adminDaoImp) factory.getBean("tb_admindaoimp");
 	
 		response.setContentType("application/json;charset=UTF-8");
 		PrintWriter out = response.getWriter();
 		List list = new ArrayList();
 	   
-		String sql="select * from tb_visitor  ";
+		String sql="select * from tb_admin  ";
 		param=new LinkedList<Object>();
-		tb_visitormodellist=tb_visitordaoimp.query(sql, param);	
+		tb_adminmodellist=tb_admindaoimp.query(sql, param);	
 
-		list=tb_visitormodellist;
+		list=tb_adminmodellist;
 	   
 	  
 		Map map = new HashMap();

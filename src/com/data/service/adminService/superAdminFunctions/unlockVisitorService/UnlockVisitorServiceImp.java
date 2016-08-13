@@ -5,7 +5,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import com.data.dao.singleForm.tb_visitorDaoImp;
 import com.data.model.tb_visitorModel;
-public class unlockVisitorServiceImp implements unlockVisitorService{
+public class UnlockVisitorServiceImp implements UnlockVisitorService{
 	final int unlockfailed=4,unlock=6;
 	@Override
 	public int unlockVisitor(tb_visitorModel tb_visitormodel) {
@@ -18,8 +18,10 @@ public class unlockVisitorServiceImp implements unlockVisitorService{
 		
 		tb_visitordaoimp.update(tb_visitormodel, sql);
 	 }catch (Exception e) {
-		  	System.out.println("lock error");
-		  	return unlockfailed;
+		//输出出现的异常 e就是出现的异常
+	    System.out.println(e);
+		System.out.println("lock error");
+	  	return unlockfailed;
 	 }
 	return unlock;
 		 

@@ -41,18 +41,18 @@ public class tb_visitorDaoImp implements Dao{
 		tb_visitorModel tb_visitormodel=(tb_visitorModel)object;
 		JdbcTemplate jt=this.getJdbcTemple();
 		try{
+			String sqlInsert=Sql;
 			//test
-			String sqlInsert=Sql;System.out.println("aaaaaaaaaaaaaa");
 			System.out.println(tb_visitormodel.getVisitor()+" "
-			+tb_visitormodel.getPassword()+" "+tb_visitormodel.getVid());
+			+tb_visitormodel.getPassword()+" "+tb_visitormodel.getVid()+"test visitordaoimp add");
 			
 			jt.update(sqlInsert, tb_visitormodel.getVisitor(), 
 					tb_visitormodel.getPassword(), tb_visitormodel.getVid(),tb_visitormodel.getEmail());
-			
-	        System.out.println("test3");
             System.out.println("add success");
 		} catch (Exception e) {
-		  System.out.println("error4");
+			//输出出现的异常 e就是出现的异常
+		    System.out.println(e);
+		    System.out.println("error add visitor");
 		}
 	}
 
@@ -67,7 +67,9 @@ public class tb_visitorDaoImp implements Dao{
 		
 		jt.update(Sql,tb_visitormodel.getVid()); 
 		} catch (Exception e){
-			System.out.println("error");
+			//输出出现的异常 e就是出现的异常
+		    System.out.println(e);
+			System.out.println("error delete visitor");
 		}
 	}
 
@@ -82,8 +84,9 @@ public class tb_visitorDaoImp implements Dao{
 					for (int i = 0; i < param.size(); i++) {
 						try {
 								ps.setObject(i + 1, param.get(i));
-							//    System.out.println(param.get(i)+"1111111111");
 							} catch (SQLException e){
+								//输出出现的异常 e就是出现的异常
+							    System.out.println(e);
 								System.out.println("Pstmt中Sql语句参数注入异常");
 								e.printStackTrace();
 							}
@@ -141,7 +144,9 @@ public class tb_visitorDaoImp implements Dao{
 		
 		jt.update(Sql,tb_visitormodel.getVid());
 		} catch (Exception e){
-			System.out.println("error");
+			//输出出现的异常 e就是出现的异常
+		    System.out.println(e);
+			System.out.println("error update visitor");
 		}
 	}
 
