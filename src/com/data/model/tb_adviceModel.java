@@ -1,7 +1,5 @@
 package com.data.model;
 
-import java.sql.Timestamp;
-
 public class tb_adviceModel {
 	String ADid;
 	String Title;

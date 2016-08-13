@@ -14,8 +14,21 @@
 <script src="./css/jquery.js"></script>
 <script src="./css/bootstrap.min.js"></script>
 <script type="text/javascript" src="./css/jquery.pagination.js"></script>
+<style>
+.myModal {
+	width: 300px;
+}
+
+@media ( max-width :768px) {
+	.myModal {
+		position: absolute;
+		left: 20px;
+		right: 20px;
+	}
+}
+</style>
 <script>
-  var Account;
+	var Account;
 	var Privilege;
 	function getCookie() {
 		var strCookie = document.cookie;
@@ -43,7 +56,7 @@
 		getCookie();
 		if (Account == null || Privilege == null || Account == undefined
 				|| Privilege == undefined) {
-			
+
 			window.open("Home.html", "_self");
 		} else {
 			changeDisplay();
@@ -53,8 +66,8 @@
 		document.getElementById("AdminName").innerHTML = Account;
 
 		if (Privilege != "a") {
-            window.open("Home.html", "_self");
-			
+			window.open("Home.html", "_self");
+
 		}
 	}
 	function getAdminRecordList() {
@@ -83,10 +96,32 @@
 
 								$("#allAdmin").html("");//html() 方法返回或设置被选元素的内容 (inner HTML)。
 								for (var i = page_index * items_per_page; i < max_elem; i++) {
-									
-										$("#allAdmin")
-												.append(
-														'<tr><td>'+data[i].aid+'</td><td>'+data[i].account+'</td><td>'+data[i].privilege+'</td><td>'+data[i].email+'</td><td>'+data[i].createTime+'<button onclick=setAdminDelStatus("'+data[i].email+'","'+data[i].aid+'","'+data[i].account+'") class="btn btn-primary pull-right btn-xs text-center" type="button"><span class="fa fa-fw  fa-close fa-lg "></span></button><button class="btn btn-success btn-xs pull-right text-center" type="button" style="margin-right:10px;"><span class="fa fa-fw fa-edit fa-lg "></span></button></td></tr>');
+
+									$("#allAdmin")
+											.append(
+													'<tr><td>'
+															+ data[i].aid
+															+ '</td><td>'
+															+ data[i].account
+															+ '</td><td>'
+															+ data[i].privilege
+															+ '</td><td>'
+															+ data[i].email
+															+ '</td><td>'
+															+ data[i].createTime
+															+ '<button onclick=setAdminDelStatusValue("'
+															+ data[i].email
+															+ '","'
+															+ data[i].aid
+															+ '","'
+															+ data[i].account
+															+ '") class="btn btn-primary pull-right btn-xs text-center" type="button"><span class="fa fa-fw  fa-close fa-lg "></span></button><button onclick=setChangeAdminValue("'
+															+ data[i].aid
+															+ '","'
+															+ data[i].email
+															+ '","'
+															+ data[i].account
+															+ '") class="btn btn-success btn-xs pull-right text-center" type="button" style="margin-right:10px;"><span class="fa fa-fw fa-edit fa-lg "></span></button></td></tr>');
 
 								}
 								return false;
@@ -98,32 +133,103 @@
 					}
 				});
 	}
-	function setAdminDelStatus(Email,Aid,account)
-	{
-		alert(Email);
-		alert(Aid);
-		alert(account);
-		$
-		.ajax({
+	var confirmEmail = "";
+	var confirmAid = "";
+	var confirmAccount = "";
+	function setAdminDelStatus() {
+		//alert(confirmAccount);
+		//alert(confirmAid);
+		$.ajax({
 			type : 'post',
-			url : "setAdminDelStatus?Email="+Email+"&Aid="+Aid+"&Account="+account,
+			url : encodeURI(encodeURI("setAdminDelStatus?Email=" + confirmEmail
+					+ "&Aid=" + confirmAid + "&Account=" + confirmAccount)),
 			contentType : 'application/json;charset=utf-8',
 			dataType : 'json',
 			success : function(data) {
-            
-				alert("成功");
+				$("#sign").text("删除成功");
+				$("#mymodal").modal("toggle");
 				getAdminRecordList();
 			},
 			error : function() {
-				return;
+				$("#sign").text("删除失败");
+				$("#mymodal").modal("toggle");
 			}
 		});
+	}
+	function setAdminDelStatusValue(email, aid, account) {
+		//alert(Email);
+		//alert(Aid);
+		//alert(account);
+		//alert(confirmAid);
+		confirmEmail = email;
+		//alert(111);
+		confirmAid = aid;
+		//alert(222);
+		confirmAccount = account;
+		//alert(3333);
+		$("#confirmModel").modal("toggle");
+
+	}
+	var Aid="";
+	var Email="";
+	var adminAccount="";
+	function setChangeAdminValue(aid, email, account) {
+		//alert("ChangeAdmin");
+
+		Aid = aid;
+		Email = email;
+		adminAccount = account;
+		//alert("Aid:" + Aid);
+		//alert("Email:" + Email);
+		$("#changeAdmin").modal("toggle");
+		//$("#changeAdmin").modal("toggle");
+		//$("#superAdministrator").modal("toggle");
+
+	}
+	function sendAdminChange() {
+		//alert("Aid:" + Aid);
+		//alert("Email:" + Email);
+		var Privilege = $("#Privilege").val();
+		var Spot = $("#Spot").val();
+		$.ajax({
+			type : 'post',
+			url : encodeURI(encodeURI("sendAdminChange?Email=" + Email
+					+ "&Aid=" + Aid + "&Privilege=" + Privilege + "&Spot="
+					+ Spot + "&Account=" + adminAccount)),
+			contentType : 'application/json;charset=utf-8',
+			dataType : 'json',
+			success : function(data) {
+				//alert("success");
+				$("#sign").text("修改成功");
+				setTimeout(function() {
+					$("#changeAdmin").modal("hide")
+				}, 0);
+				setTimeout(function() {
+					$("#mymodal").modal("toggle")
+				}, 1000);
+				$("#mymodal").modal("toggle");
+				getAdminRecordList();
+			},
+			error : function() {
+				//alert("failed");
+				$("#sign").text("修改失败,请检查输入是否正确");
+				setTimeout(function() {
+					$("#changeAdmin").modal("hide")
+				}, 0);
+				setTimeout(function() {
+					$("#mymodal").modal("toggle")
+				}, 1000);
+
+			}
+		});
+		//alert("Privilege:" + Privilege);
+		//alert("Spot:" + Spot);
 	}
 	setCookie();
 </script>
 </head>
 <body>
-  <div id="header" style="background-color:#222;width:100%">
+	<div id="header" style="background-color:#222;width:100%">
 		<div class="navbar navbar-default navbar-inverse " role="navigation">
 			<div class="navbar-header header" style="display:inline-block;">
 				<a href="##" class="navbar-brand" id="Admin">超级管理员</a>
@@ -134,7 +240,7 @@
 			</ul>
 		</div>
 	</div>
-	<div  id="content" class="col-lg-12">
+	<div id="content" class="col-lg-12">
 		<div class="panel panel-default">
 			<div class="panel-heading">
 				<h3 class="panel-title">审核与景区管理员</h3>
@@ -157,7 +263,7 @@
 							</tr>
 						</thead>
 						<tbody id="allAdmin">
-                            
+
 						</tbody>
 
 					</table>
@@ -167,9 +273,140 @@
 		</div>
 
 	</div>
+	<div class="modal " id="changeAdmin">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+
+					<h4 class="modal-title">管理员权限和景区修改</h4>
+				</div>
+				<div class="modal-body">
+					<form role="form">
+						<div class="form-group">
+							<label>管理员权限：</label> <input type="text"
+								class="form-control input-lg" id="Privilege">
+						</div>
+						<div class="form-group">
+							<label>景点:</label> <input type="text"
+								class="form-control input-lg" id="Spot">
+						</div>
+						<button type="button" class="form-control input-lg"
+							style="background-color:#3276b1;color:white;"
+							onclick="sendAdminChange()">提交</button>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- <div class="modal  text-center " id="changeAdmin">
+		<div class="modal-dialog text-center";>
+			<div class="modal-content  ">
+
+				<div class="modal-body ">
+					<h3 class="modal-title">管理员权限和景区修改</h3>
+					<div class="form-group ">
+						<input id="Privilege" class="form-control col-lg-12 col-md-12"
+							type="text" placeholder="请输入你要修改的权限:">
+					</div>
+					<div class="form-group ">
+						<input id="spot" class="form-control col-lg-12 col-md-12"
+							type="text" placeholder="请输入你要修改的景区:">
+					</div>
+					<button class="btn btn-default  btn-primary input-lg" type="button"
+						value="提交"">提交</button>
+				</div>
+			</div>
+
+		</div>
+
+	</div>-->
+	<div class="modal fade text-center " id="mymodal">
+		<div class="modal-dialog myModal">
+			<div class="modal-content">
+				<div class="modal-header"></div>
+				<div class="modal-body">
+					<h3 id="sign">删除成功</h3>
+				</div>
+				<div class="modal-footer"></div>
+			</div>
+			<!-- /.modal-content -->
+		</div>
+		<!-- /.modal-dialog -->
+	</div>
+	<div class="modal fade" id="confirmModel">
+		<div class="modal-dialog">
+			<div class="modal-content ">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">×</span>
+					</button>
+					<h4 class="modal-title">提示信息</h4>
+				</div>
+				<div class="modal-body">
+					<p>您确认要删除吗？</p>
+				</div>
+				<div class="modal-footer">
+
+					<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+					<button onclick="setAdminDelStatus()" class="btn btn-success"
+						data-dismiss="modal">确定</button>
+				</div>
+			</div>
+			<!-- /.modal-content -->
+		</div>
+		<!-- /.modal-dialog -->
+	</div>
+	<!-- /.modal -->
+	<!--<div class="modal fade text-center " id="mymodalerror">
+		<div class="modal-dialog myModal">
+			<div class="modal-content">
+				<div class="modal-header"></div>
+				<div class="modal-body">
+					<h3>删除失败</h3>
+				</div>
+				<div class="modal-footer"></div>
+			</div>
+			<!-- /.modal-content
+		</div>
+		<!-- /.modal-dialog 
+	</div>-->
+	<!-- <div class="modal fade" tabindex="-1" role="dialog"
+		aria-labelledby="myLargeModalLabel" aria-hidden="true"
+		id="changeAdmin">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+
+					<h4 class="modal-title">超级管理员登录</h4>
+				</div>
+				<div class="modal-body">
+					<form role="form">
+						<div class="form-group">
+							<label for="exampleInputEmail1">用户名：</label> <input type="email"
+								class="form-control input-lg" id="exampleInputEmail1"
+								placeholder="请输入您的用户名">
+						</div>
+						<div class="form-group">
+							<label for="exampleInputPassword1">密码</label> <input
+								type="password" class="form-control input-lg"
+								id="exampleInputPassword1" placeholder="请输入您的密码">
+						</div>
+						<button type="submit" class="form-control input-lg"
+							style="background-color:#3276b1;color:white;">登录</button>
+						<div class="checkbox" style="position:relative;">
+							<label> <input type="checkbox"> 记住密码 <span
+								style="position:absolute;right:0px;top:0px;">忘记密码?</span>
+							</label>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>-->
 	<script>
-	judgeAdmin();
-	getAdminRecordList();
+		judgeAdmin();
+		getAdminRecordList();
 	</script>
 </body>
 </html>

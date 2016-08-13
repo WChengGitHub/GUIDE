@@ -38,7 +38,8 @@ public class tb_adminDao {
 			}
 		});
 	}
-    //查询Account，Aid，Email,Privilege,CreateTime
+
+	// 查询Account，Aid，Email,Privilege,CreateTime
 	public List<Object> queryRecord(String sql, final List<Object> param) {
 		final DateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 		return jdbcTemplate.query(sql, new PreparedStatementSetter() {
@@ -47,7 +48,7 @@ public class tb_adminDao {
 				for (int i = 0; i < param.size(); i++) {
 					try {
 						ps.setObject(i + 1, param.get(i));
-						//System.out.println(param.get(i) + "1111111111");
+						// System.out.println(param.get(i) + "1111111111");
 					} catch (SQLException e) {
 						System.out.println("Pstmt中Sql语句参数注入异常");
 						e.printStackTrace();
@@ -58,12 +59,13 @@ public class tb_adminDao {
 			@Override
 			public tb_adminModel mapRow(ResultSet rs, int arg1)
 					throws SQLException {
-				tb_adminModel adminModel=new tb_adminModel();
+				tb_adminModel adminModel = new tb_adminModel();
 				adminModel.setAccount(rs.getString("Account"));
 				adminModel.setAid(rs.getString("Aid"));
 				adminModel.setEmail(rs.getString("Email"));
 				adminModel.setPrivilege(rs.getString("Privilege"));
-				adminModel.setCreateTime(sdf.format(rs.getTimestamp("CreateTime")));
+				adminModel.setCreateTime(sdf.format(rs
+						.getTimestamp("CreateTime")));
 				return adminModel;
 			}
 		});

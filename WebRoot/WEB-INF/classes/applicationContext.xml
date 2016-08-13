@@ -72,6 +72,9 @@
 	<bean id="adminDao" class="com.data.dao.singleForm.tb_adminDao">
 		<property name="jdbcTemplate" ref="jdbcTemplate"></property>
 	</bean>
+	<bean id="spotDao" class="com.data.dao.singleForm.tb_spotDao">
+		<property name="jdbcTemplate" ref="jdbcTemplate"></property>
+	</bean>
 
 	<!-- model -->
 	<bean id="tb_visitormodel" class="com.data.model.tb_visitorModel" />
@@ -130,6 +133,7 @@
 	<bean id="ChangeAndDelAdminService"
 		class="com.data.service.visitorService.changeAndDelAdminService.ChangeAndDelAdminServiceImp">
 		<property name="adminDao" ref="adminDao"></property>
+		<property name="spotDao" ref="spotDao"></property>
 	</bean>
 
 	<!-- 视图解析 暂时没用 -->

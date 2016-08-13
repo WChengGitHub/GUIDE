@@ -157,6 +157,7 @@ public class CheckAndReplyController {
 
 		Title = java.net.URLDecoder.decode(Title, "UTF-8");
 		Reply = java.net.URLDecoder.decode(Reply, "UTF-8");
+		Account = java.net.URLDecoder.decode(Account, "UTF-8");
 		System.out.println("Vid=" + Vid + "&ADid=" + ADid + "&Title=" + Title
 				+ "&Reply=" + Reply + "&Account=" + Account);
 		if (ADid.length() == 0 || Vid.length() == 0 || Title.length() == 0

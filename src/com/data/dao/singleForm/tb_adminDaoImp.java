@@ -18,7 +18,7 @@ import org.springframework.jdbc.core.PreparedStatementSetter;
 import org.springframework.jdbc.core.RowMapper;
 
 import com.data.dao.Dao;
-import com.data.model.tb_adminModel;
+import com.data.model.ChangeAndDelAdminModel;
 import com.data.model.tb_visitorModel;
 
 public class tb_adminDaoImp implements Dao{
@@ -39,7 +39,7 @@ public class tb_adminDaoImp implements Dao{
 	
 	//增
 	public void add(Object object,String Sql) {  
-		tb_adminModel tb_adminmodel=(tb_adminModel)object;
+		ChangeAndDelAdminModel tb_adminmodel=(ChangeAndDelAdminModel)object;
 		JdbcTemplate jt=this.getJdbcTemple();
 		try{
 			//test
@@ -93,8 +93,8 @@ public class tb_adminDaoImp implements Dao{
 				}
 			},new RowMapper<Object>(){
 			  @Override
-			  public tb_adminModel mapRow(ResultSet rs, int arg1) throws SQLException {
-					tb_adminModel tb_adminmodel=new tb_adminModel();
+			  public ChangeAndDelAdminModel mapRow(ResultSet rs, int arg1) throws SQLException {
+					ChangeAndDelAdminModel tb_adminmodel=new ChangeAndDelAdminModel();
 					try {
 						
 						tb_adminmodel.setAccount(rs.getString("Account"));
