@@ -14,7 +14,7 @@ import com.data.model.tb_visitorModel;
 
 public class LoginServiceImp implements LoginService{
 	
-	final int locked=3,passwordwrong=2,undefindvisitor=1,loginsuccess=0;
+	final int locked=3,wrongpassword=2,notfinevisitor=1,loginsuccess=0;
 	
 	static List<Object> param;
 	List<Object> tb_visitormodellist;
@@ -35,7 +35,7 @@ public class LoginServiceImp implements LoginService{
 			 //System.out.println(tb_visitormodelList.get(1)+"444");
 			 
 			 if(tb_visitormodellist.size()==0)
-			 {System.out.println("??????????????!!");
+			 {System.out.println("test tb_visitormodellist.size()");
 					return 1;}
 			 else{
 				 	//将查询返回的模型层集合转为模型层
@@ -54,11 +54,11 @@ public class LoginServiceImp implements LoginService{
 				 else if(password.equals(password2))
 			    	 return loginsuccess;
 			     else 
-			    	 return passwordwrong;
+			    	 return wrongpassword;
 			 	}
 
 	 }catch (Exception e) {
-			return undefindvisitor;
+			return notfinevisitor;
 	 }
 }
 }

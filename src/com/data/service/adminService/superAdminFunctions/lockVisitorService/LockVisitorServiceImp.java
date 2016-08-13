@@ -5,9 +5,10 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 
 
+
 import com.data.dao.singleForm.tb_visitorDaoImp;
 import com.data.model.tb_visitorModel;
-public class lockVisitorServiceImp implements lockVisitorService{
+public class LockVisitorServiceImp implements LockVisitorService{
 	final int lockfailed=4,lock=5;
 	@Override
 	public int lockVisitor(tb_visitorModel tb_visitormodel)  {
@@ -20,8 +21,10 @@ public class lockVisitorServiceImp implements lockVisitorService{
 		
 		tb_visitordaoimp.update(tb_visitormodel, sql);
 	 }catch (Exception e) {
-		  	System.out.println("lock error");
-		  	return lockfailed;
+		//输出出现的异常 e就是出现的异常
+		System.out.println(e);
+		System.out.println("lock error");
+		return lockfailed;
 	 }
 	return lock;
 		 

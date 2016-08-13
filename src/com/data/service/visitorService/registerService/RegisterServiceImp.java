@@ -12,7 +12,7 @@ import com.data.model.tb_visitorModel;
 import com.data.dao.singleForm.tb_visitorDaoImp;
 public class RegisterServiceImp implements RegisterService{
 	
-	final int registerfailed=0,registersuccess=1;
+	final int registerfailed=0,registersuccess=1,registered=2;
 	static List<Object> param;
 	List<Object> tb_visitormodellist;
 	
@@ -20,22 +20,19 @@ public class RegisterServiceImp implements RegisterService{
 	public int Register(tb_visitorModel tb_visitormodel) {
 		@SuppressWarnings("resource")
 		ClassPathXmlApplicationContext factory= new ClassPathXmlApplicationContext("applicationContext.xml");
-		 tb_visitorDaoImp tb_visitordaoimp=(tb_visitorDaoImp) factory.getBean("tb_visitordaoimp");
+		tb_visitorDaoImp tb_visitordaoimp=(tb_visitorDaoImp) factory.getBean("tb_visitordaoimp");
 		 
-		 try{
+	    try{
 			 String sql="select * from tb_visitor where Visitor=? ";
 			 param=new LinkedList<Object>();
 			 //填sql语句参数的
 			 param.add(tb_visitormodel.getVisitor());
-			// param.add(tb_visitormodel.getPassword());
-			//System.out.println(param.get(1)+"8888");	
 			 tb_visitormodellist=tb_visitordaoimp.query(sql, param);
+			 
 			 //判断用户是否已存在
-			 if(tb_visitormodellist.size()!=0)
-					return 2;
+			 if(tb_visitormodellist.size()!=0) return registered;
 			 else{
 				 String sqlInsert = "INSERT INTO tb_visitor (Visitor, Password, Vid, Email)VALUES (?, ?, ?, ?);";
-				System.out.println("0000000000");
 				 //getTime
 				 Calendar cal1 = Calendar.getInstance();  
 		         TimeZone.setDefault(TimeZone.getTimeZone("GMT+8:00"));       
@@ -54,12 +51,14 @@ public class RegisterServiceImp implements RegisterService{
 					 return registerfailed;
 				 else{
 				 tb_visitordaoimp.add(tb_visitormodel, sqlInsert);
-				 System.out.println("test1");//test
+				 System.out.println("test1 Register");//test
 				 }
 				}
 			 return registersuccess;
 			 } catch (Exception e) {
-					System.out.println("error2");
+				 	//输出出现的异常 e就是出现的异常
+				    System.out.println(e);
+					System.out.println("Register error");
 					//表示注册失败
 					return registerfailed;
 	//			e.printStackTrace();

@@ -2,7 +2,6 @@
 <html lang="en">
 
 <head>
-
 <script>
 /*function setCookie(cname,cvalue,exdays){
 	var d = new Date();
@@ -20,19 +19,22 @@ function getCookie(cname){
 	return "";
 }
 function checkCookie(){
-	var account=getCookie("Account");
-	if (account!=""){
-		//alert("Welcome again " + account);
+
+	var cookie=getCookie("Account Privilege");
+	if (cookie[2]=="a"){
+		//alert("Welcome " + cookie[2]);
 	}
 	else {
 		//user = prompt("Please enter your name:","");
   		//if (user!="" && user!=null){
   		window.open('adminLogin.html','_self','width=200,height=100,,_left=0,_top=100');
     		//setCookie("username",user,30);
+        
     	}
 	}
 
 </script>
+
 
 
 
@@ -463,13 +465,13 @@ function checkCookie(){
                         <a href="javascript:;" data-toggle="collapse" data-target="#demo3"><i class="fa fa-fw fa-arrows-v"></i> 超级管理员 <i class="fa fa-fw fa-caret-down"></i></a>
                         <ul id="demo3" class="collapse">
                             <li>
-                                <a href="visitor_management.html">管理游客信息</a>
+                                <a href="visitorManagement.html">管理游客信息</a>
                             </li>
                             <li>
-                                <a href="#">管理景点局域管理员、审核管理员</a>
+                                <a href="adminManagement.html">管理景点局域管理员、审核管理员</a>
                             </li>
                             <li>
-                                <a href="login.html">登录账号</a>
+                                <a href="adminlogin.html">登录账号</a>
                             </li>
                         </ul>
                     </li>
