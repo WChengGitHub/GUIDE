@@ -14,7 +14,7 @@ import com.data.model.tb_visitorModel;
 
 public class LoginServiceImp implements LoginService{
 	
-	final int locked=3,wrongpassword=2,notfinevisitor=1,loginsuccess=0;
+	final int locked=3,wrongpassword=2,undefindvisitor=1,loginsuccess=0;
 	
 	static List<Object> param;
 	List<Object> tb_visitormodellist;
@@ -58,7 +58,7 @@ public class LoginServiceImp implements LoginService{
 			 	}
 
 	 }catch (Exception e) {
-			return notfinevisitor;
+			return undefindvisitor;
 	 }
 }
 }
