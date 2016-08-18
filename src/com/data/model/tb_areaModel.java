@@ -1,14 +1,15 @@
 package com.data.model;
 
 public class tb_areaModel {
-	private String Aid;
+	private String Arid;
 	private String Area;
 	private String Cid;
-	public String getAid() {
-		return Aid;
+	
+	public String getArid() {
+		return Arid;
 	}
-	public void setAid(String aid) {
-		Aid = aid;
+	public void setArid(String arid) {
+		Arid = arid;
 	}
 	public String getArea() {
 		return Area;

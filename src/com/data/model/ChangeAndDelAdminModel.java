@@ -8,6 +8,60 @@ public class ChangeAndDelAdminModel {
 	private String Privilege;
 	private String Sid;
 	private String Del;
+	private String Pid;
+	private String Province;
+	private String Cid;
+	private String City;
+	private String Arid;
+	private String Area;
+	public String getPid() {
+		return Pid;
+	}
+
+	public void setPid(String pid) {
+		Pid = pid;
+	}
+
+	public String getProvince() {
+		return Province;
+	}
+
+	public void setProvince(String province) {
+		Province = province;
+	}
+
+	public String getCid() {
+		return Cid;
+	}
+
+	public void setCid(String cid) {
+		Cid = cid;
+	}
+
+	public String getCity() {
+		return City;
+	}
+
+	public void setCity(String city) {
+		City = city;
+	}
+
+	public String getArid() {
+		return Arid;
+	}
+
+	public void setArid(String arid) {
+		Arid = arid;
+	}
+
+	public String getArea() {
+		return Area;
+	}
+
+	public void setArea(String area) {
+		Area = area;
+	}
+
 	private String CreateTime;
 	private String ChangeTime;
 	private String DelTime;

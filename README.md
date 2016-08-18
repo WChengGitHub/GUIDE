@@ -1,5 +1,15 @@
 # GUIDE
 
+2016年8月18日
+
+实现了
+
+1：实现了修改和删除管理员
+
+2：增加了tb_spotDao,tb_cityDa0,tb_areaDao,已经在application.xml进行了配置
+
+3：管理员员权限和景点修改用二级菜单栏实现（boostrap)
+
 ### 2016年8月10日
 
 实现了:

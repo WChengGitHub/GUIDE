@@ -75,7 +75,18 @@
 	<bean id="spotDao" class="com.data.dao.singleForm.tb_spotDao">
 		<property name="jdbcTemplate" ref="jdbcTemplate"></property>
 	</bean>
-
+    <bean id="provinceDao" class="com.data.dao.singleForm.tb_provinceDao">
+        <property name="jdbcTemplate" ref="jdbcTemplate"></property>
+    </bean>
+    <bean id="provinceDaoImp" class="com.data.dao.singleForm.tb_provinceDaoImp">
+        <property name="jdbcTemplate" ref="jdbcTemplate"></property>
+    </bean>
+    <bean id="cityDao" class="com.data.dao.singleForm.tb_cityDao">
+    <property name="jdbcTemplate" ref="jdbcTemplate"></property>
+    </bean>
+    <bean id="areaDao" class="com.data.dao.singleForm.tb_areaDao">
+    <property name="jdbcTemplate" ref="jdbcTemplate"></property>
+    </bean>
 	<!-- model -->
 	<bean id="tb_visitormodel" class="com.data.model.tb_visitorModel" />
 	<bean id="tb_adminmodel" class="com.data.model.tb_adminModel" />
@@ -114,7 +125,7 @@
 		class="com.data.service.visitorService.adviceService.AdviceServiceImp">
 		<property name="adviceDao" ref="AdviceDao"></property>
 	</bean>
-
+   
 	<!-- checkAndReplyAdviceService -->
 
 	<bean id="QueryDao" class="com.data.dao.QueryDao">
@@ -133,6 +144,9 @@
 	<bean id="ChangeAndDelAdminService"
 		class="com.data.service.visitorService.changeAndDelAdminService.ChangeAndDelAdminServiceImp">
 		<property name="adminDao" ref="adminDao"></property>
+		<property name="provinceDaoImp" ref="provinceDaoImp"></property>
+		<property name="cityDao" ref="cityDao"></property>
+		<property name="areaDao" ref="areaDao"></property>
 		<property name="spotDao" ref="spotDao"></property>
 	</bean>
 

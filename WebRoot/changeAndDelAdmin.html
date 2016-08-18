@@ -15,8 +15,105 @@
 <script src="./css/bootstrap.min.js"></script>
 <script type="text/javascript" src="./css/jquery.pagination.js"></script>
 <style>
+@media ( min-width :768px)
+{
 .myModal {
 	width: 300px;
+}}
+
+.mydropdown {
+	width: 15em;
+	height: 2.5em;
+	display: inline-block;
+	margin-right: 0.7em;
+	margin-bottom: 0.7em;
+}
+
+.mydropdown1 {
+	width: 31em;
+	height: 2.8em;
+	display: inline-block;
+	margin-right: 0.7em;
+	margin-bottom: 1em;
+}
+
+@media ( max-width :768px) {
+	.mydropdown {
+		width: 44%;
+		height: 2.5em;
+		display: inline-block;
+		margin-bottom: 0.7em;
+	}
+	#Operation {
+		max-width: 10em;
+	}
+	.mydropdown1 {
+		width: 92%;
+		height: 2.8em;
+		display: inline-block;
+		margin-bottom: 1em;
+	}
+	.mydropdown1 button {
+		width: 100%;
+		height: 100%;
+	}
+	.mydropdown1 .caret {
+		float: right;
+		position: relative;
+		top: 0.7em;
+	}
+	.mydropdown1 ul {
+		width: 100%;
+	}
+	.mydropdown button {
+		width: 100%;
+		height: 100%;
+	}
+	.mydropdown .caret {
+		float: right;
+		position: relative;
+		top: 0.7em;
+	}
+	.mydropdown .dropdownTitle {
+		
+	}
+	.mydropdown ul {
+		width: 100%;
+	}
+}
+
+.mydropdown1 button {
+	width: 100%;
+	height: 100%;
+}
+
+.mydropdown1 .caret {
+	float: right;
+	position: relative;
+	top: 0.7em;
+}
+
+.mydropdown1 ul {
+	width: 100%;
+}
+
+.mydropdown button {
+	width: 100%;
+	height: 100%;
+}
+
+.mydropdown .caret {
+	float: right;
+	position: relative;
+	top: 0.7em;
+}
+
+.mydropdown .dropdownTitle {
+	
+}
+
+.mydropdown ul {
+	width: 100%;
 }
 
 @media ( max-width :768px) {
@@ -25,6 +122,10 @@
 		left: 20px;
 		right: 20px;
 	}
+}
+
+#menuAdmin>ul>li>a:focus {
+	background-color: blue;
 }
 </style>
 <script>
@@ -109,19 +210,19 @@
 															+ data[i].email
 															+ '</td><td>'
 															+ data[i].createTime
-															+ '<button onclick=setAdminDelStatusValue("'
-															+ data[i].email
-															+ '","'
-															+ data[i].aid
-															+ '","'
-															+ data[i].account
-															+ '") class="btn btn-primary pull-right btn-xs text-center" type="button"><span class="fa fa-fw  fa-close fa-lg "></span></button><button onclick=setChangeAdminValue("'
+															+ '</td><td><button onclick=setChangeAdminValue("'
 															+ data[i].aid
 															+ '","'
 															+ data[i].email
 															+ '","'
 															+ data[i].account
-															+ '") class="btn btn-success btn-xs pull-right text-center" type="button" style="margin-right:10px;"><span class="fa fa-fw fa-edit fa-lg "></span></button></td></tr>');
+															+ '") class="btn btn-success btn-xs  text-center" type="button" style="margin-right:10px;" ><span class="fa fa-fw fa-edit fa-lg "></span></button><button onclick=setAdminDelStatusValue("'
+															+ data[i].email
+															+ '","'
+															+ data[i].aid
+															+ '","'
+															+ data[i].account
+															+ '") class="btn btn-primary  btn-xs text-center" type="button" ><span class="fa fa-fw  fa-close fa-lg "></span></button></td></tr>');
 
 								}
 								return false;
@@ -170,9 +271,9 @@
 		$("#confirmModel").modal("toggle");
 
 	}
-	var Aid="";
-	var Email="";
-	var adminAccount="";
+	var Aid = "";
+	var Email = "";
+	var adminAccount = "";
 	function setChangeAdminValue(aid, email, account) {
 		//alert("ChangeAdmin");
 
@@ -189,8 +290,10 @@
 	function sendAdminChange() {
 		//alert("Aid:" + Aid);
 		//alert("Email:" + Email);
-		var Privilege = $("#Privilege").val();
-		var Spot = $("#Spot").val();
+		//var Privilege = $("#Privilege").val();
+		var Privilege = adminPrivilege;
+		//var Spot = $("#Spot").val();
+		var Spot = getSpotspot;
 		$.ajax({
 			type : 'post',
 			url : encodeURI(encodeURI("sendAdminChange?Email=" + Email
@@ -224,6 +327,146 @@
 		});
 		//alert("Privilege:" + Privilege);
 		//alert("Spot:" + Spot);
+	}
+	var adminPrivilege;
+	function setAdmin(adminValue, Privilege) {
+
+		$("#menuAdmin").text(adminValue);
+		adminPrivilege = Privilege;
+		//alert("adminPrivilege:" + adminPrivilege);
+	}
+	function getProvince() {
+		$.ajax({
+			type : 'post',
+			url : "getProvince",
+			contentType : 'application/json;charset=utf-8',
+			dataType : 'json',
+			success : function(data) {
+				//alert("success");
+				$("#provinces").html("");//html() 方法返回或设置被选元素的内容 (inner HTML)。
+				for (var i = 0; i < data.length; i++) {
+
+					$("#provinces").append(
+							"<li><a onclick=getCity('" + data[i].pid + "','"
+									+ data[i].province + "')>"
+									+ data[i].province + "</a></li>");
+
+				}
+
+			},
+			error : function() {
+				//alert("failed");
+
+				setTimeout(function() {
+					$("#mymodal").modal("toggle")
+				}, 0);
+			}
+		});
+	}
+	function getCity(pid, province) {
+		//alert("pid:"+pid);
+		$("#province").text(province);
+		//alert("Pid:"+pid+",province:"+province);
+		$.ajax({
+			type : 'post',
+			url : "getCity?Pid=" + pid,
+			contentType : 'application/json;charset=utf-8',
+			dataType : 'json',
+			success : function(data) {
+				//alert("success");
+				$("#cities").html("");//html() 方法返回或设置被选元素的内容 (inner HTML)。
+				for (var i = 0; i < data.length; i++) {
+
+					$("#cities").append(
+							"<li><a onclick=getArea('" + data[i].cid + "','"
+									+ data[i].city + "')>" + data[i].city
+									+ "</a></li>");
+
+				}
+
+			},
+			error : function() {
+				//alert("failed");
+				$("#sign").text("该省没有城市");
+
+				setTimeout(function() {
+					$("#mymodal").modal("toggle")
+				}, 0);
+			}
+		});
+		$("#city").text("城市");
+		$("#area").text("景区");
+		$("#spot").text("景点");
+	}
+	function getArea(cid, city) {
+		//alert("cid:"+cid);
+		if (!(city == null || city == undefined || city == ""))
+			$("#city").text(city);
+
+		$.ajax({
+			type : 'post',
+			url : "getArea?Cid=" + cid,
+			contentType : 'application/json;charset=utf-8',
+			dataType : 'json',
+			success : function(data) {
+				//alert("success");
+				$("#areas").html("");//html() 方法返回或设置被选元素的内容 (inner HTML)。
+				for (var i = 0; i < data.length; i++) {
+
+					$("#areas").append(
+							"<li><a onclick=getSpot('" + data[i].arid + "','"
+									+ data[i].area + "')>" + data[i].area
+									+ "</a></li>");
+
+				}
+				$("#area").text("景区");
+				$("#spot").text("景点");
+			},
+			error : function() {
+				//alert("failed");
+
+				setTimeout(function() {
+					$("#mymodal").modal("toggle")
+				}, 0);
+			}
+		});
+		$("#sign").text("该市没有景区");
+	}
+	var getSpotspot = '';
+	function getSpot(arid, area) {
+		//alert("Sid:"+arid);
+		$("#area").text(area);
+		$.ajax({
+			type : 'post',
+			url : "getSpot?Arid=" + arid,
+			contentType : 'application/json;charset=utf-8',
+			dataType : 'json',
+			success : function(data) {
+				//alert("success");
+				$("#spots").html("");//html() 方法返回或设置被选元素的内容 (inner HTML)。
+				for (var i = 0; i < data.length; i++) {
+
+					$("#spots").append(
+							"<li><a onclick=setSpot('" + data[i].spot + "')>"
+									+ data[i].spot + "</a></li>");
+
+				}
+
+			},
+			error : function() {
+				//alert("failed");
+				$("#sign").text("该景区没有景点");
+
+				setTimeout(function() {
+					$("#mymodal").modal("toggle")
+				}, 0);
+			}
+		});
+		$("#spot").text("景点");
+	}
+	function setSpot(spot) {
+		$("#spot").text(spot);
+		getSpotspot = spot;
 	}
 	setCookie();
 </script>
@@ -260,6 +503,7 @@
 								<th>权限</th>
 								<th>邮箱</th>
 								<th>创建时间</th>
+								<th>操作</th>
 							</tr>
 						</thead>
 						<tbody id="allAdmin">
@@ -273,7 +517,7 @@
 		</div>
 
 	</div>
-	<div class="modal " id="changeAdmin">
+	<div class="modal text-center" id="changeAdmin">
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-header">
@@ -282,16 +526,80 @@
 				</div>
 				<div class="modal-body">
 					<form role="form">
-						<div class="form-group">
+						<!--<div class="form-group">
 							<label>管理员权限：</label> <input type="text"
 								class="form-control input-lg" id="Privilege">
+						</div>-->
+						<div class="dropdown mydropdown1">
+							<button class="btn btn-default dropdown-toggle"
+								data-toggle="dropdown">
+								<span id="menuAdmin">管理员权限</span> <span class="caret"></span>
+							</button>
+							<ul class="dropdown-menu" role="menu">
+								<li role="presentation"><a role="menuitem" tabindex="-1"
+									onclick="setAdmin('景区管理员','s')">景区管理员</a></li>
+								<li role="presentation"><a role="menuitem" tabindex="-1"
+									onclick="setAdmin('审核管理员','c')">审核管理员</a></li>
+							</ul>
+
 						</div>
-						<div class="form-group">
+						<div class="dropdown mydropdown">
+							<button class="btn btn-default dropdown-toggle"
+								data-toggle="dropdown">
+								<span id="province" class="dropdownTitle">省份</span> <span
+									class="caret"></span>
+							</button>
+							<ul class="dropdown-menu" id="provinces" role="menu"
+								style="min-width:6em;">
+
+							</ul>
+
+						</div>
+						<div class="dropdown mydropdown">
+
+							<button class="btn btn-default dropdown-toggle "
+								data-toggle="dropdown">
+								<span id="city" class="dropdownTitle">城市</span> <span
+									class="caret"></span>
+							</button>
+
+							<ul class="dropdown-menu" id="cities" role="menu"
+								style="min-width:6em;">
+
+							</ul>
+
+						</div>
+						<div class="dropdown mydropdown">
+							<button class="btn btn-default dropdown-toggle"
+								data-toggle="dropdown">
+								<span id="area" class="dropdownTitle">景区</span> <span
+									class="caret"></span>
+							</button>
+							<ul class="dropdown-menu" id="areas" role="menu"
+								style="min-width:6em;">
+
+							</ul>
+
+						</div>
+
+						<div class="dropdown mydropdown">
+							<button class="btn btn-default dropdown-toggle"
+								data-toggle="dropdown">
+								<span id="spot" class="dropdownTitle">景点</span> <span
+									class="caret"></span>
+							</button>
+							<ul class="dropdown-menu" id="spots" role="menu"
+								style="min-width:6em;">
+
+							</ul>
+
+						</div>
+						<!--<div class="form-group">
 							<label>景点:</label> <input type="text"
 								class="form-control input-lg" id="Spot">
-						</div>
+						</div>-->
 						<button type="button" class="form-control input-lg"
-							style="background-color:#3276b1;color:white;"
+							style="background-color:#3276b1;color:white;margin-top:10px;"
 							onclick="sendAdminChange()">提交</button>
 					</form>
 				</div>
@@ -407,6 +715,7 @@
 	<script>
 		judgeAdmin();
 		getAdminRecordList();
+		getProvince();
 	</script>
 </body>
 </html>

@@ -11,11 +11,9 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementSetter;
 import org.springframework.jdbc.core.RowMapper;
 
-import com.data.model.ChangeAndDelAdminModel;
-import com.data.model.tb_provinceModel;
-import com.data.model.tb_spotModel;
+import com.data.model.tb_cityModel;
 
-public class tb_spotDao {
+public class tb_cityDao {
 	private JdbcTemplate jdbcTemplate;
 
 	public void setJdbcTemplate(JdbcTemplate jdbcTemplate) {
@@ -28,20 +26,6 @@ public class tb_spotDao {
 		// TODO Auto-generated method stub
 		return jdbcTemplate;
 	}
-
-	public ChangeAndDelAdminModel querySid(String sql) {// 根据Vid
-		return (ChangeAndDelAdminModel) jdbcTemplate.queryForObject(sql,
-				new RowMapper<Object>() {
-					@Override
-					public ChangeAndDelAdminModel mapRow(ResultSet rs, int arg1)
-							throws SQLException {
-						ChangeAndDelAdminModel changeAndDelAdminModel = new ChangeAndDelAdminModel();
-						changeAndDelAdminModel.setSid(rs.getString("Sid"));
-						return changeAndDelAdminModel;
-					}
-				});
-	}
-
 	public List<Object> query(String sql, final List<Object> param) {
 		final DateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 		return jdbcTemplate.query(sql, new PreparedStatementSetter() {
@@ -60,14 +44,15 @@ public class tb_spotDao {
 			}
 		}, new RowMapper<Object>() {
 			@Override
-			public tb_spotModel mapRow(ResultSet rs, int arg1)
+			public tb_cityModel mapRow(ResultSet rs, int arg1)
 					throws SQLException {
-				tb_spotModel spotModel=new tb_spotModel();
-				spotModel.setSpot(rs.getString("Spot"));
-				return spotModel;
+				   tb_cityModel cityModel=new tb_cityModel();
+				   cityModel.setCid(rs.getString("Cid"));
+				   cityModel.setCity(rs.getString("City"));
+				return cityModel;
 			}
 		});
 
 	}
-
+ 
 }
