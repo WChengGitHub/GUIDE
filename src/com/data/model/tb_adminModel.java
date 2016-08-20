@@ -1,7 +1,5 @@
 package com.data.model;
 
-import java.sql.Timestamp;
-
 public class tb_adminModel {
 	private String Aid;
 	private String Account;
@@ -9,6 +7,7 @@ public class tb_adminModel {
 	private String Email;
 	private String Privilege;
 	private String Sid;
+
 	private String Del;
 	private String CreateTime;
 	private String ChangeTime;
@@ -45,6 +44,7 @@ public class tb_adminModel {
 	public void setDelTime(String delTime) {
 		DelTime = delTime;
 	}
+
 	public String getAid() {
 		return Aid;
 	}
@@ -75,5 +75,6 @@ public class tb_adminModel {
 	public void setSid(String sid) {
 		Sid = sid;
 	}
+	
 	
 }

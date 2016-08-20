@@ -10,11 +10,11 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.Controller;
 
 import com.data.model.tb_visitorModel;
-import com.data.service.adminService.superAdminFunctions.unlockVisitorService.unlockVisitorService;
+import com.data.service.adminService.superAdminFunctions.unlockVisitorService.UnlockVisitorService;
 
 
  
-	public class unlockVisitorController implements Controller{
+	public class UnlockVisitorController implements Controller{
 		
 		public ModelAndView handleRequest(HttpServletRequest request,
 				HttpServletResponse response) throws Exception {
@@ -36,8 +36,9 @@ import com.data.service.adminService.superAdminFunctions.unlockVisitorService.un
 			tb_visitormodel.setVid(Vid);
 			System.out.println(tb_visitormodel.getVid());
 			
-			unlockVisitorService unlockvisitorservice=(unlockVisitorService)factory.getBean("unlockvisitorservice");
-System.out.println("controller");
+			UnlockVisitorService unlockvisitorservice=(UnlockVisitorService)factory.getBean("unlockvisitorservice");
+			//检查是否运行到这里
+			System.out.println("test controller");
 			int d=unlockvisitorservice.unlockVisitor(tb_visitormodel);
 			out.print(d);
 			
