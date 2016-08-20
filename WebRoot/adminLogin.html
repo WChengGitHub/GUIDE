@@ -125,11 +125,16 @@ function state_Change()
         var superadmin=3;
         var checkadmin=5;
         var spotadmin=4;
+        var deladmin=6;
       result=xmlhttp.responseText;
       
       if(result==no_user_name)
       {
         alert("用户名不存在!");
+      }
+      else if(result==deladmin)
+      {
+      	alert("该管理员已被删除!");
       }
       else if(worry_password==result)
       {

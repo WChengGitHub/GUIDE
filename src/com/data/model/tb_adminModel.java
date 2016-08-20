@@ -8,7 +8,9 @@ public class tb_adminModel {
 	private String Password;
 	private String Privilege;
 	private String Sid;
+	private String Del;
 	private String CreateTime;
+	private String ChangeTime;
 	public String getAid() {
 		return Aid;
 	}
@@ -44,6 +46,18 @@ public class tb_adminModel {
 	}
 	public void setCreateTime(String string) {
 		CreateTime = string;
+	}
+	public String getDel() {
+		return Del;
+	}
+	public void setDel(String del) {
+		Del = del;
+	}
+	public String getChangeTime() {
+		return ChangeTime;
+	}
+	public void setChangeTime(String changeTime) {
+		ChangeTime = changeTime;
 	}
 	
 
