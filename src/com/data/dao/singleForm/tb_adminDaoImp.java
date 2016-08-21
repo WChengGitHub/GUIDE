@@ -116,18 +116,26 @@ public class tb_adminDaoImp implements Dao{
 			        	tb_adminmodel.setPassword(rs.getString("Password"));
 					} catch (Exception e){ System.out.println("error setPassword");}
 //			        
-try {
-						
+			        try {
 						tb_adminmodel.setAid(rs.getString("Aid"));
 					} catch (Exception e){ System.out.println("error setAid");}
 					
-					 try { 
+					try { 
 				        	tb_adminmodel.setSid(rs.getString("Sid"));
 						} catch (Exception e){ System.out.println("error setSid");}
 			        
+					try { 
+			        	tb_adminmodel.setDel(rs.getString("Del"));
+					} catch (Exception e){ System.out.println("error setDel");}
+					
 			        try { 
 			        	tb_adminmodel.setCreateTime(rs.getString("CreateTime"));
 					} catch (Exception e){ System.out.println("error setCreateTime");}
+			        
+			        try { 
+			        	tb_adminmodel.setChangeTime(rs.getString("ChangeTime"));
+					} catch (Exception e){ System.out.println("error setChangeTime");}
+			        
 			        return tb_adminmodel;
 		}
 	}); 
