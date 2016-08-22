@@ -18,7 +18,7 @@ import com.data.service.adminService.superAdminFunctions.lockVisitorService.Lock
 
 
  @Controller
-	public class deleteAdminController{
+	public class DeleteAdminController{
 	 @RequestMapping("/deleteadmin")
 		@ResponseBody
 		public ModelAndView handleRequest(HttpServletRequest request,

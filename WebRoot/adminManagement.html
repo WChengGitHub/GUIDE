@@ -552,7 +552,7 @@ function checkCookie(){
                    <p></p>
                    <input class="form-control" placeholder="Password" name="Password" type="password" value="" id="Password">
                    <p></p>
-                   <input class="form-control" placeholder="Privilege" name="Privilege" type="password" value="" id="Privilege">
+                   <input class="form-control" placeholder="Privilege" name="Privilege" type="text" value="" id="Privilege">
                      </div>
                      <div class="modal-footer">
                         <button type="button" class="btn btn-default" 
@@ -1159,11 +1159,12 @@ function state_Change()
       if (xmlhttp.status==200)
         {
             var result;
-            var addsuccess=1;
+            var addSuccess=1;
             var added=2;
-            var addfailed=3;
+            var addFailed=3;
             var error=4;
             var lock=5;
+            var wrongPrivilege=6;
             result=xmlhttp.responseText;
             
             if(result==error)
@@ -1176,7 +1177,11 @@ function state_Change()
               alert("已删除!");
               location.reload();//页面重新加载
             }
-            else if(result==addsuccess)
+            else if(result==wrongPrivilege)
+            {
+              alert("权限值输入有误!");
+            }
+            else if(result==addSuccess)
             {
               alert("增加成功!");
               location.reload();
@@ -1185,7 +1190,7 @@ function state_Change()
             {
               alert("管理员已存在!");
             }
-            else if(result==addfailed)
+            else if(result==addFailed)
             {
               alert("增加失败!");
             }
@@ -1232,6 +1237,7 @@ function state_Change()
 
 
         <script type="text/javascript">
+           //分页
             jQuery(function($) {
                 
                 var myTable = 

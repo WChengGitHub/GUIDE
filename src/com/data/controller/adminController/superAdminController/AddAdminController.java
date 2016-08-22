@@ -14,7 +14,9 @@ import com.data.model.tb_adminModel;
 import com.data.service.adminService.superAdminFunctions.addAdminService.AddAdminService;
 
 public class AddAdminController implements Controller{
-
+	//权限值错误时返回
+	int wrongprivilege=6;
+	
 	public ModelAndView handleRequest(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
 		PrintWriter out = response.getWriter();
@@ -29,8 +31,10 @@ public class AddAdminController implements Controller{
 		String privilege=request.getParameter("privilege");
 		//调试时 用于检查获取得是否与用户输入的一致
 		System.out.println(account+password);
+		//如果没有数据则不运行
 		if(account==null||password==null||privilege==null){}
-		else{
+		//判断值权限是否输入正确
+		else if(privilege.equals("a")||privilege.equals("s")||privilege.equals("c")){
 		  try {
 			@SuppressWarnings("resource")
 			//应用上下文
@@ -54,6 +58,7 @@ public class AddAdminController implements Controller{
 			e.printStackTrace();
 			}
 		  }
+		else out.print(wrongprivilege);
 		return null;
 	}
 }

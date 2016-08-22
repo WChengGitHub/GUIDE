@@ -45,7 +45,7 @@
 	
 	<bean name="/addAdminRequest.html" class="com.data.controller.adminController.superAdminController.AddAdminController"/>
 		
-	<bean name="/deleteadmin.html" class="com.data.controller.adminController.superAdminController.deleteAdminController"/>
+	<bean name="/deleteadmin.html" class="com.data.controller.adminController.superAdminController.DeleteAdminController"/>
 		
 
 	<!-- Json动态加载 -->
