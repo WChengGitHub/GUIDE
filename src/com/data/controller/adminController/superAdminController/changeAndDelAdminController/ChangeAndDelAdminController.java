@@ -1,4 +1,4 @@
-package com.data.controller.visitorController;
+package com.data.controller.adminController.superAdminController.changeAndDelAdminController;
 
 import java.io.IOException;
 import java.io.Writer;
@@ -19,10 +19,11 @@ import sun.org.mozilla.javascript.internal.Undefined;
 
 import com.data.model.ChangeAndDelAdminModel;
 import com.data.service.SendEmail;
-import com.data.service.visitorService.changeAndDelAdminService.ChangeAndDelAdminService;
+import com.data.service.adminService.superAdminFunctions.changeAndDelAdmin.ChangeAndDelAdminService;
+
 
 @Controller
-public class changeAndDelAdminController {
+public class ChangeAndDelAdminController {
 	private static List<Object> list;
 
 	@RequestMapping("/getAdminRecordList")

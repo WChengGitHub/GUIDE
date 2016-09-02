@@ -1,4 +1,4 @@
-package com.data.service.visitorService.changeAndDelAdminService;
+package com.data.service.adminService.superAdminFunctions.changeAndDelAdmin;
 
 import java.util.List;
 

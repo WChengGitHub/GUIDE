@@ -23,7 +23,7 @@
 
 	<!-- 扫描包 -->
 	<context:component-scan base-package="com.data.controller.visitorController" />
-
+    <context:component-scan base-package="com.data.controller.adminController.superAdminController.changeAndDelAdminController"></context:component-scan>
 
 	<!-- 前台请求发送到对应控制器 -->
 	<bean name="/login.html" class="com.data.controller.visitorController.LoginController"
@@ -149,7 +149,7 @@
 
 	<!-- changeAndDelAdminService -->
 	<bean id="ChangeAndDelAdminService"
-		class="com.data.service.visitorService.changeAndDelAdminService.ChangeAndDelAdminServiceImp">
+		class="com.data.service.adminService.superAdminFunctions.changeAndDelAdmin.ChangeAndDelAdminServiceImp">
 		<property name="adminDao" ref="adminDao"></property>
 		<property name="provinceDaoImp" ref="provinceDaoImp"></property>
 		<property name="cityDao" ref="cityDao"></property>

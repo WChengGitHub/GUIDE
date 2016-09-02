@@ -1,4 +1,4 @@
-package com.data.service.visitorService.changeAndDelAdminService;
+package com.data.service.adminService.superAdminFunctions.changeAndDelAdmin;
 
 import java.sql.Timestamp;
 import java.text.DateFormat;
@@ -104,8 +104,7 @@ public class ChangeAndDelAdminServiceImp implements ChangeAndDelAdminService {
             sign=true;
 		} catch (Exception e) {
 			// TODO: handle exception
-			System.out
-					.println("changeAndDelAdmin:setAdminDelStatus:更新失败，请检查sql语句是否正确");
+			e.printStackTrace();
 		}
 		if(sign==true)
 		{
@@ -133,7 +132,7 @@ public class ChangeAndDelAdminServiceImp implements ChangeAndDelAdminService {
 
 		} catch (Exception e) {
 			// TODO: handle exception
-			System.out.println("ChangeDelAdminServiceImp getSid:查询Sid失败");
+			e.printStackTrace();
 		}
 
 		if (changeAndDelAdminModel == null) {
@@ -195,8 +194,7 @@ public class ChangeAndDelAdminServiceImp implements ChangeAndDelAdminService {
 			sign=true;
 		} catch (Exception e) {
 			// TODO: handle exception
-			System.out
-					.println("changeAndDelAdmin:setAdminDelStatus:更新失败，请检查sql语句是否正确");
+			e.printStackTrace();
 			return false;
 		}
 		// TODO Auto-generated method stub
