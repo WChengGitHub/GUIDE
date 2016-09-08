@@ -11,10 +11,9 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementSetter;
 import org.springframework.jdbc.core.RowMapper;
 
-import com.data.model.tb_adviceModel;
-import com.data.model.tb_provinceModel;
+import com.data.model.tb_areaModel;
 
-public class tb_provinceDaoImp {
+public class tb_areaDao {
 	private JdbcTemplate jdbcTemplate;
 
 	public void setJdbcTemplate(JdbcTemplate jdbcTemplate) {
@@ -45,15 +44,14 @@ public class tb_provinceDaoImp {
 			}
 		}, new RowMapper<Object>() {
 			@Override
-			public tb_provinceModel mapRow(ResultSet rs, int arg1)
+			public tb_areaModel mapRow(ResultSet rs, int arg1)
 					throws SQLException {
-				tb_provinceModel provinceModel=new tb_provinceModel();
-				provinceModel.setPid(rs.getString("Pid"));
-				provinceModel.setProvince(rs.getString("Province"));
-				return provinceModel;
+				  tb_areaModel areaModel=new tb_areaModel();
+				  areaModel.setArid(rs.getString("Arid"));
+				  areaModel.setArea(rs.getString("Area"));
+				return areaModel;
 			}
 		});
 
 	}
-
 }

@@ -135,6 +135,7 @@ public class CheckAndReplyController {
 			// System.out.println("visitorEmail:"+visitorModel.getEmail());
 			String title = "Hello";
 			String content = "Hello　World";
+			System.out.println("checkAdvice.queryVisitorEmail(Vid):"+checkAdvice.queryVisitorEmail(Vid)+" "+title+content);
 			// SendEmail.sendEmail(visitorModel.getEmail(),title,content);
 			SendEmail.sendEmail(checkAdvice.queryVisitorEmail(Vid), title,
 					content);
@@ -157,6 +158,7 @@ public class CheckAndReplyController {
 
 		Title = java.net.URLDecoder.decode(Title, "UTF-8");
 		Reply = java.net.URLDecoder.decode(Reply, "UTF-8");
+		Account = java.net.URLDecoder.decode(Account, "UTF-8");
 		System.out.println("Vid=" + Vid + "&ADid=" + ADid + "&Title=" + Title
 				+ "&Reply=" + Reply + "&Account=" + Account);
 		if (ADid.length() == 0 || Vid.length() == 0 || Title.length() == 0
@@ -178,6 +180,8 @@ public class CheckAndReplyController {
 			return null;
 		}
 		SendEmail.sendEmail(checkAdvice.queryVisitorEmail(Vid), Title, Reply);
+		System.out.println("checkAdvice.queryVisitorEmail(Vid):"+checkAdvice.queryVisitorEmail(Vid)+" "+Title+Reply);
+		
 		//Writer writer = response.getWriter();
 		String json = "{\"status\":\"success\"}";
 		//writer.write(json);
