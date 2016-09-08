@@ -496,7 +496,7 @@ $(function(){//相当于$(document).ready(function(){
 	function getmymodaldata() {
 		$("#mymodal-data").modal("toggle");
 	}
-	setCookie();
+	//setCookie();
 	//judgeAdmin();
 </script>
 </head>
@@ -504,7 +504,7 @@ $(function(){//相当于$(document).ready(function(){
 	<div style="background-color:#222;width:100%">
 		<div class="navbar navbar-default navbar-inverse " role="navigation">
 			<div class="navbar-header header" style="display:inline-block;">
-				<a href="##" class="navbar-brand" id="Admin">审核管理员</a>
+				<a href="##" class="navbar-brand" id="Admin"></a>
 			</div>
 			<ul class="nav  headerheader pull-right top-nav">
 				<li class="dropdown"><a href="##" data-toggle="dropdown"
@@ -562,6 +562,8 @@ $(function(){//相当于$(document).ready(function(){
 
 		<div class="form-group contentTitle">
 			<textarea id="Title"
+			
+			
 				class="form-control col-lg-6 col-md-12 text-center"></textarea>
 		</div>
 		<div class="form-group contentContent">
@@ -570,7 +572,7 @@ $(function(){//相当于$(document).ready(function(){
 		<div class="footer" id="checkFooter">
 			<div class="radio">
 				<label class="radio-inline"> <input type="radio"
-					name="advice" id="spotAdvice" value="s" checked />审核管理员
+					name="advice" id="spotAdvice" value="s" checked />景区管理员
 				</label> <label class="radio-inline"> <input type="radio"
 					name="advice" id="softwareAdvice" value="a" />超级管理员
 				</label> <label class="radio-inline"> <input type="radio"

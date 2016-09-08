@@ -21,9 +21,9 @@ function getCookie(cname){
 }
 function checkCookie(){
 
-	var cookie=getCookie("Account Privilege");
-	if (cookie[2]=="a"){
-		//alert("Welcome " + cookie[2]);
+	var cookie=getCookie("Privilege");
+	if (cookie=="a"){
+		//alert("Welcome " + cookie);
 	}
 	else {
 		//user = prompt("Please enter your name:","");
@@ -95,6 +95,7 @@ function checkCookie(){
       xmlhttp.open("POST","addAdminRequest.html",true);
       xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
       xmlhttp.send(json);
+  
     }
   else
     {
@@ -552,7 +553,7 @@ function checkCookie(){
                    <p></p>
                    <input class="form-control" placeholder="Password" name="Password" type="password" value="" id="Password">
                    <p></p>
-                   <input class="form-control" placeholder="Privilege" name="Privilege" type="text" value="" id="Privilege">
+                   <input class="form-control" placeholder="Privilege" name="Privilege" type="password" value="" id="Privilege">
                      </div>
                      <div class="modal-footer">
                         <button type="button" class="btn btn-default" 
@@ -1159,12 +1160,12 @@ function state_Change()
       if (xmlhttp.status==200)
         {
             var result;
-            var addSuccess=1;
+            var addsuccess=1;
             var added=2;
-            var addFailed=3;
+            var addfailed=3;
             var error=4;
             var lock=5;
-            var wrongPrivilege=6;
+            var addfailed=0;
             result=xmlhttp.responseText;
             
             if(result==error)
@@ -1177,11 +1178,7 @@ function state_Change()
               alert("已删除!");
               location.reload();//页面重新加载
             }
-            else if(result==wrongPrivilege)
-            {
-              alert("权限值输入有误!");
-            }
-            else if(result==addSuccess)
+            else if(result==addsuccess)
             {
               alert("增加成功!");
               location.reload();
@@ -1190,7 +1187,7 @@ function state_Change()
             {
               alert("管理员已存在!");
             }
-            else if(result==addFailed)
+            else if(result==addfailed)
             {
               alert("增加失败!");
             }
@@ -1237,7 +1234,6 @@ function state_Change()
 
 
         <script type="text/javascript">
-           //分页
             jQuery(function($) {
                 
                 var myTable = 
