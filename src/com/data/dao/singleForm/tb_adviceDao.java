@@ -47,6 +47,7 @@ public class tb_adviceDao {
 		});
 	}
 
+	/* 根据status查询tb_advice的Advice,ATime,ADid,Vid,Title,type */
 	public List<Object> query(String sql, final List<Object> param) {
 		final DateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 		return jdbcTemplate.query(sql, new PreparedStatementSetter() {
@@ -55,7 +56,6 @@ public class tb_adviceDao {
 				for (int i = 0; i < param.size(); i++) {
 					try {
 						ps.setObject(i + 1, param.get(i));
-						System.out.println(param.get(i) + "1111111111");
 					} catch (SQLException e) {
 						System.out
 								.println("checkAdviceDao:Pstmt中的Sql语句参数注入异常。。。");
@@ -72,6 +72,8 @@ public class tb_adviceDao {
 				adviceModel.setTitle(rs.getString("Title"));
 				adviceModel.setType(rs.getString("type"));
 				adviceModel.setAtime(sdf.format(rs.getTimestamp("Atime")));
+				adviceModel.setVid(rs.getString("Vid"));
+				adviceModel.setAdvice(rs.getString("Advice"));
 				return adviceModel;
 			}
 		});

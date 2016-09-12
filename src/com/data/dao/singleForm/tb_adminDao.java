@@ -72,6 +72,33 @@ public class tb_adminDao {
 
 	}
 
+	public List<Object> queryAids(String sql, final List<Object> param) {
+		final DateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+		return jdbcTemplate.query(sql, new PreparedStatementSetter() {
+			@Override
+			public void setValues(PreparedStatement ps) throws SQLException {
+				for (int i = 0; i < param.size(); i++) {
+					try {
+						ps.setObject(i + 1, param.get(i));
+						// System.out.println(param.get(i) + "1111111111");
+					} catch (SQLException e) {
+						System.out.println("Pstmt中Sql语句参数注入异常");
+						e.printStackTrace();
+					}
+				}
+			}
+		}, new RowMapper<Object>() {
+			@Override
+			public tb_adminModel mapRow(ResultSet rs, int arg1)
+					throws SQLException {
+				tb_adminModel adminModel = new tb_adminModel();
+				adminModel.setAid(rs.getString("Aid"));
+				return adminModel;
+			}
+		});
+
+	}
+
 	public void update(String sql, final List<Object> param) {
 
 		jdbcTemplate.update(sql, new PreparedStatementSetter() {

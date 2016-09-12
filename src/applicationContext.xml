@@ -23,8 +23,10 @@
 
 	<!-- 扫描包 -->
 	<context:component-scan base-package="com.data.controller.visitorController" />
-    <context:component-scan base-package="com.data.controller.adminController.superAdminController.changeAndDelAdminController"></context:component-scan>
-
+	<context:component-scan
+		base-package="com.data.controller.adminController.superAdminController.changeAndDelAdminController"></context:component-scan>
+	<context:component-scan
+		base-package="com.data.controller.adminController.checkAdminController"></context:component-scan>
 	<!-- 前台请求发送到对应控制器 -->
 	<bean name="/login.html" class="com.data.controller.visitorController.LoginController"
 		scope="prototype" />
@@ -37,22 +39,27 @@
 		class="com.data.controller.adminController.adminFunctions.LoginController" />
 
 
-	<bean name="/lockvisitor.html" class="com.data.controller.adminController.superAdminController.LockVisitorController"
+	<bean name="/lockvisitor.html"
+		class="com.data.controller.adminController.superAdminController.LockVisitorController"
 		scope="prototype" />
 
-	<bean name="/unlockvisitor.html" class="com.data.controller.adminController.superAdminController.UnlockVisitorController"
+	<bean name="/unlockvisitor.html"
+		class="com.data.controller.adminController.superAdminController.UnlockVisitorController"
 		scope="prototype" />
-	
-	<bean name="/addAdminRequest.html" class="com.data.controller.adminController.superAdminController.AddAdminController"/>
-		
-	<bean name="/deleteadmin.html" class="com.data.controller.adminController.superAdminController.deleteAdminController"/>
-		
+
+	<bean name="/addAdminRequest.html"
+		class="com.data.controller.adminController.superAdminController.AddAdminController" />
+
+	<bean name="/deleteadmin.html"
+		class="com.data.controller.adminController.superAdminController.deleteAdminController" />
+
 
 	<!-- Json动态加载 -->
 	<bean name="/json"
 		class="com.data.controller.adminController.superAdminController.JSONAction"
 		scope="prototype" />
-	<bean name="/adminlist" class="com.data.controller.adminController.superAdminController.AdminJsonList"
+	<bean name="/adminlist"
+		class="com.data.controller.adminController.superAdminController.AdminJsonList"
 		scope="prototype" />
 
 	<!-- JdbcTemplate -->
@@ -80,22 +87,32 @@
 	<bean id="spotDao" class="com.data.dao.singleForm.tb_spotDao">
 		<property name="jdbcTemplate" ref="jdbcTemplate"></property>
 	</bean>
-    <bean id="provinceDao" class="com.data.dao.singleForm.tb_provinceDao">
-        <property name="jdbcTemplate" ref="jdbcTemplate"></property>
-    </bean>
-    <bean id="provinceDaoImp" class="com.data.dao.singleForm.tb_provinceDaoImp">
-        <property name="jdbcTemplate" ref="jdbcTemplate"></property>
-    </bean>
-    <bean id="cityDao" class="com.data.dao.singleForm.tb_cityDao">
-    <property name="jdbcTemplate" ref="jdbcTemplate"></property>
-    </bean>
-    <bean id="areaDao" class="com.data.dao.singleForm.tb_areaDao">
-    <property name="jdbcTemplate" ref="jdbcTemplate"></property>
-    </bean>
+	<bean id="provinceDao" class="com.data.dao.singleForm.tb_provinceDao">
+		<property name="jdbcTemplate" ref="jdbcTemplate"></property>
+	</bean>
+	<bean id="provinceDaoImp" class="com.data.dao.singleForm.tb_provinceDaoImp">
+		<property name="jdbcTemplate" ref="jdbcTemplate"></property>
+	</bean>
+	<bean id="cityDao" class="com.data.dao.singleForm.tb_cityDao">
+		<property name="jdbcTemplate" ref="jdbcTemplate"></property>
+	</bean>
+	<bean id="areaDao" class="com.data.dao.singleForm.tb_areaDao">
+		<property name="jdbcTemplate" ref="jdbcTemplate"></property>
+	</bean>
+	<bean id="admin_adviceDao" class="com.data.dao.singleForm.tb_admin_adviceDao">
+	    <property name="jdbcTemplate" ref="jdbcTemplate"></property>
+	</bean>
 	<!-- model -->
 	<bean id="tb_visitormodel" class="com.data.model.tb_visitorModel" />
 	<bean id="tb_adminmodel" class="com.data.model.tb_adminModel" />
 
+	<!-- checkAdvice -->
+	<bean id="CheckAdviceService"
+		class="com.data.service.adminService.checkAdminFunctions.checkAdvice.CheckAdviceServiceImp">
+		<property name="adviceDao" ref="adviceDao"></property>
+		<property name="adminDao" ref="adminDao"></property>
+		<property name="admin_adviceDao" ref="admin_adviceDao"></property>
+	</bean>
 
 	<!-- visitorService -->
 	<bean id="loginservice"
@@ -109,12 +126,17 @@
 
 	<!-- superAdminService -->
 
-	<bean id="lockvisitorservice" class="com.data.service.adminService.superAdminFunctions.lockVisitorService.LockVisitorServiceImp"/>
-	<bean id="unlockvisitorservice" class="com.data.service.adminService.superAdminFunctions.unlockVisitorService.UnlockVisitorServiceImp"/>
-	<bean id="loginserviceimp" class="com.data.service.adminService.adminFunctions.loginService.LoginServiceImp" />
-	<bean id="addadminserviceimp" class="com.data.service.adminService.superAdminFunctions.addAdminService.AddAdminServiceImp"></bean>
-	<bean id="deleteadminserviceimp" class="com.data.service.adminService.superAdminFunctions.deleteAdminService.deleteAdminServiceImp"/>
-	
+	<bean id="lockvisitorservice"
+		class="com.data.service.adminService.superAdminFunctions.lockVisitorService.LockVisitorServiceImp" />
+	<bean id="unlockvisitorservice"
+		class="com.data.service.adminService.superAdminFunctions.unlockVisitorService.UnlockVisitorServiceImp" />
+	<bean id="loginserviceimp"
+		class="com.data.service.adminService.adminFunctions.loginService.LoginServiceImp" />
+	<bean id="addadminserviceimp"
+		class="com.data.service.adminService.superAdminFunctions.addAdminService.AddAdminServiceImp"></bean>
+	<bean id="deleteadminserviceimp"
+		class="com.data.service.adminService.superAdminFunctions.deleteAdminService.deleteAdminServiceImp" />
+
 
 	<!-- singleForm -->
 
@@ -132,7 +154,7 @@
 		class="com.data.service.visitorService.adviceService.AdviceServiceImp">
 		<property name="adviceDao" ref="AdviceDao"></property>
 	</bean>
-   
+
 	<!-- checkAndReplyAdviceService -->
 
 	<bean id="QueryDao" class="com.data.dao.QueryDao">
