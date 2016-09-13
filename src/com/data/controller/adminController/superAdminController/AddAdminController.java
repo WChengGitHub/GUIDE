@@ -14,6 +14,8 @@ import com.data.model.tb_adminModel;
 import com.data.service.adminService.superAdminFunctions.addAdminService.AddAdminService;
 
 public class AddAdminController implements Controller{
+	
+	final int wrongPrivilege=3;
 
 	public ModelAndView handleRequest(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
@@ -31,29 +33,33 @@ public class AddAdminController implements Controller{
 		System.out.println(account+password);
 		if(account==null||password==null||privilege==null){}
 		else{
-		  try {
-			@SuppressWarnings("resource")
-			//应用上下文
-			ClassPathXmlApplicationContext factory= new ClassPathXmlApplicationContext("applicationContext.xml");
-			//将数据传给Model
-			tb_adminModel tb_adminmodel=(tb_adminModel)factory.getBean("tb_adminmodel");
+			if(privilege.equals("s")||privilege.equals("c")){
 			
-			Encryption encryption=(Encryption)factory.getBean("encryption");
-			@SuppressWarnings("static-access")
-			String MD5password=encryption.generatePassword(password);
-			tb_adminmodel.setPassword(MD5password);
-			tb_adminmodel.setPrivilege(privilege);
-			tb_adminmodel.setAccount(account);
-
-			AddAdminService addadminservice=(AddAdminService)factory.getBean("addadminserviceimp");
-			int result=addadminservice.addAdmin(tb_adminmodel);
-			System.out.println(result);
-			out.print(result);
-			
-			} catch (Exception e) {
-				System.out.println("error add admin controller");
-			e.printStackTrace();
+			  try {
+				@SuppressWarnings("resource")
+				//应用上下文
+				ClassPathXmlApplicationContext factory= new ClassPathXmlApplicationContext("applicationContext.xml");
+				//将数据传给Model
+				tb_adminModel tb_adminmodel=(tb_adminModel)factory.getBean("tb_adminmodel");
+				
+				Encryption encryption=(Encryption)factory.getBean("encryption");
+				@SuppressWarnings("static-access")
+				String MD5password=encryption.generatePassword(password);
+				tb_adminmodel.setPassword(MD5password);
+				tb_adminmodel.setPrivilege(privilege);
+				tb_adminmodel.setAccount(account);
+	
+				AddAdminService addadminservice=(AddAdminService)factory.getBean("addadminserviceimp");
+				int result=addadminservice.addAdmin(tb_adminmodel);
+				System.out.println(result);
+				out.print(result);
+				
+				} catch (Exception e) {
+					System.out.println("error add admin controller");
+				e.printStackTrace();
+				}
 			}
+			else out.print(wrongPrivilege);
 		  }
 		return null;
 	}

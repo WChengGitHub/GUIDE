@@ -126,6 +126,7 @@ function state_Change()
         var checkadmin=5;
         var spotadmin=4;
         var deladmin=6;
+        var wrongprivilege=7;
       result=xmlhttp.responseText;
       
       if(result==no_user_name)
@@ -155,6 +156,10 @@ function state_Change()
         { 
         	getAdminPrivilege();
             alert("景区管理员登录成功");
+        }
+        else if(result==wrongprivilege)
+        {
+        	alert("该管理员权限字段有误!")
         }
         else alert("failed");
    }

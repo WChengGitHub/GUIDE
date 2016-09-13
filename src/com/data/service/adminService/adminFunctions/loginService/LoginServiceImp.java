@@ -17,7 +17,7 @@ import com.data.model.tb_adminModel;
 
 public class LoginServiceImp implements LoginService{
 	
-	final int spotadmin=4,superadmin=3,checkadmin=5,wrongpassword=2,undefindadmin=1,deladmin=6;
+	final int spotadmin=4,superadmin=3,checkadmin=5,wrongpassword=2,undefindadmin=1,deladmin=6,wrongPrivilege=7;
 	static List<Object> param;
 	static List<Object> tb_adminmodellist;
 	static tb_adminModel tb_adminmodel;
@@ -74,13 +74,14 @@ public class LoginServiceImp implements LoginService{
 				    	 //管理员Privilege字段，a为超级管理员，s为景区管理员，c为审核管理员
 				    	 String a="a";
 				    	 String s="s";
-				    	// String c="c";
+				    	 String c="c";
 				    	 System.out.println(privilege);
 					     if(privilege.equals(a)){System.out.println("test super");return superadmin;} //超级管理员
 					     //景区管理员
 					     else if(privilege.equals(s))return spotadmin;
 					     //审核管理员
-					     else return checkadmin;
+					     else if(privilege.equals(c)) return checkadmin;
+					     else return wrongPrivilege;
 				     }
 				    	
 				     else 
