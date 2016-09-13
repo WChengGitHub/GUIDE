@@ -1,0 +1,154 @@
+<html>
+<head>
+<title>投诉与建议</title>
+<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="HandheldFriendly" content="true">
+    <link href="./css/bootstrap.min.css" rel="stylesheet">
+	<link href="./css/advice.css" rel="stylesheet">
+    <script src="./css/jquery.js"></script>
+    <script src="./css/bootstrap.min.js"></script>
+<script type="text/javascript">
+	var visitor;
+	var title;
+	var advice;
+	var type;
+	/*function setCookie() {
+		now = new Date();
+		now.setTime(now.getTime() + 5 * 60 * 1000);
+		document.cookie = "Visitor=guide;expires=" + now.toGMTString();
+
+	}*/
+
+	function getCookie() {
+		var strCookie = document.cookie;
+		var arrCookie = strCookie.split(";");
+		var Visitor = "0";
+		for (var i = 0; i < arrCookie.length; i++) {
+			var arr = arrCookie[i].split("=");
+			arr[0] = $.trim(arr[0]);
+			if ("Visitor" == arr[0]) {
+				Visitor = arr[1];
+				break;
+			}
+		}
+		if (Visitor == "0") {
+			//alert("Visitor:" + Visitor);
+			window.open("in.html", "_self");
+		} else {
+			visitor =Visitor;
+			//alert(visitor);
+		}
+	}
+	getCookie();
+	function getRadioValue() {
+		var itemradio = document.getElementsByName("advice");
+		var itemvalue = '';
+		for (i = 0; i < itemradio.length; i++) {
+			if (itemradio[i].checked) {
+				itemvalue = itemradio[i].value;
+			}
+		}
+		if (itemvalue != "") {
+			//alert(itemvalue);
+			type = itemvalue;
+		} else {
+			alert('还未选择');
+		}
+	}
+	function sendRequest(province, city, area, longitude, latitude) {
+		//alert("1");
+		if (window.XMLHttpRequest) {
+			xmlhttp = new XMLHttpRequest();
+			//创建一个XMLHttpRequest对象，用于在后台与服务器交换数据
+		} else {
+			xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+			//老版本使用ActiveX对象
+		}
+		//alert("111");
+		xmlhttp.onreadystatechange = function() {
+			if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                       alert("提交成功");
+			}
+		}
+		//alert(1111);
+		//这是一个onreadystatechange事件，readyState存有xmlhttp的状态，4代表请求已经完成，status：200表示OK，404表示找不到页面
+		//responseText用于返回out.write()写的数据
+		/* if(window.XMLHttpRequest){
+		   XMLHttpReq = new XMLHttpRequest();
+		}else if(window.ActiveXObject){
+		   try{
+		       XMLHttpReq = new ActiveXObject("MSXML2.XMLHTTP");
+		   }catch(e){
+		       try{
+		          XMLHttpReq = new ActiveXObject("Mircsoft.XMLHTTP");
+		       }catch(e1){}
+		   }*/
+		// alert("kkkkk");
+		//var uname = document.myform.keyname.value;
+		//提取表单数据
+		getRadioValue();
+		var title = document.getElementById("Title").value;
+		var advice = document.getElementById("Advice").value;
+		//alert(title + " " + advice);
+		//alert(visitor + " " + type + " " + title + " " + advice);
+		var url = "visitorAdvice?visitor=" + visitor + "&type=" + type
+				+ "&title=" + title + "&advice=" + advice;
+		url = encodeURI(encodeURI(url));
+		//alert(url);
+		// xmlhttp.open("GET",url,true);
+		xmlhttp.open("post", url, true);
+		//规定请求的类型，url,及是否进行异步处理
+		//alert(1);
+		//XMLHTTpReq.open("POST","hello",true);
+		xmlhttp.send();
+		//把请求发送到服务器
+		//alert(2);
+		//XMLHTTpReq.send(url);
+	}
+	function setCookie() {
+		//alert(1);
+		var now = new Date();
+		now.setTime(now.getTime() + 5 * 60 * 1000);
+		//var x=document.getElementById("username").value;
+		//var y=document.getElementById("password").value;
+		//alert(x+" "+y);
+		document.cookie="Visitor=guide;expires="+ now.toGMTString();
+		//document.cookie = "Privilege=s;expires=" + now.toGMTString();
+		//document.cookie="Account=Hello;expires="+now.toGMTString();
+		//document.cookie = "Account=Hello;expires=" + now.toGMTString();
+		//alert("cookie:"+document.cookie);
+	}
+	//setCookie();
+</script>
+</head>
+<body>
+	<div class=" container text-center">
+		<h3>联系我们</h3>
+		<form>
+			<div class="form-group">
+				<input type="text" id="Title" placeholder="标题:"
+					class="form-control input-lg " />
+			</div>
+			<div class="form-group">
+				<textarea id="Advice" placeholder="请输入您要写的内容"
+					class="form-control col-lg-12 col-md-12" style="height:50%"></textarea>
+			</div>
+			<div class="footer">
+				<div class="radio">
+					<label class="radio-inline"> <input type="radio"
+						name="advice" id="spotAdvice" value="s" />景点建议和体验
+					</label> <label class="radio-inline"> <input type="radio"
+						name="advice" id="softwareAdvice" value="a" />软件建议和体验
+					</label>
+				</div>
+				<button class="btn btn-default mybutton btn-primary" type="button"
+					value="提交" onclick="sendRequest()" />
+				提交
+				</button>
+			</div>
+		</form>
+	</div>
+</body>
+</html>
