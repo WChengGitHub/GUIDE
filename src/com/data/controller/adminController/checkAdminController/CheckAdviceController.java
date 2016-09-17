@@ -16,13 +16,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.data.model.ChangeAndDelAdminModel;
 import com.data.model.CheckAdviceModel;
 import com.data.model.tb_adminModel;
 import com.data.service.adminService.checkAdminFunctions.checkAdvice.CheckAdviceService;
+import com.data.service.adminService.superAdminFunctions.changeAndDelAdmin.ChangeAndDelAdminService;
 import com.data.service.visitorService.checkAndReplyAdviceService.CheckAndReplyAdvice;
 
 @Controller
 public class CheckAdviceController {
+	
 	@RequestMapping("/getCheckAdviceNumber")
 	@ResponseBody
 	public void getAdviceNumber(
@@ -73,29 +76,142 @@ public class CheckAdviceController {
 		return null;
 	}
 
+	@RequestMapping("/allocateAdvice")
+	@ResponseBody
+	public void allocateAdvice(HttpServletResponse response,
+			@RequestParam(value = "Vid", required = false) String Vid,@RequestParam(value = "Status", required = false) String Status,@RequestParam(value = "type", required = false) String type,@RequestParam(value = "ADid", required = false) String ADid,@RequestParam(value = "Pid", required = false) String Pid,@RequestParam(value = "Cid", required = false) String Cid,@RequestParam(value = "Arid", required = false) String Arid)
+			throws IOException {
+		if(ADid.length()==0)
+			return;
+		ApplicationContext factory = new ClassPathXmlApplicationContext(
+				"applicationContext.xml");
+		CheckAdviceService checkAdviceService = (CheckAdviceService) factory
+				.getBean("CheckAdviceService");
+		System.out.println("Pid:"+Pid+" "+"Cid:"+Cid+"Arid:"+Arid);
+		System.out.println("ADid:"+ADid+"type:"+type);
+		System.out.println("Vid:"+Vid);
+		CheckAdviceModel checkAdviceModel = new CheckAdviceModel();
+		checkAdviceModel.setType(type);
+		checkAdviceModel.setADid(ADid);
+		checkAdviceModel.setPid(Pid);
+		checkAdviceModel.setCid(Cid);
+		checkAdviceModel.setArid(Arid);
+		checkAdviceModel.setPrivilege(type);
+		checkAdviceModel.setStatus(Status);
+		checkAdviceModel.setVid(Vid);
+		checkAdviceService.setAdminAdvice(checkAdviceModel);
+		Writer writer = response.getWriter();
+		String json = "{\"success\": \"yes\"}";
+		writer.write(json);
+
+	}
+	@RequestMapping("/getSpotProvince")
+	@ResponseBody
+	public JSONArray getProvince() {
+		ApplicationContext factory = new ClassPathXmlApplicationContext(
+				"applicationContext.xml");
+		CheckAdviceService checkAdviceService = (CheckAdviceService) factory
+				.getBean("CheckAdviceService");
+		List<Object> list;
+		list = checkAdviceService.getProvince();
+		if (list == null||list.size()==0)
+			return null;
+		// System.out.println("adminRecordList:" + adminRecordList.size());
+		JSONArray jsonArray = JSONArray.fromObject(list);
+		// System.out.println(jsonArray);
+		return jsonArray;
+	}
+	
+	@RequestMapping("/getSpotCity")
+	@ResponseBody
+	public JSONArray getCity(@RequestParam(value = "Pid", required = false) String Pid) {
+		ApplicationContext factory = new ClassPathXmlApplicationContext(
+				"applicationContext.xml");
+
+
+		CheckAdviceService checkAdviceService = (CheckAdviceService) factory
+				.getBean("CheckAdviceService");
+		CheckAdviceModel checkAdviceModel = new CheckAdviceModel();
+
+
+		List<Object> list;
+		
+		if(Pid.length()==0)
+			return null;
+		
+		checkAdviceModel.setPid(Pid);
+		list = checkAdviceService.getCity(checkAdviceModel);
+		if (list == null||list.size()==0)
+			return null;
+		// System.out.println("adminRecordList:" + list.size());
+		JSONArray jsonArray = JSONArray.fromObject(list);
+		// System.out.println(jsonArray);
+		return jsonArray;
+	}
+
+	@RequestMapping("/getSpotArea")
+	@ResponseBody
+	public JSONArray getArea(@RequestParam(value = "Cid", required = false) String Cid) {
+		ApplicationContext factory = new ClassPathXmlApplicationContext(
+				"applicationContext.xml");
+
+
+		CheckAdviceService checkAdviceService = (CheckAdviceService) factory
+				.getBean("CheckAdviceService");
+		CheckAdviceModel checkAdviceModel = new CheckAdviceModel();
+
+		System.out.println("Cid:"+Cid);
+		List<Object> list;
+		if(Cid.length()==0)
+			return null;
+		
+		checkAdviceModel.setCid(Cid);
+		list = checkAdviceService.getArea(checkAdviceModel);
+		if (list == null||list.size()==0)
+			return null;
+		// System.out.println("adminRecordList:" + adminRecordList.size());
+		JSONArray jsonArray = JSONArray.fromObject(list);
+		//System.out.println("jsonArray:"+jsonArray);
+		return jsonArray;
+	}
 	public static void main(String[] args) {
 		ApplicationContext factory = new ClassPathXmlApplicationContext(
 				"applicationContext.xml");
 		CheckAdviceService checkAdviceService = (CheckAdviceService) factory
 				.getBean("CheckAdviceService");
 		CheckAdviceModel checkAdviceModel = new CheckAdviceModel();
-		checkAdviceModel.setPrivilege("s");
-		checkAdviceModel.setADid("1");
+		checkAdviceModel.setADid("13");
+		checkAdviceModel.setStatus("f");
+		checkAdviceModel.setVid("1");
 		checkAdviceService.setAdminAdvice(checkAdviceModel);
-//		List<Object> list;
-//		list = checkAdviceService.getSuperAdminAids();
-//		tb_adminModel adminModel=(tb_adminModel) list.get(0);
-//		System.out.println(adminModel.getAid());
-//		JSONArray jsonArray = JSONArray.fromObject(list);
-//		System.out.println(jsonArray);
-		/*checkAdviceModel.setPrivilege("c");
-		List<Object> list;
-		list = checkAdviceService.getAdvices();
-		System.out.println(list);
-		JSONArray jsonArray = JSONArray.fromObject(list);
-		System.out.println(jsonArray);*/
+//		checkAdviceModel.setType("a");
+//		checkAdviceModel.setADid("2");
+//		checkAdviceModel.setPrivilege("a");
+//		checkAdviceModel.setStatus("p");
+//		checkAdviceService.setAdminAdvice(checkAdviceModel);
+		// List<Object> list;
+		// list = checkAdviceService.getSuperAdminAids();
+		// tb_adminModel adminModel=(tb_adminModel) list.get(0);
+		// System.out.println(adminModel.getAid());
+		// JSONArray jsonArray = JSONArray.fromObject(list);
+		// System.out.println(jsonArray);
+		/*
+		 * checkAdviceModel.setPrivilege("c"); List<Object> list; list =
+		 * checkAdviceService.getAdvices(); System.out.println(list); JSONArray
+		 * jsonArray = JSONArray.fromObject(list);
+		 * System.out.println(jsonArray);
+		 */
 		// System.out.println("AdviceNumber:"
 		// + checkAdviceService.getAdviceNumber(checkAdviceModel));
-       
+//		checkAdviceModel.setPid("1");
+//		checkAdviceModel.setCid("2");
+//		checkAdviceModel.setArid("1");
+//		       List<Object> list;
+//				 list = checkAdviceService.getSpotAdminAids(checkAdviceModel);
+//				 tb_adminModel adminModel=(tb_adminModel) list.get(0);
+//				 System.out.println(adminModel.getAid());
+//				 System.out.println(list.size());
+//				 JSONArray jsonArray = JSONArray.fromObject(list);
+//				 System.out.println(jsonArray);
 	}
 }

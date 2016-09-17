@@ -15,68 +15,74 @@
 <script src="./css/bootstrap.min.js"></script>
 <script type="text/javascript" src="./css/jquery.pagination.js"></script>
 <script>
-var Account="";
-var Privilege="";
-var Vid="";
-function setCookie() {
-	var now = new Date();
-	now.setTime(now.getTime() + 5 * 60 * 1000);
-	document.cookie = "Privilege=c;expires=" + now.toGMTString();
-	document.cookie = "Account=Hello;expires=" + now.toGMTString();
-}
-function getCookie() {
-	
-	var strCookie = document.cookie;
-	
-	var arrCookie = strCookie.split(";");
-	
-	for (var i = 0; i < arrCookie.length; i++) {
-		var arr = arrCookie[i].split("=");
-		
-		arr[0] = $.trim(arr[0]);
-		if ("Account" == arr[0]) {
-			Account = arr[1];
-		}
-		if ("Privilege" == arr[0]) {
-			Privilege = arr[1];
-		}
+	var Account = "";
+	var Privilege = "";
+	var type = "";
+	var Vid = "";
+	var ADid = "";
+	var Pid="";
+	var Cid="";
+	var Arid="";
+	var Status="";
+	function setCookie() {
+		var now = new Date();
+		now.setTime(now.getTime() + 5 * 60 * 1000);
+		document.cookie = "Privilege=c;expires=" + now.toGMTString();
+		document.cookie = "Account=Hello;expires=" + now.toGMTString();
 	}
-}
-function setAccount() {
-	
-	document.getElementById("Account").innerHTML = Account;
-}
-function judgeAdmin() {
-	getCookie();
-	//alert("Account:"+Account+" "+"Privilege:"+Privilege);
-	if (Account==""||Privilege=="") {
-		window.open("Home.html", "_self");
-	} else {
-		setAccount();
-		getAdviceNumber();
-		getAdvices();
-	}
-}
-function getAdviceNumber() {
+	function getCookie() {
 
-	$
-			.ajax({
-				type : 'post',
-				url : "getCheckAdviceNumber?Privilege=" + Privilege,
-				contentType : 'application/json;charset=utf-8',//指定为json类型 //数据格式是json串，商品信息 
-				dataType : "json",
-				success : function(data) {//返回json结果 
-					var html = '';
-					if (data.number != 0) {
-						document.getElementById("adviceNumber").innerHTML = data.adviceNumber;
-					} else {
-						document.getElementById("adviceNumber").innerHTML = "";
+		var strCookie = document.cookie;
+
+		var arrCookie = strCookie.split(";");
+
+		for (var i = 0; i < arrCookie.length; i++) {
+			var arr = arrCookie[i].split("=");
+
+			arr[0] = $.trim(arr[0]);
+			if ("Account" == arr[0]) {
+				Account = arr[1];
+			}
+			if ("Privilege" == arr[0]) {
+				Privilege = arr[1];
+			}
+		}
+	}
+	function setAccount() {
+
+		document.getElementById("Account").innerHTML = Account;
+	}
+	function judgeAdmin() {
+		getCookie();
+		//alert("Account:"+Account+" "+"Privilege:"+Privilege);
+		if (Account == "" || Privilege == "") {
+			window.open("Home.html", "_self");
+		} else {
+			setAccount();
+			getAdviceNumber();
+			getAdvices();
+		}
+	}
+	function getAdviceNumber() {
+
+		$
+				.ajax({
+					type : 'post',
+					url : "getCheckAdviceNumber?Privilege=" + Privilege,
+					contentType : 'application/json;charset=utf-8',//指定为json类型 //数据格式是json串，商品信息 
+					dataType : "json",
+					success : function(data) {//返回json结果 
+						var html = '';
+						if (data.number != 0) {
+							document.getElementById("adviceNumber").innerHTML = data.adviceNumber;
+						} else {
+							document.getElementById("adviceNumber").innerHTML = "";
+						}
+
 					}
-
-				}
-			});
-}
-function getAdvices() {
+				});
+	}
+	function getAdvices() {
 		//alert("getAdviceRecordList");
 		$
 				.ajax({
@@ -112,7 +118,15 @@ function getAdvices() {
 																+ data[i].atime
 																+ "</td><td>"
 																+ data[i].type
-																+ "</td><td><a onclick=showAdvice('"+data[i].title+"','"+data[i].advice+"','"+data[i].vid+"')>"
+																+ "</td><td><a style='cursor: pointer;' onclick=showAdvice('"
+																+ data[i].title
+																+ "','"
+																+ data[i].advice
+																+ "','"
+																+ data[i].vid
+																+ "','"
+																+ data[i].ADid
+																+ "')>"
 																+ data[i].ADid
 																+ "</a></td></tr>");
 									} else {
@@ -124,7 +138,15 @@ function getAdvices() {
 																+ data[i].atime
 																+ "</td><td>"
 																+ data[i].type
-																+ "</td><td><a onclick=showAdvice('"+data[i].title+"','"+data[i].advice+"','"+data[i].vid+"')>"
+																+ "</td><td><a style='cursor: pointer;' onclick=showAdvice('"
+																+ data[i].title
+																+ "','"
+																+ data[i].advice
+																+ "','"
+																+ data[i].vid
+																+ "','"
+																+ data[i].ADid
+																+ "')>"
 																+ data[i].ADid
 																+ "</a></td></tr>");
 									}
@@ -151,25 +173,187 @@ function getAdvices() {
 			x[i].style.display = "none";
 		}
 	}
-function showAdvice(title,advice,vid)
-{
-    //alert("title:"+title+"advice:"+advice+"vid:"+vid);
-	document.getElementById("Title").innerHTML = title;
-	document.getElementById("Advice").innerHTML =advice;
-	Vid=vid;
-}
+	function showAdvice(title, advice, vid, aDid) {
+		//alert("title:"+title+"advice:"+advice+"vid:"+vid);
+		document.getElementById("Title").innerHTML = title;
+		document.getElementById("Advice").innerHTML = advice;
+		Vid = vid;
+		ADid = aDid;
+		//alert("ADid:" + aDid);
+	}
+	function selectPosition() {
+		$("#selectSpotArea").modal("toggle");
+		getProvince();
+	}
+	function getProvince() {
+		$("#provinces").html("");
+		$("#cities").html("");
+		$("#areas").html("");
+		$.ajax({
+			type : 'post',
+			url : "getSpotProvince",
+			contentType : 'application/json;charset=utf-8',
+			dataType : 'json',
+			success : function(data) {
+				//alert("success");
+				//html() 方法返回或设置被选元素的内容 (inner HTML)。
+				for (var i = 0; i < data.length; i++) {
+
+					$("#provinces").append(
+							"<li><a onclick=getCity('" + data[i].pid + "','"
+									+ data[i].province + "')>"
+									+ data[i].province + "</a></li>");
+
+				}
+
+			},
+			error : function() {
+				//alert("failed");
+
+			}
+		});
+	}
+	function getCity(pid, province) {
+		//alert("pid:"+pid);
+		$("#province").text(province);
+	    Pid=pid;
+	    Cid="";
+	    Arid="";
+		$("#cities").html("");
+		$("#areas").html("");
+		//alert("Pid:"+pid+",province:"+province);
+		$.ajax({
+			type : 'post',
+			url : "getSpotCity?Pid=" + pid,
+			contentType : 'application/json;charset=utf-8',
+			dataType : 'json',
+			success : function(data) {
+				//alert("success");
+				//html() 方法返回或设置被选元素的内容 (inner HTML)。
+				for (var i = 0; i < data.length; i++) {
+
+					$("#cities").append(
+							"<li><a onclick=getArea('" + data[i].cid + "','"
+									+ data[i].city + "')>" + data[i].city
+									+ "</a></li>");
+
+				}
+
+			},
+			error : function() {
+				//alert("failed");
+				$("#sign").text("该省没有城市");
+
+			}
+		});
+		$("#city").text("城市");
+		$("#area").text("景区");
+		$("#spot").text("景点");
+	}
+
+	function getArea(cid, city) {
+		//alert("cid:"+cid);
+		if (!(city == null || city == undefined || city == ""))
+			$("#city").text(city);
+		    Cid=cid;
+		    Arid="";
+		$("#areas").html("");
+		$.ajax({
+			type : 'post',
+			url : "getSpotArea?Cid=" + cid,
+			contentType : 'application/json;charset=utf-8',
+			dataType : 'json',
+			success : function(data) {
+				//alert("success");
+				//html() 方法返回或设置被选元素的内容 (inner HTML)。
+				for (var i = 0; i < data.length; i++) {
+
+					$("#areas").append(
+							"<li><a onclick=setArea('" + data[i].arid + "','" + data[i].area + "')>"
+									+ data[i].area + "</a></li>");
+
+				}
+				$("#area").text("景区");
+
+			},
+			error : function() {
+				//alert("failed");
+
+			}
+		});
+		$("#sign").text("该市没有景区");
+	}
+	function setArea(arid,area) {
+		//alert(area);
+		$("#area").text(area);
+		Arid=arid;
+	}
+	function getRadioValue() {
+		var itemradio = document.getElementsByName("advice");
+		var itemvalue = '';
+		for (i = 0; i < itemradio.length; i++) {
+			if (itemradio[i].checked) {
+				itemvalue = itemradio[i].value;
+			}
+		}
+		if (itemvalue != "") {
+			//alert(itemvalue);
+			type = itemvalue;
+			//alert(Status);
+		} else {
+			alert('还未选择');
+		}
+	}
+	function allocateAdvice() {
+		getRadioValue();
+		if(type=="f")
+			Status="f";
+		else 
+			Status="p";
+		//alert(111);
+		$.ajax({
+			type : 'post',
+			url : "allocateAdvice?type=" + type + "&ADid=" + ADid+"&Pid="+Pid+"&Arid="+Arid+"&Cid="+Cid+"&Status="+Status+"&Vid="+Vid,
+			contentType : 'application/json;charset=utf-8',//指定为json类型 //数据格式是json串，商品信息 
+			dataType : "json",
+			success : function(data) {//返回json结果 
+				//alert("提交成功");
+				$("#message").text("提交成功");
+
+				setTimeout(function() {
+					$("#PromptMessage").modal("toggle")
+				}, 0);
+				type="";
+				ADid = "";
+				Pid="";
+				Cid="";
+				Arid="";
+				Status="";
+				Vid="";
+				getAdvices();
+			},
+			error : function() {
+				//alert("failed");
+				$("#message").text("提交失败，请不要重复提交或请先查看建议");
+
+				setTimeout(function() {
+					$("#PromptMessage").modal("toggle")
+				}, 0);
+			}
+		});
+	}
 </script>
 </head>
 <body>
-   <div id="header">
-	
+	<div id="header">
+
 		<div class="navbar navbar-default navbar-inverse " role="navigation">
 			<div class="navbar-header left-header">
 				<a href="##" class="navbar-brand">审核管理员</a>
 			</div>
 			<ul class="nav  pull-right right-header">
 				<li class="dropdown"><a href="##" data-toggle="dropdown"
-					 class="dropdown-toggle "><span
+					class="dropdown-toggle "><span
 						class="fa fa-fw fa-envelope fa-lg"></span><span id="adviceNumber"
 						class="badge"></span><span class="caret"></span></a>
 					<ul class="dropdown-menu">
@@ -183,77 +367,156 @@ function showAdvice(title,advice,vid)
 
 			</ul>
 		</div>
-	
+
 	</div>
 	<div id="content">
-	<div class="col-lg-6 left-content">
-		<div class="panel panel-default userAdviceDiv">
-			<div class="panel-heading">
-				<h3 class="panel-title">用户建议与投诉</h3>
-			</div>
-			<div class="panel-body">
-				<div id="Pagination" class="pagination"></div>
-				<div class="table-responsive adviceTable">
-					<!--响应式表格-->
-
-					<table class="table table-bordered table-hover table-striped">
-
-						<!--带边框表格,斑马线表格-->
-						<thead class="myThead">
-							<tr>
-								<th>标题</th>
-								<th>时间</th>
-								<th>类型</th>
-								<th>建议ID</th>
-							</tr>
-						</thead>
-						<tbody id="advices">
-
-						</tbody>
-
-					</table>
+		<div class="col-lg-6 left-content">
+			<div class="panel panel-default userAdviceDiv">
+				<div class="panel-heading">
+					<h3 class="panel-title">用户建议与投诉</h3>
 				</div>
+				<div class="panel-body">
+					<div id="Pagination" class="pagination"></div>
+					<div class="table-responsive adviceTable">
+						<!--响应式表格-->
 
+						<table class="table table-bordered table-hover table-striped">
+
+							<!--带边框表格,斑马线表格-->
+							<thead class="myThead">
+								<tr>
+									<th>标题</th>
+									<th>时间</th>
+									<th>类型</th>
+									<th>建议ID</th>
+								</tr>
+							</thead>
+							<tbody id="advices">
+
+							</tbody>
+
+						</table>
+					</div>
+
+				</div>
+			</div>
+
+		</div>
+		<div class="col-lg-6 text-center panel panel-default right-content">
+			<h2>用户投诉与建议</h2>
+
+
+
+			<div class="form-group title">
+				<textarea id="Title"
+					class="form-control col-lg-6 col-md-12 text-center"></textarea>
+			</div>
+			<div class="form-group content">
+				<textarea id="Advice" class="form-control col-lg-12 col-md-12"></textarea>
+			</div>
+			<div class="footer" id="checkFooter">
+				<div class="radio">
+					<label class="radio-inline"> <input type="radio"
+						name="advice" id="spotAdvice" value="a" checked />超级管理员
+					</label> <label class="radio-inline"> <input type="radio"
+						name="advice" id="softwareAdvice" value="s"
+						onclick="selectPosition()" />景区管理员
+					</label> <label class="radio-inline"> <input type="radio"
+						name="advice" id="failedAdvice" value="f" />未通过
+					</label>
+				</div>
+				<button class="btn btn-default mybutton btn-primary input-lg"
+					type="button" value="提交" onclick="allocateAdvice()"
+					style="width:300px;">提交</button>
+			</div>
+
+		</div>
+	</div>
+	<div class="modal text-center myModal" id="selectSpotArea">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+
+					<h4 class="modal-title">景区选择</h4>
+				</div>
+				<div class="modal-body">
+					<form role="form">
+						<!--<div class="form-group">
+							<label>管理员权限：</label> <input type="text"
+								class="form-control input-lg" id="Privilege">
+						</div>-->
+						<!--<div class="dropdown mydropdown1">
+							<button class="btn btn-default dropdown-toggle"
+								data-toggle="dropdown">
+								<span id="menuAdmin">管理员权限</span> <span class="caret"></span>
+							</button>
+							<ul class="dropdown-menu" role="menu">
+								<li role="presentation"><a role="menuitem" tabindex="-1"
+									onclick="setAdmin('景区管理员','s')">景区管理员</a></li>
+								<li role="presentation"><a role="menuitem" tabindex="-1"
+									onclick="setAdmin('审核管理员','c')">审核管理员</a></li>
+							</ul>
+
+						</div>-->
+						<div class="dropdown">
+							<button class="btn btn-default dropdown-toggle"
+								data-toggle="dropdown">
+								<span id="province" class="dropdownTitle">省份</span> <span
+									class="caret"></span>
+							</button>
+							<ul class="dropdown-menu" id="provinces" role="menu"
+								style="min-width:6em;">
+
+							</ul>
+
+						</div>
+						<div class="dropdown ">
+
+							<button class="btn btn-default dropdown-toggle "
+								data-toggle="dropdown">
+								<span id="city" class="dropdownTitle">城市</span> <span
+									class="caret"></span>
+							</button>
+
+							<ul class="dropdown-menu" id="cities" role="menu"
+								style="min-width:6em;">
+
+							</ul>
+
+						</div>
+						<div class="dropdown">
+							<button class="btn btn-default dropdown-toggle"
+								data-toggle="dropdown">
+								<span id="area" class="dropdownTitle">景区</span> <span
+									class="caret"></span>
+							</button>
+							<ul class="dropdown-menu" id="areas" role="menu"
+								style="min-width:6em;">
+
+							</ul>
+
+						</div>
+					</form>
+				</div>
 			</div>
 		</div>
-
 	</div>
-	<div class="col-lg-6 text-center panel panel-default right-content">
-		<h2>用户投诉与建议</h2>
-
-
-
-		<div class="form-group title">
-			<textarea id="Title"
-				class="form-control col-lg-6 col-md-12 text-center"></textarea>
-		</div>
-		<div class="form-group content">
-			<textarea id="Advice" class="form-control col-lg-12 col-md-12"></textarea>
-		</div>
-		<div class="footer" id="checkFooter">
-			<div class="radio">
-				<label class="radio-inline"> <input type="radio"
-					name="advice" id="spotAdvice" value="a" checked />超级管理员
-				</label> <label class="radio-inline"> <input type="radio"
-					name="advice" id="softwareAdvice" value="s" />审核管理员
-				</label> <label class="radio-inline"> <input type="radio"
-					name="advice" id="failedAdvice" value="f" />未通过
-				</label>
+	<div class="modal fade text-center " id="PromptMessage">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header"></div>
+				<div class="modal-body">
+					<h3 id="message"></h3>
+				</div>
+				<div class="modal-footer"></div>
 			</div>
-			<button class="btn btn-default mybutton btn-primary input-lg"
-				type="button" value="提交"
-				style="width:300px;">
-			提交
-			
-			</button>
+			<!-- /.modal-content -->
 		</div>
-		
+		<!-- /.modal-dialog -->
 	</div>
-	</div>
-	
 </body>
 <script>
-  setCookie();
-  judgeAdmin();
+	setCookie();
+	judgeAdmin();
 </script>
 </html>
