@@ -98,7 +98,11 @@ public class tb_adminDao {
 		});
 
 	}
+	@SuppressWarnings("deprecation")
+	public int queryRecordNumber(String sql) {
+		return jdbcTemplate.queryForInt(sql);
 
+	}
 	public void update(String sql, final List<Object> param) {
 
 		jdbcTemplate.update(sql, new PreparedStatementSetter() {

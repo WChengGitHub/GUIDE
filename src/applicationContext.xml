@@ -22,6 +22,8 @@
 
 
 	<!-- 扫描包 -->
+	<context:component-scan
+		base-package="com.data.controller.adminController.superAdminController.superAdminReplyAdvice"></context:component-scan>
 	<context:component-scan base-package="com.data.controller.visitorController" />
 	<context:component-scan
 		base-package="com.data.controller.adminController.superAdminController.changeAndDelAdminController"></context:component-scan>
@@ -100,11 +102,17 @@
 		<property name="jdbcTemplate" ref="jdbcTemplate"></property>
 	</bean>
 	<bean id="admin_adviceDao" class="com.data.dao.singleForm.tb_admin_adviceDao">
-	    <property name="jdbcTemplate" ref="jdbcTemplate"></property>
+		<property name="jdbcTemplate" ref="jdbcTemplate"></property>
 	</bean>
 	<!-- model -->
 	<bean id="tb_visitormodel" class="com.data.model.tb_visitorModel" />
 	<bean id="tb_adminmodel" class="com.data.model.tb_adminModel" />
+	<!-- superAdminReplyAdvice -->
+	<bean id="SuperAdminReplyAdviceService"
+		class="com.data.service.adminService.superAdminFunctions.superAdminReplyAdvice.SuperAdminReplyAdviceServiceImp">
+		<property name="adminDao" ref="adminDao"></property>
+		<property name="adviceDao" ref="adviceDao"></property>
+	</bean>
 
 	<!-- checkAdvice -->
 	<bean id="CheckAdviceService"

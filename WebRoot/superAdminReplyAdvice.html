@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>checkAdvice</title>
+<title>superAdminReplyAdvice</title>
 <meta charset="utf-8">
 <meta name="viewport"
 	content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 <meta name="HandheldFriendly" content="true">
 <link href="./css/bootstrap.min.css" rel="stylesheet">
-<link href="./css/checkAdvice1.css" rel="stylesheet">
+<link href="./css/superAdminReplyAdvice.css" rel="stylesheet">
 <link rel="stylesheet" href="./css/font-awesome.min.css">
 <link rel="stylesheet" href="css/pagination.css" />
 <script src="./css/jquery.js"></script>
@@ -20,10 +20,10 @@
 	var type = "";
 	var Vid = "";
 	var ADid = "";
-	var Pid="";
-	var Cid="";
-	var Arid="";
-	var Status="";
+	var Pid = "";
+	var Cid = "";
+	var Arid = "";
+	var Status = "";
 	function setCookie() {
 		var now = new Date();
 		now.setTime(now.getTime() + 5 * 60 * 1000);
@@ -68,14 +68,14 @@
 		$
 				.ajax({
 					type : 'post',
-					url : "getCheckAdviceNumber?Privilege=" + Privilege,
+					url : encodeURI(encodeURI("SuperAdminReplyAdviceController/softwareAdviceNumber?Account="
+							+ Account)),
 					contentType : 'application/json;charset=utf-8',//指定为json类型 //数据格式是json串，商品信息 
 					dataType : "json",
 					success : function(data) {//返回json结果 
 						var html = '';
-					    
-						if (data.adviceNumber!= 0) {
-							document.getElementById("adviceNumber").innerHTML = data.adviceNumber;
+						if (data.number != 0) {
+							document.getElementById("adviceNumber").innerHTML = data.softwareAdviceNumber;
 						} else {
 							document.getElementById("adviceNumber").innerHTML = "";
 						}
@@ -84,11 +84,12 @@
 				});
 	}
 	function getAdvices() {
-		//alert("getAdviceRecordList");
+		//alert("getAdvices");
 		$
 				.ajax({
 					type : 'post',
-					url : "getCheckAdvices",
+					url : encodeURI(encodeURI("SuperAdminReplyAdviceController/getSoftwareAdvices?Account="
+							+ Account)),
 					contentType : 'application/json;charset=utf-8',
 					dataType : 'json',
 					success : function(data) {
@@ -110,47 +111,27 @@
 
 								$("#advices").html("");//html() 方法返回或设置被选元素的内容 (inner HTML)。
 								for (var i = page_index * items_per_page; i < max_elem; i++) {
-									if (data[i].type == 's') {
-										$("#advices")
-												.append(
-														"<tr class=\"spotAdvice\"> <td>"
-																+ data[i].title
-																+ "</td><td>"
-																+ data[i].atime
-																+ "</td><td>"
-																+ data[i].type
-																+ "</td><td><a style='cursor: pointer;' onclick=showAdvice('"
-																+ data[i].title
-																+ "','"
-																+ data[i].advice
-																+ "','"
-																+ data[i].vid
-																+ "','"
-																+ data[i].ADid
-																+ "')>"
-																+ data[i].ADid
-																+ "</a></td></tr>");
-									} else {
-										$("#advices")
-												.append(
-														"<tr class=\"softwareAdvice\"> <td>"
-																+ data[i].title
-																+ "</td><td>"
-																+ data[i].atime
-																+ "</td><td>"
-																+ data[i].type
-																+ "</td><td><a style='cursor: pointer;' onclick=showAdvice('"
-																+ data[i].title
-																+ "','"
-																+ data[i].advice
-																+ "','"
-																+ data[i].vid
-																+ "','"
-																+ data[i].ADid
-																+ "')>"
-																+ data[i].ADid
-																+ "</a></td></tr>");
-									}
+
+									$("#advices")
+											.append(
+													"<tr> <td>"
+															+ data[i].title
+															+ "</td><td>"
+															+ data[i].atime
+															+ "</td><td>"
+															+ data[i].type
+															+ "</td><td><a style='cursor: pointer;' onclick=showAdvice('"
+															+ data[i].title
+															+ "','"
+															+ data[i].advice
+															+ "','"
+															+ data[i].vid
+															+ "','"
+															+ data[i].ADid
+															+ "')>"
+															+ data[i].ADid
+															+ "</a></td></tr>");
+
 								}
 								return false;
 							}
@@ -162,7 +143,7 @@
 					}
 				});
 	}
-	function hiddenSpotAdvice() {
+	/*function hiddenSpotAdvice() {
 		var x = document.getElementsByClassName("spotAdvice");
 		for (var i = 0; i < x.length; i++) {
 			x[i].style.display = "none";
@@ -173,7 +154,7 @@
 		for (var i = 0; i < x.length; i++) {
 			x[i].style.display = "none";
 		}
-	}
+	}*/
 	function showAdvice(title, advice, vid, aDid) {
 		//alert("title:"+title+"advice:"+advice+"vid:"+vid);
 		document.getElementById("Title").innerHTML = title;
@@ -217,9 +198,9 @@
 	function getCity(pid, province) {
 		//alert("pid:"+pid);
 		$("#province").text(province);
-	    Pid=pid;
-	    Cid="";
-	    Arid="";
+		Pid = pid;
+		Cid = "";
+		Arid = "";
 		$("#cities").html("");
 		$("#areas").html("");
 		//alert("Pid:"+pid+",province:"+province);
@@ -256,8 +237,8 @@
 		//alert("cid:"+cid);
 		if (!(city == null || city == undefined || city == ""))
 			$("#city").text(city);
-		    Cid=cid;
-		    Arid="";
+		Cid = cid;
+		Arid = "";
 		$("#areas").html("");
 		$.ajax({
 			type : 'post',
@@ -270,8 +251,9 @@
 				for (var i = 0; i < data.length; i++) {
 
 					$("#areas").append(
-							"<li><a onclick=setArea('" + data[i].arid + "','" + data[i].area + "')>"
-									+ data[i].area + "</a></li>");
+							"<li><a onclick=setArea('" + data[i].arid + "','"
+									+ data[i].area + "')>" + data[i].area
+									+ "</a></li>");
 
 				}
 				$("#area").text("景区");
@@ -284,10 +266,10 @@
 		});
 		$("#sign").text("该市没有景区");
 	}
-	function setArea(arid,area) {
+	function setArea(arid, area) {
 		//alert(area);
 		$("#area").text(area);
-		Arid=arid;
+		Arid = arid;
 	}
 	function getRadioValue() {
 		var itemradio = document.getElementsByName("advice");
@@ -307,14 +289,16 @@
 	}
 	function allocateAdvice() {
 		getRadioValue();
-		if(type=="f")
-			Status="f";
-		else 
-			Status="p";
+		if (type == "f")
+			Status = "f";
+		else
+			Status = "p";
 		//alert(111);
 		$.ajax({
 			type : 'post',
-			url : "allocateAdvice?type=" + type + "&ADid=" + ADid+"&Pid="+Pid+"&Arid="+Arid+"&Cid="+Cid+"&Status="+Status+"&Vid="+Vid,
+			url : "allocateAdvice?type=" + type + "&ADid=" + ADid + "&Pid="
+					+ Pid + "&Arid=" + Arid + "&Cid=" + Cid + "&Status="
+					+ Status + "&Vid=" + Vid,
 			contentType : 'application/json;charset=utf-8',//指定为json类型 //数据格式是json串，商品信息 
 			dataType : "json",
 			success : function(data) {//返回json结果 
@@ -324,15 +308,14 @@
 				setTimeout(function() {
 					$("#PromptMessage").modal("toggle")
 				}, 0);
-				type="";
+				type = "";
 				ADid = "";
-				Pid="";
-				Cid="";
-				Arid="";
-				Status="";
-				Vid="";
+				Pid = "";
+				Cid = "";
+				Arid = "";
+				Status = "";
+				Vid = "";
 				getAdvices();
-				getAdviceNumber();
 			},
 			error : function() {
 				//alert("failed");
@@ -351,19 +334,13 @@
 
 		<div class="navbar navbar-default navbar-inverse " role="navigation">
 			<div class="navbar-header left-header">
-				<a href="##" class="navbar-brand">审核管理员</a>
+				<a href="##" class="navbar-brand">超级管理员</a>
 			</div>
 			<ul class="nav  pull-right right-header">
 				<li class="dropdown"><a href="##" data-toggle="dropdown"
 					class="dropdown-toggle "><span
 						class="fa fa-fw fa-envelope fa-lg"></span><span id="adviceNumber"
-						class="badge"></span><span class="caret"></span></a>
-					<ul class="dropdown-menu">
-						<li style="display:block;"><a href="##"
-							onclick="hiddenSoftwareAdvice()">景区建议与投诉</a></li>
-						<li style="display:block;"><a href="##"
-							onclick="hiddenSpotAdvice()">软件建议与投诉</a></li>
-					</ul></li>
+						class="badge"></span></a></li>
 				<li><a href="##"><span class="fa fa-fw fa-user fa-lg"></span><span
 						id="Account"></span></a></li>
 
@@ -443,23 +420,6 @@
 				</div>
 				<div class="modal-body">
 					<form role="form">
-						<!--<div class="form-group">
-							<label>管理员权限：</label> <input type="text"
-								class="form-control input-lg" id="Privilege">
-						</div>-->
-						<!--<div class="dropdown mydropdown1">
-							<button class="btn btn-default dropdown-toggle"
-								data-toggle="dropdown">
-								<span id="menuAdmin">管理员权限</span> <span class="caret"></span>
-							</button>
-							<ul class="dropdown-menu" role="menu">
-								<li role="presentation"><a role="menuitem" tabindex="-1"
-									onclick="setAdmin('景区管理员','s')">景区管理员</a></li>
-								<li role="presentation"><a role="menuitem" tabindex="-1"
-									onclick="setAdmin('审核管理员','c')">审核管理员</a></li>
-							</ul>
-
-						</div>-->
 						<div class="dropdown">
 							<button class="btn btn-default dropdown-toggle"
 								data-toggle="dropdown">
