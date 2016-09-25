@@ -112,6 +112,8 @@
 		class="com.data.service.adminService.superAdminFunctions.superAdminReplyAdvice.SuperAdminReplyAdviceServiceImp">
 		<property name="adminDao" ref="adminDao"></property>
 		<property name="adviceDao" ref="adviceDao"></property>
+		<property name="visitorDao" ref="visitorDao"></property>
+		<property name="admin_adviceDao" ref="admin_adviceDao"></property>
 	</bean>
 
 	<!-- checkAdvice -->

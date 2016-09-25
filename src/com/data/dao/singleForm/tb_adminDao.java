@@ -38,7 +38,7 @@ public class tb_adminDao {
 			}
 		});
 	}
-
+   
 	// 查询Account，Aid，Email,Privilege,CreateTime
 	public List<Object> queryRecord(String sql, final List<Object> param) {
 		final DateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");

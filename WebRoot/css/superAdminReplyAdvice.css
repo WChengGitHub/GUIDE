@@ -28,25 +28,30 @@ a:hover
 .right-content .content{height:50%;margin-top:120px;}
 #Advice {text-indent: 2em;line-height: 2em;}
 .right-content .content textarea{height:100%;}
-.right-content .footer button{width:100px;}
+.right-content .footer button{width:300px;position: relative;top:25px;}
  @media(max-width:768px) {
 .right-content .title{margin-top:20px;}
 .right-content .content{height:50%;margin-top:20px;}
-.footer button{width:200px;}}
+.footer button{position: relative;top:10px;}}
 
 
-.myModal .modal-dialog{width:26em;height:26em;}
-.myModal .dropdown {width: 16em;height: 2.8em;display: inline-block;margin-right: 0.7em;margin-bottom: 1em;}
-.myModal .dropdown  button {width: 100%;height: 100%;}
-.myModal .dropdown  .caret {float: right;position: relative;top: 0.7em;}
-.myModal .dropdown  ul {width: 100%;}
+.myModal{margin:0 auto;width:800px;}
+.myModal>div{width: 40%;}
+.myModal>div>div{width: 100%;}
+.reply{height:600px;}
+#replyAdvice {height: 300px;}
+#replyTitle {height: 60px;line-height: 46px;font-size: 14px;}
+.replyTitle{margin-top:40px;}
+.replyContent{margin-top:60px;}
+.submitButton {width: 400px;position: relative;top: 35px;}
 @media ( max-width :768px) {
-.myModal .dropdown  {width: 92%;height: 2.8em;display: inline-block;margin-bottom: 1em;}
-.myModal .dropdown  button {width: 100%;height: 100%;}
-.myModal .dropdown  .caret {float: right;position: relative;top: 0.7em;}
-.myModal .dropdown  ul {width: 100%;}	
-}
-
-
-
-
+.myModal {margin: 0 auto;height: 500px;}
+.mymodal>div {height: 500px;}
+.mymodall>div>div {height: 500px;}
+.submitButton {position: relative;width: 300px;top: 0px;}
+.reply {width: 100%;height: 100%;}
+.replyTitle {margin-top: 10px;}
+.replyTitle textarea{height: 50px;line-height: 36px;font-size: 14px;}
+.replyContent {margin-top: 10px;height: 250px;}
+.replyContent textarea{height: 100%;}
+	}

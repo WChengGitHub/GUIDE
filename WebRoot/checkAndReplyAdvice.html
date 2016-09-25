@@ -444,7 +444,7 @@ $(function(){//相当于$(document).ready(function(){
 		//var y=document.getElementById("password").value;
 		//alert(x+" "+y);
 		//document.cookie="username="+x+";expires="+ now.toGMTString();
-		document.cookie = "Privilege=c;expires=" + now.toGMTString();
+		document.cookie = "Privilege=s;expires=" + now.toGMTString();
 		//document.cookie="Account=Hello;expires="+now.toGMTString();
 		document.cookie = "Account=Hello;expires=" + now.toGMTString();
 		//alert("cookie:"+document.cookie);
@@ -496,7 +496,7 @@ $(function(){//相当于$(document).ready(function(){
 	function getmymodaldata() {
 		$("#mymodal-data").modal("toggle");
 	}
-	//setCookie();
+	setCookie();
 	//judgeAdmin();
 </script>
 </head>
@@ -649,7 +649,7 @@ $(function(){//相当于$(document).ready(function(){
 	<!--<div id="Searchresult">分页初始化完成后这里的内容会被替换。</div>-->
 	<script>
 		$(document).ready(judgeAdmin());
-		getAdviceNumber();
+		//getAdviceNumber();
 	</script>
 </body>
 </html>

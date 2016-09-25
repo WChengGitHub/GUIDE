@@ -31,7 +31,7 @@ html,body
     color: #fff;
     background-color: #000;/*点击时背景颜色变白*/
 }
-.myModal1
+.myModal
 {
 	margin:0 auto;
 	width:800px;
@@ -99,10 +99,7 @@ html,body
  {
    text-decoration:none;
  }
- .myModal
- {
-   width:300px;
- }
+ 
  @media(max-width:768px) {
 	 .header{display:inline;}
 	 .adviceContentHeader button
@@ -134,14 +131,6 @@ html,body
  {
 	 height:100%;
  }
- .myModal
- {
-	 position:relative;
-	 left:20px;
- }
- .myTable
- {
-	 position:relative;
-	 top:-10px;
- }
+ 
+ 
  }

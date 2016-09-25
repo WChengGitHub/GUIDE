@@ -20,15 +20,15 @@
 	var type = "";
 	var Vid = "";
 	var ADid = "";
-	var Pid = "";
+	/*var Pid = "";
 	var Cid = "";
-	var Arid = "";
+	var Arid = "";*/
 	var Status = "";
 	function setCookie() {
 		var now = new Date();
 		now.setTime(now.getTime() + 5 * 60 * 1000);
 		document.cookie = "Privilege=c;expires=" + now.toGMTString();
-		document.cookie = "Account=Hello;expires=" + now.toGMTString();
+		document.cookie = "Account=HHH;expires=" + now.toGMTString();
 	}
 	function getCookie() {
 
@@ -163,163 +163,41 @@
 		ADid = aDid;
 		//alert("ADid:" + aDid);
 	}
-	function selectPosition() {
-		$("#selectSpotArea").modal("toggle");
-		getProvince();
+	
+	
+	function superAdminReplyAdvice()
+	{
+	   $("#mymodal-data").modal("toggle");
 	}
-	function getProvince() {
-		$("#provinces").html("");
-		$("#cities").html("");
-		$("#areas").html("");
+	function sendReply()
+	{
+		//alert(2);
+		var title=document.getElementById("replyTitle").value;
+		//alert(3);
+		var reply=document.getElementById("replyAdvice").value;
+		//alert(1);
+		//alert(title+" "+reply);
+		setTimeout(function(){$("#mymodal-data").modal("hide")},0);
 		$.ajax({
 			type : 'post',
-			url : "getSpotProvince",
-			contentType : 'application/json;charset=utf-8',
-			dataType : 'json',
-			success : function(data) {
-				//alert("success");
-				//html() 方法返回或设置被选元素的内容 (inner HTML)。
-				for (var i = 0; i < data.length; i++) {
-
-					$("#provinces").append(
-							"<li><a onclick=getCity('" + data[i].pid + "','"
-									+ data[i].province + "')>"
-									+ data[i].province + "</a></li>");
-
-				}
-
-			},
-			error : function() {
-				//alert("failed");
-
-			}
-		});
-	}
-	function getCity(pid, province) {
-		//alert("pid:"+pid);
-		$("#province").text(province);
-		Pid = pid;
-		Cid = "";
-		Arid = "";
-		$("#cities").html("");
-		$("#areas").html("");
-		//alert("Pid:"+pid+",province:"+province);
-		$.ajax({
-			type : 'post',
-			url : "getSpotCity?Pid=" + pid,
-			contentType : 'application/json;charset=utf-8',
-			dataType : 'json',
-			success : function(data) {
-				//alert("success");
-				//html() 方法返回或设置被选元素的内容 (inner HTML)。
-				for (var i = 0; i < data.length; i++) {
-
-					$("#cities").append(
-							"<li><a onclick=getArea('" + data[i].cid + "','"
-									+ data[i].city + "')>" + data[i].city
-									+ "</a></li>");
-
-				}
-
-			},
-			error : function() {
-				//alert("failed");
-				$("#sign").text("该省没有城市");
-
-			}
-		});
-		$("#city").text("城市");
-		$("#area").text("景区");
-		$("#spot").text("景点");
-	}
-
-	function getArea(cid, city) {
-		//alert("cid:"+cid);
-		if (!(city == null || city == undefined || city == ""))
-			$("#city").text(city);
-		Cid = cid;
-		Arid = "";
-		$("#areas").html("");
-		$.ajax({
-			type : 'post',
-			url : "getSpotArea?Cid=" + cid,
-			contentType : 'application/json;charset=utf-8',
-			dataType : 'json',
-			success : function(data) {
-				//alert("success");
-				//html() 方法返回或设置被选元素的内容 (inner HTML)。
-				for (var i = 0; i < data.length; i++) {
-
-					$("#areas").append(
-							"<li><a onclick=setArea('" + data[i].arid + "','"
-									+ data[i].area + "')>" + data[i].area
-									+ "</a></li>");
-
-				}
-				$("#area").text("景区");
-
-			},
-			error : function() {
-				//alert("failed");
-
-			}
-		});
-		$("#sign").text("该市没有景区");
-	}
-	function setArea(arid, area) {
-		//alert(area);
-		$("#area").text(area);
-		Arid = arid;
-	}
-	function getRadioValue() {
-		var itemradio = document.getElementsByName("advice");
-		var itemvalue = '';
-		for (i = 0; i < itemradio.length; i++) {
-			if (itemradio[i].checked) {
-				itemvalue = itemradio[i].value;
-			}
-		}
-		if (itemvalue != "") {
-			//alert(itemvalue);
-			type = itemvalue;
-			//alert(Status);
-		} else {
-			alert('还未选择');
-		}
-	}
-	function allocateAdvice() {
-		getRadioValue();
-		if (type == "f")
-			Status = "f";
-		else
-			Status = "p";
-		//alert(111);
-		$.ajax({
-			type : 'post',
-			url : "allocateAdvice?type=" + type + "&ADid=" + ADid + "&Pid="
-					+ Pid + "&Arid=" + Arid + "&Cid=" + Cid + "&Status="
-					+ Status + "&Vid=" + Vid,
+			url : encodeURI(encodeURI("SuperAdminReplyAdviceController/sendReply?Account="
+					+ Account+"&ADid="+ADid+"&Vid="+Vid+"&Title="+title+"&Reply="+reply)),
 			contentType : 'application/json;charset=utf-8',//指定为json类型 //数据格式是json串，商品信息 
 			dataType : "json",
 			success : function(data) {//返回json结果 
 				//alert("提交成功");
 				$("#message").text("提交成功");
-
+				
 				setTimeout(function() {
 					$("#PromptMessage").modal("toggle")
 				}, 0);
-				type = "";
 				ADid = "";
-				Pid = "";
-				Cid = "";
-				Arid = "";
-				Status = "";
 				Vid = "";
 				getAdvices();
 			},
 			error : function() {
 				//alert("failed");
-				$("#message").text("提交失败，请不要重复提交或请先查看建议");
+				$("#message").text("提交失败");
 
 				setTimeout(function() {
 					$("#PromptMessage").modal("toggle")
@@ -394,75 +272,18 @@
 				<textarea id="Advice" class="form-control col-lg-12 col-md-12"></textarea>
 			</div>
 			<div class="footer" id="checkFooter">
-				<div class="radio">
-					<label class="radio-inline"> <input type="radio"
-						name="advice" id="spotAdvice" value="a" checked />超级管理员
-					</label> <label class="radio-inline"> <input type="radio"
-						name="advice" id="softwareAdvice" value="s"
-						onclick="selectPosition()" />景区管理员
-					</label> <label class="radio-inline"> <input type="radio"
-						name="advice" id="failedAdvice" value="f" />未通过
-					</label>
-				</div>
-				<button class="btn btn-default mybutton btn-primary input-lg"
-					type="button" value="提交" onclick="allocateAdvice()"
-					style="width:300px;">提交</button>
+				
+				<button class="btn btn-default  btn-primary input-lg"
+			 type="button" value="回复" onclick="superAdminReplyAdvice()"
+			 >
+		回复
+
+		</button>
 			</div>
 
 		</div>
 	</div>
-	<div class="modal text-center myModal" id="selectSpotArea">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-header">
-
-					<h4 class="modal-title">景区选择</h4>
-				</div>
-				<div class="modal-body">
-					<form role="form">
-						<div class="dropdown">
-							<button class="btn btn-default dropdown-toggle"
-								data-toggle="dropdown">
-								<span id="province" class="dropdownTitle">省份</span> <span
-									class="caret"></span>
-							</button>
-							<ul class="dropdown-menu" id="provinces" role="menu"
-								style="min-width:6em;">
-
-							</ul>
-
-						</div>
-						<div class="dropdown ">
-
-							<button class="btn btn-default dropdown-toggle "
-								data-toggle="dropdown">
-								<span id="city" class="dropdownTitle">城市</span> <span
-									class="caret"></span>
-							</button>
-
-							<ul class="dropdown-menu" id="cities" role="menu"
-								style="min-width:6em;">
-
-							</ul>
-
-						</div>
-						<div class="dropdown">
-							<button class="btn btn-default dropdown-toggle"
-								data-toggle="dropdown">
-								<span id="area" class="dropdownTitle">景区</span> <span
-									class="caret"></span>
-							</button>
-							<ul class="dropdown-menu" id="areas" role="menu"
-								style="min-width:6em;">
-
-							</ul>
-
-						</div>
-					</form>
-				</div>
-			</div>
-		</div>
-	</div>
+	
 	<div class="modal fade text-center " id="PromptMessage">
 		<div class="modal-dialog">
 			<div class="modal-content">
@@ -475,6 +296,29 @@
 			<!-- /.modal-content -->
 		</div>
 		<!-- /.modal-dialog -->
+	</div>
+	<div class="modal  text-center mymodal" id="mymodal-data">
+		<div class="modal-dialog text-center ";>
+			<div class="modal-content mymodal1divdiv ">
+
+				<div class="modal-body reply">
+					<h2 class="modal-title">回复用户</h2>
+					<div class="form-group replyTitle">
+						<textarea id="replyTitle" placeholder="标题:"
+							class="form-control col-lg-6 col-md-12"></textarea>
+					</div>
+					<br/>
+					<div class="form-group replyContent">
+						<textarea id="replyAdvice" placeholder="内容:"
+							class="form-control col-lg-12 col-md-12" style=""></textarea>
+					</div>
+					<button class="btn btn-default submitButton btn-primary input-lg"
+						type="button" value="提交" onclick="sendReply()">提交</button>
+				</div>
+			</div>
+
+		</div>
+
 	</div>
 </body>
 <script>
