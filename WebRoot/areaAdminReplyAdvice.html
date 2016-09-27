@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>superAdminReplyAdvice</title>
+<title>areaAdminReplyAdvice</title>
 <meta charset="utf-8">
 <meta name="viewport"
 	content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 <meta name="HandheldFriendly" content="true">
 <link href="./css/bootstrap.min.css" rel="stylesheet">
-<link href="./css/superAdminReplyAdvice.css" rel="stylesheet">
+<link href="./css/areaAdminReplyAdvice.css" rel="stylesheet">
 <link rel="stylesheet" href="./css/font-awesome.min.css">
 <link rel="stylesheet" href="css/pagination.css" />
 <script src="./css/jquery.js"></script>
@@ -27,8 +27,8 @@
 	function setCookie() {
 		var now = new Date();
 		now.setTime(now.getTime() + 5 * 60 * 1000);
-		document.cookie = "Privilege=c;expires=" + now.toGMTString();
-		document.cookie = "Account=HHH;expires=" + now.toGMTString();
+		document.cookie = "Privilege=r;expires=" + now.toGMTString();
+		document.cookie = "Account=HelloWord;expires=" + now.toGMTString();
 	}
 	function getCookie() {
 
@@ -55,7 +55,7 @@
 	function judgeAdmin() {
 		getCookie();
 		//alert("Account:"+Account+" "+"Privilege:"+Privilege);
-		if (Account == "" || Privilege != "a") {
+		if (Account == "" || Privilege != "r") {
 			window.open("Home.html", "_self");
 		} else {
 			setAccount();
@@ -68,14 +68,14 @@
 		$
 				.ajax({
 					type : 'post',
-					url : encodeURI(encodeURI("SuperAdminReplyAdviceController/softwareAdviceNumber?Account="
+					url : encodeURI(encodeURI("AreaAdminReplyAdviceController/softwareAdviceNumber?Account="
 							+ Account)),
 					contentType : 'application/json;charset=utf-8',//指定为json类型 //数据格式是json串，商品信息 
 					dataType : "json",
 					success : function(data) {//返回json结果 
 						var html = '';
-						if (data.softwareAdviceNumber != 0) {
-							document.getElementById("adviceNumber").innerHTML = data.softwareAdviceNumber;
+						if (data.spotAdviceNumber != 0) {
+							document.getElementById("adviceNumber").innerHTML = data.spotAdviceNumber;
 						} else {
 							document.getElementById("adviceNumber").innerHTML = "";
 						}
@@ -88,7 +88,7 @@
 		$
 				.ajax({
 					type : 'post',
-					url : encodeURI(encodeURI("SuperAdminReplyAdviceController/getSoftwareAdvices?Account="
+					url : encodeURI(encodeURI("AreaAdminReplyAdviceController/getSoftwareAdvices?Account="
 							+ Account)),
 					contentType : 'application/json;charset=utf-8',
 					dataType : 'json',
@@ -180,7 +180,7 @@
 		setTimeout(function(){$("#mymodal-data").modal("hide")},0);
 		$.ajax({
 			type : 'post',
-			url : encodeURI(encodeURI("SuperAdminReplyAdviceController/sendReply?Account="
+			url : encodeURI(encodeURI("AreaAdminReplyAdviceController/sendReply?Account="
 					+ Account+"&ADid="+ADid+"&Vid="+Vid+"&Title="+title+"&Reply="+reply)),
 			contentType : 'application/json;charset=utf-8',//指定为json类型 //数据格式是json串，商品信息 
 			dataType : "json",
@@ -212,7 +212,7 @@
 
 		<div class="navbar navbar-default navbar-inverse " role="navigation">
 			<div class="navbar-header left-header">
-				<a href="##" class="navbar-brand">超级管理员</a>
+				<a href="##" class="navbar-brand">景区管理员</a>
 			</div>
 			<ul class="nav  pull-right right-header">
 				<li class="dropdown"><a href="##" data-toggle="dropdown"

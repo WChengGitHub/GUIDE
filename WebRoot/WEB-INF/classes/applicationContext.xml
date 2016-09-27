@@ -22,6 +22,7 @@
 
 
 	<!-- 扫描包 -->
+	<context:component-scan base-package="com.data.controller.adminController.areaAdminController.areaAdminReplyAdviceController"></context:component-scan>
 	<context:component-scan
 		base-package="com.data.controller.adminController.superAdminController.superAdminReplyAdvice"></context:component-scan>
 	<context:component-scan base-package="com.data.controller.visitorController" />
@@ -107,7 +108,14 @@
 	<!-- model -->
 	<bean id="tb_visitormodel" class="com.data.model.tb_visitorModel" />
 	<bean id="tb_adminmodel" class="com.data.model.tb_adminModel" />
-	<!-- superAdminReplyAdvice -->
+	<!-- areaAdminReplyAdviceService -->
+	<bean id="AreaAdminReplyAdviceService" class="com.data.service.adminService.areaAdminFunction.areaAdminReplyAdviceService.AreaAdminReplyAdviceServiceImp">
+	<property name="adminDao" ref="adminDao"></property>
+		<property name="adviceDao" ref="adviceDao"></property>
+		<property name="visitorDao" ref="visitorDao"></property>
+		<property name="admin_adviceDao" ref="admin_adviceDao"></property>
+	</bean>
+	<!-- superAdminReplyAdviceService -->
 	<bean id="SuperAdminReplyAdviceService"
 		class="com.data.service.adminService.superAdminFunctions.superAdminReplyAdvice.SuperAdminReplyAdviceServiceImp">
 		<property name="adminDao" ref="adminDao"></property>
@@ -116,7 +124,7 @@
 		<property name="admin_adviceDao" ref="admin_adviceDao"></property>
 	</bean>
 
-	<!-- checkAdvice -->
+	<!-- checkAdviceService-->
 	<bean id="CheckAdviceService"
 		class="com.data.service.adminService.checkAdminFunctions.checkAdvice.CheckAdviceServiceImp">
 		<property name="adviceDao" ref="adviceDao"></property>
