@@ -77,7 +77,32 @@ public class tb_adviceDao {
 		});
 
 	}
+	public List<Object> queryAdviceStatus(String sql, final List<Object> param) {
+		final DateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+		return jdbcTemplate.query(sql, new PreparedStatementSetter() {
+			@Override
+			public void setValues(PreparedStatement ps) throws SQLException {
+				for (int i = 0; i < param.size(); i++) {
+					try {
+						ps.setObject(i + 1, param.get(i));
+					} catch (SQLException e) {
+						System.out
+								.println("Pstmt中的Sql语句参数注入异常。。。");
+						e.printStackTrace();
+					}
+				}
+			}
+		}, new RowMapper<Object>() {
+			@Override
+			public tb_adviceModel mapRow(ResultSet rs, int arg1)
+					throws SQLException {
+				tb_adviceModel adviceModel = new tb_adviceModel();
+				adviceModel.setStatus(rs.getString("Status"));
+				return adviceModel;
+			}
+		});
 
+	}
 	public void update(String sql, final List<Object> param) {
 
 		jdbcTemplate.update(sql, new PreparedStatementSetter() {
