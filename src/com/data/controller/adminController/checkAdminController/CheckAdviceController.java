@@ -16,12 +16,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.data.model.ChangeAndDelAdminModel;
 import com.data.model.CheckAdviceModel;
-import com.data.model.tb_adminModel;
 import com.data.service.adminService.checkAdminFunctions.checkAdvice.CheckAdviceService;
-import com.data.service.adminService.superAdminFunctions.changeAndDelAdmin.ChangeAndDelAdminService;
-import com.data.service.visitorService.checkAndReplyAdviceService.CheckAndReplyAdvice;
 
 @Controller
 public class CheckAdviceController {

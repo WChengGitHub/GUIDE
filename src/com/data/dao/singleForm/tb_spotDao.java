@@ -29,14 +29,14 @@ public class tb_spotDao {
 		return jdbcTemplate;
 	}
 
-	public ChangeAndDelAdminModel querySid(String sql) {// 根据Vid
+	public ChangeAndDelAdminModel queryArid(String sql) {// 根据Vid
 		return (ChangeAndDelAdminModel) jdbcTemplate.queryForObject(sql,
 				new RowMapper<Object>() {
 					@Override
 					public ChangeAndDelAdminModel mapRow(ResultSet rs, int arg1)
 							throws SQLException {
 						ChangeAndDelAdminModel changeAndDelAdminModel = new ChangeAndDelAdminModel();
-						changeAndDelAdminModel.setSid(rs.getString("Sid"));
+						changeAndDelAdminModel.setArid(rs.getString("Arid"));
 						return changeAndDelAdminModel;
 					}
 				});
