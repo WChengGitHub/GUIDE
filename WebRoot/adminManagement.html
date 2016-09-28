@@ -21,9 +21,9 @@ function getCookie(cname){
 }
 function checkCookie(){
 
-	var cookie=getCookie("Account Privilege");
-	if (cookie[2]=="a"){
-		//alert("Welcome " + cookie[2]);
+	var cookie=getCookie("Privilege");
+	if (cookie=="a"){
+		//alert("Welcome " + cookie);
 	}
 	else {
 		//user = prompt("Please enter your name:","");
@@ -95,6 +95,7 @@ function checkCookie(){
       xmlhttp.open("POST","addAdminRequest.html",true);
       xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
       xmlhttp.send(json);
+  
     }
   else
     {
@@ -1161,9 +1162,10 @@ function state_Change()
             var result;
             var addsuccess=1;
             var added=2;
-            var addfailed=3;
+            var wrongprivilege=3;
             var error=4;
             var lock=5;
+            var addfailed=0;
             result=xmlhttp.responseText;
             
             if(result==error)
@@ -1189,6 +1191,10 @@ function state_Change()
             {
               alert("增加失败!");
             }
+            else if(result==wrongprivilege)
+            {
+              alert("权限字段应设置为“s”或“c” !")
+           	}
             
         }
         

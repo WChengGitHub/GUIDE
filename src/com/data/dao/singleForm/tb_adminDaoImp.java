@@ -40,7 +40,7 @@ public class tb_adminDaoImp implements Dao{
 	
 	//增
 	public void add(Object object,String Sql) {  
-		ChangeAndDelAdminModel tb_adminmodel=(ChangeAndDelAdminModel)object;
+		tb_adminModel tb_adminmodel=(tb_adminModel)object;
 		JdbcTemplate jt=this.getJdbcTemple();
 		try{
 			//test
@@ -99,8 +99,8 @@ public class tb_adminDaoImp implements Dao{
 				}
 			},new RowMapper<Object>(){
 			  @Override
-			  public ChangeAndDelAdminModel mapRow(ResultSet rs, int arg1) throws SQLException {
-					ChangeAndDelAdminModel tb_adminmodel=new ChangeAndDelAdminModel();
+			  public tb_adminModel mapRow(ResultSet rs, int arg1) throws SQLException {
+				  tb_adminModel tb_adminmodel=new tb_adminModel();
 					try {
 						
 						tb_adminmodel.setAccount(rs.getString("Account"));

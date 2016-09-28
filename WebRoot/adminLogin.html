@@ -126,6 +126,7 @@ function state_Change()
         var checkadmin=5;
         var spotadmin=4;
         var deladmin=6;
+        var wrongprivilege=7;
       result=xmlhttp.responseText;
       
       if(result==no_user_name)
@@ -156,6 +157,10 @@ function state_Change()
         	getAdminPrivilege();
             alert("景区管理员登录成功");
         }
+        else if(result==wrongprivilege)
+        {
+        	alert("该管理员权限字段有误!")
+        }
         else alert("failed");
    }
   }
@@ -179,9 +184,11 @@ function getAdminPrivilege() {
 	            if(expiresHours>0){ 
 	            var date=new Date(); 
 	            date.setTime(date.getTime+expiresHours*60*1000); 
-	            cookieString=cookieString+"; expires="+date.toGMTString(); 
+	            //cookieString=cookieString+"; expires="+date.toGMTString(); 
 	            } 
-	            document.cookie=cookieString; 
+	            //document.cookie=cookieString;
+	            document.cookie = "Privilege=a;expires=" +date.toGMTString(); 
+		        document.cookie = "Account="+account+";expires=" + date.toGMTString(); 
 	            alert(document.cookie);}
 			else if(privilege==checkadmin){
 				var account=document.getElementById("Account").value;
@@ -190,9 +197,11 @@ function getAdminPrivilege() {
 	            if(expiresHours>0){ 
 	            var date=new Date(); 
 	            date.setTime(date.getTime+expiresHours*60*1000); 
-	            cookieString=cookieString+"; expires="+date.toGMTString(); 
+	            //cookieString=cookieString+"; expires="+date.toGMTString(); 
 	            } 
-	            document.cookie=cookieString; 
+	            //document.cookie=cookieString; 
+	            document.cookie = "Privilege=c;expires=" +date.toGMTString(); 
+		        document.cookie = "Account="+account+";expires=" + date.toGMTString(); 
 	            alert(document.cookie);}
 			else if(privilege==spotadmin){
 				var account=document.getElementById("Account").value;
@@ -201,9 +210,11 @@ function getAdminPrivilege() {
 	            if(expiresHours>0){ 
 	            var date=new Date(); 
 	            date.setTime(date.getTime+expiresHours*60*1000); 
-	            cookieString=cookieString+"; expires="+date.toGMTString(); 
+	            //cookieString=cookieString+"; expires="+date.toGMTString(); 
 	            } 
-	            document.cookie=cookieString; 
+	            //document.cookie=cookieString; 
+	            document.cookie = "Privilege=s;expires=" +date.toGMTString(); 
+		        document.cookie = "Account="+account+";expires=" + date.toGMTString(); 
 	            alert(document.cookie);}
 			}});
 	}

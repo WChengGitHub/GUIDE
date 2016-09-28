@@ -1,4 +1,4 @@
-package com.data.service;
+package com.data.service.visitorService.checkAndReplyAdviceService;
 
 import java.util.*;  
 import javax.activation.*;  
@@ -113,7 +113,7 @@ public class SendEmail {
     public static void main(String[] args){  
         SendEmail cn = new SendEmail();  
      //设置发件人地址、收件人地址和邮件标题  
-     cn.setAddress("13794566179@163.com","844512330@qq.com","你好");  
+     cn.setAddress("13794566179@163.com","154468476@qq.com","你好肉肉肉肉");  
      //设置要发送附件的位置和标题  
      //cn.setAffix("D:\\1.jpg","1.jpg");  
      //设置smtp服务器以及邮箱的帐号和密码  
