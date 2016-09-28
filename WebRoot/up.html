@@ -1,0 +1,306 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+	<head>
+	<title>智能导览</title>
+	<link rel="stylesheet" type="text/css" href="css/up.css"></link>
+	<meta name="viewport" content="width=device-width,initial-scale=0.6,user-scalable=no">
+	<meta charset="utf-8">
+    <script language="javascript">
+	// 	function Click(){
+	// 	if(window.event.srcElement.tagName=="IMG")
+	// 	{
+	// 		window.event.returnValue=false;
+	// 	}
+	// 	}		
+	// 		document.oncontextmenu=Click;
+	// </script>
+
+	<style>
+		@media screen and (max-width:780px){
+   			#top{
+			width: 100%;
+			}
+			.bg{
+			/*	position: relative;
+				left: 36%;*/
+			    background:url(css/background1.png);
+			    background-repeat:no-repeat;
+			    background-position:-320px -115px;
+			    height:22px;
+			    width:20px;
+			    text-align:center;
+				-webkit-transform: translate(200px, 0px);
+				-moz-transform: translate(200px, 0px);
+			}
+
+			.bg a{
+				position: relative;
+				top: -5px;
+				color: black;
+			    line-height:36px;
+			    display:block;
+			    font-size: 14px;
+			    text-decoration:none;
+			    color: black;
+			    opacity: 0.4;	
+			    font-weight: bold;
+				font-family: 微软雅黑;
+			}
+			.bg_{
+			/*	position: relative;
+				left: 25%;
+				top: -33px;*/
+				/*用这种在移动端和PC端位置改变比较大*/
+			    background:url(css/background1.png);
+			    background-repeat:no-repeat;
+			    background-position:-270px -116px;
+			    height:22px;
+			    width:20px;
+			    text-align:center;
+				-webkit-transform: translate(140px, -33px);
+				-moz-transform: translate(140px, -33px);
+			}
+			.bg_ a{
+				position: relative;
+				top: -7px;
+				color: black;
+			    line-height:36px;
+			    display:block;
+			    font-size: 14px;
+			    text-decoration:none;
+			    color: black;
+			    opacity: 0.4;	
+			    font-weight: bold;
+				font-family: 微软雅黑;
+			}
+			.bg_ a:hover{
+				color: #2e0e0e;
+				opacity: 0.8;
+			}
+	}
+	</style>
+
+
+
+
+	<script language="javascript">
+	// 	function Click(){
+	// 	if(window.event.srcElement.tagName=="IMG")
+	// 	{
+	// 		window.event.returnValue=false;
+	// 	}
+	// 	}		
+	// 		document.oncontextmenu=Click;
+	// </script>
+	
+	<script type="text/javascript">
+
+	var xmlhttp;
+	function loadXMLDoc()//传参
+	{	
+		var visitor=document.getElementById("Visitor").value;
+		var password=document.getElementById("Password").value;
+		var email=document.getElementById("Email").value;
+		xmlhttp=null;
+	if (window.XMLHttpRequest)
+	  {
+	  	xmlhttp=new XMLHttpRequest();
+	  }
+	else if (window.ActiveXObject)
+	  {
+	  	xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+	  }
+	if (xmlhttp!=null)
+	  {
+	  	var json="visitor="+visitor+"&password="+password+"&email="+email;
+	  	xmlhttp.onreadystatechange=state_Change;
+	  	xmlhttp.open("POST","register.html",true);
+	  	xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+	  	xmlhttp.send(json);
+	  }
+	else
+	  {
+	  	alert("Your browser does not support XMLHTTP.");
+	  }
+	};
+	
+function state_Change()
+	{
+	if (xmlhttp.readyState==4)
+	  {
+	  if (xmlhttp.status==200)
+	    {
+	    	var result;
+	    	var registered=2
+	    	//var register_failed2=3;
+	    	var register_failed=0;
+	 		result=xmlhttp.responseText;
+	 		
+	 		if(result==register_failed)
+	 		{
+	 			alert("注册失败!请重试");
+	 		}
+	 		else if(result==registered)
+	 		{
+	 			alert("用户已注册!请直接登录");
+	 			window.open('in.html','_self','width=200,height=100,,_left=0,_top=100');
+	 		}
+	 			else
+	 			{
+					alert("恭喜您,注册成功!");
+					window.open('in.html','_self','width=200,height=100,,_left=0,_top=100');
+	 			}
+	 	}
+	    
+	  	else
+	    {
+	    	alert("Problem retrieving XML data:" + xmlhttp.statusText);
+	    }
+	  }
+	}
+
+	</script>
+	</head>
+	
+	<body>
+		<div id="top" align="center">
+			<!--<div>
+				<div class="lang1">
+					<a href="登录up.html" class="new">注册</a>
+				</div>
+				<div class="lang2"> 
+					<img src="图标/用户.jpg" class="logo0">
+				</div>
+				<div class="lang3">
+					<a href="登录in.html" class="login">登录</a>
+				</div>
+				<div class="lang4"> 
+					<img src="图标/进入.jpg" class="logo0">
+				</div>
+			</div>-->
+			<div class="bg">
+				<div>
+            		<a href="Home.html"><pre>   首页</pre></a>
+            	</div>
+        	</div>
+			<div class="bg_">
+				<div>
+            		<a href="in.html"><pre>   登录</pre></a>
+            	</div>
+        	</div>
+		</div>
+
+		<div id="logo">
+			<div align="center" class="a">
+				<h1>智能导览</h1>
+			</div>
+
+			<div align="center" class="b">
+				<h5>走一路风光，赏一路心情</h5>
+			</div>
+		</div>
+
+		<div id="line" align="center">
+			<div>
+				<p class="point">•</p>	
+				<a href="in.html" class="c">登录 &nbsp; </a><a href="up.html" class="d"> &nbsp; 注册</a>
+			</div>
+			<div class="line">
+				<hr style="height:1.2px;border:none;border-top:1.2px solid #838B8B;" />
+			</div>	
+			<div class="line2">
+				<hr style="height:1.2px;border:none;border-top:1.2px solid #838B8B;" />
+			</div>
+		</div>
+
+		<div id="middle" align="center">
+					<table> 
+						<div>	
+							<tr>
+								<td>
+									<!-- <img src="图标/邮件.jpg" class="logo_"> -->
+									<div class="email" align="center">
+										<div class="email-img" ></div>
+									</div>
+									<input type="email" placeholder="你的邮件地址 " 
+									name="name" value="" class="word1" class="login" id="Email"/>
+									
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<div class="user" align="center">
+										<div class="user-img" ></div>
+									</div>
+									<!-- <img src="图标/用户.jpg" class="logo_"> -->
+									<input type="text" placeholder="选一个昵称" name="pass" class="word2" id="Visitor"/>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<div class="password" align="center">
+										<div class="password-img" ></div>
+									</div>
+									<!-- <img src="图标/密码.jpg" class="logo_"> -->
+									<input type="password" placeholder="输入密码" name="pass" class="word3" id="Password"/>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<input type="submit" name="submit" value="注  册" class="button" onclick="loadXMLDoc()"/>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<p class="tip1">点击 “注册” 或下方社交登录按钮，即表示您同意</p>
+									<p class="tip2">并愿意遵守简书</p>
+									<td class="tip3">
+										<a href="http://www.baidu.com" target="bottom" 
+										style="color:#068b26; text-decoration:none;">用户协议</a>
+									</td>
+									<td  class="tip4">
+										<p>和</p>
+									</td>
+									<td class="tip5">
+										<a href="http://www.baidu.com" target="bottom" 
+										style="color:#068b26; text-decoration:none;">隐私政策</a>
+									</td>
+								</td>
+							</tr>
+						</div>	
+					</table>
+		</div>		
+		
+		<div id="bottom" align="center">	
+				<div class="line3">
+					<hr style="height:1.2px;border:none;border-top:1.2px solid #838B8B;" />
+				</div>	
+				<div>
+					<tr>
+						<td>
+							<p class="title2">您还可以通过以下方式直接登录</p>
+						</td>
+					</tr>
+				</div>
+				<div class="wechar">
+					<a href="http://www.baidu.com" target="bottom"><pre> </pre></a>
+				</div>
+
+				<div class="QQ">
+					<a href="http://www.baidu.com" target="bottom"><pre> </pre></a>
+				</div>
+
+				<div class="weibo">	
+					<a href="http://www.baidu.com" target="bottom"><pre> </pre></a>
+				</div>
+
+				<div class="dou">
+					<a href="http://www.baidu.com" target="bottom"><pre> </pre></a>
+				</div>
+
+				<div class="google">
+					<a href="http://www.baidu.com" target="bottom"><pre> </pre></a>
+				</div>
+		</div>
+	</body>
+</html>
