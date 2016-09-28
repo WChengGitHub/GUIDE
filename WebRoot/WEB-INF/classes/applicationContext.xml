@@ -182,14 +182,7 @@
 	<bean id="QueryDao" class="com.data.dao.QueryDao">
 		<property name="jdbcTemplate" ref="jdbcTemplate"></property>
 	</bean>
-	<bean id="CheckAdvice"
-		class="com.data.service.visitorService.checkAndReplyAdviceService.CheckAndReplyAdviceImp">
-
-		<property name="queryDao" ref="QueryDao"></property>
-		<property name="adviceDao" ref="adviceDao"></property>
-		<property name="visitorDao" ref="visitorDao"></property>
-		<property name="adminDao" ref="adminDao"></property>
-	</bean>
+	
 
 	<!-- changeAndDelAdminService -->
 	<bean id="ChangeAndDelAdminService"

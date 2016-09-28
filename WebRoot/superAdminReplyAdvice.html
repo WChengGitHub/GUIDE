@@ -27,7 +27,7 @@
 	function setCookie() {
 		var now = new Date();
 		now.setTime(now.getTime() + 5 * 60 * 1000);
-		document.cookie = "Privilege=c;expires=" + now.toGMTString();
+		document.cookie = "Privilege=a;expires=" + now.toGMTString();
 		document.cookie = "Account=HHH;expires=" + now.toGMTString();
 	}
 	function getCookie() {
@@ -54,6 +54,7 @@
 	}
 	function judgeAdmin() {
 		getCookie();
+		//alert(Privilege);
 		//alert("Account:"+Account+" "+"Privilege:"+Privilege);
 		if (Account == "" || Privilege != "a") {
 			window.open("Home.html", "_self");
@@ -143,18 +144,7 @@
 					}
 				});
 	}
-	/*function hiddenSpotAdvice() {
-		var x = document.getElementsByClassName("spotAdvice");
-		for (var i = 0; i < x.length; i++) {
-			x[i].style.display = "none";
-		}
-	}
-	function hiddenSoftwareAdvice() {
-		var x = document.getElementsByClassName("softwareAdvice");
-		for (var i = 0; i < x.length; i++) {
-			x[i].style.display = "none";
-		}
-	}*/
+	
 	function showAdvice(title, advice, vid, aDid) {
 		//alert("title:"+title+"advice:"+advice+"vid:"+vid);
 		document.getElementById("Title").innerHTML = title;
@@ -322,7 +312,8 @@
 	</div>
 </body>
 <script>
-	//setCookie();
+	setCookie();
+	//alert(Privliege!="a");
 	judgeAdmin();
 </script>
 </html>
