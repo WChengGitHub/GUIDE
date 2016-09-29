@@ -46,7 +46,7 @@ public class tb_adviceDao {
 			}
 		});
 	}
-
+//返回多条建议，内容有ADid,Title,Advice,ATime,type,Vid
 	public List<Object> query(String sql, final List<Object> param) {
 		final DateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 		return jdbcTemplate.query(sql, new PreparedStatementSetter() {
@@ -72,6 +72,8 @@ public class tb_adviceDao {
 				adviceModel.setTitle(rs.getString("Title"));
 				adviceModel.setType(rs.getString("type"));
 				adviceModel.setAtime(sdf.format(rs.getTimestamp("Atime")));
+				adviceModel.setAdvice(rs.getString("Advice"));
+				adviceModel.setVid(rs.getString("Vid"));
 				return adviceModel;
 			}
 		});

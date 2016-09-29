@@ -131,6 +131,14 @@
 <script>
 	var Account;
 	var Privilege;
+	var confirmEmail = "";
+	var confirmAid = "";
+	var confirmAccount = "";
+	var Aid = "";
+	var Email = "";
+	var adminAccount = "";
+	var Arid="";
+	var adminPrivilege="";
 	function getCookie() {
 		var strCookie = document.cookie;
 		var arrCookie = strCookie.split(";");
@@ -161,6 +169,8 @@
 			window.open("Home.html", "_self");
 		} else {
 			changeDisplay();
+			getAdminRecordList();
+			getProvince();
 		}
 	}
 	function changeDisplay() {
@@ -234,9 +244,7 @@
 					}
 				});
 	}
-	var confirmEmail = "";
-	var confirmAid = "";
-	var confirmAccount = "";
+	
 	function setAdminDelStatus() {
 		//alert(confirmAccount);
 		//alert(confirmAid);
@@ -271,9 +279,7 @@
 		$("#confirmModel").modal("toggle");
 
 	}
-	var Aid = "";
-	var Email = "";
-	var adminAccount = "";
+	
 	function setChangeAdminValue(aid, email, account) {
 		//alert("ChangeAdmin");
 
@@ -297,8 +303,8 @@
 		$.ajax({
 			type : 'post',
 			url : encodeURI(encodeURI("sendAdminChange?Email=" + Email
-					+ "&Aid=" + Aid + "&Privilege=" + Privilege + "&Spot="
-					+ Spot + "&Account=" + adminAccount)),
+					+ "&Aid=" + Aid + "&Privilege=" + Privilege + "&Arid="
+					+ Arid + "&Account=" + adminAccount)),
 			contentType : 'application/json;charset=utf-8',
 			dataType : 'json',
 			success : function(data) {
@@ -328,7 +334,7 @@
 		//alert("Privilege:" + Privilege);
 		//alert("Spot:" + Spot);
 	}
-	var adminPrivilege;
+	
 	function setAdmin(adminValue, Privilege) {
 
 		$("#menuAdmin").text(adminValue);
@@ -343,11 +349,7 @@
 			dataType : 'json',
 			success : function(data) {
 				//alert("success");
-				$("#provinces").html("");
-				$("#cities").html("");
-				$("#areas").html("");
-				$("#spots").html("");
-				//html() 方法返回或设置被选元素的内容 (inner HTML)。
+				$("#provinces").html("");//html() 方法返回或设置被选元素的内容 (inner HTML)。
 				for (var i = 0; i < data.length; i++) {
 
 					$("#provinces").append(
@@ -360,11 +362,7 @@
 			},
 			error : function() {
 				//alert("failed");
-            $("#sign").text("还没有设置省份");
-            $("#provinces").html("");
-			$("#cities").html("");
-			$("#areas").html("");
-			$("#spots").html("");
+
 				setTimeout(function() {
 					$("#mymodal").modal("toggle")
 				}, 0);
@@ -382,10 +380,7 @@
 			dataType : 'json',
 			success : function(data) {
 				//alert("success");
-				$("#cities").html("");
-				$("#areas").html("");
-				$("#spots").html("");
-				//html() 方法返回或设置被选元素的内容 (inner HTML)。
+				$("#cities").html("");//html() 方法返回或设置被选元素的内容 (inner HTML)。
 				for (var i = 0; i < data.length; i++) {
 
 					$("#cities").append(
@@ -399,9 +394,7 @@
 			error : function() {
 				//alert("failed");
 				$("#sign").text("该省没有城市");
-				$("#cities").html("");
-				$("#areas").html("");
-				$("#spots").html("");
+
 				setTimeout(function() {
 					$("#mymodal").modal("toggle")
 				}, 0);
@@ -418,19 +411,16 @@
 
 		$.ajax({
 			type : 'post',
-			url : "getArea?Cid=" + cid,
+			url : "getAreas?Cid=" + cid,
 			contentType : 'application/json;charset=utf-8',
 			dataType : 'json',
 			success : function(data) {
 				//alert("success");
-				$("#areas").html("");
-				$("#spots").html("");
-				//html() 方法返回或设置被选元素的内容 (inner HTML)。
+				$("#areas").html("");//html() 方法返回或设置被选元素的内容 (inner HTML)。
 				for (var i = 0; i < data.length; i++) {
 
 					$("#areas").append(
-							"<li><a onclick=getSpot('" + data[i].arid + "','"
-									+ data[i].area + "')>" + data[i].area
+							"<li><a onclick=setArid('" + data[i].arid + "','"+data[i].area+"')>" + data[i].area
 									+ "</a></li>");
 
 				}
@@ -439,10 +429,7 @@
 			},
 			error : function() {
 				//alert("failed");
-                $("#area").text("景区");
-				$("#spot").text("景点");
-				$("#areas").html("");
-				$("#spots").html("");
+
 				setTimeout(function() {
 					$("#mymodal").modal("toggle")
 				}, 0);
@@ -450,43 +437,12 @@
 		});
 		$("#sign").text("该市没有景区");
 	}
-	var getSpotspot = '';
-	function getSpot(arid, area) {
-		//alert("Sid:"+arid);
-		$("#area").text(area);
-		$.ajax({
-			type : 'post',
-			url : "getSpot?Arid=" + arid,
-			contentType : 'application/json;charset=utf-8',
-			dataType : 'json',
-			success : function(data) {
-				//alert("success");
-				$("#spots").html("");//html() 方法返回或设置被选元素的内容 (inner HTML)。
-				for (var i = 0; i < data.length; i++) {
-
-					$("#spots").append(
-							"<li><a onclick=setSpot('" + data[i].spot + "')>"
-									+ data[i].spot + "</a></li>");
-
-				}
-
-			},
-			error : function() {
-				//alert("failed");
-				$("#sign").text("该景区没有景点");
-				$("#spots").html("");
-				setTimeout(function() {
-					$("#mymodal").modal("toggle")
-				}, 0);
-			}
-		});
-		$("#spot").text("景点");
+	
+	function setArid(x,y)
+	{
+		Arid=x;
+		$("#area").text(y);
 	}
-	function setSpot(spot) {
-		$("#spot").text(spot);
-		getSpotspot = spot;
-	}
-	//setCookie();
 </script>
 </head>
 <body>
@@ -555,7 +511,7 @@
 							</button>
 							<ul class="dropdown-menu" role="menu">
 								<li role="presentation"><a role="menuitem" tabindex="-1"
-									onclick="setAdmin('景区管理员','s')">景区管理员</a></li>
+									onclick="setAdmin('景区管理员','r')">景区管理员</a></li>
 								<li role="presentation"><a role="menuitem" tabindex="-1"
 									onclick="setAdmin('审核管理员','c')">审核管理员</a></li>
 							</ul>
@@ -587,7 +543,7 @@
 							</ul>
 
 						</div>
-						<div class="dropdown mydropdown">
+						<div class="dropdown mydropdown1">
 							<button class="btn btn-default dropdown-toggle"
 								data-toggle="dropdown">
 								<span id="area" class="dropdownTitle">景区</span> <span
@@ -600,18 +556,7 @@
 
 						</div>
 
-						<div class="dropdown mydropdown">
-							<button class="btn btn-default dropdown-toggle"
-								data-toggle="dropdown">
-								<span id="spot" class="dropdownTitle">景点</span> <span
-									class="caret"></span>
-							</button>
-							<ul class="dropdown-menu" id="spots" role="menu"
-								style="min-width:6em;">
-
-							</ul>
-
-						</div>
+						
 						<!--<div class="form-group">
 							<label>景点:</label> <input type="text"
 								class="form-control input-lg" id="Spot">
@@ -624,28 +569,7 @@
 			</div>
 		</div>
 	</div>
-	<!-- <div class="modal  text-center " id="changeAdmin">
-		<div class="modal-dialog text-center";>
-			<div class="modal-content  ">
-
-				<div class="modal-body ">
-					<h3 class="modal-title">管理员权限和景区修改</h3>
-					<div class="form-group ">
-						<input id="Privilege" class="form-control col-lg-12 col-md-12"
-							type="text" placeholder="请输入你要修改的权限:">
-					</div>
-					<div class="form-group ">
-						<input id="spot" class="form-control col-lg-12 col-md-12"
-							type="text" placeholder="请输入你要修改的景区:">
-					</div>
-					<button class="btn btn-default  btn-primary input-lg" type="button"
-						value="提交"">提交</button>
-				</div>
-			</div>
-
-		</div>
-
-	</div>-->
+	
 	<div class="modal fade text-center " id="mymodal">
 		<div class="modal-dialog myModal">
 			<div class="modal-content">
@@ -683,61 +607,11 @@
 		</div>
 		<!-- /.modal-dialog -->
 	</div>
-	<!-- /.modal -->
-	<!--<div class="modal fade text-center " id="mymodalerror">
-		<div class="modal-dialog myModal">
-			<div class="modal-content">
-				<div class="modal-header"></div>
-				<div class="modal-body">
-					<h3>删除失败</h3>
-				</div>
-				<div class="modal-footer"></div>
-			</div>
-			<!-- /.modal-content
-		</div>
-		<!-- /.modal-dialog 
-	</div>-->
-	<!-- <div class="modal fade" tabindex="-1" role="dialog"
-		aria-labelledby="myLargeModalLabel" aria-hidden="true"
-		id="changeAdmin">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-header">
-
-					<h4 class="modal-title">超级管理员登录</h4>
-				</div>
-				<div class="modal-body">
-					<form role="form">
-						<div class="form-group">
-							<label for="exampleInputEmail1">用户名：</label> <input type="email"
-								class="form-control input-lg" id="exampleInputEmail1"
-								placeholder="请输入您的用户名">
-						</div>
-						<div class="form-group">
-							<label for="exampleInputPassword1">密码</label> <input
-								type="password" class="form-control input-lg"
-								id="exampleInputPassword1" placeholder="请输入您的密码">
-						</div>
-						<button type="submit" class="form-control input-lg"
-							style="background-color:#3276b1;color:white;">登录</button>
-						<div class="checkbox" style="position:relative;">
-							<label> <input type="checkbox"> 记住密码 <span
-								style="position:absolute;right:0px;top:0px;">忘记密码?</span>
-							</label>
-						</div>
-					</form>
-				</div>
-			</div>
-		</div>
-	</div>-->
+	
 	<script>
-	//alert(1);
+	    setCookie();
 		judgeAdmin();
-		//alert(2);
-		getAdminRecordList();
-		//alert(3);
-		getProvince();
-		//alert(4);
+		
 	</script>
 </body>
 </html>
