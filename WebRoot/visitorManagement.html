@@ -623,17 +623,20 @@ function state_Change()
             if(result==error)
             {
                 alert("操作失败!");
-                location.reload();//页面重新加载
+                visitorManagement();
+                //location.reload();//页面重新加载
             }
             else if(result==unlock)
             {
                 alert("已解冻!");
-                location.reload();//页面重新加载
+                visitorManagement();
+                //location.reload();//页面重新加载
             }
             else if(result==lock)
             {
             	alert("已冻结!");
-            	location.reload();//页面重新加载
+            	visitorManagement();
+            	//location.reload();//页面重新加载
             }
             
         }
