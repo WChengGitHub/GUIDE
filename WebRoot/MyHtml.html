@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>checkAdvice</title>
+<meta charset="utf-8">
+<meta name="viewport"content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+
+
+<link href="./css/bootstrap.min.css" rel="stylesheet">
+<link href="./css/checkAdvice1.css" rel="stylesheet">
+<link rel="stylesheet" href="./css/font-awesome.min.css">
+<link rel="stylesheet" href="css/pagination.css" />
+<script src="./css/jquery.js"></script>
+<script src="./css/bootstrap.min.js"></script>
+<script type="text/javascript" src="./css/jquery.pagination.js"></script>
+<script>
+
+		$
+				.ajax({
+					type : 'post',
+					url : "json",
+					contentType : 'application/json;charset=utf-8',
+					dataType : 'json',
+					success : function(data) {
+					var items=data.list;
+						//alert("返回成功");
+						//alert(data.length);
+						$(function() {
+
+							var length = items.length;
+							$("#Pagination").pagination(length, {
+								items_per_page : 10,
+								callback : pageselectCallback
+							});
+
+							function pageselectCallback(page_index, jq) {
+								var items_per_page = 10;
+								var max_elem = Math.min((page_index + 1)
+										* items_per_page, length);
+
+								$("#advices").html("");//html() 方法返回或设置被选元素的内容 (inner HTML)。
+								for (var i = page_index * items_per_page; i < max_elem; i++) {
+									//alert(data[i].advice);
+									
+										$("#advices")
+												.append(
+														"<tr>"
+            +"<td class=\"center\">"
+            +    "<label class=\"pos-rel\">"
+            +        "<input type=\"checkbox\" class=\"ace\" />"
+            +        "<span class=\"lbl\"></span>"
+            +    "</label>"
+            +"</td>"
+
+            +"<td>"
+            +    "<a  href=\"#\">"+items[i].vid+"</a>"
+            +"</td>"
+            +"<td >"+items[i].visitor+"</td>"
+            +"<td  class=\"hidden-480\">"+items[i].telephone+"</td>"
+            +"<td >"+items[i].email+"</td>"
+
+            +"<td class=\"hidden-480\">"
+            +    "<span  class=\"label label-sm label-warning\">"+items[i].lockstate+"</span>"
+            +"</td>"
+
+            +"<td>"
+            +    "<div class=\"hidden-sm hidden-xs action-buttons\">"
+            +        "<a class=\"blue\" href=\"#\">"
+            +            "<i class=\"ace-icon fa fa-unlock bigger-130\"onclick=\"unlockVisitor0()\"></i>"
+            +        "</a>"
+
+            +        "<a class=\"green\" href=\"#\">"
+            +            "<i class=\"ace-icon fa fa-lock bigger-130\"onclick=\"lockVisitor0()\"></i>"
+            +        "</a>"
+
+            +        "<a class=\"red\" href=\"#\">"
+            +            "<i class=\"ace-icon fa fa-trash-o bigger-130\" ></i>"
+            +        "</a>"
+            +    "</div>"
+
+            +    "<div class=\"hidden-md hidden-lg\">"
+            +        "<div class=\"inline pos-rel\">"
+            +            "<button class=\"btn btn-minier btn-yellow dropdown-toggle\" data-toggle=\"dropdown\" data-position=\"auto\">"
+            +                "<i class=\"ace-icon fa fa-caret-down icon-only bigger-120\"></i>"
+            +            "</button>"
+
+            +            "<ul class=\"dropdown-menu dropdown-only-icon dropdown-yellow dropdown-menu-right dropdown-caret dropdown-close\">"
+            +                "<li>"
+            +                    "<a href=\"#\" class=\"tooltip-info\" data-rel=\"tooltip\" title=\"View\">"
+            +                        "<span class=\"blue\">"
+            +                            "<i class=\"ace-icon fa fa-unlock bigger-120\" onclick=\"unlockVisitor0()\"></i>"
+            +                        "</span>"
+            +                    "</a>"
+            +                "</li>"
+
+            +                "<li>"
+            +                    "<a href=\"#\" class=\"tooltip-success\" data-rel=\"tooltip\" title=\"Edit\">"
+            +                        "<span class=\"green\">"
+            +                            "<i class=\"ace-icon fa fa-lock bigger-120\" onclick=\"lockVisitor0()\"></i>"
+            +                        "</span>"
+            +                    "</a>"
+            +                "</li>"
+
+            +                "<li>"
+            +                    "<a href=\"#\" class=\"tooltip-error\" data-rel=\"tooltip\" title=\"Delete\">"
+            +                        "<span class=\"red\">"
+            +                            "<i class=\"ace-icon fa fa-trash-o bigger-120\"></i>"
+            +                        "</span>"
+            +                    "</a>"
+            +                "</li>"
+            +            "</ul>"
+            +        "</div>"
+            +    "</div>"
+            +"</td>"
+        	+"</tr>");
+									} 
+										
+								return false;
+							}
+						});
+
+					},
+					error : function() {
+						return;
+					}
+				});
+
+	
+</script>
+</head>
+<body>
+					<div id="Pagination" class="pagination"></div>
+					<!--  <div class="table-responsive adviceTable">-->
+						<!--响应式表格-->
+
+						<table class="table table-bordered table-hover table-striped">
+
+							<!--带边框表格,斑马线表格-->
+							<thead class="myThead">
+								<tr>
+									<th>1</th>
+									<th>2</th>
+									<th>3</th>
+									<th>4</th>
+								</tr>
+							</thead>
+							<tbody id="advices">
+							</tbody>
+						</table>
+</body>
+</html>

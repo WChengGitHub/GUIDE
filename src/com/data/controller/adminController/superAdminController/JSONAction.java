@@ -13,10 +13,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+
 import org.springframework.web.servlet.mvc.Controller;
-
-
 
 import com.data.dao.singleForm.tb_visitorDaoImp;
 
@@ -37,7 +38,8 @@ List<Object> tb_visitormodellist;
 @Override
 public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response)
 	    throws ServletException, IOException {
-	
+		
+
 		ClassPathXmlApplicationContext factory= new ClassPathXmlApplicationContext("applicationContext.xml");
 		tb_visitorDaoImp tb_visitordaoimp=(tb_visitorDaoImp) factory.getBean("tb_visitordaoimp");
 	

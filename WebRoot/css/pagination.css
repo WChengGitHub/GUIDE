@@ -1,7 +1,12 @@
-@charset "utf-8";      
+@charset "utf-8";    
+.pagination{
+	padding-left:46%;
+}  
+
+
 .pagination a {
     text-decoration: none;
-	border: 1px solid #AAE;
+	border: 1px ;
 	color: #15B;
 }
 
@@ -15,7 +20,7 @@
 .pagination .current {
     background: #26B;
     color: #fff;
-	border: 1px solid #AAE;
+	border: 1px ;
 }
 
 .pagination .current.prev, .pagination .current.next{

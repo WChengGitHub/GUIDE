@@ -15,7 +15,7 @@ public class deleteAdminServiceImp implements deleteAdminService{
 	tb_adminDaoImp tb_admindaoimp=(tb_adminDaoImp) factory.getBean("tb_admindaoimp");
 	
 	try{
-		String sql=" DELETE FROM tb_admin WHERE Account=?";
+		String sql=" DELETE FROM tb_admin WHERE Aid=?";
 		
 		tb_admindaoimp.update(tb_adminmodel, sql);
 	 }catch (Exception e) {

@@ -12,9 +12,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.data.model.tb_adminModel;
-import com.data.model.tb_visitorModel;
+//import com.data.model.tb_visitorModel;
 import com.data.service.adminService.superAdminFunctions.deleteAdminService.deleteAdminService;
-import com.data.service.adminService.superAdminFunctions.lockVisitorService.LockVisitorService;
+//import com.data.service.adminService.superAdminFunctions.lockVisitorService.LockVisitorService;
 
 
  @Controller
@@ -28,9 +28,9 @@ import com.data.service.adminService.superAdminFunctions.lockVisitorService.Lock
 			//检查是否运行到这里
 			System.out.println("test");
 			//获取
-			String account = request.getParameter("account");
+			String aid = request.getParameter("aid");
 			//调试用
-			System.out.println(account);
+			System.out.println(aid);
 			
 			
 		try {
@@ -39,7 +39,7 @@ import com.data.service.adminService.superAdminFunctions.lockVisitorService.Lock
 			ClassPathXmlApplicationContext factory= new ClassPathXmlApplicationContext("applicationContext.xml");
 			//将数据传给Model
 			tb_adminModel tb_adminmodel=(tb_adminModel)factory.getBean("tb_adminmodel");
-			tb_adminmodel.setAccount(account);
+			tb_adminmodel.setAid(aid);
 			System.out.println(tb_adminmodel.getAid());
 			
 			deleteAdminService deleteadminservice=(deleteAdminService)factory.getBean("deleteadminserviceimp");

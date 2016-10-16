@@ -152,7 +152,7 @@ public class tb_adminDaoImp implements Dao{
 		try{
 		
 		
-		jt.update(Sql,tb_adminmodel.getAccount());
+		jt.update(Sql,tb_adminmodel.getAid());
 		} catch (Exception e){
 			//输出出现的异常 e就是出现的异常
 		    System.out.println(e);

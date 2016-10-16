@@ -22,20 +22,24 @@
 
 
 	<!-- 扫描包 -->
-	<context:component-scan base-package="com.data.controller.visitorController" />
+	
+	<context:component-scan 
+		base-package="com.data.controller.adminController.areaAdminController.areaAdminReplyAdviceController"></context:component-scan>
+	<context:component-scan
+		base-package="com.data.controller.adminController.superAdminController.superAdminReplyAdvice"></context:component-scan>
+	<context:component-scan
+		base-package="com.data.controller.adminController.superAdminController.changeAndDelAdminController"></context:component-scan>	
+	<context:component-scan 
+		base-package="com.data.controller.visitorController" />
+    <context:component-scan
+		base-package="com.data.controller.adminController.checkAdminController"></context:component-scan>
 
-
+	<!-- <context:component-scan
+		base-package="com.data.controller.adminController.adminFunctions.LoginController"></context:component-scan>
+		 -->
 	<!-- 前台请求发送到对应控制器 -->
-	<bean name="/login.html" class="com.data.controller.visitorController.LoginController"
-		scope="prototype" />
-
-	<bean name="/register.html"
-		class="com.data.controller.visitorController.RegisterController"
-		scope="prototype" />
-
-	<bean name="/adminlogin.html"
+	 <bean name="/adminlogin.html"
 		class="com.data.controller.adminController.adminFunctions.LoginController" />
-
 
 	<bean name="/lockvisitor.html" class="com.data.controller.adminController.superAdminController.LockVisitorController"
 		scope="prototype" />
@@ -92,11 +96,14 @@
     <bean id="areaDao" class="com.data.dao.singleForm.tb_areaDao">
     <property name="jdbcTemplate" ref="jdbcTemplate"></property>
     </bean>
+    <bean id="admin_adviceDao" class="com.data.dao.singleForm.tb_admin_adviceDao">
+		<property name="jdbcTemplate" ref="jdbcTemplate"></property>
+	</bean>
 	<!-- model -->
 	<bean id="tb_visitormodel" class="com.data.model.tb_visitorModel" />
 	<bean id="tb_adminmodel" class="com.data.model.tb_adminModel" />
 
-
+     
 	<!-- visitorService -->
 	<bean id="loginservice"
 		class="com.data.service.visitorService.loginService.LoginServiceImp" />
@@ -108,14 +115,45 @@
 		class="com.data.service.adminService.adminFunctions.loginService.LoginServiceImp" />
 
 	<!-- superAdminService -->
-
+    <bean id="SuperAdminReplyAdviceService"
+		class="com.data.service.adminService.superAdminFunctions.superAdminReplyAdvice.SuperAdminReplyAdviceServiceImp">
+		<property name="adminDao" ref="adminDao"></property>
+		<property name="adviceDao" ref="adviceDao"></property>
+		<property name="visitorDao" ref="visitorDao"></property>
+		<property name="admin_adviceDao" ref="admin_adviceDao"></property>
+	</bean>
+	<bean id="ChangeAndDelAdminService"
+		class="com.data.service.adminService.superAdminFunctions.changeAndDelAdmin.ChangeAndDelAdminServiceImp">
+		<property name="adminDao" ref="adminDao"></property>
+		<property name="provinceDaoImp" ref="provinceDaoImp"></property>
+		<property name="cityDao" ref="cityDao"></property>
+		<property name="areaDao" ref="areaDao"></property>
+		<property name="spotDao" ref="spotDao"></property>
+	</bean>
 	<bean id="lockvisitorservice" class="com.data.service.adminService.superAdminFunctions.lockVisitorService.LockVisitorServiceImp"/>
 	<bean id="unlockvisitorservice" class="com.data.service.adminService.superAdminFunctions.unlockVisitorService.UnlockVisitorServiceImp"/>
 	<bean id="loginserviceimp" class="com.data.service.adminService.adminFunctions.loginService.LoginServiceImp" />
 	<bean id="addadminserviceimp" class="com.data.service.adminService.superAdminFunctions.addAdminService.AddAdminServiceImp"></bean>
 	<bean id="deleteadminserviceimp" class="com.data.service.adminService.superAdminFunctions.deleteAdminService.deleteAdminServiceImp"/>
 	
-
+    <!-- checkAdminService -->
+	<bean id="CheckAdviceService"
+		class="com.data.service.adminService.checkAdminFunctions.checkAdvice.CheckAdviceServiceImp">
+		<property name="adviceDao" ref="adviceDao"></property>
+		<property name="adminDao" ref="adminDao"></property>
+		<property name="admin_adviceDao" ref="admin_adviceDao"></property>
+		<property name="provinceDaoImp" ref="provinceDaoImp"></property>
+		<property name="cityDao" ref="cityDao"></property>
+		<property name="areaDao" ref="areaDao"></property>
+		<property name="visitorDao" ref="visitorDao"></property>
+	</bean>
+	<!-- areaAdminService -->
+	<bean id="AreaAdminReplyAdviceService" class="com.data.service.adminService.areaAdminFunction.areaAdminReplyAdviceService.AreaAdminReplyAdviceServiceImp">
+	<property name="adminDao" ref="adminDao"></property>
+		<property name="adviceDao" ref="adviceDao"></property>
+		<property name="visitorDao" ref="visitorDao"></property>
+		<property name="admin_adviceDao" ref="admin_adviceDao"></property>
+	</bean>
 	<!-- singleForm -->
 
 
@@ -147,15 +185,7 @@
 		<property name="adminDao" ref="adminDao"></property>
 	</bean>
 
-	<!-- changeAndDelAdminService -->
-	<bean id="ChangeAndDelAdminService"
-		class="com.data.service.visitorService.changeAndDelAdminService.ChangeAndDelAdminServiceImp">
-		<property name="adminDao" ref="adminDao"></property>
-		<property name="provinceDaoImp" ref="provinceDaoImp"></property>
-		<property name="cityDao" ref="cityDao"></property>
-		<property name="areaDao" ref="areaDao"></property>
-		<property name="spotDao" ref="spotDao"></property>
-	</bean>
+	
 
 	<!-- 视图解析 暂时没用 -->
 	<bean id="viewResolver"
