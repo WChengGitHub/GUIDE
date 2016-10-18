@@ -7,29 +7,45 @@
 		<!--
 	<link rel="stylesheet" type="text/css" href="styles.css">
 	-->
+	
+	 <link href="css/bootstrap.min.css" rel="stylesheet">
+<style type="text/css">
+.size{
+	width:80%;
+	margin:auto;
+}
+</style>	
 		<script type="text/javascript" src="js/jquery.min.js"></script>
 		<script type="text/javascript">
-	    
-	         var userNameObj=$("#username").val();
-	         var contentObj=$("#content").val();
+
              $.ajax({
                type:"post",//请求方式
-               url:"jsonAjaxAction2",//发送请求地址
+               url:"ImageRecognition2",//发送请求地址
                timeout:30000,//超时时间：30秒
                dataType:"json",//设置返回数据的格式
                //请求成功后的回调函数 data为json格式
                success:function(data){
                	 $("#resultJsonText2").text("url："+data.url);
-                  $("#resultJsonText").append("<img src="+ data.url0+ ">"
-											  +"<img src="+ data.url1+ ">"
-											  +"<img src="+ data.url2+ ">"
-											  +"<img src="+ data.url3+ ">"
-											  +"<img src="+ data.url4+ ">"
-											  +"<img src="+ data.url5+ ">"
-											  +"<img src="+ data.url6+ ">"
-											  +"<img src="+ data.url7+ ">"
-											  +"<img src="+ data.url8+ ">"
-											  +"<img src="+ data.url9+ ">"
+                  $("#resultJsonText").append("<br></br>"
+                  							  +"<img  class=\"img-rounded center-block img-responsive\" width=\"80%\" src="+ data.url0+ ">"
+											  +"<br></br>"
+											  +"<img class=\"img-rounded center-block img-responsive\" width=\"80%\" src="+ data.url1+ ">"
+											  +"<br></br>"
+											  +"<img class=\"img-rounded center-block img-responsive\" width=\"80%\" src="+ data.url2+ ">"
+											  +"<br></br>"
+											  +"<img class=\"img-rounded center-block img-responsive\" width=\"80%\" src="+ data.url3+ ">"
+											  +"<br></br>"
+											  +"<img class=\"img-rounded center-block img-responsive\" width=\"80%\" src="+ data.url4+ ">"
+											  +"<br></br>"
+											  +"<img class=\"img-rounded center-block img-responsive\" width=\"80%\" src="+ data.url5+ ">"
+											  +"<br></br>"
+											  +"<img class=\"img-rounded center-block img-responsive\" width=\"80%\" src="+ data.url6+ ">"
+											  +"<br></br>"
+											  +"<img class=\"img-rounded center-block img-responsive\" width=\"80%\" src="+ data.url7+ ">"
+											  +"<br></br>"
+											  +"<img class=\"img-rounded center-block img-responsive\" width=\"80%\" src="+ data.url8+ ">"
+											  +"<br></br>"
+											  +"<img class=\"img-rounded center-block img-responsive\" width=\"80%\" src="+ data.url9+ ">"
 																);
               },
               //请求出错的处理
@@ -40,12 +56,12 @@
           
 	</script>
 	</head>
-	<body>
-	
-	<h2>${message}</h2>
-	
-	<div >
-		<h3>识别结果为</h3>
+	<body class="bg-success">
+	<div class="text-center btn-info size">
+		<h2>${message} 识别结果为</h2>
+	</div>
+	<div>
+		
 		<p id="resultJsonText"></p>
 	</div>
 	<div id="resText">

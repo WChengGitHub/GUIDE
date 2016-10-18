@@ -50,21 +50,21 @@
 	 
 	<!-- 图片识别 --> 
   <servlet>
-    <servlet-name>jsonAjaxAction</servlet-name>
+    <servlet-name>ImageRecognition</servlet-name>
     <servlet-class>com.image.identification.UpLoadImage</servlet-class>
   </servlet>
   <servlet-mapping>
-    <servlet-name>jsonAjaxAction</servlet-name>
-    <url-pattern>/jsonAjaxAction</url-pattern>
+    <servlet-name>ImageRecognition</servlet-name>
+    <url-pattern>/ImageRecognition</url-pattern>
   </servlet-mapping>
   
   <servlet>
-    <servlet-name>jsonAjaxAction2</servlet-name>
+    <servlet-name>ImageRecognition2</servlet-name>
     <servlet-class>com.image.identification.JsonAjaxServlet</servlet-class>
   </servlet>
   <servlet-mapping>
-    <servlet-name>jsonAjaxAction2</servlet-name>
-    <url-pattern>/jsonAjaxAction2</url-pattern>
+    <servlet-name>ImageRecognition2</servlet-name>
+    <url-pattern>/ImageRecognition2</url-pattern>
   </servlet-mapping>
 	 
 	 
