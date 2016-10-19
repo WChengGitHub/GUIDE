@@ -27,7 +27,7 @@ public class LireTest {
 	 private static String INDEX_PATH = "D:/index";// 索引文件存放路径
 
 	 //要索引的图片文件目录
-	 private static String INDEX_FILE_PATH = "/JspTest2/WebRoot/image";
+	 private static String INDEX_FILE_PATH = "/GUIDE/WebRoot/image";
 
 //    @Test
     public void createIndex() throws Exception {
@@ -64,9 +64,9 @@ public class LireTest {
         String[] imageUrl = new String[10] ;
       //显示前10条记录（根据匹配度排序）
         for (int i = 0; i < 10; i++) {
-        	//imageUrl[i]=ish.score(i) + ": "+"/JspTest2/image"+"/"+ ish.doc(i).getFieldable(DocumentBuilder.FIELD_NAME_IDENTIFIER).stringValue();
+        	//imageUrl[i]=ish.score(i) + ": "+"/GUIDE/image"+"/"+ ish.doc(i).getFieldable(DocumentBuilder.FIELD_NAME_IDENTIFIER).stringValue();
         	//除去ish.score(i),这是表示识别出的图片与原图片的相似度
-        	imageUrl[i]="/JspTest2/image"+"/"+ ish.doc(i).getFieldable(DocumentBuilder.FIELD_NAME_IDENTIFIER).stringValue();
+        	imageUrl[i]="/GUIDE/image"+"/"+ ish.doc(i).getFieldable(DocumentBuilder.FIELD_NAME_IDENTIFIER).stringValue();
             System.out.println(imageUrl[i]+"    test1");
            
         }

@@ -4,15 +4,111 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>拍照识别景点</title>
-</head>
-<body>
-<h1>拍照识别景点</h1>
 
+ <link href="css/bootstrap.min.css" rel="stylesheet">
+
+<style type="text/css">
+  
+.file {
+    position: relative;
+    display: inline-block;
+    background: #6ec4ed;
+    border: 5px solid #6ec4ed;
+    border-radius: 60px;
+    padding: 18px 25%;
+    overflow: hidden;
+    color: #ffffff;
+    text-decoration: none;
+    text-indent: 0;
+    font-size:40px;
+    line-height: 10px;
+}
+.file input {
+    position: absolute;
+    font-size: 200px;
+    right: 0;
+    top: 0;
+    opacity: 0;
+}
+
+.file:hover {
+    background: #AADFFD;
+    border-color: #78C3F3;
+    color: #ffffff;
+    text-decoration: none;
+}
+.size{
+	width:80%;
+	margin:auto;
+	border-radius:25px;
+}
+
+</style>
+
+</head>
+<body class="bg-success">
+<div class="text-center btn-info size">
+		<h1>拍照识别景点</h1>
+</div>
+<br></br>
+<!-- 
 <form method="post" action="ImageRecognition" enctype="multipart/form-data">
 	选择一个文件:
 	<input type="file" name="uploadFile" />
 	<br/><br/>
 	<input type="submit" value="识别" />
 </form>
+ -->
+
+<form method="post" action="ImageRecognition" enctype="multipart/form-data">  
+    <div>  
+      <div class="text-center">  
+        <a class="file">选择景点图片
+           <input type="file" name="file_head" id="file_head" onchange="javascript:setImagePreview();" /> 
+        </a><p></p>
+      </div>  
+    
+    <br></br> 
+      <!-- 选择图片后显示图片 --> 
+	<div class="text-center">  
+	   <!-- style="display: none" ??? -->
+	   <img id="preview"  style="display: none" class="img-rounded center-block img-responsive"/>  
+	</div> 
+	<br></br>
+      
+      <div>  
+        <div id="DivUp" style="display: none" class="text-center">  
+           <input type="submit" class="file center" value="点击识别" />  
+          <p></p>
+        </div>  
+      </div>  
+    </div>  
+</form>   
+    
 </body>
+
+<script type="text/javascript">  
+        function setImagePreview() { 
+            var preview,file_head = document.getElementById("file_head"),  
+            picture = file_head.value; 
+            //转反斜杠
+            // picture = picture.replace(/\\/g,"\/");
+            // alert(picture); 
+
+            if (!picture.match(/.jpg|.gif|.png|.bmp/i)) return alert("您上传的图片格式不正确，请重新选择！"),  
+            !1;  
+            if (preview = document.getElementById("preview"), file_head.files && file_head.files[0]) preview.style.display = "block",  
+              //获取到的图片大小
+                preview.style.width = "70%",  
+               // preview.style.height = "63px", 
+                //??? 
+                preview.src = window.navigator.userAgent.indexOf("Chrome") >= 1 || window.navigator.userAgent.indexOf("Safari") >= 1 ? window.webkitURL.createObjectURL(file_head.files[0]) : window.URL.createObjectURL(file_head.files[0]);  
+            
+            return document.getElementById("DivUp").style.display = "block",!0 ;
+        }  
+
+
+         
+    </script>  
+
 </html>

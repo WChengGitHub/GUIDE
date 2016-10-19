@@ -13,6 +13,7 @@
 .size{
 	width:80%;
 	margin:auto;
+	border-radius:25px;
 }
 </style>	
 		<script type="text/javascript" src="js/jquery.min.js"></script>
@@ -27,7 +28,7 @@
                success:function(data){
                	 $("#resultJsonText2").text("url："+data.url);
                   $("#resultJsonText").append("<br></br>"
-                  							  +"<img  class=\"img-rounded center-block img-responsive\" width=\"80%\" src="+ data.url0+ ">"
+                  							  +"<img class=\"img-rounded center-block img-responsive\" width=\"80%\" src="+ data.url0+ ">"
 											  +"<br></br>"
 											  +"<img class=\"img-rounded center-block img-responsive\" width=\"80%\" src="+ data.url1+ ">"
 											  +"<br></br>"
@@ -58,7 +59,7 @@
 	</head>
 	<body class="bg-success">
 	<div class="text-center btn-info size">
-		<h2>${message} 识别结果为</h2>
+		<h1>${message} 识别结果为</h1>
 	</div>
 	<div>
 		
