@@ -74,6 +74,7 @@
 					dataType : "json",
 					success : function(data) {//返回json结果 
 						var html = '';
+					//alert(data.spotAdviceNumber);
 						if (data.spotAdviceNumber != 0) {
 							document.getElementById("adviceNumber").innerHTML = data.spotAdviceNumber;
 						} else {
