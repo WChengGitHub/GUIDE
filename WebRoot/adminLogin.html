@@ -122,18 +122,19 @@ function state_Change()
         var result;
         var no_user_name=1;
         var worry_password=2;
-        var superadmin=3;
-        var checkadmin=5;
-        var spotadmin=4;
-        var deladmin=6;
-        var wrongprivilege=7;
+        var superAdmin=3;
+        var checkAdmin=5;
+        var spotAdmin=4;
+        var areaAdmin=8;
+        var delAdmin=6;
+        var wrongPrivilege=7;
       result=xmlhttp.responseText;
       
       if(result==no_user_name)
       {
         alert("用户名不存在!");
       }
-      else if(result==deladmin)
+      else if(result==delAdmin)
       {
       	alert("该管理员已被删除!");
       }
@@ -141,24 +142,29 @@ function state_Change()
       {
         alert("密码输入错误!");
       }
-        else if(result==superadmin)
+        else if(result==superAdmin)
         {
             getAdminPrivilege();
             alert("超级管理员登录成功");
             window.open('visitorManagement.html','_self','width=200,height=100,,_left=0,_top=100');
         }
-        else if(result==checkadmin)
+        else if(result==checkAdmin)
         { 
        		 getAdminPrivilege();
           	 alert("审核管理员登录成功");
           	 window.open('checkAdvice.html','_self','width=200,height=100,,_left=0,_top=100');
         }
-        else if(result==spotadmin)
+        else if(result==spotAdmin)
         { 
         	getAdminPrivilege();
             alert("景区管理员登录成功");
         }
-        else if(result==wrongprivilege)
+        else if(result==areaAdmin)
+        {
+        	getAdminPrivilege();
+        	alert("景点管理员登录成功！")
+        }
+        else if(result==wrongPrivilege)
         {
         	alert("该管理员权限字段有误!")
         }
@@ -168,7 +174,7 @@ function state_Change()
 }  
 
 function getAdminPrivilege() {
-		var superadmin=1,checkadmin=3,spotadmin=2,privilege;
+		var superAdmin=1,checkAdmin=3,spotAdmin=2,areaAdmin=8,privilege;
 		$.ajax({
 			type : 'post',
 			url : 'getTheAdminPrivilege',
@@ -178,9 +184,9 @@ function getAdminPrivilege() {
 			privilege=data.privilege;
 		//	alert(data.privilege);
 		//	alert(privilege+" 2");
-			if(privilege==superadmin){
+			if(privilege==superAdmin){
 				var account=document.getElementById("Account").value;
-				var cookieString="Account Privilege="+account+" "+"a"; 
+				//var cookieString="Account Privilege="+account+" "+"a"; 
 	            var expiresHours=1;
 	            if(expiresHours>0){ 
 	            var date=new Date(); 
@@ -191,9 +197,10 @@ function getAdminPrivilege() {
 	            document.cookie = "Privilege=a;expires=" +date.toGMTString(); 
 		        document.cookie = "Account="+account+";expires=" + date.toGMTString(); 
 	            alert(document.cookie);}
-			else if(privilege==checkadmin){
+	            
+			else if(privilege==checkAdmin){
 				var account=document.getElementById("Account").value;
-				var cookieString="Account Privilege="+account+" "+"c"; 
+				//var cookieString="Account Privilege="+account+" "+"c"; 
 	            var expiresHours=1;
 	            if(expiresHours>0){ 
 	            var date=new Date(); 
@@ -204,9 +211,10 @@ function getAdminPrivilege() {
 	            document.cookie = "Privilege=c;expires=" +date.toGMTString(); 
 		        document.cookie = "Account="+account+";expires=" + date.toGMTString(); 
 	            alert(document.cookie);}
-			else if(privilege==spotadmin){
+	            
+			else if(privilege==spotAdmin){
 				var account=document.getElementById("Account").value;
-				var cookieString="Account Privilege="+account+" "+"s"; 
+				//var cookieString="Account Privilege="+account+" "+"s"; 
 	            var expiresHours=1;
 	            if(expiresHours>0){ 
 	            var date=new Date(); 
@@ -215,6 +223,20 @@ function getAdminPrivilege() {
 	            } 
 	            //document.cookie=cookieString; 
 	            document.cookie = "Privilege=s;expires=" +date.toGMTString(); 
+		        document.cookie = "Account="+account+";expires=" + date.toGMTString(); 
+	            alert(document.cookie);}
+	            
+	         else if(privilege==areaAdmin){
+				var account=document.getElementById("Account").value;
+				//var cookieString="Account Privilege="+account+" "+"a"; 
+	            var expiresHours=1;
+	            if(expiresHours>0){ 
+	            var date=new Date(); 
+	            date.setTime(date.getTime+expiresHours*60*1000); 
+	            //cookieString=cookieString+"; expires="+date.toGMTString(); 
+	            } 
+	            //document.cookie=cookieString;
+	            document.cookie = "Privilege=r;expires=" +date.toGMTString(); 
 		        document.cookie = "Account="+account+";expires=" + date.toGMTString(); 
 	            alert(document.cookie);}
 			}});

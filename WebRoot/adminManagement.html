@@ -525,7 +525,15 @@ function adminManagement(){
                    <p></p>
                    <input class="form-control" placeholder="Password" name="Password" type="password" value="" id="Password">
                    <p></p>
-                   <input class="form-control" placeholder="Privilege" name="Privilege" type="password" value="" id="Privilege">
+                   <input class="form-control" placeholder="Email" name="Email" type="text" value="" id="Email">
+                   <p></p>
+                   <!-- 权限选择按钮 -->
+					<form>
+						<input  readonly="true" class="form-control" placeholder="Privilege" name="Privilege" type="text" value="" id="Privilege">
+						<p></p>
+						<input type="radio" name="browser" onclick="displayResult(this.value)" value="s">s SpotAdmin
+						<input type="radio" name="browser" onclick="displayResult(this.value)" value="c">c CheckAdmin<br>
+					</form>
                      </div>
                      <div class="modal-footer">
                         <button type="button" class="btn btn-default" 
@@ -580,8 +588,12 @@ function adminManagement(){
 </div>
                  </div>
             </div>
-
-
+<!-- 摸态框的权限选择按钮 -->
+<script>
+function displayResult(browser){
+	document.getElementById("Privilege").value=browser
+}
+</script>
 
 <script type="text/javascript">
 
@@ -684,6 +696,7 @@ function state_Change()
     var account=document.getElementById("Account").value;
     var password=document.getElementById("Password").value;
     var privilege=document.getElementById("Privilege").value;
+    var email=document.getElementById("Email").value;
     xmlhttp=null;
   if (window.XMLHttpRequest)
     {
@@ -695,7 +708,7 @@ function state_Change()
     }
   if (xmlhttp!=null)
     {
-      var json="account="+account+"&password="+password+"&privilege="+privilege;
+      var json="account="+account+"&password="+password+"&privilege="+privilege+"&email="+email;
       xmlhttp.onreadystatechange=state_Change;
       xmlhttp.open("POST","addAdminRequest.html",true);
       xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");

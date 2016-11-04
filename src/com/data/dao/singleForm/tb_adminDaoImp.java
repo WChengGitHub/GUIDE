@@ -49,7 +49,7 @@ public class tb_adminDaoImp implements Dao{
 			+tb_adminmodel.getPassword()+" "+tb_adminmodel.getAccount()+"test admindaoimp add");
 			
 			jt.update(sqlInsert, tb_adminmodel.getAccount(), 
-					tb_adminmodel.getPassword(), tb_adminmodel.getAid(),tb_adminmodel.getPrivilege());
+					tb_adminmodel.getPassword(), tb_adminmodel.getAid(),tb_adminmodel.getPrivilege(),tb_adminmodel.getEmail());
 			
             System.out.println("add success");
 		} catch (Exception e) {

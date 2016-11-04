@@ -62,7 +62,7 @@ public class LoginController {
 		tb_adminModel tb_adminmodel2=(tb_adminModel)loginserviceimp.getAdminModel();
 		String privilege=tb_adminmodel2.getPrivilege();
 		//System.out.println(tb_adminmodel2.getPrivilege()+" "+privilege);
-		int a=1,s=2,c=3;
+		int a=1,s=2,c=3,r=8;
 		if(privilege.equals("a")){
 			String json2 = "{\"privilege\":" + a + "}";
 			System.out.println(json2+"test json2");
@@ -73,6 +73,10 @@ public class LoginController {
 			writer.write(json2);}
 		else if(privilege.equals("c")){
 			String json2 = "{\"privilege\":" + c + "}";
+			System.out.println(json2+"test json2");
+			writer.write(json2);}
+		else if(privilege.equals("r")){
+			String json2 = "{\"privilege\":" + r + "}";
 			System.out.println(json2+"test json2");
 			writer.write(json2);}
 	}
