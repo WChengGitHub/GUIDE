@@ -17,7 +17,7 @@ import com.data.model.tb_adminModel;
 
 public class LoginServiceImp implements LoginService{
 	
-	final int spotadmin=4,superadmin=3,checkadmin=5,wrongpassword=2,undefindadmin=1,deladmin=6,wrongPrivilege=7;
+	final int spotAdmin=4,superAdmin=3,checkAdmin=5,wrongPassword=2,undefindAdmin=1,delAdmin=6,wrongPrivilege=7,areaAdmin=8;
 	static List<Object> param;
 	static List<Object> tb_adminmodellist;
 	static tb_adminModel tb_adminmodel;
@@ -50,7 +50,7 @@ public class LoginServiceImp implements LoginService{
 			 if(tb_adminmodellist.size()==0)
 			 {	//test
 				 System.out.println("test tb_adminmodellist.size()==0");
-			   	 return undefindadmin;}
+			   	 return undefindAdmin;}
 			 else{
 				 	//将查询返回的模型层集合转为模型层
 					 tb_adminModel tb_adminmodel2=(tb_adminModel) tb_adminmodellist.get(0);
@@ -65,35 +65,37 @@ public class LoginServiceImp implements LoginService{
 					 String del=tb_adminmodel2.getDel();
 					 //test
 					 System.out.println("test del: "+del);
-					 if(del.equals("1")){return deladmin;}
+					 if(del.equals("1")){return delAdmin;}
 					 else if(password.equals(password2))
 				     //密码正确则进行管理员类型判断
 				     {	// tb_adminmodel.setPrivilege("a");
 				    	 String privilege=tb_adminmodel2.getPrivilege();
 				    	 System.out.println(privilege);
-				    	 //管理员Privilege字段，a为超级管理员，s为景区管理员，c为审核管理员
+				    	 //管理员Privilege字段，a为超级管理员，s为景区管理员，c为审核管理员，r为景点管理员
 				    	 String a="a";
 				    	 String s="s";
 				    	 String c="c";
+				    	 String r="r";
 				    	 System.out.println(privilege);
-					     if(privilege.equals(a)){System.out.println("test super");return superadmin;} //超级管理员
+					     if(privilege.equals(a)){System.out.println("test super");return superAdmin;} //超级管理员
 					     //景区管理员
-					     else if(privilege.equals(s))return spotadmin;
+					     else if(privilege.equals(s))return spotAdmin;
 					     //审核管理员
-					     else if(privilege.equals(c)) return checkadmin;
+					     else if(privilege.equals(c)) return checkAdmin;
+					     else if(privilege.equals(r)) return areaAdmin;
 					     else return wrongPrivilege;
 				     }
 				    	
 				     else 
 				    	 //密码错误返回2
-				    	 return wrongpassword;
+				    	 return wrongPassword;
 			 }
 
 		 }catch (Exception e) {
 			 	//输出出现的异常 e就是出现的异常
 			    System.out.println(e);
 			  	//查找出错作为用户不存在返回1
-				return undefindadmin;
+				return undefindAdmin;
 		 }
 	}
 }

@@ -29,8 +29,9 @@ public class AddAdminController implements Controller{
 		//密码
 		String password = request.getParameter("password");
 		String privilege=request.getParameter("privilege");
+		String email=request.getParameter("email");
 		//调试时 用于检查获取得是否与用户输入的一致
-		System.out.println(account+password);
+		System.out.println(account+password+privilege+email);
 		if(account==null||password==null||privilege==null){}
 		else{
 			if(privilege.equals("s")||privilege.equals("c")){
@@ -48,7 +49,8 @@ public class AddAdminController implements Controller{
 				tb_adminmodel.setPassword(MD5password);
 				tb_adminmodel.setPrivilege(privilege);
 				tb_adminmodel.setAccount(account);
-	
+				tb_adminmodel.setEmail(email);
+				
 				AddAdminService addadminservice=(AddAdminService)factory.getBean("addadminserviceimp");
 				int result=addadminservice.addAdmin(tb_adminmodel);
 				System.out.println(result);

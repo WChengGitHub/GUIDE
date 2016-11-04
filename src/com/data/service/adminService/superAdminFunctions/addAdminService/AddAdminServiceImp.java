@@ -32,7 +32,7 @@ public class AddAdminServiceImp implements AddAdminService{
 			 //判断用户是否已存在
 			 if(tb_adminmodellist.size()!=0) return added;
 			 else{
-				 String sqlInsert = "INSERT INTO tb_admin (Account, Password, Aid, Privilege)VALUES (?, ?, ?, ?);";
+				 String sqlInsert = "INSERT INTO tb_admin (Account, Password, Aid, Privilege,Email)VALUES (?, ?, ?, ?, ?);";
 				 //getTime
 				 Calendar cal1 = Calendar.getInstance();  
 		         TimeZone.setDefault(TimeZone.getTimeZone("GMT+8:00"));       
