@@ -45,7 +45,7 @@ public ModelAndView handleRequest(HttpServletRequest request, HttpServletRespons
 		PrintWriter out = response.getWriter();
 		List list = new ArrayList();
 	   
-		String sql="select * from tb_admin  ";
+		String sql="select * from tb_admin where Privilege!='a' ";
 		param=new LinkedList<Object>();
 		tb_adminmodellist=tb_admindaoimp.query(sql, param);	
 
