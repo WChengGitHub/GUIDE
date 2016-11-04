@@ -1,0 +1,24 @@
+html{height:100%;width:100%;margin:0px; padding:0px;}
+#wrap{width:500px;background-color:#FBFBEA;margin:15% auto auto auto;}
+
+#header{}
+#header>h3{text-align:center;border-style:solid;border-width:2px;border-color:#FBFBEA;padding-top:30px;padding-bottom:10px;color:black;}
+#mainBody{width:100%;margin-bottom:20px;}
+#mainBody .visitorName{width:50%; margin:20px auto;}
+#mainBody .visitorName input{height:30px;position:relative;left:0.5em;}
+#mainBody .sex{width:50%; margin:20px auto;position:relative;left:1em;}
+#mainBody .sex .man{position:relative;left:0.3em}
+#mainBody .saveClose{width:50%; margin:20px auto;}
+#mainBody .saveClose .save{position:relative;left:3.5em;width:6em;height:2.4em; border-color:#007FFF;background-color:#007FFF;color:white;border-radius:2px;border-style: outset;border-style:solid;border-width:2px;border-color:#FBFBEA;}
+#footer {border-top-style:solid;border-width:2px;border-color:#FBFBEA;}
+@media(max-width:768px){
+	html{height:100%;width:100%;margin:0px; padding:0px;background-color:#FBFBEA;}
+	#wrap{width:100%;height:100%;margin:20% auto auto auto;}
+	#mainBody{width:100%;margin-bottom:20px;}
+    #mainBody .visitorName{width:80%; margin:20px auto;}
+    #mainBody .visitorName input{height:2em;position:relative;left:0.5em;}
+	#mainBody .sex{width:80%; margin:20px auto;position:relative;left:1em;}
+    #mainBody .sex .man{position:relative;left:0.3em}
+    #mainBody .saveClose{width:80%; margin:20px auto;}
+    #mainBody .saveClose .save{position:relative;left:3.5em;width:6em;height:2.4em; border-color:#007FFF;background-color:#007FFF;color:white;border-radius:2px;border-style: outset;border-style:solid;border-width:2px;border-color:#FBFBEA;}
+}

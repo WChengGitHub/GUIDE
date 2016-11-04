@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>completeVisitorInformation</title>
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="HandheldFriendly" content="true">
+<link href="./css/bootstrap.min.css" rel="stylesheet">
+<link href="./css/completeVisitorInformation.css" rel="stylesheet">
+<link rel="stylesheet" href="./css/font-awesome.min.css">
+<link rel="stylesheet" href="css/pagination.css" />
+<script src="./css/jquery.js"></script>
+<script src="./css/bootstrap.min.js"></script>
+<script type="text/javascript" src="./css/jquery.pagination.js"></script>
+<script>
+	var Visitor = "";
+	var inputVisitor = "";//用户输入的新用户名
+	var Gender = "";
+	var sex;
+	function setCookie() {
+		now = new Date();
+		now.setTime(now.getTime() + 5 * 60 * 1000);
+		document.cookie = "Visitor=2;expires=" + now.toGMTString();
+
+	}
+
+	function judgeCookie() {
+		var strCookie = document.cookie;
+		var arrCookie = strCookie.split(";");
+		for (var i = 0; i < arrCookie.length; i++) {
+			var arr = arrCookie[i].split("=");
+			arr[0] = $.trim(arr[0]);
+			if ("Visitor" == arr[0]) {
+				Visitor = arr[1];
+				break;
+			}
+		}
+		//alert("Visitor:" + Visitor);
+		if (Visitor == "") {
+			//alert("Visitor:" + Visitor);
+			window.open("in.html", "_self");
+		} else {
+			Visitor = Visitor;
+
+			getAndSetVisitorInformation();
+			//alert(visitor);
+		}
+	}
+	function setGender() {
+		//alert(Gender=="1");
+		if (Gender == "1")
+			$("#man").attr("checked", "checked");
+		else if (Gender == "0")
+			$("#woman").attr("checked", "checked");
+	}
+	function setMan() {
+		$("#man").attr("checked", "checked");
+		$("#woman").removeAttr("checked");
+	}
+	function setWoman() {
+		$("#woman").attr("checked", "checked");
+		$("#man").removeAttr("checked");
+	}
+	function setVisitor() {
+		$("#Visitor").attr("value", Visitor);
+	}
+	/*function getAndSetGender() {
+
+		$
+				.ajax({
+					type : 'post',
+					url : encodeURI(encodeURI("CompleteVisitorInformationController/getGender?Visitor="
+							+ Visitor)),
+					contentType : 'application/json;charset=utf-8',//指定为json类型 //数据格式是json串，商品信息 
+					dataType : "json",
+					success : function(data) {//返回json结果 
+						Gender = data.Gender;
+						//alert("Gender:"+Gender);
+
+					}
+				});
+
+	}*/
+	function getAndSetVisitorInformation() {
+		$
+				.ajax({
+					type : 'post',
+					url : encodeURI(encodeURI("CompleteVisitorInformationController/getVisitorInformation?Visitor="
+							+ Visitor)),
+					contentType : 'application/json;charset=utf-8',//指定为json类型 //数据格式是json串，商品信息 
+					dataType : "json",
+					success : function(data) {//返回json结果 
+						//alert(data);
+						Gender = data[0].gender;
+						//alert("Gender:"+Gender);
+						//alert(data.length);
+						setVisitor();
+						setGender();
+					}
+				});
+	}
+	function getInputVisitor() {
+		inputVisitor = $("#Visitor").val();
+		//alert("inputVisitor:"+inputVisitor);
+	}
+	function judgeVisitor()//判断用户是否存在,0代表不存在
+	{
+		getInputVisitor();
+		if (inputVisitor == Visitor)
+			{
+			inputVisitor=="";
+			return;
+			}
+		else {
+			// alert("inputVisitor:"+inputVisitor);
+			$
+					.ajax({
+						type : 'post',
+						url : encodeURI(encodeURI("CompleteVisitorInformationController/judgeVisitor?Visitor="
+								+ inputVisitor)),
+						contentType : 'application/json;charset=utf-8',//指定为json类型 //数据格式是json串，商品信息 
+						dataType : "json",
+						success : function(data) {//返回json结果 
+							//alert(data);
+							if (data.number != 0) {
+								alert("用户名已经存在");
+								inputVisitor = "";//用户名输入无效
+								$("#Visitor").val(Visitor);
+							}
+							//else 
+							//alert(data.number);
+						}
+					});
+		}
+	}
+	function getSexValue() {
+		var itemradio = document.getElementsByName("sex");
+		var itemvalue = '';
+		for (i = 0; i < itemradio.length; i++) {
+			if (itemradio[i].checked) {
+				itemvalue = itemradio[i].value;
+			}
+		}
+		if (itemvalue != "") {
+			//alert(itemvalue);
+			sex = itemvalue;
+			//alert(sex);
+		} else {
+			alert('还未选择');
+		}
+	}
+	function updateVisitorInformation() {
+		getSexValue();
+		if(inputVisitor==Visitor)
+			return;
+		$
+				.ajax({
+					type : 'post',
+					url : encodeURI(encodeURI("CompleteVisitorInformationController/updateVisitorInformation?Visitor="
+							+ Visitor
+							+ "&newVisitor="
+							+ inputVisitor
+							+ "&Gender=" + sex)),
+					contentType : 'application/json;charset=utf-8',//指定为json类型 //数据格式是json串，商品信息 
+					dataType : "json",
+					success : function(data) {//返回json结果 
+						//alert(data);
+						alert("保存成功");
+						if(inputVisitor!="")
+							{
+							  Visitor=inputVisitor;
+							  inputVisitor="";
+							  now = new Date();
+								now.setTime(now.getTime() + 5 * 60 * 1000);
+								document.cookie = "Visitor="+Visitor+";expires=" + now.toGMTString();
+							}
+						//else 
+						//alert(data.number);
+					},
+					error : function() {
+						//alert("failed");
+						alert("保存失败");
+					}
+				});
+	}
+</script>
+</head>
+<body>
+	<div id="wrap">
+		<div id="header">
+			<h3>编辑个人信息</h3>
+		</div>
+		<div id="mainBody">
+			<div class="visitorName">
+				用户名:<input type="text" id="Visitor" value="" onblur="judgeVisitor()">
+			</div>
+			<div class="sex">
+				性别: <label class="radio-inline man"> <input type="radio"
+					id="man" name="sex" onclick="setMan()" value="1">男性
+				</label> <label class="radio-inline woman"> <input type="radio"
+					id="woman" name="sex" onclick="setWoman()" value="0">女性
+				</label>
+			</div>
+			<div class="saveClose">
+				<button class="btn btn-primary  save" href="#"
+					onclick="updateVisitorInformation()">保存</button>
+			</div>
+		</div>
+		<div id="footer"></div>
+	</div>
+	<script>
+		setCookie();
+		judgeCookie();
+		//setSex();
+		//setVisitor();
+	</script>
+</body>
+</html>
