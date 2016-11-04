@@ -23,7 +23,8 @@ public class AdviceServiceImp implements AdviceService {
 	public void setAdviceDao(AdviceDao adviceDao) {
 		this.adviceDao = adviceDao;
 	}
-    //这个方法是用来得到游客id，visitor代表游客的名字
+
+	// 这个方法是用来得到游客id，visitor代表游客的名字
 	@Override
 	public String getVid(String visitor) {
 		// TODO Auto-generated method stub
@@ -32,16 +33,16 @@ public class AdviceServiceImp implements AdviceService {
 		param = new LinkedList<Object>();
 		param.add(visitor);
 		listVisitor = adviceDao.query(sql, param);
-		if (listVisitor == null) {
-			System.out.println("addviceServiceImp中的vid提取失败");
+		if (listVisitor == null || listVisitor.size() == 0) {
 			return null;
 		} else {
 			tb_visitorModel visitorModel = (tb_visitorModel) listVisitor.get(0);
-			//System.out.println("vid:" + visitorModel.getVid());
+			// System.out.println("vid:" + visitorModel.getVid());
 			return visitorModel.getVid();
 		}
 	}
-     //type代表建议类型
+
+	// type代表建议类型
 	@Override
 	public void addAdviceService(String title, String advice, String type,
 			String visitor) {
@@ -50,19 +51,19 @@ public class AdviceServiceImp implements AdviceService {
 		Calendar cal1 = Calendar.getInstance();
 		TimeZone.setDefault(TimeZone.getTimeZone("GMT+8:00"));
 		java.text.SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddkkmmss");
-		//System.out.println(sdf.format(cal1.getTime()));
+		// System.out.println(sdf.format(cal1.getTime()));
 		int randomNumber = (int) (Math.random() * 10);
-		//System.out.println(randomNumber);// test
+		// System.out.println(randomNumber);// test
 		String aDid = (sdf.format(cal1.getTime()) + randomNumber);
-        //生成随机建议id 
-		//System.out.println("aDid:" + aDid);
+		// 生成随机建议id
+		// System.out.println("aDid:" + aDid);
 		Timestamp atime = new Timestamp(System.currentTimeMillis());
 		DateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		atime = Timestamp.valueOf(sdf1.format(atime));
 		String status = "0";
 		String vid = getVid(visitor);
-		//System.out.println("atime:" + atime);
-        //得到建议的时间
+		// System.out.println("atime:" + atime);
+		// 得到建议的时间
 		param = new LinkedList<Object>();
 		param.add(aDid);
 		param.add(title);
@@ -75,7 +76,7 @@ public class AdviceServiceImp implements AdviceService {
 			adviceDao.addAdvice(sql, param);
 
 		} catch (Exception e) {
-			System.out.println("AdviceServiceImp:failed to submit advice");
+			e.printStackTrace();
 		}
 	}
 
