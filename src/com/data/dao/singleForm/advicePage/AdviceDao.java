@@ -64,7 +64,6 @@ public class AdviceDao {
 				 for (int i = 0; i < param.size(); i++) {
 						try {
 							ps.setObject(i + 1, param.get(i));
-							System.out.println(param.get(i));
 							// System.out.println("dao"+sql);
 						} catch (SQLException e) {
 							System.out.println("Pstmt中的Sql语句参数注入异常。。。");

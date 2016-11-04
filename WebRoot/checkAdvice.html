@@ -55,7 +55,7 @@
 	function judgeAdmin() {
 		getCookie();
 		//alert("Account:"+Account+" "+"Privilege:"+Privilege);
-		if (Account == "" || Privilege == "") {
+		if (Account == "" || Privilege != "c") {
 			window.open("adminLogin.html", "_self");
 		} else {
 			setAccount();
@@ -159,7 +159,7 @@
 
 					},
 					error : function() {
-						return;
+						$("#advices").html("");
 					}
 				});
 	}
@@ -252,7 +252,7 @@
 		});
 		$("#city").text("城市");
 		$("#area").text("景区");
-		$("#spot").text("景点");
+		
 	}
 
 	function getArea(cid, city) {
@@ -334,6 +334,11 @@
 				Arid="";
 				Status="";
 				Vid="";
+				document.getElementById("Title").innerHTML = "";
+				document.getElementById("Advice").innerHTML = "";
+				$("#province").text("省份");
+				$("#city").text("城市");
+				$("#area").text("景区");
 				getAdvices();
 				getAdviceNumber();
 			},

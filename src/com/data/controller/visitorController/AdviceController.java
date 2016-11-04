@@ -26,21 +26,22 @@ public class AdviceController {
 		visitor = java.net.URLDecoder.decode(visitor, "UTF-8");
 		title = java.net.URLDecoder.decode(title, "UTF-8");
 		advice = java.net.URLDecoder.decode(advice, "UTF-8");
-		if(visitor.length()==0||title.length()==0||advice.length()==0||type.length()==0)
+		if (visitor.isEmpty() || title.isEmpty() || advice.isEmpty()
+				|| type.isEmpty())
 			return null;
-		//System.out.println(visitor + "," + title + "," + advice + " " + type);
+		// System.out.println(visitor + "," + title + "," + advice + " " +
+		// type);
 		ApplicationContext factory = new ClassPathXmlApplicationContext(
 				"applicationContext.xml");
 		AdviceService adviceService = (AdviceService) factory
 				.getBean("AdviceService");
-		try{
-		adviceService.addAdviceService(title, advice, type, visitor);
-		}
-		catch(Exception e)
-		{
+		try {
+			adviceService.addAdviceService(title, advice, type, visitor);
+		} catch (Exception e) {
+			e.printStackTrace();
 			return null;
 		}
-		Writer writer=response.getWriter();
+		Writer writer = response.getWriter();
 		writer.write("success");
 		return null;
 	}

@@ -140,7 +140,7 @@
 
 					},
 					error : function() {
-						return;
+						$("#advices").html("");
 					}
 				});
 	}
@@ -183,7 +183,12 @@
 				}, 0);
 				ADid = "";
 				Vid = "";
+				document.getElementById("Title").innerHTML = "";
+				document.getElementById("Advice").innerHTML = "";
+				$("#replyTitle").val("");
+				$("#replyAdvice").val("");
 				getAdvices();
+				getAdviceNumber();
 			},
 			error : function() {
 				//alert("failed");
