@@ -1,20 +1,38 @@
 html,body
  {
- height:100%;
+	 margin:0;
+	 padding:0;
+     height:100%;
+     background-color:white;
 }
 a:hover
  {
    text-decoration:none;
  }
-
+ #mainContent
+ {
+	 background-color:white;
+	 height:100%;
+	 margin-left:225px;
+ }
+ @media(max-width:769px)
+ {
+  #mainContent
+  {
+	 background-color:white;
+	 height:100%;
+	 margin-left:0px;
+  }
+ }
+/*&
 #header {background-color:#222;}
 .top-nav {padding: 0 15px;}
 .left-header{display:inline-block;}
 .right-header>li{display: inline-block; float: left;}
 .right-header>li>a {padding-top: 15px;padding-bottom:15px; line-height: 20px;color: #999;}
 .right-header>li>a:hover,.right-header>li>a:focus,.right-header>.open>a,.right-header>.open>a:hover,.right-header>.open>a:focus {color: #fff;background-color: #000;}
-
-#content{height:100%;}
+*/
+#content{height:100%;margin-bottom:0;padding-bottom:0;}
 .left-content{margin-top:20px;}
 .left-content>div{height:100%;}
 .left-content .adviceTable{position:relative;top:-10px;}
@@ -30,9 +48,10 @@ a:hover
 .right-content .content textarea{height:100%;}
 .right-content .footer button{width:100px;}
  @media(max-width:768px) {
+.right-content{padding-top:20px;height:100%;margin-top:30px;}
 .right-content .title{margin-top:20px;}
 .right-content .content{height:50%;margin-top:20px;}
-.footer button{width:200px;}}
+ .footer button{}}
 
 
 .myModal .modal-dialog{width:26em;height:26em;}

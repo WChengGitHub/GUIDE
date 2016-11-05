@@ -83,7 +83,7 @@ public class ChangeAndDelAdminController {
 				.getBean("ChangeAndDelAdminService");
 		Account = java.net.URLDecoder.decode(Account, "UTF-8");
 		// Spot = java.net.URLDecoder.decode(Spot, "UTF-8");
-		// System.out.println(Email+" "+Aid+" "+" "+Privilege+" "+Spot+" "+Account);
+	    //System.out.println(Email+" "+Aid+" "+" "+Privilege+" "+Account);
 		if (Aid.isEmpty() || Email.isEmpty() || Account.isEmpty()) {
 			System.out.println("Aid:" + Aid + " " + "Email:" + Email
 					+ "Account:" + Account);

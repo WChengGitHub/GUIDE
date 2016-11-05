@@ -15,11 +15,11 @@
 <script src="./css/bootstrap.min.js"></script>
 <script type="text/javascript" src="./css/jquery.pagination.js"></script>
 <style>
-@media ( min-width :768px)
-{
-.myModal {
-	width: 300px;
-}}
+@media ( min-width :768px) {
+	.myModal {
+		width: 300px;
+	}
+}
 
 .mydropdown {
 	width: 15em;
@@ -137,8 +137,8 @@
 	var Aid = "";
 	var Email = "";
 	var adminAccount = "";
-	var Arid="";
-	var adminPrivilege="";
+	var Arid = "";
+	var adminPrivilege = "";
 	function getCookie() {
 		var strCookie = document.cookie;
 		var arrCookie = strCookie.split(";");
@@ -161,6 +161,7 @@
 		document.cookie = "Privilege=a;expires=" + now.toGMTString();
 		document.cookie = "Account=Hello;expires=" + now.toGMTString();
 	}
+	//登录时需要写入权限,用户名
 	function judgeAdmin() {
 		getCookie();
 		if (Account == null || Privilege == null || Account == undefined
@@ -181,6 +182,7 @@
 
 		}
 	}
+	//前台加载时,一定要从后台把email,Aid加载进来,可以仿照这里的前台加载(写入参数),因为修改管理员时要用到
 	function getAdminRecordList() {
 
 		$
@@ -244,7 +246,7 @@
 					}
 				});
 	}
-	
+
 	function setAdminDelStatus() {
 		//alert(confirmAccount);
 		//alert(confirmAid);
@@ -279,7 +281,7 @@
 		$("#confirmModel").modal("toggle");
 
 	}
-	
+    //修改功能
 	function setChangeAdminValue(aid, email, account) {
 		//alert("ChangeAdmin");
 
@@ -293,13 +295,13 @@
 		//$("#superAdministrator").modal("toggle");
 
 	}
+	//修改功能
 	function sendAdminChange() {
 		//alert("Aid:" + Aid);
 		//alert("Email:" + Email);
 		//var Privilege = $("#Privilege").val();
 		var Privilege = adminPrivilege;
 		//var Spot = $("#Spot").val();
-		var Spot = getSpotspot;
 		$.ajax({
 			type : 'post',
 			url : encodeURI(encodeURI("sendAdminChange?Email=" + Email
@@ -318,6 +320,10 @@
 				}, 1000);
 				$("#mymodal").modal("toggle");
 				getAdminRecordList();
+				$("#province").text("省份");
+				$("#city").text("城市");
+				$("#area").text("景区");
+				Arid = "";
 			},
 			error : function() {
 				//alert("failed");
@@ -328,19 +334,24 @@
 				setTimeout(function() {
 					$("#mymodal").modal("toggle")
 				}, 1000);
-
+				$("#province").text("省份");
+				$("#city").text("城市");
+				$("#area").text("景区");
+				Arid = "";
 			}
 		});
+
 		//alert("Privilege:" + Privilege);
 		//alert("Spot:" + Spot);
 	}
-	
+	//修改功能  
 	function setAdmin(adminValue, Privilege) {
 
 		$("#menuAdmin").text(adminValue);
 		adminPrivilege = Privilege;
 		//alert("adminPrivilege:" + adminPrivilege);
 	}
+	//修改功能
 	function getProvince() {
 		$.ajax({
 			type : 'post',
@@ -369,6 +380,7 @@
 			}
 		});
 	}
+	//修改功能
 	function getCity(pid, province) {
 		//alert("pid:"+pid);
 		$("#province").text(province);
@@ -402,8 +414,9 @@
 		});
 		$("#city").text("城市");
 		$("#area").text("景区");
-		$("#spot").text("景点");
+
 	}
+	//修改功能
 	function getArea(cid, city) {
 		//alert("cid:"+cid);
 		if (!(city == null || city == undefined || city == ""))
@@ -420,7 +433,8 @@
 				for (var i = 0; i < data.length; i++) {
 
 					$("#areas").append(
-							"<li><a onclick=setArid('" + data[i].arid + "','"+data[i].area+"')>" + data[i].area
+							"<li><a onclick=setArid('" + data[i].arid + "','"
+									+ data[i].area + "')>" + data[i].area
 									+ "</a></li>");
 
 				}
@@ -437,10 +451,9 @@
 		});
 		$("#sign").text("该市没有景区");
 	}
-	
-	function setArid(x,y)
-	{
-		Arid=x;
+	//修改功能
+	function setArid(x, y) {
+		Arid = x;
 		$("#area").text(y);
 	}
 </script>
@@ -491,6 +504,7 @@
 		</div>
 
 	</div>
+	<!--修改功能-->
 	<div class="modal text-center" id="changeAdmin">
 		<div class="modal-dialog">
 			<div class="modal-content">
@@ -556,7 +570,7 @@
 
 						</div>
 
-						
+
 						<!--<div class="form-group">
 							<label>景点:</label> <input type="text"
 								class="form-control input-lg" id="Spot">
@@ -569,7 +583,7 @@
 			</div>
 		</div>
 	</div>
-	
+<!--修改功能  会改变h3中的值-->
 	<div class="modal fade text-center " id="mymodal">
 		<div class="modal-dialog myModal">
 			<div class="modal-content">
@@ -607,11 +621,9 @@
 		</div>
 		<!-- /.modal-dialog -->
 	</div>
-	
+
 	<script>
-	    setCookie();
 		judgeAdmin();
-		
 	</script>
 </body>
 </html>
