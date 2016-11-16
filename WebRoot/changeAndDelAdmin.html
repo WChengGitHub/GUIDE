@@ -139,7 +139,7 @@
 	var adminAccount = "";
 	var Arid = "";
 	var adminPrivilege = "";
-	function getCookie() {
+	/*function getCookie() {
 		var strCookie = document.cookie;
 		var arrCookie = strCookie.split(";");
 		for (var i = 0; i < arrCookie.length; i++) {
@@ -160,9 +160,9 @@
 		now.setTime(now.getTime() + 5 * 60 * 1000);
 		document.cookie = "Privilege=a;expires=" + now.toGMTString();
 		document.cookie = "Account=Hello;expires=" + now.toGMTString();
-	}
+	}*/
 	//登录时需要写入权限,用户名
-	function judgeAdmin() {
+	/*function judgeAdmin() {
 		getCookie();
 		if (Account == null || Privilege == null || Account == undefined
 				|| Privilege == undefined) {
@@ -175,13 +175,13 @@
 		}
 	}
 	function changeDisplay() {
-		document.getElementById("AdminName").innerHTML = Account;
+		//document.getElementById("AdminName").innerHTML = Account;
 
 		if (Privilege != "a") {
 			window.open("Home.html", "_self");
 
 		}
-	}
+	}*/
 	//前台加载时,一定要从后台把email,Aid加载进来,可以仿照这里的前台加载(写入参数),因为修改管理员时要用到
 	function getAdminRecordList() {
 
@@ -459,22 +459,10 @@
 </script>
 </head>
 <body>
-	<div id="header" style="background-color:#222;width:100%">
-		<div class="navbar navbar-default navbar-inverse " role="navigation">
-			<div class="navbar-header header" style="display:inline-block;">
-				<a href="##" class="navbar-brand" id="Admin">超级管理员</a>
-			</div>
-			<ul class="nav  headerRight pull-right top-nav">
-				<li><a href="##"><span class="fa fa-fw fa-user fa-lg"></span><span
-						id="AdminName"></span></a></li>
-			</ul>
-		</div>
-	</div>
+	
 	<div id="content" class="col-lg-12">
 		<div class="panel panel-default">
-			<div class="panel-heading">
-				<h3 class="panel-title">审核与景区管理员</h3>
-			</div>
+			
 			<div class="panel-body">
 				<div id="Pagination1" class="pagination"></div>
 				<div class="table-responsive myTable">
@@ -623,7 +611,8 @@
 	</div>
 
 	<script>
-		judgeAdmin();
+		getAdminRecordList();
+		getProvince();
 	</script>
 </body>
 </html>

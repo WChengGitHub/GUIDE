@@ -25,6 +25,9 @@ public class ChangeAndDelAdminController {
 	@RequestMapping("/getAdminRecordList")
 	@ResponseBody
 	public JSONArray getAdminRecords() {
+		
+		System.out.println("test                      test!!!");
+		
 		ApplicationContext factory = new ClassPathXmlApplicationContext(
 				"applicationContext.xml");
 		ChangeAndDelAdminService changeAndDelAdminService = (ChangeAndDelAdminService) factory
