@@ -112,10 +112,10 @@
 	<bean id="registerservice"
 		class="com.data.service.visitorService.registerService.RegisterServiceImp" /><!-- 
 		class为...RegisterService时会有黄线提示，运行后则打不开主页？ -->
-	<bean id="completeVisitorInformationService"
+	<!-- <bean id="completeVisitorInformationService"
 		class="com.data.service.visitorService.completeVisitorInformationService.CompleteVisitorInformationServiceImp">
 		<property name="visitorDao" ref="visitorDao"></property>
-	</bean>
+	</bean> -->
 	<!-- adminService -->
 	<bean id="adminloginservice"
 		class="com.data.service.adminService.adminFunctions.loginService.LoginServiceImp" />

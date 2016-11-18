@@ -40,9 +40,7 @@
   
   <servlet-mapping>
     <servlet-name>Action</servlet-name>
-    <!-- mvc-dispatcher拦截所有的请求用这种方式
-		<url-pattern>/</url-pattern> ？但是会出错 
-		 <url-pattern>/login.html</url-pattern>-->
+    <!-- mvc-dispatcher拦截所有的请求用这种方式-->
 	    <url-pattern>/</url-pattern>
 	 </servlet-mapping>
 	 
