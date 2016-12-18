@@ -1,0 +1,6 @@
+html,body{margin:0;padding:0;height:100%;background-color:white;}
+a:hover{text-decoration:none;}
+#mainContent{background-color:white;height:100%;margin-left:225px;}
+@media(max-width:769px){
+  #mainContent{background-color:white;height:100%;margin-left:0px;}
+ }
