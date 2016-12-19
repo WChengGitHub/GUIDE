@@ -12,7 +12,7 @@
     <!-- ace styles -->
     <!--<link rel="stylesheet" href="assets/css/ace.css" class="ace-main-stylesheet" id="main-ace-style" />-->
        
-    <link href="./css/superAdminReplyAdvice.css" rel="stylesheet">
+    <link href="./css/spotAdminCompleteSpotInformation.css" rel="stylesheet">
     <!-- Bootstrap Core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
 
@@ -31,193 +31,6 @@
 	<!-- Pagination -->
 	<link rel="stylesheet" href="css/pagination.css" />
 	<script type="text/javascript" src="css/jquery.pagination.js"></script>
-	<script>
-	var Account = "";
-	var Privilege = "";
-	var type = "";
-	var Vid = "";
-	var ADid = "";
-	/*var Pid = "";
-	var Cid = "";
-	var Arid = "";*/
-	var Status = "";
-	function setCookie() {
-		var now = new Date();
-		now.setTime(now.getTime() + 5 * 60 * 1000);
-		document.cookie = "Privilege=a;expires=" + now.toGMTString();
-		document.cookie = "Account=HHH;expires=" + now.toGMTString();
-	}
-	function getCookie() {
-
-		var strCookie = document.cookie;
-
-		var arrCookie = strCookie.split(";");
-
-		for (var i = 0; i < arrCookie.length; i++) {
-			var arr = arrCookie[i].split("=");
-
-			arr[0] = $.trim(arr[0]);
-			if ("Account" == arr[0]) {
-				Account = arr[1];
-			}
-			if ("Privilege" == arr[0]) {
-				Privilege = arr[1];
-			}
-		}
-	}
-	function setAccount() {
-
-		document.getElementById("Account").innerHTML = Account;
-	}
-	function judgeAdmin() {
-		getCookie();
-		//alert(Privilege);
-		//alert("Account:"+Account+" "+"Privilege:"+Privilege);
-		if (Account == "" || Privilege != "a") {
-			window.open("adminLogin.html", "_self");
-		} else {
-			setAccount();
-			getAdviceNumber();
-			getAdvices();
-		}
-	}
-	function getAdviceNumber() {
-
-		$
-				.ajax({
-					type : 'post',
-					url : encodeURI(encodeURI("SuperAdminReplyAdviceController/softwareAdviceNumber?Account="
-							+ Account)),
-					contentType : 'application/json;charset=utf-8',//指定为json类型 //数据格式是json串，商品信息 
-					dataType : "json",
-					success : function(data) {//返回json结果 
-						var html = '';
-						if (data.softwareAdviceNumber != 0) {
-							document.getElementById("adviceNumber").innerHTML = data.softwareAdviceNumber;
-						} else {
-							document.getElementById("adviceNumber").innerHTML = "";
-						}
-
-					}
-				});
-	}
-	function getAdvices() {
-		//alert("getAdvices");
-		$
-				.ajax({
-					type : 'post',
-					url : encodeURI(encodeURI("SuperAdminReplyAdviceController/getSoftwareAdvices?Account="
-							+ Account)),
-					contentType : 'application/json;charset=utf-8',
-					dataType : 'json',
-					success : function(data) {
-
-						//alert("返回成功");
-						//alert(data.length);
-						$(function() {
-
-							var length = data.length;
-							$("#Pagination").pagination(length, {
-								items_per_page : 10,
-								callback : pageselectCallback
-							});
-
-							function pageselectCallback(page_index, jq) {
-								var items_per_page = 10;
-								var max_elem = Math.min((page_index + 1)
-										* items_per_page, length);
-
-								$("#advices").html("");//html() 方法返回或设置被选元素的内容 (inner HTML)。
-								for (var i = page_index * items_per_page; i < max_elem; i++) {
-
-									$("#advices")
-											.append(
-													"<tr> <td>"
-															+ data[i].title
-															+ "</td><td>"
-															+ data[i].atime
-															+ "</td><td>"
-															+ data[i].type
-															+ "</td><td><a style='cursor: pointer;' onclick=showAdvice('"
-															+ data[i].title
-															+ "','"
-															+ data[i].advice
-															+ "','"
-															+ data[i].vid
-															+ "','"
-															+ data[i].ADid
-															+ "')>"
-															+ data[i].ADid
-															+ "</a></td></tr>");
-
-								}
-								return false;
-							}
-						});
-
-					},
-					error : function() {
-						$("#advices").html("");
-					}
-				});
-	}
-	
-	function showAdvice(title, advice, vid, aDid) {
-		//alert("title:"+title+"advice:"+advice+"vid:"+vid);
-		document.getElementById("Title").innerHTML = title;
-		document.getElementById("Advice").innerHTML = advice;
-		Vid = vid;
-		ADid = aDid;
-		//alert("ADid:" + aDid);
-	}
-	
-	
-	function superAdminReplyAdvice()
-	{
-	   $("#mymodal-data").modal("toggle");
-	}
-	function sendReply()
-	{
-		//alert(2);
-		var title=document.getElementById("replyTitle").value;
-		//alert(3);
-		var reply=document.getElementById("replyAdvice").value;
-		//alert(1);
-		//alert(title+" "+reply);
-		setTimeout(function(){$("#mymodal-data").modal("hide")},0);
-		$.ajax({
-			type : 'post',
-			url : encodeURI(encodeURI("SuperAdminReplyAdviceController/sendReply?Account="
-					+ Account+"&ADid="+ADid+"&Vid="+Vid+"&Title="+title+"&Reply="+reply)),
-			contentType : 'application/json;charset=utf-8',//指定为json类型 //数据格式是json串，商品信息 
-			dataType : "json",
-			success : function(data) {//返回json结果 
-				//alert("提交成功");
-				$("#message").text("提交成功");
-				
-				setTimeout(function() {
-					$("#PromptMessage").modal("toggle")
-				}, 0);
-				ADid = "";
-				Vid = "";
-				document.getElementById("Title").innerHTML = "";
-				document.getElementById("Advice").innerHTML = "";
-				$("#replyTitle").val("");
-				$("#replyAdvice").val("");
-				getAdvices();
-				getAdviceNumber();
-			},
-			error : function() {
-				//alert("failed");
-				$("#message").text("提交失败");
-
-				setTimeout(function() {
-					$("#PromptMessage").modal("toggle")
-				}, 0);
-			}
-		});
-	}
-</script>
 </head>
 <body>
     <!-- 让正文内容右移 -->
@@ -334,10 +147,10 @@
         </nav>
 	</div>
    <div id="mainContent">
-		<div id="content">
-			<p>经度：<span>1233</span></p>
-			<p>纬度：<span>111</span></p>
-			<p>半径：<input/></p>
+		<div class="content">
+			<p>景点经度：<span>1233</span></p>
+			<p>景点纬度：<span>111</span></p>
+			<p>景点半径：<input/></p>
 			<p>景点描述：<input/></p>
 			<p>声音介绍：<input/></p>
 		</div>

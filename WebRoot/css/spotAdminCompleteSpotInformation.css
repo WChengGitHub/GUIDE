@@ -1,6 +1,8 @@
 html,body{margin:0;padding:0;height:100%;background-color:white;}
 a:hover{text-decoration:none;}
 #mainContent{background-color:white;height:100%;margin-left:225px;}
+#mainContent .content{width:400px;margin:200px auto auto auto;padding-left:120px;}
+#mainContent .content p{margin-bottom:15px;}
 @media(max-width:769px){
   #mainContent{background-color:white;height:100%;margin-left:0px;}
  }
