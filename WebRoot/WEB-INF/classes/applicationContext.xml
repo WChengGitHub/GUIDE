@@ -166,8 +166,10 @@
 		<property name="visitorDao" ref="visitorDao"></property>
 		<property name="admin_adviceDao" ref="admin_adviceDao"></property>
 	</bean>
-	<!-- singleForm -->
-
+	<!-- spotAdminService -->
+	<bean id="areaAdminReplyAdviceService" class="com.data.service.adminService.spotAdminFunctions.spotAdminCompleteSpotInformation.SpotAdminCompleteSpotInformationServiceImp">
+	     <property name="spotDao" ref="spotDao"></property>
+	</bean>
 
 
 	<!-- 增加MD5 -->
