@@ -33,12 +33,15 @@
 	<script type="text/javascript" src="css/jquery.pagination.js"></script>
 	<script>
 	var Account="";
+	var Radius="";
+	var Description="";
+	var Voice="";
 	var Privilege="";
 	function setCookie() {
 		var now = new Date();
 		now.setTime(now.getTime() + 5 * 60 * 1000);
 		document.cookie = "Privilege=r;expires=" + now.toGMTString();
-		document.cookie = "Account=HHH;expires=" + now.toGMTString();
+		document.cookie = "Account=1;expires=" + now.toGMTString();
 	}
 	function getCookie() {
 
@@ -69,8 +72,53 @@
 			window.open("adminLogin.html", "_self");
 		} else {
 			setAccount();
+			getSpotInformation();
 		}
 	}
+	function getSpotInformation() {
+		//alert("getAdvices");
+		$
+				.ajax({
+					type : 'post',
+					url : encodeURI(encodeURI("SpotAdminCompleteSpotInformationController/getSpotInformation?Account="
+							+ Account)),
+					contentType : 'application/json;charset=utf-8',
+					dataType : 'json',
+					success : function(data) {
+						 //alert("返回成功");
+						 //alert("data.longitude:"+data[0].longitude);
+                         $("#Longitude").text(data[0].longitude);
+                         $("#Latitude").text(data[0].latitude);
+                         $("#Radius").val(data[0].radius);
+                         $("#Description").text(data[0].description);
+                         $("#Voice").text(data[0].voice);
+						//alert("返回成功");
+						//alert(data.length);
+					}
+				});
+	}
+	function changeSpotInformation() {
+		//alert("getAdvices");
+		Radius=$("#Radius").val();
+        Description=$("#Description").val();
+        Voice=$("#Voice").val();
+        //alert("Description Voice:"+Description+" "+Voice)
+		$
+				.ajax({
+					type : 'post',
+					url : encodeURI(encodeURI("SpotAdminCompleteSpotInformationController/changeSpotInformation?Account="
+							+ Account+"&Radius="+Radius+"&Description="+Description+"&Voice="+Voice)),
+					contentType : 'application/json;charset=utf-8',
+					dataType : 'json',
+					success : function(data) {
+						 alert("修改成功");
+					},
+					error : function() {
+						alert("修改失败");
+					}
+				});
+	}
+	
 	</script>
 </head>
 <body>
@@ -189,17 +237,17 @@
 	</div>
    <div id="mainContent">
 		<div class="content">
-			<p>景点经度：<span>1233</span></p>
-			<p>景点纬度：<span>111</span></p>
-			<p class="Radius">景点半径：<input/></p>
-			<p class="Description"><span>景点描述：</span><textarea></textarea></p>
-			<p class="Voice"><span>声音介绍：</span><textarea></textarea></p>
-			<button>保存</button>
+			<p>景点经度：<span id="Longitude"></span></p>
+			<p>景点纬度：<span id="Latitude"></span></p>
+			<p class="Radius" >景点半径：<input id="Radius"/></p>
+			<p class="Description"><span>景点描述：</span><textarea id="Description"></textarea></p>
+			<p class="Voice"><span>声音介绍：</span><textarea id="Voice"></textarea></p>
+			<button onclick="changeSpotInformation()">保存</button>
 		</div>
    </div>
 </body>
 <script>
-	setCookie();
+	//setCookie();
 	judgeAdmin();
 </script>
 </html>

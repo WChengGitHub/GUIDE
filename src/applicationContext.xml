@@ -32,6 +32,8 @@
 	<context:component-scan base-package="com.data.controller.visitorController" />
 	<context:component-scan
 		base-package="com.data.controller.adminController.checkAdminController"></context:component-scan>
+		<context:component-scan
+		base-package="com.data.controller.adminController.spotAdminController"></context:component-scan>
 
 	<!-- <context:component-scan base-package="com.data.controller.adminController.adminFunctions.LoginController"></context:component-scan> -->
 	<!-- 前台请求发送到对应控制器 -->

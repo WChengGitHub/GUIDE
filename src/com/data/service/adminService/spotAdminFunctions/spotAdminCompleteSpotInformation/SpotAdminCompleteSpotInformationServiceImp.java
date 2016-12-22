@@ -53,7 +53,7 @@ public class SpotAdminCompleteSpotInformationServiceImp implements
 	public boolean changeSpotInformation(
 			SpotAdminCompleteSpotInformationModel spotAdminCompleteSpotInformationModel) {
 		// TODO Auto-generated method stub
-		String sql="update tb_spot set(Radius,Description,Voice) values(?,?,?) where Sid=(select Sid from tb_admin where Account=?)";
+		String sql="update tb_spot set Radius=?,Description=?,Voice=? where Sid=(select Sid from tb_admin where Account=?)";
 		String Account=spotAdminCompleteSpotInformationModel.getAccount();
 		String Radius=spotAdminCompleteSpotInformationModel.getRadius();
 		String Description=spotAdminCompleteSpotInformationModel.getDescription();
@@ -68,6 +68,7 @@ public class SpotAdminCompleteSpotInformationServiceImp implements
 			return true;
 		} catch (Exception e) {
 			// TODO: handle exception
+			e.printStackTrace();
 		}
 		return false;
 	}
