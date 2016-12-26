@@ -1,0 +1,25 @@
+html,body{margin:0;padding:0;height:100%;background-color:white;}
+a:hover{text-decoration:none;}
+@media(min-width:769px){
+#mainContent{background-color:white;height:100%;margin-left:225px;}
+#mainContent .content{width:600px;margin:130px auto auto auto;padding-left:70px;background-color:#FBFBEA;padding-top:40px;padding-bottom:40px;}
+#mainContent .content p{margin-bottom:15px;}
+#mainContent .content .Radius input{width:80px;}
+#mainContent .content .Description textarea{width:400px;height:100px;}
+#mainContent .content .Description span{position:relative;bottom:90px;}
+#mainContent .content .Voice textarea{width:400px;height:100px;}
+#mainContent .content .Voice span{position:relative;bottom:90px;}
+#mainContent .content button{background-color:#007FFF;color:white;border-width:0;width:4.5em;height:2em;position:relative;left:5em;}
+}
+@media(max-width:769px){
+#mainContent{background-color:white;height:100%;}
+#mainContent .content{width:100%;margin:130px auto auto auto;padding-left:5%;padding-top:0px;padding-bottom:0px;}
+#mainContent .content p{margin-bottom:15px;}
+#mainContent .content .Radius input{width:80px;}
+#mainContent .content .Description textarea{width:70%;height:90px;}
+#mainContent .content .Description span{position:relative;bottom:75px;}
+#mainContent .content .Voice textarea{width:70%;height:90px;}
+#mainContent .content .Voice span{position:relative;bottom:75px;}
+#mainContent .content button{background-color:#007FFF;color:white;border-width:0;width:4.5em;height:2em;position:relative;left:5em;}
+
+ }

@@ -32,6 +32,8 @@
 	<context:component-scan base-package="com.data.controller.visitorController" />
 	<context:component-scan
 		base-package="com.data.controller.adminController.checkAdminController"></context:component-scan>
+		<context:component-scan
+		base-package="com.data.controller.adminController.spotAdminController"></context:component-scan>
 
 	<!-- <context:component-scan base-package="com.data.controller.adminController.adminFunctions.LoginController"></context:component-scan> -->
 	<!-- 前台请求发送到对应控制器 -->
@@ -166,8 +168,10 @@
 		<property name="visitorDao" ref="visitorDao"></property>
 		<property name="admin_adviceDao" ref="admin_adviceDao"></property>
 	</bean>
-	<!-- singleForm -->
-
+	<!-- spotAdminService -->
+	<bean id="spotAdminCompleteSpotInformationService" class="com.data.service.adminService.spotAdminFunctions.spotAdminCompleteSpotInformation.SpotAdminCompleteSpotInformationServiceImp">
+	     <property name="spotDao" ref="spotDao"></property>
+	</bean>
 
 
 	<!-- 增加MD5 -->

@@ -1,37 +1,19 @@
 package com.data.model;
 
-public class tb_spotModel {
-	private String Sid;
-	private String Spot;
-	private String Aid;
+public class SpotAdminCompleteSpotInformationModel {
+	private String Account;
 	private String Latitude;
 	private String Longitude;
 	private String Radius;
 	private String Description;
 	private String Voice;
 
-	public String getSid() {
-		return Sid;
+	public String getAccount() {
+		return Account;
 	}
 
-	public void setSid(String sid) {
-		Sid = sid;
-	}
-
-	public String getSpot() {
-		return Spot;
-	}
-
-	public void setSpot(String spot) {
-		Spot = spot;
-	}
-
-	public String getAid() {
-		return Aid;
-	}
-
-	public void setAid(String aid) {
-		Aid = aid;
+	public void setAccount(String account) {
+		Account = account;
 	}
 
 	public String getLatitude() {
