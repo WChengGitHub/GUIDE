@@ -337,7 +337,7 @@
                                <a href="superAdminReplyAdvice1.html">回复建议</a>
                             </li>
 							<li style="background-color:rgb(18,17,16);">
-                               <a href="areaAdminAddOrDeleteSpot.html">添加或删除景点</a>
+                               <a href="areaAdminAddOrDeleteSpot.html">景点管理</a>
                             </li>
                         </ul>
                     </li>
@@ -371,9 +371,17 @@
 									<th>景点名称</th>
 									<th>景点管理员</th>
 									<th>创建时间</th>
+									<th>操作</th>
 								</tr>
 							</thead>
 							<tbody id="advices">
+                                 <tr>
+								    <td>景点1</td>
+									<td>hello</td>
+									<td>lll</td>
+									<td>hhh</td>
+									<td><button style="width:4em;margin-top:0px;height:2em;" class="btn btn-primary  btn-xs text-center mybutton" type="button" ><span class="fa fa-fw  fa-close fa-lg "></span></button></td>
+								 </tr>
 
 							</tbody>
 
@@ -388,12 +396,12 @@
 			<div class="modal-content ">
 
 				<div class="modal-body ">
-					景点名称：<input/>
-					经度：<input/>
-					纬度：<input/>
-					<button class=""
-						type="button" value="提交" onclick="">重新定位</button>
-					<button class=""
+					<p>景点：<input/></p>
+					<p>经度：<input/></p>
+					<p>纬度：<input/></p>
+					<button class="reLocation"
+						type="button" value="重新定位" onclick="">重新定位</button>
+					<button class="submit"
 						type="button" value="提交" onclick="">提交</button>
 				</div>
 			</div>
