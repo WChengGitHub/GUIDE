@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
+<meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>记录游记</title>
 
@@ -53,8 +53,8 @@ body{
 
 <script type="text/javascript">
 var text=null;
-var vid=null;
-var sid='0';//未获取
+var visitor=null;
+var sid='1';//未获取
 var publicty=null;
 
 //获取cookie
@@ -75,6 +75,8 @@ function checkCookie(){
 	{
   		window.open('in.html','_self','width=200,height=100,,_left=0,_top=100');
     }
+    else visitor=cookie;
+    alert(visitor);
 }
 </script>
 
@@ -154,16 +156,15 @@ function contents(){
 </script>
 
 <script type="text/javascript">
-
+/*
 function submit() {//提交游记信息
 contents();
 alert("test2");
 		$.ajax({
 			type : 'post',
-			url : encodeURI(encodeURI("recordTravelUrl?Text=" + text
-						+ "&Vid=" + vid + "&Sid=" + sid + "&Publicty="
-						+ publicty)),
-			contentType : 'application/json;charset=utf-8',
+			url : encodeURI("recordTravelUrl?Text=" + text
+						+ "&Vid=" + vid + "&Sid=" + sid ),//+ "&Publicty="+ publicty
+		
 			dataType : 'json',
 			success : function(data) {
 				alert("success");
@@ -172,10 +173,69 @@ alert("test2");
 				alert("error");
 			}
 		});
+	}*/
+</script>
+
+
+<script type="text/javascript">
+var xmlhttp;
+function submit() {//提交游记信息
+contents();
+alert("test2");
+	
+	
+		
+		xmlhttp=null;
+	if (window.XMLHttpRequest)
+	  {
+	  	xmlhttp=new XMLHttpRequest();
+	  }
+	else if (window.ActiveXObject)
+	  {
+	  	xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+	  }
+	if (xmlhttp!=null)
+	  {
+	  	var json="Text=" + text+ "&Visitor=" + visitor + "&Sid=" + sid;
+	  	xmlhttp.onreadystatechange=state_Change;
+	  	xmlhttp.open("POST","recordTravelUrl.html",true);
+	  	xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+	  	xmlhttp.send(json);
+	  }
+	else
+	  {
+	  	alert("Your browser does not support XMLHTTP.");
+	  }
+	};
+	
+function state_Change()
+	{
+	if (xmlhttp.readyState==4)
+	  {
+	  if (xmlhttp.status==200)
+	    {
+	    	var result;
+
+	 		result=xmlhttp.responseText;
+	 		
+	 		if(result==1)
+	 		{
+	 			alert("success");
+	 		}
+	 		else alert("error");
+	 	}
+	    
+	  	else
+	    {
+	    	alert("Problem retrieving XML data:" + xmlhttp.statusText);
+	    }
+	  }
 	}
 
+	</script>
 
-</script>
+
+
 </head>
 <body >
 <div class="Contest">
