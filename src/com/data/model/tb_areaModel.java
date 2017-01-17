@@ -4,7 +4,28 @@ public class tb_areaModel {
 	private String Arid;
 	private String Area;
 	private String Cid;
+	private String Longitude;
+	private String Latitude;
+	private int radius;
 	
+	public int getRadius() {
+		return radius;
+	}
+	public void setRadius(int raidus) {
+		this.radius = raidus;
+	}
+	public String getLongitude() {
+		return Longitude;
+	}
+	public void setLongitude(String longitude) {
+		Longitude = longitude;
+	}
+	public String getLatitude() {
+		return Latitude;
+	}
+	public void setLatitude(String latitude) {
+		Latitude = latitude;
+	}
 	public String getArid() {
 		return Arid;
 	}

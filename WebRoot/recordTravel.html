@@ -81,9 +81,9 @@ function checkCookie(){
 </script>
 
 <script src="http://api.map.baidu.com/api?v=1.2" type="text/javascript"></script> 
-  <script>////获取经纬度
-  checkCookie();
-  var province,city,district,street,streetNumber;
+ <script>////获取经纬度
+ var longitude=null, latitude=null;
+ var province,city,district,street,streetNumber;
            function getLocation(){
                var options={
                    enableHighAccuracy:true, 
@@ -101,9 +101,9 @@ function checkCookie(){
            function onSuccess(position){
                //返回用户位置
                //经度
-               var longitude =position.coords.longitude;
+               longitude =position.coords.longitude;
                //纬度
-               var latitude = position.coords.latitude;
+               latitude = position.coords.latitude;
     alert('经度'+longitude+'，纬度'+latitude);
                
                //根据经纬度获取地理位置，不太准确，获取城市区域还是可以的
@@ -120,10 +120,66 @@ function checkCookie(){
        alert(province + ", " + city + ", " + district + ", " + street + ", " + streetNumber);
        //在文本框显示地址信息
        document.getElementById('disabledInput').value=province + city +  district +  street +  streetNumber;
+       
+       /*-------通过经纬度定位到某城区，在将该城区名传到后台*/
+        var xmlhttp2;
+		alert(city);
+		alert("test3");
+		xmlhttp2=null;
+		if (window.XMLHttpRequest)
+		  {
+		  	xmlhttp2=new XMLHttpRequest();
+		  }
+		else if (window.ActiveXObject)
+		  {
+		  	xmlhttp2=new ActiveXObject("Microsoft.XMLHTTP");
+		  }
+		if (xmlhttp2!=null)
+		  {
+		  	var json="City=" + city+ "&Latitude=" + latitude + "&Longitude=" + longitude;
+		  	xmlhttp2.onreadystatechange=state_Change;
+		  	xmlhttp2.open("POST","attractionsPositioning.html",true);
+		  	xmlhttp2.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+		  	xmlhttp2.send(json);
+		  }
+		else
+		  {
+		  	alert("Your browser does not support XMLHTTP.");
+		  }
+		
+		alert(1);
+		if (xmlhttp2.readyState==4)
+		  {
+		  if (xmlhttp2.status==200)
+		    {
+		    	var result2;
+	
+		 		result2=xmlhttp2.responseText;
+		 		
+		 		if(result2=="1"){
+		 			alert("您还未进入景点范围");
+		 			document.getElementById('disabledInput').value="您还未进入景点范围";
+		 		}	
+		 		else if(result2=="0")
+		 			 alert("error");
+		 		else{
+		 			alert("test4");
+		 			document.getElementById('disabledInput').value=province + city +  district 
+		 			+  street +  streetNumber + result;
+		 			alaert("test5");
+		 		}	
+		 	}
+		    
+		  	else
+		    {
+		    	alert("Problem retrieving XML data:" + xmlhttp2.statusText);
+		    }
+		  }
+	/*---------*/
+       
+       
     });
   
-    
-
            }
            //失败时
            function onError(error){
@@ -142,7 +198,7 @@ function checkCookie(){
                    break;
                }
            }
-           window.onload=getLocation;   
+
 </script>
 
 
@@ -178,13 +234,12 @@ alert("test2");
 
 
 <script type="text/javascript">
+//提交游记信息
 var xmlhttp;
-function submit() {//提交游记信息
+function submit() {
 contents();
 alert("test2");
 	
-	
-		
 		xmlhttp=null;
 	if (window.XMLHttpRequest)
 	  {
@@ -207,7 +262,8 @@ alert("test2");
 	  	alert("Your browser does not support XMLHTTP.");
 	  }
 	};
-	
+
+
 function state_Change()
 	{
 	if (xmlhttp.readyState==4)
@@ -219,10 +275,9 @@ function state_Change()
 	 		result=xmlhttp.responseText;
 	 		
 	 		if(result==1)
-	 		{
 	 			alert("success");
-	 		}
-	 		else alert("error");
+	 		else if(result==0)
+	 			 alert("error");
 	 	}
 	    
 	  	else
@@ -233,6 +288,14 @@ function state_Change()
 	}
 
 	</script>
+
+
+<script type="text/javascript">
+checkCookie();
+getLocation();
+//AttractionsPositioning();
+alert("here");
+</script>
 
 
 

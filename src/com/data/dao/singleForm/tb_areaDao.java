@@ -27,6 +27,9 @@ public class tb_areaDao {
 		return jdbcTemplate;
 	}
 	public List<Object> query(String sql, final List<Object> param) {
+		
+		System.out.println("hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh");
+		
 		final DateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 		return jdbcTemplate.query(sql, new PreparedStatementSetter() {
 			@Override
@@ -36,8 +39,7 @@ public class tb_areaDao {
 						ps.setObject(i + 1, param.get(i));
 						System.out.println(param.get(i) + "1111111111");
 					} catch (SQLException e) {
-						System.out
-								.println("checkAdviceDao:Pstmt中的Sql语句参数注入异常。。。");
+						System.out.println("checkAdviceDao:Pstmt中的Sql语句参数注入异常。。。");
 						e.printStackTrace();
 					}
 				}
@@ -49,6 +51,14 @@ public class tb_areaDao {
 				  tb_areaModel areaModel=new tb_areaModel();
 				  areaModel.setArid(rs.getString("Arid"));
 				  areaModel.setArea(rs.getString("Area"));
+				  areaModel.setLatitude(rs.getString("Latitude"));
+				  System.out.println(rs.getString("Latitude"));
+				  
+				  areaModel.setLongitude(rs.getString("Longitude"));
+				  System.out.println(rs.getString("Longitude")+"     test Longitude");
+				 
+				  areaModel.setRadius(rs.getInt("Radius"));
+				  System.out.println(rs.getInt("Radius")+"     test radius");
 				return areaModel;
 			}
 		});

@@ -10,8 +10,6 @@ import com.data.dao.singleForm.tb_visitorDaoImp;
 import com.data.model.tb_travelsModel;
 import com.data.model.tb_visitorModel;
 
-
-
 public class recordTravelServiceImp implements recordTravelService{
 
 	final int recordsuccess=1,recordfail=0;
@@ -47,7 +45,8 @@ public class recordTravelServiceImp implements recordTravelService{
 		@SuppressWarnings("resource")
 		ClassPathXmlApplicationContext factory= new ClassPathXmlApplicationContext("applicationContext.xml");
 		 tb_visitorDaoImp tb_visitordaoimp=(tb_visitorDaoImp) factory.getBean("tb_visitordaoimp");
-		String vid = null;
+	try {	
+		 String vid = null;
 		String sql=" select * from tb_visitor where Visitor=? ";
 		param=new LinkedList<Object>();
 		 //填sql语句参数的
@@ -59,7 +58,11 @@ public class recordTravelServiceImp implements recordTravelService{
 		 
 		 vid=tb_visitormodel2.getVid();
 		return vid;
-		
+	} catch (Exception e) {
+		// TODO: handle exception
+		System.out.println("GetVid fail");
+		return null;
+	}	
 		
 	}
 

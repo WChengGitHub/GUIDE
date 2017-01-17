@@ -64,6 +64,9 @@ public class tb_spotDao {
 					throws SQLException {
 				tb_spotModel spotModel = new tb_spotModel();
 				spotModel.setSpot(rs.getString("Spot"));
+				spotModel.setSpot(rs.getString("Sid"));
+				spotModel.setLatitude(rs.getString("Latitude"));
+				spotModel.setLongitude(rs.getString("Longitude"));
 				return spotModel;
 			}
 		});
