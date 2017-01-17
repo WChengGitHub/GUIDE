@@ -11,6 +11,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementSetter;
 import org.springframework.jdbc.core.RowMapper;
 
+import com.data.model.AreaAdminAddOrDeleteSpotModel;
 import com.data.model.ChangeAndDelAdminModel;
 import com.data.model.tb_provinceModel;
 import com.data.model.tb_spotModel;
@@ -99,6 +100,39 @@ public class tb_spotDao {
 				spotModel.setDescription(rs.getString("Description"));
 				spotModel.setVoice(rs.getString("Voice"));
 				return spotModel;
+			}
+		});
+
+	}
+//查询景点id,景点名字，景点管理员，创建时间，需要参数Account(这个是多表查询，查询了tb_admin,tb_spot 重构时得重写，因为它已经不是单表查询)
+	public List<Object> query1(String sql,
+			final List<Object> param) {
+		final DateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+		return jdbcTemplate.query(sql, new PreparedStatementSetter() {
+			@Override
+			public void setValues(PreparedStatement ps) throws SQLException {
+				for (int i = 0; i < param.size(); i++) {
+					try {
+						ps.setObject(i + 1, param.get(i));
+						System.out.println(param.get(i) + "1111111111");
+					} catch (SQLException e) {
+						System.out
+								.println("checkAdviceDao:Pstmt中的Sql语句参数注入异常。。。");
+						e.printStackTrace();
+					}
+				}
+			}
+		}, new RowMapper<Object>() {
+			@Override
+			public AreaAdminAddOrDeleteSpotModel mapRow(ResultSet rs, int arg1)
+					throws SQLException {
+				AreaAdminAddOrDeleteSpotModel areaAdminAddOrDeleteSpotModel=new AreaAdminAddOrDeleteSpotModel();
+				tb_spotModel spotModel = new tb_spotModel();
+				areaAdminAddOrDeleteSpotModel.setSpotAdmin(rs.getString("Account"));
+				areaAdminAddOrDeleteSpotModel.setSid(rs.getString("Sid"));
+				areaAdminAddOrDeleteSpotModel.setSpot(rs.getString("Spot"));
+				areaAdminAddOrDeleteSpotModel.setCreateTime(sdf.format(rs.getTimestamp("CreateTime")));
+				return areaAdminAddOrDeleteSpotModel;
 			}
 		});
 

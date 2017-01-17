@@ -34,18 +34,11 @@
 <script>
 	var Account = "";
 	var Privilege = "";
-	var type = "";
-	var Vid = "";
-	var ADid = "";
-	/*var Pid = "";
-	var Cid = "";
-	var Arid = "";*/
-	var Status = "";
 	function setCookie() {
 		var now = new Date();
 		now.setTime(now.getTime() + 5 * 60 * 1000);
-		document.cookie = "Privilege=r;expires=" + now.toGMTString();
-		document.cookie = "Account=3;expires=" + now.toGMTString();
+		document.cookie = "Privilege=s;expires=" + now.toGMTString();
+		document.cookie = "Account=hh;expires=" + now.toGMTString();
 	}
 	function getCookie() {
 
@@ -66,18 +59,16 @@
 		}
 	}
 	function setAccount() {
-
-		document.getElementById("Account").innerHTML = Account;
+         $("#Account").text(Account);
 	}
 	function judgeAdmin() {
 		getCookie();
 		//alert("Account:"+Account+" "+"Privilege:"+Privilege);
-		if (Account == "" || Privilege != "r") {
+		if (Account == "" || Privilege != "s") {
 			window.open("adminLogin.html", "_self");
 		} else {
 			setAccount();
-			getAdviceNumber();
-			getAdvices();
+			getSpotInformations();
 		}
 	}
 	function getAdviceNumber() {
@@ -101,12 +92,12 @@
 					}
 				});
 	}
-	function getAdvices() {
+	function getSpotInformations() {
 		//alert("getAdvices");
 		$
 				.ajax({
 					type : 'post',
-					url : encodeURI(encodeURI("AreaAdminReplyAdviceController/getSoftwareAdvices?Account="
+					url : encodeURI(encodeURI("AreaAdminAddOrDeleteSpotController/getSpotInformations?Account="
 							+ Account)),
 					contentType : 'application/json;charset=utf-8',
 					dataType : 'json',
@@ -132,23 +123,11 @@
 
 									$("#advices")
 											.append(
-													"<tr> <td>"
-															+ data[i].title
-															+ "</td><td>"
-															+ data[i].atime
-															+ "</td><td>"
-															+ data[i].type
-															+ "</td><td><a style='cursor: pointer;' onclick=showAdvice('"
-															+ data[i].title
-															+ "','"
-															+ data[i].advice
-															+ "','"
-															+ data[i].vid
-															+ "','"
-															+ data[i].ADid
-															+ "')>"
-															+ data[i].ADid
-															+ "</a></td></tr>");
+													 '<tr><td>'+data[i].sid+'</td><td>'+data[i].spot+'</td><td>'+data[i].spotAdmin+'</td><td>'+data[i].createTime+'</td><td><button style="width:4em;margin-top:0px;height:2em;" class="btn btn-primary  btn-xs text-center mybutton" type="button" ><span class="fa fa-fw  fa-close fa-lg "></span></button></td></tr>');
+														
+														
+														
+													 
 
 								}
 								return false;
@@ -414,5 +393,7 @@
    </div>
 </body>
 <script>
+  setCookie();
+  judgeAdmin();
 </script>
 </html>
