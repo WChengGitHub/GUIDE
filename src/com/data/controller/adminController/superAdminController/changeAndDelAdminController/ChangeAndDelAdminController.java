@@ -53,7 +53,6 @@ public class ChangeAndDelAdminController {
 		ChangeAndDelAdminService changeAndDelAdminService = (ChangeAndDelAdminService) factory
 				.getBean("ChangeAndDelAdminService");
 		Account = java.net.URLDecoder.decode(Account, "UTF-8");
-		
 		if (Aid.isEmpty() || Email.isEmpty() || Account.isEmpty() ) {
 			 System.out.println("Aid:"+Aid+" "+"Email:"+Email+"Account:"+Account);
 			return null;
@@ -99,7 +98,7 @@ public class ChangeAndDelAdminController {
 
 		ChangeAndDelAdminModel changeAndDelAdminModel = new ChangeAndDelAdminModel();
 		changeAndDelAdminModel.setArid(Arid);
-
+		System.out.println("test test test");
 		changeAndDelAdminModel.setPrivilege(Privilege);
 		changeAndDelAdminModel.setAid(Aid);
 		changeAndDelAdminModel.setEmail(Email);
