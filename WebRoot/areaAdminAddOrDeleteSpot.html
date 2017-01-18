@@ -120,10 +120,10 @@
 
 								$("#advices").html("");//html() 方法返回或设置被选元素的内容 (inner HTML)。
 								for (var i = page_index * items_per_page; i < max_elem; i++) {
-
+					
 									$("#advices")
 											.append(
-													 '<tr><td>'+data[i].sid+'</td><td>'+data[i].spot+'</td><td>'+data[i].spotAdmin+'</td><td>'+data[i].createTime+'</td><td><button style="width:4em;margin-top:0px;height:2em;" class="btn btn-primary  btn-xs text-center mybutton" type="button" ><span class="fa fa-fw  fa-close fa-lg "></span></button></td></tr>');
+													 '<tr><td>'+data[i].sid+'</td><td>'+data[i].spot+'</td><td>'+data[i].spotAdmin+'</td><td>'+data[i].createTime+'</td><td><button style="width:4em;margin-top:0px;height:2em;" class="btn btn-primary  btn-xs text-center mybutton" type="button" onclick=deleteSpot("'+data[i].spotAdmin+'","'+data[i].sid+'")><span class="fa fa-fw  fa-close fa-lg "></span></button></td></tr>');
 														
 														
 														
@@ -139,6 +139,64 @@
 						$("#advices").html("");
 					}
 				});
+	}
+	
+	function deleteSpot(adminAccount,Sid) {
+		var mymessage=confirm("你是否确定删除？");
+	    if(mymessage==true)
+	    {
+	    	$
+			.ajax({
+				type : 'post',
+				url : encodeURI(encodeURI("AreaAdminAddOrDeleteSpotController/deleteSpot?Account="
+						+ adminAccount+"&Sid="+Sid)),
+				contentType : 'application/json;charset=utf-8',
+				dataType : 'json',
+				success : function(data) {
+
+					alert("删除成功");
+					//alert(data.length);
+					getSpotInformations();
+					
+				},
+				error : function() {
+					alert("删除失败");
+				}
+			});
+	    }
+	    else
+	    {
+	        
+	    }
+		
+	}
+	function lacation()
+	{
+		 Longitude=$("#Longitude").text(11);
+		 Latitude=$("#Latitude").text(11);
+	}
+	function addSpot() {
+		var Spot=$("#Spot").text();
+		var Longitude=$("#Longitude").text();
+		var Latitude=$("#Latitude").text();
+	    	$
+			.ajax({
+				type : 'post',
+				url : encodeURI(encodeURI("AreaAdminAddOrDeleteSpotController/addSpot?Account="
+						+ Account+"&Spot="+Spot+"&Longitude="+Longitude+"&Latitude="+Latitude)),
+				contentType : 'application/json;charset=utf-8',
+				dataType : 'json',
+				success : function(data) {
+
+					alert("提交成功");
+					//alert(data.length);
+					getSpotInformations();
+					
+				},
+				error : function() {
+					alert("提交失败");
+				}
+			});
 	}
 	/*function hiddenSpotAdvice() {
 		var x = document.getElementsByClassName("spotAdvice");
@@ -162,9 +220,10 @@
 	}
 	
 	
-	function superAdminReplyAdvice()
+	function showAddSpotPage()
 	{
 	   $("#mymodal-data").modal("toggle");
+	   lacation();
 	}
 	function sendReply()
 	{
@@ -330,14 +389,14 @@
         </nav>
 	</div>
    <div id="mainContent">
-    <button onclick="superAdminReplyAdvice()">添加景点</button>
+    <button onclick="showAddSpotPage()">添加景点</button>
 	<div class="spot">
 			<div class="panel panel-default">
 				<div class="panel-heading">
 					<h3 class="panel-title">景区景点</h3>
 				</div>
 				<div class="panel-body">
-					<div id="Pagination" class="pagination" style="position:relative;right:350px;"></div>
+					<div id="Pagination" class="pagination" style="position:relative;right:480px;"></div>
 					<div class="table-responsive adviceTable">
 						<!--响应式表格-->
 
@@ -354,13 +413,13 @@
 								</tr>
 							</thead>
 							<tbody id="advices">
-                                 <tr>
+                                 <!-- <tr>
 								    <td>景点1</td>
 									<td>hello</td>
 									<td>lll</td>
 									<td>hhh</td>
 									<td><button style="width:4em;margin-top:0px;height:2em;" class="btn btn-primary  btn-xs text-center mybutton" type="button" ><span class="fa fa-fw  fa-close fa-lg "></span></button></td>
-								 </tr>
+								 </tr>-->
 
 							</tbody>
 
@@ -375,13 +434,13 @@
 			<div class="modal-content ">
 
 				<div class="modal-body ">
-					<p>景点：<input/></p>
-					<p>经度：<input/></p>
-					<p>纬度：<input/></p>
+					<p>景点：<input id="Spot"/></p>
+					<p class="Longitude">经度：<span id="Longitude"></span></p>
+					<p class="Latitude">纬度：<span id="Latitude"/></span></p>
 					<button class="reLocation"
-						type="button" value="重新定位" onclick="">重新定位</button>
+						type="button" value="重新定位" onclick="location()">重新定位</button>
 					<button class="submit"
-						type="button" value="提交" onclick="">提交</button>
+						type="button" value="提交" onclick="addSpot()">提交</button>
 				</div>
 			</div>
 
@@ -393,7 +452,7 @@
    </div>
 </body>
 <script>
-  setCookie();
-  judgeAdmin();
+  //setCookie();
+  //judgeAdmin();
 </script>
 </html>

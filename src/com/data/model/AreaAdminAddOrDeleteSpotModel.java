@@ -6,8 +6,11 @@ public class AreaAdminAddOrDeleteSpotModel {
 	private String Account;
 	private String Sid;
 	private String Spot;
+	private String Longitude;
+	private String Latitude;
 	private String spotAdmin;
 	private String CreateTime;
+	private String spotAdminDel;
 	public String getAccount() {
 		return Account;
 	}
@@ -26,6 +29,18 @@ public class AreaAdminAddOrDeleteSpotModel {
 	public void setSpot(String spot) {
 		Spot = spot;
 	}
+	public String getLongitude() {
+		return Longitude;
+	}
+	public void setLongitude(String longitude) {
+		Longitude = longitude;
+	}
+	public String getLatitude() {
+		return Latitude;
+	}
+	public void setLatitude(String latitude) {
+		Latitude = latitude;
+	}
 	public String getSpotAdmin() {
 		return spotAdmin;
 	}
@@ -37,6 +52,12 @@ public class AreaAdminAddOrDeleteSpotModel {
 	}
 	public void setCreateTime(String createTime) {
 		CreateTime = createTime;
+	}
+	public String getSpotAdminDel() {
+		return spotAdminDel;
+	}
+	public void setSpotAdminDel(String spotAdminDel) {
+		this.spotAdminDel = spotAdminDel;
 	}
 	
 }

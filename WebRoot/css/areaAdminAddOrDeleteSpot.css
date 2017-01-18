@@ -29,6 +29,8 @@ a:hover
 #mainContent .mymodal{width:26em;margin-top:20px;margin-left:40%;text-align:center;}
 #mainContent .mymodal .modal-body{padding-top:40px;}
 #mainContent .mymodal .modal-body p input{width:12em;}
+#mainContent .mymodal .modal-body .Longitude{width:13em}
+#mainContent .mymodal .modal-body .Latitude{width:13em}
 #mainContent .mymodal .modal-body button{width:5em;height:2.2em;position:relative;left:1em;margin-top:10px;}
 @media(max-width:769px){
 	#mainContent .mymodal{width:80%;margin-top:120px;margin-left:10%;text-align:center;}

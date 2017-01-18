@@ -29,7 +29,13 @@ public class tb_spotDao {
 		// TODO Auto-generated method stub
 		return jdbcTemplate;
 	}
+	
+	@SuppressWarnings("deprecation")
+	//查询景点的名字是否存在
+	public int querySpotNumber(String sql) {
+		return jdbcTemplate.queryForInt(sql);
 
+	}
 	public ChangeAndDelAdminModel querySid(String sql) {// 根据Vid
 		return (ChangeAndDelAdminModel) jdbcTemplate.queryForObject(sql,
 				new RowMapper<Object>() {
@@ -42,7 +48,7 @@ public class tb_spotDao {
 					}
 				});
 	}
-
+	
 	public List<Object> query(String sql, final List<Object> param) {
 		final DateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 		return jdbcTemplate.query(sql, new PreparedStatementSetter() {
@@ -128,7 +134,6 @@ public class tb_spotDao {
 					throws SQLException {
 				AreaAdminAddOrDeleteSpotModel areaAdminAddOrDeleteSpotModel=new AreaAdminAddOrDeleteSpotModel();
 				tb_spotModel spotModel = new tb_spotModel();
-				areaAdminAddOrDeleteSpotModel.setSpotAdmin(rs.getString("Account"));
 				areaAdminAddOrDeleteSpotModel.setSid(rs.getString("Sid"));
 				areaAdminAddOrDeleteSpotModel.setSpot(rs.getString("Spot"));
 				areaAdminAddOrDeleteSpotModel.setCreateTime(sdf.format(rs.getTimestamp("CreateTime")));

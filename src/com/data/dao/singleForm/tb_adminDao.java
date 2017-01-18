@@ -26,6 +26,29 @@ public class tb_adminDao {
 		// TODO Auto-generated method stub
 		return jdbcTemplate;
 	}
+	//// 根据Sid
+	public Object queryAccount(String sql) {
+		return  jdbcTemplate.queryForObject(sql,
+				new RowMapper<Object>() {
+					@Override
+					public Object mapRow(ResultSet rs, int arg1)
+							throws SQLException {
+						
+						return rs.getString("Account");
+					}
+				});
+	}
+	// 根据Account
+		public Object queryArid(String sql) {
+			return  jdbcTemplate.queryForObject(sql,
+					new RowMapper<Object>() {
+						@Override
+						public Object mapRow(ResultSet rs, int arg1)
+								throws SQLException {
+							return rs.getString("Arid");
+						}
+					});
+		}
 
 	public Object queryAid(String sql) {// 根据账户名(Account)
 		return jdbcTemplate.queryForObject(sql, new RowMapper<Object>() {
