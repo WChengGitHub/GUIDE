@@ -1,0 +1,35 @@
+html,body
+{
+  margin:0;
+  padding:0;
+  height:100%;
+  background-color:white;
+}
+a:hover
+ {
+   text-decoration:none;
+ }
+#mainContent
+ {
+	 background-color:white;
+	 height:100%;
+	 margin-left:225px;
+ }
+ @media(max-width:769px)
+ {
+  #mainContent
+  {
+	 background-color:white;
+	 height:100%;
+	 margin-left:0px;
+  }
+ }
+#mainContent button{width:98%;height:40px;margin-top:20px;margin-left:1%;background-color:#007FFF;color:white;border-width:0.5px;}
+#mainContent .spot{width:98%;margin-top:20px;margin-left:1%;}
+#mainContent .mymodal{width:26em;margin-top:20px;margin-left:40%;text-align:center;}
+#mainContent .mymodal .modal-body{padding-top:40px;}
+#mainContent .mymodal .modal-body p input{width:12em;}
+#mainContent .mymodal .modal-body button{width:5em;height:2.2em;position:relative;left:1em;margin-top:10px;}
+@media(max-width:769px){
+	#mainContent .mymodal{width:80%;margin-top:120px;margin-left:10%;text-align:center;}
+	}

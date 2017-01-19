@@ -7,12 +7,12 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>景点管理员完善建议</title>
+    <title>景点管理</title>
 	
     <!-- ace styles -->
     <!--<link rel="stylesheet" href="assets/css/ace.css" class="ace-main-stylesheet" id="main-ace-style" />-->
        
-    <link href="./css/spotAdminCompleteSpotInformation.css" rel="stylesheet">
+    <link href="./css/areaAdminAddOrDeleteSpot.css" rel="stylesheet">
     <!-- Bootstrap Core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
 
@@ -31,17 +31,14 @@
 	<!-- Pagination -->
 	<link rel="stylesheet" href="css/pagination.css" />
 	<script type="text/javascript" src="css/jquery.pagination.js"></script>
-	<script>
-	var Account="";
-	var Radius="";
-	var Description="";
-	var Voice="";
-	var Privilege="";
+<script>
+	var Account = "";
+	var Privilege = "";
 	function setCookie() {
 		var now = new Date();
 		now.setTime(now.getTime() + 5 * 60 * 1000);
-		document.cookie = "Privilege=r;expires=" + now.toGMTString();
-		document.cookie = "Account=1;expires=" + now.toGMTString();
+		document.cookie = "Privilege=s;expires=" + now.toGMTString();
+		document.cookie = "Account=hh;expires=" + now.toGMTString();
 	}
 	function getCookie() {
 
@@ -62,64 +59,136 @@
 		}
 	}
 	function setAccount() {
-		$("#Account").text(Account);
+         $("#Account").text(Account);
 	}
 	function judgeAdmin() {
 		getCookie();
-		//alert(Privilege);
 		//alert("Account:"+Account+" "+"Privilege:"+Privilege);
-		if (Account == "" || Privilege != "r") {
+		if (Account == "" || Privilege != "s") {
 			window.open("adminLogin.html", "_self");
 		} else {
 			setAccount();
-			getSpotInformation();
+			getSpotInformations();
 		}
 	}
-	function getSpotInformation() {
+	//显示已经有的景点，列表表示（每一横有景点ID，景点名字，景点管理员，创建时间)
+	function getSpotInformations() {
 		//alert("getAdvices");
 		$
 				.ajax({
 					type : 'post',
-					url : encodeURI(encodeURI("SpotAdminCompleteSpotInformationController/getSpotInformation?Account="
+					url : encodeURI(encodeURI("AreaAdminAddOrDeleteSpotController/getSpotInformations?Account="
 							+ Account)),
 					contentType : 'application/json;charset=utf-8',
 					dataType : 'json',
 					success : function(data) {
-						 //alert("返回成功");
-						 //alert("data.longitude:"+data[0].longitude);
-                         $("#Longitude").text(data[0].longitude);
-                         $("#Latitude").text(data[0].latitude);
-                         $("#Radius").val(data[0].radius);
-                         $("#Description").text(data[0].description);
-                         $("#Voice").text(data[0].voice);
+
 						//alert("返回成功");
 						//alert(data.length);
-					}
-				});
-	}
-	function deleteSpot(adminAccount,sid) {
-		//alert("getAdvices");
-		Radius=$("#Radius").val();
-        Description=$("#Description").val();
-        Voice=$("#Voice").val();
-        //alert("Description Voice:"+Description+" "+Voice)
-		$
-				.ajax({
-					type : 'post',
-					url : encodeURI(encodeURI("SpotAdminCompleteSpotInformationController/changeSpotInformation?Account="
-							+ Account+"&Radius="+Radius+"&Description="+Description+"&Voice="+Voice)),
-					contentType : 'application/json;charset=utf-8',
-					dataType : 'json',
-					success : function(data) {
-						 alert("修改成功");
+						$(function() {
+
+							var length = data.length;
+							$("#Pagination").pagination(length, {
+								items_per_page : 10,
+								callback : pageselectCallback
+							});
+
+							function pageselectCallback(page_index, jq) {
+								var items_per_page = 10;
+								var max_elem = Math.min((page_index + 1)
+										* items_per_page, length);
+
+								$("#advices").html("");//html() 方法返回或设置被选元素的内容 (inner HTML)。
+								for (var i = page_index * items_per_page; i < max_elem; i++) {
+					
+									$("#advices")
+											.append(
+													 '<tr><td>'+data[i].sid+'</td><td>'+data[i].spot+'</td><td>'+data[i].spotAdmin+'</td><td>'+data[i].createTime+'</td><td><button style="width:4em;margin-top:0px;height:2em;" class="btn btn-primary  btn-xs text-center mybutton" type="button" onclick=deleteSpot("'+data[i].spotAdmin+'","'+data[i].sid+'")><span class="fa fa-fw  fa-close fa-lg "></span></button></td></tr>');
+														
+														
+														
+													 
+
+								}
+								return false;
+							}
+						});
+
 					},
 					error : function() {
-						alert("修改失败");
+						$("#advices").html("");
 					}
 				});
 	}
+	//删除景点：需要景点管理员的名字和景点ID
+	function deleteSpot(adminAccount,Sid) {
+		var mymessage=confirm("你是否确定删除？");
+	    if(mymessage==true)
+	    {
+	    	$
+			.ajax({
+				type : 'post',
+				url : encodeURI(encodeURI("AreaAdminAddOrDeleteSpotController/deleteSpot?Account="
+						+ adminAccount+"&Sid="+Sid)),
+				contentType : 'application/json;charset=utf-8',
+				dataType : 'json',
+				success : function(data) {
+
+					alert("删除成功");
+					//alert(data.length);
+					getSpotInformations();
+					
+				},
+				error : function() {
+					alert("删除失败");
+				}
+			});
+	    }
+	    else
+	    {
+	        
+	    }
+		
+	}
+	//定位
+	function lacation()
+	{
+		 Longitude=$("#Longitude").val(11);
+		 Latitude=$("#Latitude").val(11);
+	}
+	//添加景点：需要景区管理员和景点的名字，景点经纬度
+	function addSpot() {
+		var Spot=$("#Spot").val();
+		var Longitude=$("#Longitude").val();
+		var Latitude=$("#Latitude").val();
+	    	$
+			.ajax({
+				type : 'post',
+				url : encodeURI(encodeURI("AreaAdminAddOrDeleteSpotController/addSpot?Account="
+						+ Account+"&Spot="+Spot+"&Longitude="+Longitude+"&Latitude="+Latitude)),
+				contentType : 'application/json;charset=utf-8',
+				dataType : 'json',
+				success : function(data) {
+
+					alert("提交成功");
+					//alert(data.length);
+					getSpotInformations();
+					
+				},
+				error : function() {
+					alert("提交失败");
+				}
+			});
+	}
 	
-	</script>
+	//弹出添加景点的模态框
+	function showAddSpotPage()
+	{
+	   $("#mymodal-data").modal("toggle");
+	   lacation();
+	}
+	
+</script>
 </head>
 <body>
     <!-- 让正文内容右移 -->
@@ -216,13 +285,19 @@
                     </li>
                     
                     <li>
-                        <a><i class="fa fa-fw fa-arrows-v"></i> 景点管理员 <i class="fa fa-fw fa-caret-down"></i></a>
+                        <a><i class="fa fa-fw fa-arrows-v"></i> 景区管理员 <i class="fa fa-fw fa-caret-down"></i></a>
                         <ul id="demo3" >
+                            <li>
+                                <a href="checkAdvice1.html">审核建议</a>
+                            </li>
                             <li>
                                <a href="adminLogin.html">登录账号</a>
                             </li>
+							<li>
+                               <a href="superAdminReplyAdvice1.html">回复建议</a>
+                            </li>
 							<li style="background-color:rgb(18,17,16);">
-                               <a href="spotAdminCompleteSpotInformation.html">完善景点信息</a>
+                               <a href="areaAdminAddOrDeleteSpot.html">景点管理</a>
                             </li>
                         </ul>
                     </li>
@@ -236,18 +311,70 @@
         </nav>
 	</div>
    <div id="mainContent">
-		<div class="content">
-			<p>景点经度：<span id="Longitude"></span></p>
-			<p>景点纬度：<span id="Latitude"></span></p>
-			<p class="Radius" >景点半径：<input id="Radius"/></p>
-			<p class="Description"><span>景点描述：</span><textarea id="Description"></textarea></p>
-			<p class="Voice"><span>声音介绍：</span><textarea id="Voice"></textarea></p>
-			<button onclick="changeSpotInformation()">保存</button>
+    <button onclick="showAddSpotPage()">添加景点</button>
+	<div class="spot">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<h3 class="panel-title">景区景点</h3>
+				</div>
+				<div class="panel-body">
+					<div id="Pagination" class="pagination" style="position:relative;right:480px;"></div>
+					<div class="table-responsive adviceTable">
+						<!--响应式表格-->
+
+						<table class="table table-bordered table-hover table-striped">
+
+							<!--带边框表格,斑马线表格-->
+							<thead class="myThead">
+								<tr>
+									<th>景点ID</th>
+									<th>景点名称</th>
+									<th>景点管理员</th>
+									<th>创建时间</th>
+									<th>操作</th>
+								</tr>
+							</thead>
+							<tbody id="advices">
+                                 <!-- <tr>
+								    <td>景点1</td>
+									<td>hello</td>
+									<td>lll</td>
+									<td>hhh</td>
+									<td><button style="width:4em;margin-top:0px;height:2em;" class="btn btn-primary  btn-xs text-center mybutton" type="button" ><span class="fa fa-fw  fa-close fa-lg "></span></button></td>
+								 </tr>-->
+
+							</tbody>
+
+						</table>
+					</div>
+
+				</div>
+			</div>
 		</div>
+		<div class="modal" id="mymodal-data">
+		<div class="mymodal">
+			<div class="modal-content ">
+
+				<div class="modal-body ">
+					<p>景点：<input id="Spot"/></p>
+					<p>经度：<input id="Longitude" disabled/></p>
+					<p>纬度：<input id="Latitude" disabled/></p>
+					<button class="reLocation"
+						type="button" value="重新定位" onclick="location()">重新定位</button>
+					<button class="submit"
+						type="button" value="提交" onclick="addSpot()">提交</button>
+				</div>
+			</div>
+
+		</div>
+
+	
+
+	</div>
    </div>
 </body>
 <script>
-	//setCookie();
-	judgeAdmin();
+  //setCookie();
+  judgeAdmin();
 </script>
 </html>

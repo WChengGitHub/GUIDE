@@ -68,7 +68,7 @@
 	<!-- JdbcTemplate -->
 	<bean id="dataSource"
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource"
-		p:driverClassName="com.mysql.jdbc.Driver" p:url="jdbc:mysql://127.0.0.1:3306/guide2"
+		p:driverClassName="com.mysql.jdbc.Driver" p:url="jdbc:mysql://127.0.0.1:3306/guide"
 		p:username="root" p:password="1234" />
 
 	<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate"
@@ -181,6 +181,10 @@
 		<property name="adviceDao" ref="adviceDao"></property>
 		<property name="visitorDao" ref="visitorDao"></property>
 		<property name="admin_adviceDao" ref="admin_adviceDao"></property>
+	</bean>
+	<bean id="areaAdminAddOrDeleteSpotService" class="com.data.service.adminService.areaAdminFunction.areaAdminAddOrDeleteSpotService.AreaAdminAddOrDeleteSpotServiceImp">
+		<property name="spotDao" ref="spotDao"></property>
+		<property name="adminDao" ref="adminDao"></property>
 	</bean>
 	<!-- spotAdminService -->
 	<bean id="spotAdminCompleteSpotInformationService" class="com.data.service.adminService.spotAdminFunctions.spotAdminCompleteSpotInformation.SpotAdminCompleteSpotInformationServiceImp">
