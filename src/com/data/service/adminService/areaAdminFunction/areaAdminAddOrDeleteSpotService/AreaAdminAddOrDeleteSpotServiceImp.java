@@ -33,7 +33,7 @@ public class AreaAdminAddOrDeleteSpotServiceImp implements AreaAdminAddOrDeleteS
 	public void setAdminDao(tb_adminDao adminDao) {
 		this.adminDao = adminDao;
 	}
-
+//用来显示已有的景点信息，需要传入景区管理员的Account,返回一个list集合，每个集合元素包括景点id,景点名字，景点管理员名字，景点创建时间
 	@Override
 	public List<Object> getSpotInformations(
 			AreaAdminAddOrDeleteSpotModel areaAdminAddOrDeleteSpotModel) {
@@ -69,7 +69,7 @@ public class AreaAdminAddOrDeleteSpotServiceImp implements AreaAdminAddOrDeleteS
         }
 		return list;
 	}
-
+//删除景点：需要传入景点管理员名字和景点ID，删除的思路：删除景点，如果该景点有管理员，那么顺便把管理员也删除了
 	@Override
 	public boolean deleteSpot(
 			AreaAdminAddOrDeleteSpotModel areaAdminAddOrDeleteSpotModel) {
@@ -98,7 +98,7 @@ public class AreaAdminAddOrDeleteSpotServiceImp implements AreaAdminAddOrDeleteS
 		}
 		return false;
 	}
-
+//添加景点：需要传入景区管理员的Account,景点名字，景点经纬度，CreateTimem和景点ID自动生成,Raidus默认为0，Arid有Account查询的到，Description，voice 默认值为：景点信息，景点介绍
 	@Override
 	public boolean addSpot(
 			AreaAdminAddOrDeleteSpotModel areaAdminAddOrDeleteSpotModel) {

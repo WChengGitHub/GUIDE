@@ -11,7 +11,11 @@ body{
     background-repeat:no-repeat;
     /*background-size:240% 100%;*/
     width:102.5%;
-    height:1200px;
+    height:102.5%;
+}
+#middle{
+
+    height: 100%;
 }
 .bg_{
     position: relative;
@@ -82,8 +86,8 @@ pre{
 }
 
 .tip{
-    margin: auto;
-    padding-left: 40%;
+    position: relative;
+    top: 100px;
     font-family:微软雅黑;
     font-size: 50px;
     color: #0e932e;
@@ -95,7 +99,7 @@ pre{
 }
 .h2{
     position: relative;
-    left: 20%;
+    margin-left: 10%;
     font-family: 仿宋;
     color: black;
     font-size: 20px;
@@ -113,30 +117,38 @@ li{
 .func1{
     position: absolute;
     /*top: 100px;*/
-    padding-left: 10%;
-    padding-top: 15%;
+    /*padding-left: 10%;
+    padding-top: 15%;*/
+    margin-top: 10%;
+    margin-left: 8%;
 }
 .func2{
     position: absolute;
     /*top: 200px;*/
-    padding-left: 30%;
-    padding-top: 15%;
+    /*padding-left: 30%;
+    padding-top: 15%;*/
+    margin-top: 10%;
+    margin-left: 16%;
 }
 .func3{
     position: absolute;
     /*top: 200px;*/
-    padding-left: 50%;
-    padding-top: 15%;
+    /*padding-left: 50%;
+    padding-top: 15%;*/
+    margin-left: 40%;
+    margin-top: 10%;
 }
 .func4{
     position: absolute;
     /*top: 200px;*/
-    padding-left: 70%;
-    padding-top: 15%;
+    /*padding-left: 70%;*/
+    /*padding-top: 15%;*/
+    margin-top: 10%;
+    margin-left: 66%; 
 }
 .photo1{
     position: relative;
-    left: 20%;
+    margin-left: 10%;
     background:url(background3.png);
     background-repeat:no-repeat;
     background-position:-100px 0px;
@@ -145,7 +157,7 @@ li{
 }
 .photo2{
     position: relative;
-    left: 20%;
+    margin-left: 10%;
     background:url(background3.png);
     background-repeat:no-repeat;
     background-position:0px 0px;
@@ -154,7 +166,7 @@ li{
 }
 .photo3{
     position: relative;
-    left: 20%;
+    margin-left: 10%;
     background:url(background3.png);
     background-repeat:no-repeat;
     background-position:-199px 0px;
@@ -163,7 +175,7 @@ li{
 }
 .photo4{
     position: relative;
-    left: 20%;
+    margin-left: 10%;
     background:url(background3.png);
     background-repeat:no-repeat;
     background-position:-298px 0px;

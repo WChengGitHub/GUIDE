@@ -29,11 +29,13 @@
 		base-package="com.data.controller.adminController.superAdminController.superAdminReplyAdvice"></context:component-scan>
 	<context:component-scan
 		base-package="com.data.controller.adminController.superAdminController.changeAndDelAdminController"></context:component-scan>
-	<context:component-scan base-package="com.data.controller.visitorController" />
+	<context:component-scan 
+		base-package="com.data.controller.visitorController" />
 	<context:component-scan
 		base-package="com.data.controller.adminController.checkAdminController"></context:component-scan>
-		<context:component-scan
+	<context:component-scan
 		base-package="com.data.controller.adminController.spotAdminController"></context:component-scan>
+
 
 	<!-- <context:component-scan base-package="com.data.controller.adminController.adminFunctions.LoginController"></context:component-scan> -->
 	<!-- 前台请求发送到对应控制器 -->
@@ -71,7 +73,11 @@
 
 	<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate"
 		p:dataSource-ref="dataSource" />
+	
+	
 	<!-- dao -->
+	<bean id="tb_travelsdaoimp" class="com.data.dao.singleForm.tb_travelsDaoImp"
+		p:jdbcTemplate-ref="jdbcTemplate" />
 	<bean id="tb_visitordaoimp" class="com.data.dao.singleForm.tb_visitorDaoImp"
 		p:jdbcTemplate-ref="jdbcTemplate" />
 	<bean id="tb_admindaoimp" class="com.data.dao.singleForm.tb_adminDaoImp"
@@ -106,8 +112,10 @@
 	<!-- model -->
 	<bean id="tb_visitormodel" class="com.data.model.tb_visitorModel" />
 	<bean id="tb_adminmodel" class="com.data.model.tb_adminModel" />
-
-
+	<bean id="tb_travelsmodel" class="com.data.model.tb_travelsModel"/>
+	<bean id="tb_citymodel" class="com.data.model.tb_cityModel"/>
+	<bean id="visitorPositioningModel" class="com.data.model.VisitorPositioningModel"/>
+	
 	<!-- visitorService -->
 	<bean id="loginservice"
 		class="com.data.service.visitorService.loginService.LoginServiceImp" />
@@ -118,6 +126,12 @@
 		class="com.data.service.visitorService.completeVisitorInformationService.CompleteVisitorInformationServiceImp">
 		<property name="visitorDao" ref="visitorDao"></property>
 	</bean> -->
+	<bean id="recordtravelserviceimp"
+		class="com.data.service.visitorService.recordTravelService.recordTravelServiceImp" />
+	<bean id="attractionsPositioningServiceImp"
+		class="com.data.service.visitorService.attractionsPositioningService.attractionsPositioningServiceImp" />
+	
+	
 	<!-- adminService -->
 	<bean id="adminloginservice"
 		class="com.data.service.adminService.adminFunctions.loginService.LoginServiceImp" />

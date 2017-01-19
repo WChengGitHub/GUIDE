@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>添加或删除景点</title>
+    <title>景点管理</title>
 	
     <!-- ace styles -->
     <!--<link rel="stylesheet" href="assets/css/ace.css" class="ace-main-stylesheet" id="main-ace-style" />-->
@@ -71,27 +71,7 @@
 			getSpotInformations();
 		}
 	}
-	function getAdviceNumber() {
-
-		$
-				.ajax({
-					type : 'post',
-					url : encodeURI(encodeURI("AreaAdminReplyAdviceController/softwareAdviceNumber?Account="
-							+ Account)),
-					contentType : 'application/json;charset=utf-8',//指定为json类型 //数据格式是json串，商品信息 
-					dataType : "json",
-					success : function(data) {//返回json结果 
-						var html = '';
-					//alert(data.spotAdviceNumber);
-						if (data.spotAdviceNumber != 0) {
-							document.getElementById("adviceNumber").innerHTML = data.spotAdviceNumber;
-						} else {
-							document.getElementById("adviceNumber").innerHTML = "";
-						}
-
-					}
-				});
-	}
+	//显示已经有的景点，列表表示（每一横有景点ID，景点名字，景点管理员，创建时间)
 	function getSpotInformations() {
 		//alert("getAdvices");
 		$
@@ -140,7 +120,7 @@
 					}
 				});
 	}
-	
+	//删除景点：需要景点管理员的名字和景点ID
 	function deleteSpot(adminAccount,Sid) {
 		var mymessage=confirm("你是否确定删除？");
 	    if(mymessage==true)
@@ -170,15 +150,17 @@
 	    }
 		
 	}
+	//定位
 	function lacation()
 	{
-		 Longitude=$("#Longitude").text(11);
-		 Latitude=$("#Latitude").text(11);
+		 Longitude=$("#Longitude").val(11);
+		 Latitude=$("#Latitude").val(11);
 	}
+	//添加景点：需要景区管理员和景点的名字，景点经纬度
 	function addSpot() {
-		var Spot=$("#Spot").text();
-		var Longitude=$("#Longitude").text();
-		var Latitude=$("#Latitude").text();
+		var Spot=$("#Spot").val();
+		var Longitude=$("#Longitude").val();
+		var Latitude=$("#Latitude").val();
 	    	$
 			.ajax({
 				type : 'post',
@@ -198,74 +180,14 @@
 				}
 			});
 	}
-	/*function hiddenSpotAdvice() {
-		var x = document.getElementsByClassName("spotAdvice");
-		for (var i = 0; i < x.length; i++) {
-			x[i].style.display = "none";
-		}
-	}
-	function hiddenSoftwareAdvice() {
-		var x = document.getElementsByClassName("softwareAdvice");
-		for (var i = 0; i < x.length; i++) {
-			x[i].style.display = "none";
-		}
-	}*/
-	function showAdvice(title, advice, vid, aDid) {
-		//alert("title:"+title+"advice:"+advice+"vid:"+vid);
-		document.getElementById("Title").innerHTML = title;
-		document.getElementById("Advice").innerHTML = advice;
-		Vid = vid;
-		ADid = aDid;
-		//alert("ADid:" + aDid);
-	}
 	
-	
+	//弹出添加景点的模态框
 	function showAddSpotPage()
 	{
 	   $("#mymodal-data").modal("toggle");
 	   lacation();
 	}
-	function sendReply()
-	{
-		//alert(2);
-		var title=document.getElementById("replyTitle").value;
-		//alert(3);
-		var reply=document.getElementById("replyAdvice").value;
-		//alert(1);
-		//alert(title+" "+reply);
-		setTimeout(function(){$("#mymodal-data").modal("hide")},0);
-		$.ajax({
-			type : 'post',
-			url : encodeURI(encodeURI("AreaAdminReplyAdviceController/sendReply?Account="
-					+ Account+"&ADid="+ADid+"&Vid="+Vid+"&Title="+title+"&Reply="+reply)),
-			contentType : 'application/json;charset=utf-8',//指定为json类型 //数据格式是json串，商品信息 
-			dataType : "json",
-			success : function(data) {//返回json结果 
-				//alert("提交成功");
-				$("#message").text("提交成功");
-				
-				setTimeout(function() {
-					$("#PromptMessage").modal("toggle")
-				}, 0);
-				ADid = "";
-				Vid = "";
-				document.getElementById("Title").innerHTML = "";
-				document.getElementById("Advice").innerHTML = "";
-				$("#replyTitle").val("");
-				$("#replyAdvice").val("");
-				getAdvices();
-				getAdviceNumber();
-			},
-			error : function() {
-				//alert("failed");
-				$("#message").text("提交失败");
-
-				setTimeout(function() {
-					$("#PromptMessage").modal("toggle")
-				}, 0);
-			}
-		});
-	}
+	
 </script>
 </head>
 <body>
@@ -435,8 +357,8 @@
 
 				<div class="modal-body ">
 					<p>景点：<input id="Spot"/></p>
-					<p class="Longitude">经度：<span id="Longitude"></span></p>
-					<p class="Latitude">纬度：<span id="Latitude"/></span></p>
+					<p>经度：<input id="Longitude" disabled/></p>
+					<p>纬度：<input id="Latitude" disabled/></p>
 					<button class="reLocation"
 						type="button" value="重新定位" onclick="location()">重新定位</button>
 					<button class="submit"
@@ -453,6 +375,6 @@
 </body>
 <script>
   //setCookie();
-  //judgeAdmin();
+  judgeAdmin();
 </script>
 </html>

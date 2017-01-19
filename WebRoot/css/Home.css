@@ -25,18 +25,18 @@ src: url('时尚细黑字体.ttf');
     height:25px;
     width:30px;
     text-align:center;
-	-webkit-transform: translate(500px, 100px);
-	-moz-transform: translate(500px, 100px);
+    -webkit-transform: translate(500px, 100px);
+    -moz-transform: translate(500px, 100px);
 }
 .bg a{
-	color: black;
+    color: black;
     line-height:36px;
     display:block;
     font-size: 16px;
     text-decoration:none;
     color: white;
-    opacity: 0.4;	
-    font-weight: bold;	
+    opacity: 0.4;   
+    font-weight: bold;  
 }*/
 
 .bg_{
@@ -46,8 +46,8 @@ src: url('时尚细黑字体.ttf');
     height:25px;
     width:30px;
     text-align:center;
-	-webkit-transform: translate(190px, 18px);
-	-moz-transform: translate(190px, 18px);
+    -webkit-transform: translate(190px, 18px);
+    -moz-transform: translate(190px, 18px);
 }
 .bg_ a{
     line-height:36px;
@@ -156,52 +156,57 @@ li{
 .func1{
     position: relative;
     top: 200px;
+    left:-75px;
 }
 .func2{
     position: relative;
     top: 300px;
+    left:-75px;
 }
 .func3{
     position: relative;
     top: 400px;
+    left:-75px;
 }
 .func4{
     position: relative;
     top: 500px;
+    left:-75px;
 }
 .photo1{
     position: relative;
-    left: 10%;
+    margin-left: 10%;
     background:url(background3.png);
     background-repeat:no-repeat;
     background-position:-100px 0px;
     height:110px;
     width:100px;
+    left:-45px;
 }
 .photo2{
     position: relative;
-    left: 10%;
+    margin-left: 10%;
     background:url(background3.png);
     background-repeat:no-repeat;
     background-position:0px 0px;
     height:110px;
-    width:100px;
+    width:100px;left:-45px;
 }
 .photo3{
     position: relative;
-    left: 10%;
+    margin-left: 10%;
     background:url(background3.png);
     background-repeat:no-repeat;
     background-position:-199px 0px;
     height:110px;
-    width:100px;
+    width:100px;left:-45px;
 }
 .photo4{
     position: relative;
-    left: 10%;
+    margin-left: 10%;
     background:url(background3.png);
     background-repeat:no-repeat;
     background-position:-298px 0px;
     height:110px;
-    width:100px;
+    width:100px;left:-45px;
 }

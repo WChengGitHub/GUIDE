@@ -3,9 +3,38 @@
 
 <head>
 
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!--   <meta name="description" content="">
+    <meta name="author" content=""> -->
+
+    <title>后台管理-管理员信息表</title>
+       
+    <!-- ace styles -->
+    <link rel="stylesheet" href="assets/css/ace.css" class="ace-main-stylesheet" id="main-ace-style" />
+       
+
+    <!-- Bootstrap Core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="css/sb-admin.css" rel="stylesheet">
+
+	<script type="text/javascript" src="js/jquery-3.0.0.min.js"></script>
+	
+
+	<link rel="stylesheet" href="css/font-awesome.min.css">
+
+	<script src="css/jquery.js"></script>
+	<script src="css/bootstrap.min.js"></script>
+	<!-- Pagination -->
+	<link rel="stylesheet" href="css/pagination.css" />
+	<script type="text/javascript" src="css/jquery.pagination.js"></script>
+       
 
 
-
+<!-- 修改信息的摸态框样式 by王程 -->
 <style>
 @media ( min-width :768px) {
 	.myModal {
@@ -121,6 +150,31 @@
 </style>
 
 
+<script>
+
+function getCookie(cname){
+	var name = cname + "=";
+	var ca = document.cookie.split(';');
+	for(var i=0; i<ca.length; i++) {
+		var c = ca[i].trim();
+		if (c.indexOf(name)==0) return c.substring(name.length,c.length);
+	}
+	return "";
+}
+function checkCookie(){
+
+	var cookie=getCookie("Privilege");
+	if (cookie=="a"){
+		
+		getAdminRecordList();
+	}
+	else {
+  			window.open('adminLogin.html','_self','width=200,height=100,,_left=0,_top=100');
+    	}
+	}
+	
+</script>
+
 
 <script>
 	var Account;
@@ -133,49 +187,7 @@
 	var adminAccount = "";
 	var Arid = "";
 	var adminPrivilege = "";
-	/*function getCookie() {
-		var strCookie = document.cookie;
-		var arrCookie = strCookie.split(";");
-		for (var i = 0; i < arrCookie.length; i++) {
-			var arr = arrCookie[i].split("=");
-			arr[0] = $.trim(arr[0]);
-			if ("Account" == arr[0]) {
-				Account = arr[1];
 
-			}
-			if ("Privilege" == arr[0]) {
-
-				Privilege = arr[1];
-			}
-		}
-	}
-	function setCookie() {
-		var now = new Date();
-		now.setTime(now.getTime() + 5 * 60 * 1000);
-		document.cookie = "Privilege=a;expires=" + now.toGMTString();
-		document.cookie = "Account=Hello;expires=" + now.toGMTString();
-	}*/
-	//登录时需要写入权限,用户名
-	/*function judgeAdmin() {
-		getCookie();
-		if (Account == null || Privilege == null || Account == undefined
-				|| Privilege == undefined) {
-
-			window.open("Home.html", "_self");
-		} else {
-			changeDisplay();
-			getAdminRecordList();
-			getProvince();
-		}
-	}
-	function changeDisplay() {
-		//document.getElementById("AdminName").innerHTML = Account;
-
-		if (Privilege != "a") {
-			window.open("Home.html", "_self");
-
-		}
-	}*/
 	//前台加载时,一定要从后台把email,Aid加载进来,可以仿照这里的前台加载(写入参数),因为修改管理员时要用到
 	function getAdminRecordList() {
 		getProvince();
@@ -243,7 +255,7 @@
 											+               "<li>"
 											+       "<a href=\"#\" class=\"tooltip-info\" data-rel=\"tooltip\" title=\"View\">"
 											+                       "<span class=\"green\">"
-											+                   "<i class=\"ace-icon fa fa-pencil-square-o bigger-120\" ></i>"
+											+                   "<i class=\"ace-icon fa fa-pencil-square-o bigger-120\" onclick=\"setChangeAdminValue("+data[i].aid+","+data[i].email+","+data[i].account+")\"></i>"
 											+                      "</span>"
 											+                   "</a>"
 											+               "</li>"
@@ -271,7 +283,9 @@
 					}
 				});
 	}
-
+	
+	
+//获取管理员是否被删除的状态
 	function setAdminDelStatus() {
 		//alert(confirmAccount);
 		//alert(confirmAid);
@@ -292,41 +306,35 @@
 			}
 		});
 	}
+	
+//修改管理员
 	function setAdminDelStatusValue(email, aid, account) {
-		//alert(Email);
-		//alert(Aid);
-		//alert(account);
-		//alert(confirmAid);
+alert(11);
 		confirmEmail = email;
-		//alert(111);
+
 		confirmAid = aid;
-		//alert(222);
+
 		confirmAccount = account;
-		//alert(3333);
+
 		$("#confirmModel").modal("toggle");
 
 	}
     //修改功能
 	function setChangeAdminValue(aid, email, account) {
-		//alert("ChangeAdmin");
 
+alert(000);
 		Aid = aid;
 		Email = email;
 		adminAccount = account;
-		//alert("Aid:" + Aid);
-		//alert("Email:" + Email);
+
 		$("#changeAdmin").modal("toggle");
-		//$("#changeAdmin").modal("toggle");
-		//$("#superAdministrator").modal("toggle");
 
 	}
 	//修改功能
 	function sendAdminChange() {
-		//alert("Aid:" + Aid);
-		//alert("Email:" + Email);
-		//var Privilege = $("#Privilege").val();
+
 		var Privilege = adminPrivilege;
-		//var Spot = $("#Spot").val();
+	
 		$.ajax({
 			type : 'post',
 			url : encodeURI(encodeURI("sendAdminChange?Email=" + Email
@@ -335,7 +343,7 @@
 			contentType : 'application/json;charset=utf-8',
 			dataType : 'json',
 			success : function(data) {
-				//alert("success");
+
 				$("#sign").text("修改成功");
 				setTimeout(function() {
 					$("#changeAdmin").modal("hide")
@@ -351,7 +359,7 @@
 				Arid = "";
 			},
 			error : function() {
-				//alert("failed");
+
 				$("#sign").text("修改失败,请检查输入是否正确");
 				setTimeout(function() {
 					$("#changeAdmin").modal("hide")
@@ -366,15 +374,13 @@
 			}
 		});
 
-		//alert("Privilege:" + Privilege);
-		//alert("Spot:" + Spot);
 	}
 	//修改功能  
 	function setAdmin(adminValue, Privilege) {
 
 		$("#menuAdmin").text(adminValue);
 		adminPrivilege = Privilege;
-		//alert("adminPrivilege:" + adminPrivilege);
+	
 	}
 	//修改功能
 	function getProvince() {
@@ -387,7 +393,7 @@
 			contentType : 'application/json;charset=utf-8',
 			dataType : 'json',
 			success : function(data) {
-				//alert("success");
+			
 				$("#provinces").html("");//html() 方法返回或设置被选元素的内容 (inner HTML)。
 				for (var i = 0; i < data.length; i++) {
 
@@ -400,7 +406,7 @@
 
 			},
 			error : function() {
-				//alert("failed");
+				
 
 				setTimeout(function() {
 					$("#mymodal").modal("toggle")
@@ -410,16 +416,16 @@
 	}
 	//修改功能
 	function getCity(pid, province) {
-		//alert("pid:"+pid);
+		
 		$("#province").text(province);
-		//alert("Pid:"+pid+",province:"+province);
+		
 		$.ajax({
 			type : 'post',
 			url : "getCity?Pid=" + pid,
 			contentType : 'application/json;charset=utf-8',
 			dataType : 'json',
 			success : function(data) {
-				//alert("success");
+			
 				$("#cities").html("");//html() 方法返回或设置被选元素的内容 (inner HTML)。
 				for (var i = 0; i < data.length; i++) {
 
@@ -432,7 +438,7 @@
 
 			},
 			error : function() {
-				//alert("failed");
+				
 				$("#sign").text("该省没有城市");
 
 				setTimeout(function() {
@@ -446,7 +452,7 @@
 	}
 	//修改功能
 	function getArea(cid, city) {
-		//alert("cid:"+cid);
+		
 		if (!(city == null || city == undefined || city == ""))
 			$("#city").text(city);
 
@@ -456,7 +462,7 @@
 			contentType : 'application/json;charset=utf-8',
 			dataType : 'json',
 			success : function(data) {
-				//alert("success");
+				
 				$("#areas").html("");//html() 方法返回或设置被选元素的内容 (inner HTML)。
 				for (var i = 0; i < data.length; i++) {
 
@@ -470,7 +476,7 @@
 				$("#spot").text("景点");
 			},
 			error : function() {
-				//alert("failed");
+			
 
 				setTimeout(function() {
 					$("#mymodal").modal("toggle")
@@ -485,261 +491,141 @@
 		$("#area").text(y);
 	}
 </script>
-</head>
-<body>
-	
-	
 	
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+<!-- 摸态框的权限选择按钮 -->
 <script>
-/*function setCookie(cname,cvalue,exdays){
-  var d = new Date();
-  d.setTime(d.getTime()+(exdays*1000));
-  var expires = "expires="+d.toGMTString();
-  document.cookie = cname+"="+cvalue+"; "+expires;
-}*/
-function getCookie(cname){
-	var name = cname + "=";
-	var ca = document.cookie.split(';');
-	for(var i=0; i<ca.length; i++) {
-		var c = ca[i].trim();
-		if (c.indexOf(name)==0) return c.substring(name.length,c.length);
-	}
-	return "";
+function displayResult(browser){
+	document.getElementById("Privilege").value=browser
 }
-function checkCookie(){
-
-	var cookie=getCookie("Privilege");
-	if (cookie=="a"){
-		//alert("Welcome " + cookie);
-		//adminManagement();
-		getAdminRecordList();
-	}
-	else {
-		//user = prompt("Please enter your name:","");
-  		//if (user!="" && user!=null){
-  		window.open('adminLogin.html','_self','width=200,height=100,,_left=0,_top=100');
-    		//setCookie("username",user,30);
-        
-    	}
-	}
-	
 </script>
 
+<script type="text/javascript">
 
-
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-  <!--   <meta name="description" content="">
-    <meta name="author" content=""> -->
-
-    <title>后台管理-管理员信息表</title>
-       
-    <!-- ace styles -->
-    <link rel="stylesheet" href="assets/css/ace.css" class="ace-main-stylesheet" id="main-ace-style" />
-       
-
-    <!-- Bootstrap Core CSS -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- Custom CSS -->
-    <link href="css/sb-admin.css" rel="stylesheet">
-
-	<script type="text/javascript" src="js/jquery-3.0.0.min.js"></script>
-	
-
-
-
-	<link rel="stylesheet" href="css/font-awesome.min.css">
-
-	<script src="css/jquery.js"></script>
-	<script src="css/bootstrap.min.js"></script>
-	<!-- Pagination -->
-	<link rel="stylesheet" href="css/pagination.css" />
-	<script type="text/javascript" src="css/jquery.pagination.js"></script>
-       
-
-
+  var xmlhttp;
+  function addAdmin()//传参
+  { 
+    var account=document.getElementById("Account").value;
+    var password=document.getElementById("Password").value;
+    var privilege=document.getElementById("Privilege").value;
+    var email=document.getElementById("Email").value;
+    xmlhttp=null;
+  if (window.XMLHttpRequest)
+    {
+      xmlhttp=new XMLHttpRequest();
+    }
+  else if (window.ActiveXObject)
+    {
+      xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+    }
+  if (xmlhttp!=null)
+    {
+      var json="account="+account+"&password="+password+"&privilege="+privilege+"&email="+email;
+      xmlhttp.onreadystatechange=state_Change;
+      xmlhttp.open("POST","addAdminRequest.html",true);
+      xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+      xmlhttp.send(json);
+  
+    }
+  else
+    {
+      alert("Your browser does not support XMLHTTP.");
+    }
+  };
+  
+  </script>
 
 <script type="text/javascript">
-/*function adminManagement(){
-              $.ajax({
-              	type : 'post',
-              	url : "adminlist",
-              	contentType : 'application/json;charset=utf-8',
-              	dataType : 'json',
-              	success : function(data) {
-              	var items=data.list;
 
-              		$(function() {
-
-              			var length = items.length;
-              			$("#Pagination").pagination(length, {
-              				items_per_page : 10,
-              				callback : pageselectCallback
-              			});
-
-              			function pageselectCallback(page_index, jq) {
-              				var items_per_page = 10;
-              				var max_elem = Math.min((page_index + 1)
-              						* items_per_page, length);
-              				$("#advices").html("");
-              				for (var i = page_index * items_per_page; i < max_elem; i++) {
-              					
-              					$("#advices").append("<tr>"
-								+"<td class=\"center\">"
-								+    "<label class=\"pos-rel\">"
-								+        "<input type=\"checkbox\" class=\"ace\" />"
-								+        "<span class=\"lbl\"></span>"
-								+    "</label>"
-								+"</td>"
-												
-								+"<td>"
-								+    "<a href=\"#\">"+items[i].aid+"</a>"
-								+"</td>"
-								+"<td>"+items[i].account+"</td>"
-								+"<td class=\"hidden-480\">"+items[i].createTime+"</td>"
-								+"<td>"+items[i].privilege+"</td>"
-												
-								+"<td class=\"hidden-480\">"
-								+   "<span class=\"label label-sm label-warning\">"+items[i].sid+"</span>"
-								+"</td>"
-								+"<td>"
-								+    "<div class=\"hidden-sm hidden-xs action-buttons\">"
-								+        "<a class=\"green\" href=\"#\">"
-								+            "<i class=\"ace-icon fa fa-pencil bigger-130\"></i>"
-								+        "</a>"
-								
-								+        "<a class=\"red\" href=\"#\">"
-								+   "<i class=\"ace-icon fa fa-trash-o bigger-130\" onclick=\"deleteadmin("+items[i].aid+")\"></i>"
-								+       "</a>"
-								+   "</div>"
-								
-								+   "<div class=\"hidden-md hidden-lg\">"
-								+       "<div class=\"inline pos-rel\">"
-								+           "<button class=\"btn btn-minier btn-yellow dropdown-toggle\" data-toggle=\"dropdown\" data-position=\"auto\">"
-								+                "<i class=\"ace-icon fa fa-caret-down icon-only bigger-120\"></i>"
-								+           "</button>"
-								
-								+ "<ul class=\"dropdown-menu dropdown-only-icon dropdown-yellow dropdown-menu-right dropdown-caret dropdown-close\">"
-								+               "<li>"
-								+       "<a href=\"#\" class=\"tooltip-info\" data-rel=\"tooltip\" title=\"View\">"
-								+                       "<span class=\"green\">"
-								+                   "<i class=\"ace-icon fa fa-pencil-square-o bigger-120\" ></i>"
-								+                      "</span>"
-								+                   "</a>"
-								+               "</li>"
-								
-								+               "<li>"
-								+               "<a href=\"#\" class=\"tooltip-error\" data-rel=\"tooltip\" title=\"Delete\">"
-								+                      "<span class=\"red\">"
-								+        "<i class=\"ace-icon fa fa-trash-o bigger-120\" onclick=\"deleteadmin("+items[i].aid+")\"></i>"
-								+                       "</span>"
-								+                   "</a>"
-								+               "</li>"
-								+           "</ul>"
-								+       "</div>"
-								+   "</div>"
-								+"</td>"
-								+"</tr>");
-								} 
-              						
-              				return false;
-              			}
-              		});
-
-              	},
-          error : function() {
-          return;
+    var xmlhttp;
+    function deleteadmin(aid)//传参
+    {
+        
+        xmlhttp=null;
+    if (window.XMLHttpRequest)
+      {
+        xmlhttp=new XMLHttpRequest();
       }
-  });
-}*/
+    else if (window.ActiveXObject)
+      {
+        xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+      }
+    if (xmlhttp!=null)
+      { 
+       // var account=($('.Account5').html()); //获取动态加载元素的内容 
+      alert("test  "+aid);
+        if(aid==null){alert("无管理员信息");}
+        else
+        {
+        var json="aid="+aid;
+        xmlhttp.onreadystatechange=state_Change;
+        xmlhttp.open("POST","deleteadmin.html",true);
+        xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+        xmlhttp.send(json);
+        }
+      }
+    else
+      {
+        alert("Your browser does not support XMLHTTP.");
+      }
+    };
+function state_Change()
+    {
+    if (xmlhttp.readyState==4)
+      {
+      if (xmlhttp.status==200)
+        {
+            var result;
+            var addsuccess=1;
+            var added=2;
+            var wrongprivilege=3;
+            var error=4;
+            var lock=5;
+            var addfailed=0;
+            result=xmlhttp.responseText;
+
+            if(result==error)
+            {
+                alert("操作失败!");
+                location.reload();//页面重新加载
+            }
+            else if(result==lock)
+            {
+              alert("已删除!");
+              adminManagement();
+              //location.reload();//页面重新加载
+            }
+            else if(result==addsuccess)
+            {
+              alert("增加成功!");
+              //让模态框自动隐藏
+              $('#myModal').modal("hide");
+              //然后重新加载表单信息
+              getAdminRecordList();
+              //location.reload();
+            }
+            else if(result==added)
+            {
+              alert("管理员已存在!");
+            }
+            else if(result==addfailed)
+            {
+              alert("增加失败!");
+            }
+            else if(result==wrongprivilege)
+            {
+              alert("权限字段应设置为“s”或“c” !")
+           	}
+            
+        }
+        
+        else
+        {
+            alert("Problem retrieving XML data:" + xmlhttp.statusText);
+        }
+      }
+    }
+
 </script>
 
 
@@ -1012,37 +898,7 @@ function checkCookie(){
                     <li>
                         <a href="#"><i class="fa fa-fw fa-wrench"></i> 其他工具</a>
                     </li>
-                    <!-- <li>
-                        <a href="javascript:;" data-toggle="collapse" data-target="#demo1"><i class="fa fa-fw fa-arrows-v"></i> 景点区域管理员 <i class="fa fa-fw fa-caret-down"></i></a>
-                        <ul id="demo1" class="collapse">
-                            <li>
-                                <a href="scenery_management.html">管理景点信息</a>
-                            </li>
-                            <li>
-                                <a href="#">设置景点路线</a>
-                            </li>
-                            <li>
-                                <a href="#">回复景点建议</a>
-                            </li>
-                            <li>
-                                <a href="adminLogin.html">登录账号</a>
-                            </li>
-                        </ul>
-                    </li> -->
-                    <!-- <li>
-                        <a href="javascript:;" data-toggle="collapse" data-parent="#demo2" data-target="#demo2"><i class="fa fa-fw fa-arrows-v"></i> 审核管理员 <i class="fa fa-fw fa-caret-down"></i></a>
-                        <ul id="demo2" class="collapse">
-                            <li>
-                                <a href="#">审核景点信息</a>
-                            </li>
-                            <li>
-                                <a href="#">审核投诉建议</a>
-                            </li>
-                            <li>
-                               <a href="adminLogin.html">登录账号</a>
-                            </li>
-                        </ul>
-                    </li> -->
+                    
                     <li>
                         <a href="javascript:;" data-toggle="collapse" data-target="#demo3"><i class="fa fa-fw fa-arrows-v"></i> 超级管理员 <i class="fa fa-fw fa-caret-down"></i></a>
                         <ul id="demo3" class="collapse">
@@ -1058,12 +914,7 @@ function checkCookie(){
                         </ul>
                     </li>
 
-                    <!-- <li class="active">
-                        <a href="blank-page.html"><i class="fa fa-fw fa-file"></i> Blank Page</a>
-                    </li>
-                    <li>
-                        <a href="index-rtl.html"><i class="fa fa-fw fa-dashboard"></i> RTL Dashboard</a>
-                    </li> -->
+                    
                 </ul>
 
             </div>
@@ -1296,144 +1147,6 @@ function checkCookie(){
 	</div>
   <div id="Pagination" class="pagination"></div>
 </div>
-                 </div>
-            </div>
-<!-- 摸态框的权限选择按钮 -->
-<script>
-function displayResult(browser){
-	document.getElementById("Privilege").value=browser
-}
-</script>
-
-<script type="text/javascript">
-
-    var xmlhttp;
-    function deleteadmin(aid)//传参
-    {
-        
-        xmlhttp=null;
-    if (window.XMLHttpRequest)
-      {
-        xmlhttp=new XMLHttpRequest();
-      }
-    else if (window.ActiveXObject)
-      {
-        xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
-      }
-    if (xmlhttp!=null)
-      { 
-       // var account=($('.Account5').html()); //获取动态加载元素的内容 
-      alert("test  "+aid);
-        if(aid==null){alert("无管理员信息");}
-        else
-        {
-        var json="aid="+aid;
-        xmlhttp.onreadystatechange=state_Change;
-        xmlhttp.open("POST","deleteadmin.html",true);
-        xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
-        xmlhttp.send(json);
-        }
-      }
-    else
-      {
-        alert("Your browser does not support XMLHTTP.");
-      }
-    };
-function state_Change()
-    {
-    if (xmlhttp.readyState==4)
-      {
-      if (xmlhttp.status==200)
-        {
-            var result;
-            var addsuccess=1;
-            var added=2;
-            var wrongprivilege=3;
-            var error=4;
-            var lock=5;
-            var addfailed=0;
-            result=xmlhttp.responseText;
-
-            if(result==error)
-            {
-                alert("操作失败!");
-                location.reload();//页面重新加载
-            }
-            else if(result==lock)
-            {
-              alert("已删除!");
-              adminManagement();
-              //location.reload();//页面重新加载
-            }
-            else if(result==addsuccess)
-            {
-              alert("增加成功!");
-              //让模态框自动隐藏
-              $('#myModal').modal("hide");
-              //然后重新加载表单信息
-              getAdminRecordList();
-              //location.reload();
-            }
-            else if(result==added)
-            {
-              alert("管理员已存在!");
-            }
-            else if(result==addfailed)
-            {
-              alert("增加失败!");
-            }
-            else if(result==wrongprivilege)
-            {
-              alert("权限字段应设置为“s”或“c” !")
-           	}
-            
-        }
-        
-        else
-        {
-            alert("Problem retrieving XML data:" + xmlhttp.statusText);
-        }
-      }
-    }
-
-</script>
-
-<script type="text/javascript">
-
-  var xmlhttp;
-  function addAdmin()//传参
-  { 
-    var account=document.getElementById("Account").value;
-    var password=document.getElementById("Password").value;
-    var privilege=document.getElementById("Privilege").value;
-    var email=document.getElementById("Email").value;
-    xmlhttp=null;
-  if (window.XMLHttpRequest)
-    {
-      xmlhttp=new XMLHttpRequest();
-    }
-  else if (window.ActiveXObject)
-    {
-      xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
-    }
-  if (xmlhttp!=null)
-    {
-      var json="account="+account+"&password="+password+"&privilege="+privilege+"&email="+email;
-      xmlhttp.onreadystatechange=state_Change;
-      xmlhttp.open("POST","addAdminRequest.html",true);
-      xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
-      xmlhttp.send(json);
-  
-    }
-  else
-    {
-      alert("Your browser does not support XMLHTTP.");
-    }
-  };
-  
-  </script>
-
-
 </body>
 
 </html>
