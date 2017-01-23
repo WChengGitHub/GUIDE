@@ -44,11 +44,12 @@ public class AreaAdminAddOrChangeOrDeleteSpotAdminServiceImp implements AreaAdmi
 	@Override
 	public List<AreaAdminAddOrChangeOrDeleteSpotAdminModel> getSpotAdminInformations(
 			AreaAdminAddOrChangeOrDeleteSpotAdminModel areaAdminAddOrChangeOrDeleteSpotAdminModel) {
-		String sql="select Account,Aid,Sid from tb_admin where Sid in(select Sid from tb_spot where Arid =(select Arid from tb_admin where Account=?) and Status=?) and del=?";
+		String sql="select Account,Aid,Sid,CreateTime from tb_admin where Sid in(select Sid from tb_spot where Arid =(select Arid from tb_admin where Account=? and Privilege=?) and Status=?) and del=?";
 		String Account=areaAdminAddOrChangeOrDeleteSpotAdminModel.getAccount();
 		List<AreaAdminAddOrChangeOrDeleteSpotAdminModel> list1=new LinkedList<AreaAdminAddOrChangeOrDeleteSpotAdminModel>();
 		param=new LinkedList<Object>();
 		param.add(Account);
+		param.add("s");
 		param.add(1);
 		param.add(0);
 		try {
@@ -70,6 +71,7 @@ public class AreaAdminAddOrChangeOrDeleteSpotAdminServiceImp implements AreaAdmi
         		addOrChangeOrDeleteSpotAdminModel1.setAccount(adminModel.getAccount());
         		addOrChangeOrDeleteSpotAdminModel1.setAid(adminModel.getAid());
         		addOrChangeOrDeleteSpotAdminModel1.setSid(adminModel.getSid());
+        		addOrChangeOrDeleteSpotAdminModel1.setCreateTime(adminModel.getCreateTime());
         		String Sid=addOrChangeOrDeleteSpotAdminModel1.getSid();
         		//System.out.println("aidString:"+sidString);
         		String sql1="select Spot from tb_spot where Sid=\""+Sid+"\"";
@@ -86,6 +88,27 @@ public class AreaAdminAddOrChangeOrDeleteSpotAdminServiceImp implements AreaAdmi
         }
 		// TODO Auto-generated method stub
 		return list1;
+	}
+
+	//根据景区管理员Account得到景区管理员所在景区的景点管理员（还没有管理景点,Arid=景区Arid,Sid=null)的Account,Aid
+	@Override
+	public List<Object> getSpotAdminInformations1(
+			AreaAdminAddOrChangeOrDeleteSpotAdminModel areaAdminAddOrChangeOrDeleteSpotAdminModel) {
+		// TODO Auto-generated method stub
+		String sql="select Account,Aid from tb_admin where Arid =(select Arid from tb_admin where Account=? and Privilege=?) and Privilege=? and del=? and Sid is null";
+		String Account=areaAdminAddOrChangeOrDeleteSpotAdminModel.getAccount();
+		param=new LinkedList<Object>();
+		param.add(Account);
+		param.add("s");
+		param.add("r");
+		param.add(0);
+		try {
+			list=adminDao.query3(sql, param);
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+		return list;
 	}
 
 }

@@ -68,16 +68,16 @@
 			window.open("adminLogin.html", "_self");
 		} else {
 			setAccount();
-			getSpotInformations();
+			getSpotAdmins();
 		}
 	}
-	//显示已经有的景点，列表表示（每一横有景点ID，景点名字，景点管理员，创建时间)
-	function getSpotInformations() {
+	//显示已经有管理景点的景点管理员，列表表示（每一横有景点管理员名字，景点名字，创建时间，修改按钮，添加按钮)，把Aid,Sid写进修改函数，把Aid写进删除函数
+	function getSpotAdmins() {
 		//alert("getAdvices");
 		$
 				.ajax({
 					type : 'post',
-					url : encodeURI(encodeURI("AreaAdminAddOrDeleteSpotController/getSpotInformations?Account="
+					url : encodeURI(encodeURI("AreaAdminAddOrUpdateOrDeleteSpotAdminController/getSpotAdmins?Account="
 							+ Account)),
 					contentType : 'application/json;charset=utf-8',
 					dataType : 'json',
@@ -98,17 +98,12 @@
 								var max_elem = Math.min((page_index + 1)
 										* items_per_page, length);
 
-								$("#advices").html("");//html() 方法返回或设置被选元素的内容 (inner HTML)。
+								$("#spotAdmins").html("");//html() 方法返回或设置被选元素的内容 (inner HTML)。
 								for (var i = page_index * items_per_page; i < max_elem; i++) {
 					
-									$("#advices")
+									$("#spotAdmins")
 											.append(
-													 '<tr><td>'+data[i].sid+'</td><td>'+data[i].spot+'</td><td>'+data[i].spotAdmin+'</td><td>'+data[i].createTime+'</td><td><button style="width:4em;margin-top:0px;height:2em;" class="btn btn-primary  btn-xs text-center mybutton" type="button" onclick=deleteSpot("'+data[i].spotAdmin+'","'+data[i].sid+'")><span class="fa fa-fw  fa-close fa-lg "></span></button></td></tr>');
-														
-														
-														
-													 
-
+													 '<tr><td>'+data[i].account+'</td><td>'+data[i].spot+'</td><td>'+data[i].createTime+'</td><td><button style="width:4em;margin-top:0px;height:2em;" class="btn btn-primary  btn-xs text-center mybutton" type="button" onclick=showChangeSpotAdminPage("'+data[i].aid+'","'+data[i].sid+'")><span class="fa fa-fw  fa-edit fa-lg "></span></button><button style="width:4em;margin-top:0px;height:2em;margin-left:0.5em;" class="btn btn-primary  btn-xs text-center mybutton" type="button" ><span class="fa fa-fw  fa-close fa-lg "></span></button></td></tr>');
 								}
 								return false;
 							}
@@ -116,7 +111,59 @@
 
 					},
 					error : function() {
-						$("#advices").html("");
+						$("#spotAdmins").html("");
+					}
+				});
+	}
+	//显示没有有管理景点的景点管理员，下拉框表示景点名字，需要景区管理员Account
+	function getSpotAdmins1() {
+		//alert("getAdvices");
+		$
+				.ajax({
+					type : 'post',
+					url : encodeURI(encodeURI("AreaAdminAddOrUpdateOrDeleteSpotAdminController/getSpotAdmins1?Account="
+							+ Account)),
+					contentType : 'application/json;charset=utf-8',
+					dataType : 'json',
+					success : function(data) {
+
+						//alert("返回成功");
+						//alert(data.length);
+						$(function() {
+
+							var length = data.length;
+							if(length!=0)
+								{
+								  $("#spotAdminButton").removeAttr("disabled");
+								}
+							else
+								{
+								 $("#spotAdminButton").attr("disabled");
+								}
+							$("#Pagination").pagination(length, {
+								items_per_page : 10,
+								callback : pageselectCallback
+							});
+
+							function pageselectCallback(page_index, jq) {
+								var items_per_page = 10;
+								var max_elem = Math.min((page_index + 1)
+										* items_per_page, length);
+
+								$("#spotAdmins1").html("");//html() 方法返回或设置被选元素的内容 (inner HTML)。
+								for (var i = page_index * items_per_page; i < max_elem; i++) {
+					
+									$("#spotAdmins1")
+											.append(
+													 ' <li class="myLi">'+data[i].account+'</li>');
+								}
+								return false;
+							}
+						});
+
+					},
+					error : function() {
+						$("#spotAdmins1").html("");
 					}
 				});
 	}
@@ -187,10 +234,12 @@
 	   $("#mymodal-data").modal("toggle");
 	   lacation();
 	}
-	function showChangeSpotAdminPage()
+	function showChangeSpotAdminPage(Aid,Sid)
 	{
 	   $("#changeSpotAdmin").modal("toggle");
-	   lacation();
+	   alert("Aid:"+Aid);
+	   alert("Sid:"+Sid);
+	   getSpotAdmins1();
 	}
 	
 </script>
@@ -341,7 +390,7 @@
 									<th>操作</th>
 								</tr>
 							</thead>
-							<tbody id="advices">
+							<tbody id="spotAdmins">
                                   <tr>
 									<td>hello</td>
 									<td>lll</td>
@@ -414,11 +463,11 @@
 						</div>-->
 						<div class="dropdown mydropdown">
 							<button class="btn btn-default dropdown-toggle"
-								data-toggle="dropdown">
-								<span id="province" class="dropdownTitle">景点管理员</span> <span
+								data-toggle="dropdown" id="spotAdminButton" disabled>
+								<span id="spotAdmin" class="dropdownTitle">景点管理员</span> <span
 									class="caret"></span>
 							</button>
-							<ul class="dropdown-menu" id="provinces" role="menu"
+							<ul class="dropdown-menu" id="spotAdmins1" role="menu"
 								style="min-width:6em;">
                                 <li class="myLi">hhh</li>
 							</ul>
@@ -433,7 +482,7 @@
 	</div>
 </body>
 <script>
-  //setCookie();
-  //judgeAdmin();
+  setCookie();
+  judgeAdmin();
 </script>
 </html>

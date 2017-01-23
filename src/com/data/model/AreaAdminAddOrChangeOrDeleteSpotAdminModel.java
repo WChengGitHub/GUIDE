@@ -5,6 +5,7 @@ public class AreaAdminAddOrChangeOrDeleteSpotAdminModel {
 	private String Aid;
 	private String Spot;
 	private String Sid;
+	private String CreateTime;
 	public String getAccount() {
 		return Account;
 	}
@@ -28,6 +29,12 @@ public class AreaAdminAddOrChangeOrDeleteSpotAdminModel {
 	}
 	public void setSid(String sid) {
 		Sid = sid;
+	}
+	public String getCreateTime() {
+		return CreateTime;
+	}
+	public void setCreateTime(String createTime) {
+		CreateTime = createTime;
 	}
 	
 }

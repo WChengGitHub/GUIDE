@@ -94,7 +94,7 @@ public class tb_adminDao {
 		});
 
 	}
-	// 查询管理员Account和Aid,Sid
+	// 查询Account,Aid,Sid,CreateTime(一条或多条纪录)
 		public List<Object> query2(String sql, final List<Object> param) {
 			final DateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 			return jdbcTemplate.query(sql, new PreparedStatementSetter() {
@@ -117,11 +117,40 @@ public class tb_adminDao {
 					adminModel.setAccount(rs.getString("Account"));
 					adminModel.setAid(rs.getString("Aid"));
 					adminModel.setSid(rs.getString("Sid"));
+					adminModel.setCreateTime(sdf.format(rs
+							.getTimestamp("CreateTime")));
 					return adminModel;
 				}
 			});
 
 		}
+		// 查询Account,Aid(一条或多条纪录)
+				public List<Object> query3(String sql, final List<Object> param) {
+					final DateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+					return jdbcTemplate.query(sql, new PreparedStatementSetter() {
+						@Override
+						public void setValues(PreparedStatement ps) throws SQLException {
+							for (int i = 0; i < param.size(); i++) {
+								try {
+									ps.setObject(i + 1, param.get(i));
+									// System.out.println(param.get(i) + "1111111111");
+								} catch (SQLException e) {
+									e.printStackTrace();
+								}
+							}
+						}
+					}, new RowMapper<Object>() {
+						@Override
+						public tb_adminModel mapRow(ResultSet rs, int arg1)
+								throws SQLException {
+							tb_adminModel adminModel = new tb_adminModel();
+							adminModel.setAccount(rs.getString("Account"));
+							adminModel.setAid(rs.getString("Aid"));
+							return adminModel;
+						}
+					});
+
+				}
 	public List<Object> queryAids(String sql, final List<Object> param) {
 		final DateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 		return jdbcTemplate.query(sql, new PreparedStatementSetter() {
