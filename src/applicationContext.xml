@@ -186,6 +186,10 @@
 		<property name="spotDao" ref="spotDao"></property>
 		<property name="adminDao" ref="adminDao"></property>
 	</bean>
+	<bean id="areaAdminAddOrUpdateOrDeleteSpotAdmin" class="com.data.service.adminService.areaAdminFunction.areaAdminAddOrChangeOrDeleteSpotAdmin.AreaAdminAddOrChangeOrDeleteSpotAdminServiceImp">
+		<property name="spotDao" ref="spotDao"></property>
+		<property name="adminDao" ref="adminDao"></property>
+	</bean>
 	<!-- spotAdminService -->
 	<bean id="spotAdminCompleteSpotInformationService" class="com.data.service.adminService.spotAdminFunctions.spotAdminCompleteSpotInformation.SpotAdminCompleteSpotInformationServiceImp">
 	     <property name="spotDao" ref="spotDao"></property>
