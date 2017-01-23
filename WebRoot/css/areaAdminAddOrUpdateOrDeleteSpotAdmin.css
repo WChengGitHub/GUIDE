@@ -26,13 +26,13 @@ a:hover
  }
 #mainContent > button{width:98%;height:40px;margin-top:20px;margin-left:1%;background-color:#007FFF;color:white;border-width:0.5px;}
 #mainContent .spot{width:98%;margin-top:20px;margin-left:1%;}
-#mainContent .mymodal{width:26em;margin-top:20px;margin-left:40%;}
+#mainContent .mymodal{width:26em;margin-top:20px;margin-left:40%;text-align:center;}
 #mainContent .mymodal .modal-body{padding-top:40px;}
-#mainContent .mymodal .modal-body p input{width:12em;}
-#mainContent .mymodal .modal-body .mydropdown1{width:8em;}
-#mainContent .mymodal .modal-body .mydropdown1 button{width:8em}
-#mainContent .mymodal .modal-body .mydropdown1 ul li{width:8em}
-#mainContent .mymodal .modal-body button{width:5em;height:2.2em;position:relative;left:1em;margin-top:10px;}
+#mainContent .mymodal .modal-body  input{width:10em;}
+#mainContent .mymodal .modal-body .mydropdown1{width:10em;margin-left:auto;margin-right:auto;margin-top:10px;}
+#mainContent .mymodal .modal-body .mydropdown1 button{width:10em}
+#mainContent .mymodal .modal-body .mydropdown1 ul li{width:10em}
+#mainContent .mymodal .modal-body>button{width:10em;height:2.2em;margin-top:20px;background-color:#007FFF;color:white;border-width:0.5px;border-radius:4px;}
 .myModal1{width:16em;margin-top:20px;margin-left:47%;text-align:center;}
 .myModal1 .modal-content .modal-body .mydropdown{width:8em;margin-top:10px;margin-left:auto;margin-right:auto;}
 .myModal1 .modal-content .modal-body .mydropdown button{width:8em}

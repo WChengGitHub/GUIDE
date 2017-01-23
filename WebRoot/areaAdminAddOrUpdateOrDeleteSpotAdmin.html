@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>景点管理</title>
+    <title>景点管理员管理</title>
 	
     <!-- ace styles -->
     <!--<link rel="stylesheet" href="assets/css/ace.css" class="ace-main-stylesheet" id="main-ace-style" />-->
@@ -365,12 +365,12 @@
 			<div class="modal-content ">
 
 				<div class="modal-body ">
-					<p>新增景点管理员：<input id="Spot"/></p>
+					<input id="Spot" placeholder="新增景点管理员"/>
 					
 					<div class="dropdown mydropdown1">
 							<button class="btn btn-default dropdown-toggle"
 								data-toggle="dropdown">
-								<span id="province" class="dropdownTitle">新增景点管理员</span> <span
+								<span id="province" class="dropdownTitle">已有景点管理员</span> <span
 									class="caret"></span>
 							</button>
 							<ul class="dropdown-menu" id="provinces" role="menu"
@@ -382,7 +382,7 @@
 						<div class="dropdown mydropdown1">
 							<button class="btn btn-default dropdown-toggle"
 								data-toggle="dropdown">
-								<span id="province" class="dropdownTitle">景点管理员</span> <span
+								<span id="province" class="dropdownTitle">景点</span> <span
 									class="caret"></span>
 							</button>
 							<ul class="dropdown-menu" id="provinces" role="menu"
@@ -391,8 +391,6 @@
 							</ul>
 
 						</div>
-					<button class="reLocation"
-						type="button" value="重新定位" onclick="location()">重新定位</button>
 					<button class="submit"
 						type="button" value="提交" onclick="addSpot()">提交</button>
 				</div>
