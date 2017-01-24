@@ -307,6 +307,31 @@
 	    }
 		
 	}
+	//判断景点管理员的Account是否存在
+	function judgeAccount() {
+		var spotAccount=$("#spotAccount").val();
+		//alert("getAdvices");
+		$
+				.ajax({
+					type : 'post',
+					url : encodeURI(encodeURI("AreaAdminAddOrUpdateOrDeleteSpotAdminController/judgeAccount?Account="
+							+ spotAccount)),
+					contentType : 'application/json;charset=utf-8',
+					dataType : 'json',
+					success : function(data) {
+
+						//alert("返回成功");
+						//alert(data.length);
+						if(data.number!=0)
+							{
+							   alert("该景点管理员的名字已经存在");
+							   $("#spotAccount").val("");
+							}
+						
+					}
+				});
+	}
+	
 	//定位
 	function lacation()
 	{
@@ -339,7 +364,9 @@
 	//弹出添加添加景点管理员的模态框
 	function showAddSpotAdminPage()
 	{
+		//alert("howAddSpotAdminPage()");
 	   $("#addSpotAdmin").modal("toggle");
+	   $("#spotAccount").val("");
 	   getSpotAdmins2();
 	   getSpots();
 	}
@@ -556,7 +583,7 @@
 			<div class="modal-content ">
 
 				<div class="modal-body ">
-					<input id="Spot" placeholder="新增景点管理员"/>
+					<input id="spotAccount" placeholder="新增景点管理员" onchange="judgeAccount()"/>
 					
 					<div class="dropdown mydropdown1">
 							<button class="btn btn-default dropdown-toggle"

@@ -26,7 +26,13 @@ public class tb_adminDao {
 		// TODO Auto-generated method stub
 		return jdbcTemplate;
 	}
-	//// 根据Sid
+	
+	// 用来判断管理员的Account是否存在,如果数目为0,则代表不存在,否则用户名已经存在
+		@SuppressWarnings("deprecation")
+		public int queryAccountNumber(String sql) {
+			return jdbcTemplate.queryForInt(sql);
+		}
+		
 	public Object queryAccount(String sql) {
 		return  jdbcTemplate.queryForObject(sql,
 				new RowMapper<Object>() {

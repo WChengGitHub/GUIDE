@@ -1,7 +1,12 @@
 package com.data.service.adminService.areaAdminFunction.areaAdminAddOrChangeOrDeleteSpotAdmin;
 
+import java.sql.Timestamp;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.TimeZone;
 
 import net.sf.json.JSONArray;
 
@@ -9,7 +14,9 @@ import org.omg.CORBA.PRIVATE_MEMBER;
 
 import com.data.dao.singleForm.tb_adminDao;
 import com.data.dao.singleForm.tb_spotDao;
+import com.data.md5.Encryption;
 import com.data.model.AreaAdminAddOrChangeOrDeleteSpotAdminModel;
+import com.data.model.CompleteVisitorInformationModel;
 import com.data.model.tb_adminModel;
 import com.data.model.tb_spotModel;
 
@@ -192,6 +199,73 @@ public class AreaAdminAddOrChangeOrDeleteSpotAdminServiceImp implements AreaAdmi
 			e.printStackTrace();
 		}
 		return list;
+	}
+
+//用来增加一个景点管理员      参数：景点管理员Account,景点Sid   思路：Aid，CreateTime自动生成，密码默认为123456，邮箱默认为"无"。如果Sid不为空，则把该景点的Status变为1
+	@Override
+	public boolean addSpotAdmin(
+			AreaAdminAddOrChangeOrDeleteSpotAdminModel addOrChangeOrDeleteSpotAdminModel) {
+		// TODO Auto-generated method stub
+		String sql="insert into tb_admin(Aid,Account,Password,Email,Privilege,Sid,CreateTime) values(?,?,?,?,?,?,?)";
+		String sql1="update tb_spot set Status=? where Sid=?";
+		Calendar cal1 = Calendar.getInstance();
+		TimeZone.setDefault(TimeZone.getTimeZone("GMT+8:00"));
+		java.text.SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddkkmmss");
+		int randomNumber = (int) (Math.random() * 10);
+		String Aid = (sdf.format(cal1.getTime()) + randomNumber);
+		
+		String Account=addOrChangeOrDeleteSpotAdminModel.getAccount();
+		String MD5password=Encryption.generatePassword("123456");
+		String Email="无";
+		String Privilege="r";
+		String Sid="";
+		Sid=addOrChangeOrDeleteSpotAdminModel.getSid();
+		Timestamp CreateTime = new Timestamp(System.currentTimeMillis());
+		DateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		CreateTime = Timestamp.valueOf(sdf1.format(CreateTime));
+		
+		param=new LinkedList<Object>();
+		param.add(Aid);
+		param.add(Account);
+		param.add(MD5password);
+		param.add(Email);
+		param.add(Privilege);
+		param.add(Sid);
+		param.add(CreateTime);
+		try {
+			adminDao.update(sql, param);
+			if(Sid!=null&&!(Sid.isEmpty()))
+			{
+				List<Object>param1=new LinkedList<Object>();
+				param1.add("1");
+				param1.add(Sid);
+				spotDao.update(sql1, param1);
+			}
+			return true;
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+		return false;
+	}
+
+	//用来判断管理员的Account是否存在     参数：Account 
+	@Override
+	public int judgeAccount(
+			AreaAdminAddOrChangeOrDeleteSpotAdminModel addOrChangeOrDeleteSpotAdminModel) {
+		// TODO Auto-generated method stub
+		String Account= addOrChangeOrDeleteSpotAdminModel.getAccount();
+		String sql = "select count(*) from tb_admin where Account= \""
+				+ Account + "\"";
+		int number = -1;
+		try {
+			number = adminDao.queryAccountNumber(sql);
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+		// TODO Auto-generated method stub
+		return number;
 	}
 
 }
