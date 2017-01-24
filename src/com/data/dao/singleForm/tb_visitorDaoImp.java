@@ -140,9 +140,7 @@ public class tb_visitorDaoImp implements Dao{
 		tb_visitorModel tb_visitormodel=(tb_visitorModel)object;
 		JdbcTemplate jt=this.getJdbcTemple();
 		try{
-		
-		
-		jt.update(Sql,tb_visitormodel.getVid());
+			jt.update(Sql,tb_visitormodel.getVid());
 		} catch (Exception e){
 			//输出出现的异常 e就是出现的异常
 		    System.out.println(e);
@@ -153,54 +151,4 @@ public class tb_visitorDaoImp implements Dao{
 	
 }
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-
-
-	
-
 	

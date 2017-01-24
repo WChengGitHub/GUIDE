@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.data.model.VisitorPositioningModel;
-import com.data.model.tb_cityModel;
 import com.data.service.visitorService.attractionsPositioningService.attractionsPositioningServiceImp;
 
 @Controller //景点定位
@@ -28,7 +27,6 @@ public class AttractionsPositioningController {
 		//检查是否运行到这里	
 		System.out.println("test                                             test");
 		
-		//here
 		String city = request.getParameter("City");
 		String latitude = request.getParameter("Latitude");
 		String longitude = request.getParameter("Longitude");
@@ -42,7 +40,6 @@ public class AttractionsPositioningController {
 			@SuppressWarnings("resource")
 			//应用上下文
 			ClassPathXmlApplicationContext factory= new ClassPathXmlApplicationContext("applicationContext.xml");
-			//将数据传给Model
 			VisitorPositioningModel visitorPositioningModel=(VisitorPositioningModel)factory.getBean("visitorPositioningModel");
 			attractionsPositioningServiceImp apServiceImp=(attractionsPositioningServiceImp)factory.getBean("attractionsPositioningServiceImp");
 			 //检查是否运行到这里

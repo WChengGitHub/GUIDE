@@ -26,7 +26,7 @@
                dataType:"json",//设置返回数据的格式
                //请求成功后的回调函数 data为json格式
                success:function(data){
-               	 $("#resultJsonText2").text("url："+data.url);
+               	 //$("#resultJsonText2").text("url："+data.url);
                   $("#resultJsonText").append("<br></br>"
                   							  +"<img class=\"img-rounded center-block img-responsive\" width=\"80%\" src="+ data.url0+ ">"
 											  +"<br></br>"
