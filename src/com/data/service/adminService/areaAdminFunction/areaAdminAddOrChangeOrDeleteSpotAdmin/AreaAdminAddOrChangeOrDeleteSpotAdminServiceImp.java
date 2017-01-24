@@ -10,7 +10,6 @@ import org.omg.CORBA.PRIVATE_MEMBER;
 import com.data.dao.singleForm.tb_adminDao;
 import com.data.dao.singleForm.tb_spotDao;
 import com.data.model.AreaAdminAddOrChangeOrDeleteSpotAdminModel;
-import com.data.model.AreaAdminAddOrDeleteSpotModel;
 import com.data.model.tb_adminModel;
 import com.data.model.tb_spotModel;
 
@@ -90,7 +89,7 @@ public class AreaAdminAddOrChangeOrDeleteSpotAdminServiceImp implements AreaAdmi
 		return list1;
 	}
 
-	//根据景区管理员Account得到景区管理员所在景区的景点管理员（还没有管理景点,Arid=景区Arid,Sid=null)的Account,Aid
+	//根据景区管理员Account得到景区管理员所在景区的还没有管理景点的景点管理员（还没有管理景点的景点管理员,Arid=景区Arid,Sid=null)的Account,Aid
 	@Override
 	public List<Object> getSpotAdminInformations1(
 			AreaAdminAddOrChangeOrDeleteSpotAdminModel areaAdminAddOrChangeOrDeleteSpotAdminModel) {
@@ -104,6 +103,90 @@ public class AreaAdminAddOrChangeOrDeleteSpotAdminServiceImp implements AreaAdmi
 		param.add(0);
 		try {
 			list=adminDao.query3(sql, param);
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+		return list;
+	}
+
+	//用来更换景点的景点管理员  参数：Aid,newAid(新景点管理员Aid),Sid(景点id) ,希望用事务管理器
+	@Override
+	public boolean changeAdmin(
+			AreaAdminAddOrChangeOrDeleteSpotAdminModel areaAdminAddOrChangeOrDeleteSpotAdminModel) {
+		String sql="update tb_admin set Arid=(select Arid from tb_spot where Sid=?),Sid=null where Aid=?";
+		String sql1="update tb_admin set Arid=null,Sid=? where Aid=?";
+		String Aid=areaAdminAddOrChangeOrDeleteSpotAdminModel.getAid();
+		String newAid=areaAdminAddOrChangeOrDeleteSpotAdminModel.getNewAid();
+		String Sid=areaAdminAddOrChangeOrDeleteSpotAdminModel.getSid();
+		param=new LinkedList<Object>();
+		List<Object>param1=new LinkedList<Object>();
+		param.add(Sid);
+		param.add(Aid);
+		param1.add(Sid);
+		param1.add(newAid);
+		try {
+			adminDao.update(sql, param);
+			adminDao.update(sql1,param1);
+			return true;
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			//撤销第一个更新效果
+			List<Object>param2=new LinkedList<Object>();
+			param2.add(Sid);
+			param2.add(Aid);
+			adminDao.update(sql1, param2);
+		}
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	//用来删除景点管理员 参数：Aid,Sid
+	@Override
+	public boolean deleteAdmin(
+			AreaAdminAddOrChangeOrDeleteSpotAdminModel areaAdminAddOrChangeOrDeleteSpotAdminModel) {
+		String sql="update tb_admin set Del=? where Aid=?";
+		String sql1="update tb_spot set Status=? where Sid=?";
+		String Aid=areaAdminAddOrChangeOrDeleteSpotAdminModel.getAid();
+		String Sid=areaAdminAddOrChangeOrDeleteSpotAdminModel.getSid();
+		param=new LinkedList<Object>();
+		List<Object>param1=new LinkedList<Object>();
+		param.add("1");
+		param.add(Aid);
+		param1.add("0");
+		param1.add(Sid);
+		try {
+			adminDao.update(sql, param);
+			spotDao.update(sql1,param1);
+			return true;
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			//撤销第一个更新效果
+			List<Object>param2=new LinkedList<Object>();
+			param2.add("0");
+			param2.add(Aid);
+			adminDao.update(sql, param2);
+		}
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	//用来得到还没有景点管理员的景点（status=0） 参数：景区管理员Account
+	@Override
+	public List<Object> getSpotInformations(
+			AreaAdminAddOrChangeOrDeleteSpotAdminModel areaAdminAddOrChangeOrDeleteSpotAdminModel) {
+		// TODO Auto-generated method stub
+		String sql="select Sid,Spot from tb_spot where Arid =(select Arid from tb_admin where Account=? and Privilege=?) and Status=? and del=?";
+		String Account=areaAdminAddOrChangeOrDeleteSpotAdminModel.getAccount();
+		param=new LinkedList<Object>();
+		param.add(Account);
+		param.add("s");
+		param.add("0");
+		param.add(0);
+		try {
+			list=spotDao.querySpotInformations1(sql, param);
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();

@@ -3,6 +3,7 @@ package com.data.model;
 public class AreaAdminAddOrChangeOrDeleteSpotAdminModel {
 	private String Account;
 	private String Aid;
+	private String newAid;
 	private String Spot;
 	private String Sid;
 	private String CreateTime;
@@ -17,6 +18,12 @@ public class AreaAdminAddOrChangeOrDeleteSpotAdminModel {
 	}
 	public void setAid(String aid) {
 		Aid = aid;
+	}
+	public String getNewAid() {
+		return newAid;
+	}
+	public void setNewAid(String newAid) {
+		this.newAid = newAid;
 	}
 	public String getSpot() {
 		return Spot;
