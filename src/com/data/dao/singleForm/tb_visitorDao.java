@@ -115,8 +115,7 @@ public class tb_visitorDao {
 	}
 	
 
-	/*???
-	 * public void update(String sql, final List<Object> param) {
+	public void update1(String sql, final List<Object> param) {
 
 		jdbcTemplate.update(sql, new PreparedStatementSetter() {
 			public void setValues(PreparedStatement ps) throws SQLException {
@@ -134,5 +133,5 @@ public class tb_visitorDao {
 			}
 		});
 
-	}*/
+	}
 }

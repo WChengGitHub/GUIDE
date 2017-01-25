@@ -1,3 +1,3 @@
 eclipse.preferences.version=1
-validator.Checked=WebRoot/js/jquery.min.js,WebRoot/js/plugins/flot/jquery.flot.js,WebRoot/assets/js/prettify.js,WebRoot/js/jquery-3.0.0.min.js,WebRoot/css/jquery.js,WebRoot/js/lib/raphael-min.js,WebRoot/js/plugins/morris/raphael.min.js,WebRoot/js/jquery.js
+validator.Checked=WebRoot/js/jquery.min.js,WebRoot/js/plugins/flot/jquery.flot.js,WebRoot/assets/js/prettify.js,WebRoot/js/lib/raphael-min.js,WebRoot/css/jquery.js,WebRoot/js/jquery-3.0.0.min.js,WebRoot/areaAdminAddOrUpdateOrDeleteSpotAdmin.html,WebRoot/js/plugins/morris/raphael.min.js,WebRoot/js/jquery.js
 validator.Unchecked=
