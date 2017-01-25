@@ -54,7 +54,6 @@ public class RegisterController{
 			tb_visitormodel.setEmail(email);
 			tb_visitormodel.setVisitor(Visitor);
 
-			
 			/*在这里setVid提示错误?
 			Calendar cal1 = Calendar.getInstance();  
 			TimeZone.setDefault(TimeZone.getTimeZone("GMT+8:00"));       //非常关键的！！！ 

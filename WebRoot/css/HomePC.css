@@ -37,7 +37,7 @@ body{
 }
 pre{
     color: white;
-    font-family: 微软雅黑;
+    font-family: 寰蒋闆呴粦;
     -webkit-transform: translate(15px, -8px);
     -moz-transform: translate(15px, -8px);
 }
@@ -48,7 +48,7 @@ pre{
 .a{
     position: relative;
     top: 240px;
-    font-family:微软简行楷;
+    font-family:寰蒋绠�妤�
     font-size: 280%;
     color: #19fa28;
     /*-webkit-transform: translate(0px, 125px);
@@ -57,7 +57,7 @@ pre{
 .b{
     position: relative;
     top: 300px;
-    font-family:新蒂下午茶基本版;
+    font-family:鏂拌拏涓嬪崍鑼跺熀鏈増;
     /*font-size:41px;*/
     font-size: 280%;
     /*color: #0e842b;*/
@@ -67,14 +67,14 @@ pre{
 }
 .button{
     position: relative;
-    /*left: 26%;*//*？按钮在不同的手机 位置会改变 如何居中固定*/
+    /*left: 26%;*//*锛熸寜閽湪涓嶅悓鐨勬墜鏈�浣嶇疆浼氭敼鍙�濡備綍灞呬腑鍥哄畾*/
     top: 300px;
     left: 10px;
     width: 280px;
     opacity: 0.9;
    /* width: 30%;*/
     height: 60px;
-    font-family: 微软雅黑;
+    font-family: 寰蒋闆呴粦;
     font-size: 22px;
     color: #0e932e; 
     border:2px solid #0e842b;
@@ -88,7 +88,7 @@ pre{
 .tip{
     position: relative;
     top: 100px;
-    font-family:微软雅黑;
+    font-family:寰蒋闆呴粦;
     font-size: 50px;
     color: #0e932e;
 }
@@ -100,7 +100,7 @@ pre{
 .h2{
     position: relative;
     margin-left: 10%;
-    font-family: 仿宋;
+    font-family: 浠垮畫;
     color: black;
     font-size: 20px;
 }
