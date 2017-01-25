@@ -2,6 +2,8 @@ package com.data.model;
 
 public class AreaAdminAddOrChangeOrDeleteSpotAdminModel {
 	private String Account;
+	private String spotAccount;
+	private String spotAccount1;
 	private String Aid;
 	private String newAid;
 	private String Spot;
@@ -12,6 +14,18 @@ public class AreaAdminAddOrChangeOrDeleteSpotAdminModel {
 	}
 	public void setAccount(String account) {
 		Account = account;
+	}
+	public String getSpotAccount() {
+		return spotAccount;
+	}
+	public void setSpotAccount(String spotAccount) {
+		this.spotAccount = spotAccount;
+	}
+	public String getSpotAccount1() {
+		return spotAccount1;
+	}
+	public void setSpotAccount1(String spotAccount1) {
+		this.spotAccount1 = spotAccount1;
 	}
 	public String getAid() {
 		return Aid;

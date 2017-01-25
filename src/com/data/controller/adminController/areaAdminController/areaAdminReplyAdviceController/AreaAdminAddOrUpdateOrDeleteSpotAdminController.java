@@ -144,16 +144,19 @@ public class AreaAdminAddOrUpdateOrDeleteSpotAdminController {
 	@RequestMapping("/addAdmin")
 	@ResponseBody
 	public String addAdmin(
-			@RequestParam(value = "Account", required = false) String Account,@RequestParam(value = "Sid", required = false) String Sid)
+			@RequestParam(value = "Account", required = false) String Account,@RequestParam(value = "Sid", required = false) String Sid,@RequestParam(value = "spotAccount", required = false) String spotAccount,@RequestParam(value = "spotAccount1", required = false) String spotAccount1)
 			throws IOException {
-		if (Account.isEmpty()||Sid.isEmpty())
+		if (Account.isEmpty()||spotAccount.isEmpty())
 			return null;
+		System.out.println("spotAccount1:"+spotAccount1);
 		Account = java.net.URLDecoder.decode(Account, "UTF-8");
 		ApplicationContext factory = new ClassPathXmlApplicationContext(
 				"applicationContext.xml");
 		AreaAdminAddOrChangeOrDeleteSpotAdminService areaAdminAddOrChangeOrDeleteSpotAdminService=(AreaAdminAddOrChangeOrDeleteSpotAdminService) factory.getBean("areaAdminAddOrUpdateOrDeleteSpotAdmin");
 		AreaAdminAddOrChangeOrDeleteSpotAdminModel areaAdminAddOrChangeOrDeleteSpotAdminModel=new AreaAdminAddOrChangeOrDeleteSpotAdminModel();
 		areaAdminAddOrChangeOrDeleteSpotAdminModel.setAccount(Account);
+		areaAdminAddOrChangeOrDeleteSpotAdminModel.setSpotAccount(spotAccount);
+		areaAdminAddOrChangeOrDeleteSpotAdminModel.setSpotAccount1(spotAccount1);
 		areaAdminAddOrChangeOrDeleteSpotAdminModel.setSid(Sid);
 		if(areaAdminAddOrChangeOrDeleteSpotAdminService.addSpotAdmin(areaAdminAddOrChangeOrDeleteSpotAdminModel))
 		{
@@ -169,10 +172,12 @@ public class AreaAdminAddOrUpdateOrDeleteSpotAdminController {
 		AreaAdminAddOrChangeOrDeleteSpotAdminService areaAdminAddOrChangeOrDeleteSpotAdminService=(AreaAdminAddOrChangeOrDeleteSpotAdminService) factory.getBean("areaAdminAddOrUpdateOrDeleteSpotAdmin");
 		AreaAdminAddOrChangeOrDeleteSpotAdminModel areaAdminAddOrChangeOrDeleteSpotAdminModel=new AreaAdminAddOrChangeOrDeleteSpotAdminModel();
 		areaAdminAddOrChangeOrDeleteSpotAdminModel.setAccount("hh");
-		//areaAdminAddOrChangeOrDeleteSpotAdminModel.setSid("201701190957122");
-		//areaAdminAddOrChangeOrDeleteSpotAdminService.addSpotAdmin(areaAdminAddOrChangeOrDeleteSpotAdminModel);
-		int number =areaAdminAddOrChangeOrDeleteSpotAdminService.judgeAccount(areaAdminAddOrChangeOrDeleteSpotAdminModel);
-		System.out.println("number:"+number);
+		areaAdminAddOrChangeOrDeleteSpotAdminModel.setSpotAccount("hh4");
+		areaAdminAddOrChangeOrDeleteSpotAdminModel.setSpotAccount1("2");
+		areaAdminAddOrChangeOrDeleteSpotAdminModel.setSid("201701190957122");
+		areaAdminAddOrChangeOrDeleteSpotAdminService.addSpotAdmin(areaAdminAddOrChangeOrDeleteSpotAdminModel);
+		//int number =areaAdminAddOrChangeOrDeleteSpotAdminService.judgeAccount(areaAdminAddOrChangeOrDeleteSpotAdminModel);
+		//System.out.println("number:"+number);
 		//List<AreaAdminAddOrChangeOrDeleteSpotAdminModel> list;
 	    //List<Object> list;
 		//list = areaAdminAddOrChangeOrDeleteSpotAdminService

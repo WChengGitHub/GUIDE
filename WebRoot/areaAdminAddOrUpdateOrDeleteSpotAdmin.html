@@ -36,6 +36,7 @@
 	var Privilege = "";
 	var Aid="";
 	var Sid="";
+	var Sid2="";
 	var newAid="";
 	function setCookie() {
 		var now = new Date();
@@ -211,7 +212,7 @@
 					
 									$("#spotAdmins2")
 											.append(
-													 ' <li class="myLi")>'+data[i].account+'</li>');
+													 ' <li class="myLi" onclick=setAddInformation1("'+data[i].account+'")>'+data[i].account+'</li>');
 								}
 								return false;
 							}
@@ -264,7 +265,7 @@
 					
 									$("#spots")
 											.append(
-													 ' <li class="myLi")>'+data[i].spot+'</li>');
+													 ' <li class="myLi" onclick=setAddInformation("'+data[i].spot+'","'+data[i].sid+'")>'+data[i].spot+'</li>');
 								}
 								return false;
 							}
@@ -339,26 +340,47 @@
 		 Latitude=$("#Latitude").val(11);
 	}
 	//添加景点：需要景区管理员和景点的名字，景点经纬度
-	function addSpot() {
+	function addAdmin() {
 
-	    	$
-			.ajax({
-				type : 'post',
-				url : encodeURI(encodeURI("AreaAdminAddOrDeleteSpotController/addSpot?Account="
-						+ Account+"&Spot="+Spot+"&Longitude="+Longitude+"&Latitude="+Latitude)),
-				contentType : 'application/json;charset=utf-8',
-				dataType : 'json',
-				success : function(data) {
+		var account="";
+		var account1="";
+		var spotAccount1="";
+		account1=$("#spotAccount").val();
+		var account2=$("#spotAccount1").text();
+		if(account2!="现有景点管理员")
+			{
+			   alert("1");
+			   account=account2;
+			   spotAccount1="2";
+			}
+		else
+			{
+			   account=account1;
+			}
+		$
+		.ajax({
+			type : 'post',
+			url : encodeURI(encodeURI("AreaAdminAddOrUpdateOrDeleteSpotAdminController/addAdmin?Account="
+					+ Account+"&Sid="+Sid2+"&spotAccount="+account+"&spotAccount1="+spotAccount1)),
+			contentType : 'application/json;charset=utf-8',
+			dataType : 'json',
+			success : function(data) {
 
-					alert("提交成功");
-					//alert(data.length);
-					getSpotInformations();
-					
-				},
-				error : function() {
-					alert("提交失败");
-				}
-			});
+				alert("提交成功");
+				//alert(data.length);
+				$("#spotAccount").val("");
+	            $("#spotAccount1").text("现有景点管理员");
+	            $("#spot").text("景点");
+	            Sid2="";
+				getSpotAdmins();
+				getSpotAdmins1();
+				getSpotAdmins2();
+				getSpots();
+			},
+			error : function() {
+				alert("提交失败");
+			}
+		});
 	}
 	
 	//弹出添加添加景点管理员的模态框
@@ -367,6 +389,9 @@
 		//alert("howAddSpotAdminPage()");
 	   $("#addSpotAdmin").modal("toggle");
 	   $("#spotAccount").val("");
+	   $("#spotAccount1").text("现有景点管理员");
+	   $("#spot").text("景点");
+	   Sid2="";
 	   getSpotAdmins2();
 	   getSpots();
 	}
@@ -387,6 +412,16 @@
 		newAid=newAid1;
 		$("#spotAdmin").text(Account1);
 	}
+	function setAddInformation(spot,Sid1)
+	{
+		//alert(1);
+		Sid2=Sid1;
+		$("#spot").text(spot);
+	}
+	function setAddInformation1(account)
+	{
+		$("#spotAccount1").text(account);
+	}
 	function changeSpotAdmin()
 	{
 		$
@@ -405,6 +440,7 @@
 				newAid="";
 				Sid="";
 				$("#spotAdmin").text("景点管理员");
+				getSpotAdmins1();
 			},
 			error : function() {
 				alert("提交失败");
@@ -587,8 +623,8 @@
 					
 					<div class="dropdown mydropdown1">
 							<button class="btn btn-default dropdown-toggle"
-								data-toggle="dropdown" id="spotAdminButton1">
-								<span  class="dropdownTitle">现有景点管理员</span> <span
+								data-toggle="dropdown" id="spotAdminButton1" disabled>
+								<span  class="dropdownTitle" id="spotAccount1">现有景点管理员</span> <span
 									class="caret"></span>
 							</button>
 							<ul class="dropdown-menu" id="spotAdmins2" role="menu"
@@ -599,8 +635,8 @@
 						</div>
 						<div class="dropdown mydropdown1">
 							<button class="btn btn-default dropdown-toggle"
-								data-toggle="dropdown" id="spotButton">
-								<span id="province" class="dropdownTitle">景点</span> <span
+								data-toggle="dropdown" id="spotButton" disabled>
+								<span id="spot" class="dropdownTitle">景点</span> <span
 									class="caret"></span>
 							</button>
 							<ul class="dropdown-menu" id="spots" role="menu"
@@ -610,7 +646,7 @@
 
 						</div>
 					<button class="submit"
-						type="button" value="提交" onclick="showAddSpotAdminPage()">提交</button>
+						type="button" value="提交" onclick="addAdmin()">提交</button>
 				</div>
 			</div>
 

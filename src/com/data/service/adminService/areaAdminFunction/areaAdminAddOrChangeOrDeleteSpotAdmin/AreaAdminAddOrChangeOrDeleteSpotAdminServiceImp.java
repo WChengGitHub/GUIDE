@@ -201,20 +201,27 @@ public class AreaAdminAddOrChangeOrDeleteSpotAdminServiceImp implements AreaAdmi
 		return list;
 	}
 
-//用来增加一个景点管理员      参数：景点管理员Account,景点Sid   思路：Aid，CreateTime自动生成，密码默认为123456，邮箱默认为"无"。如果Sid不为空，则把该景点的Status变为1
+//用来增加一个景点管理员      参数：景区管理员Account,景点管理员Account,景点Sid   思路：Aid，CreateTime自动生成，密码默认为123456，邮箱默认为"无"。如果Sid不为空，则把该景点的Status变为1
 	@Override
 	public boolean addSpotAdmin(
 			AreaAdminAddOrChangeOrDeleteSpotAdminModel addOrChangeOrDeleteSpotAdminModel) {
 		// TODO Auto-generated method stub
 		String sql="insert into tb_admin(Aid,Account,Password,Email,Privilege,Sid,CreateTime) values(?,?,?,?,?,?,?)";
+		String sql2="insert into tb_admin(Aid,Account,Password,Email,Privilege,Arid,CreateTime) values(?,?,?,?,?,?,?)";
+		String sql4="update tb_admin set Arid=null,Sid=? where Account=?"; 
 		String sql1="update tb_spot set Status=? where Sid=?";
+		String Account=addOrChangeOrDeleteSpotAdminModel.getAccount();
+		String sql3="select Arid from tb_admin where Account=\""+Account+"\"";
+		String Arid=(String) adminDao.queryArid(sql3);
 		Calendar cal1 = Calendar.getInstance();
 		TimeZone.setDefault(TimeZone.getTimeZone("GMT+8:00"));
 		java.text.SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddkkmmss");
 		int randomNumber = (int) (Math.random() * 10);
 		String Aid = (sdf.format(cal1.getTime()) + randomNumber);
 		
-		String Account=addOrChangeOrDeleteSpotAdminModel.getAccount();
+		String spotAccount=addOrChangeOrDeleteSpotAdminModel.getSpotAccount();
+		String spotAccount1=addOrChangeOrDeleteSpotAdminModel.getSpotAccount1();
+		System.out.println("spotAccount1:"+spotAccount1);
 		String MD5password=Encryption.generatePassword("123456");
 		String Email="无";
 		String Privilege="r";
@@ -226,20 +233,45 @@ public class AreaAdminAddOrChangeOrDeleteSpotAdminServiceImp implements AreaAdmi
 		
 		param=new LinkedList<Object>();
 		param.add(Aid);
-		param.add(Account);
+		param.add(spotAccount);
 		param.add(MD5password);
 		param.add(Email);
 		param.add(Privilege);
-		param.add(Sid);
+		if(Sid!=""&&Sid!=null&&!(Sid.isEmpty()))
+		{
+			param.add(Sid);
+		}
+		else {
+			param.add(Arid);
+		}
 		param.add(CreateTime);
+		List<Object>param2=new LinkedList<Object>();
+		param2.add(Sid);
+		param2.add(spotAccount);
 		try {
-			adminDao.update(sql, param);
-			if(Sid!=null&&!(Sid.isEmpty()))
+			if (spotAccount1!=null&&spotAccount1.equals("2")) {
+				adminDao.update(sql4, param2);
+			}
+			else
+			if(Sid!=""&&Sid!=null&&!(Sid.isEmpty()))
+			{   System.out.println("1.");
+				adminDao.update(sql, param);
+				System.out.println("1");
+			}
+			else {
+				System.out.println("2.");
+				adminDao.update(sql2, param);
+				System.out.println("2");
+			}
+			
+			if(Sid!=""&&Sid!=null&&!(Sid.isEmpty()))
 			{
+				System.out.println("3");
 				List<Object>param1=new LinkedList<Object>();
 				param1.add("1");
 				param1.add(Sid);
 				spotDao.update(sql1, param1);
+				System.out.println("3.");
 			}
 			return true;
 		} catch (Exception e) {
