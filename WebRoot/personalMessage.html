@@ -1,0 +1,787 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>personalMessage.html</title>
+
+    <meta name="description" content="this is my page">
+    <meta name="content-type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script type="text/javascript" src="js/jquery-3.0.0.min.js"></script>
+    <script type="text/javascript" src="js/jquery.min.js"></script>
+    <meta charset="utf-8">
+    <!--<link rel="stylesheet" type="text/css" href="./styles.css">-->
+
+<style type="text/css">
+body{
+margin:0px;
+font-family:幼圆;
+}
+#top{
+width:100%;
+}
+.head{
+position: absolute;
+top: -20px;
+background:url(css/bg5.png);
+background-position-x: center;
+background-position-y: top;
+background-size: cover;
+height:200px;
+width:100%;
+}
+.headContent{
+height:20px;
+}
+.headtip{
+font-size:50px;
+height:30px;
+position:relative;
+top:40%;
+color:#19fa28;
+}
+.visitor{
+margin:0px;
+position:relative;
+top:-5px;
+font-size: 20px;
+color: white;
+}
+#userName{
+margin:0px;
+position:relative;
+top:-5px;
+font-size: 30px;
+color: white;
+}
+#middle{
+
+}
+#middle-left{
+background-color:#E0FFFF;
+position:absolute;
+top:28%;
+left:15%;
+color:#5E5E5E;
+}
+.middle-tip1{
+padding:20px;
+}
+.middle-tip2{
+padding:20px;
+}
+ul li
+{
+list-style-type:none;
+}
+.p-null{
+padding:50px;
+}
+.m-a{
+margin:0px;
+position:relative;
+top:-30px;
+left:-15px;
+}
+.a2{
+top:-25px;
+}
+.a3{
+top:-10px;
+}
+.a4{
+top:10px;
+}
+a{
+text-decoration:none;
+color:#5E5E5E;
+}
+
+#middle-right{
+height:400px;
+width:500px;
+position:absolute;
+top:30%;
+left:38%;
+}
+#middle-right p{
+font-size:25px;
+}
+.travelsContentTip{
+font-size:30px;
+position:relative;
+left:-10%;
+top:-10px;
+}
+.accountBindingTip{
+font-size:30px;
+position:relative;
+left:-10%;
+top:-10px;
+}
+.changePasswordbuttum{
+padding:10px;
+font-family:幼圆;
+background:white;
+border:1px solid #0e842b;
+border-radius:10px;
+margin-top: 28px;
+position:relative;
+float:right;
+top:-85px;
+}
+.changePasswordbuttum:hover{
+color:white;
+background:#87CEFF;
+}
+.personalInformationTip{
+font-size:30px;
+position:relative;
+left:-10%;
+top:-10px;
+width:120%;
+}
+.edit{
+font-size:18px;
+color:#8A8A8A;
+font-family:宋体;
+float:right;
+padding:10px;
+}
+.edit:hover{
+color:#87CEFF;
+}
+.editNameDiv{
+position:relative;
+top:30px;
+}
+.editName{
+margin:0px;
+float:left;
+}
+#Visitor{
+position:relative;
+left:5%;
+width: 80%;
+height: 25px;
+font-family:幼圆;
+font-size: 15px;
+border:1px solid #a1a1a1;
+border-radius: 3px 3px 3px 3px;
+float:left;
+}
+.editSexDiv{
+position:relative;
+top:60px;
+}
+.editSex{
+margin:0px;
+float:left;
+}
+#Sex{
+position:relative;
+left:5%;
+width: 80%;
+height: 25px;
+font-family:幼圆;
+font-size: 15px;
+border:1px solid #a1a1a1;
+border-radius: 3px 3px 3px 3px;
+float:left;
+}
+.save{
+position: absolute;
+margin: auto;
+top: 0; left: 0; right: 0; bottom: 0;
+overflow: auto;
+top:80%;
+}
+.savebuttum{
+font-family:幼圆;
+font-size:10px;
+width:50%;
+padding:8px;
+border:1px solid #a1a1a1;
+border-radius: 3px 3px 3px 3px;
+background:#7CCD7C;
+color:black;
+font-weight:bold;
+}
+.savebuttum:hover{
+background:#2ac334;
+}
+.nameTip{
+background-color:#EAEAEA;
+padding:10px;
+margin:3px;
+float:left;
+}
+.nameContent{
+float:left;
+padding:10px;
+margin:5px;
+}
+.lineFeed{
+float:left;
+width:100%;
+}
+.sexTip{
+background-color:#EAEAEA;
+padding:10px;
+margin:3px;
+float:left;
+}
+.sexContent{
+float:left;
+padding:10px;
+margin:5px;
+}
+.jsonTravelsContent{
+color:#5E5E5E;
+font-size:20px;
+}
+#oldPassword{
+margin:20px;
+padding:5px;
+position:relative;
+
+width: 70%;
+height: 25px;
+font-family:幼圆;
+font-size: 10px;
+border:1px solid #a1a1a1;
+border-radius: 3px 3px 3px 3px;
+}
+#newPassword{
+margin:20px;
+padding:5px;
+position:relative;
+
+width: 70%;
+height: 25px;
+font-family:幼圆;
+font-size: 10px;
+border:1px solid #a1a1a1;
+border-radius: 3px 3px 3px 3px;
+}
+#makeSurePassword{
+margin:20px;
+padding:5px;
+position:relative;
+width: 70%;
+height: 25px;
+font-family:幼圆;
+font-size: 10px;
+border:1px solid #a1a1a1;
+border-radius: 3px 3px 3px 3px;
+}
+h6{
+position: absolute;
+margin: auto;
+top: 0; left: 0; right: 0; bottom: 0;
+overflow: auto;
+top:72%;
+color:#EE0000;
+}
+</style>
+
+<script type="text/javascript">
+
+var cookie;
+function getCookie(cname){
+	var name = cname + "=";
+	var ca = document.cookie.split(';');
+	for(var i=0; i<ca.length; i++) {
+		var c = ca[i].trim();
+		if (c.indexOf(name)==0) return c.substring(name.length,c.length);
+	}
+	return "";
+}
+
+function getUser(Cookie){
+alert(Cookie);
+	//var InTip=document.getElementById("inTip");
+	var UserName=document.getElementById("userName"); 
+	//var UserNameDiv=document.getElementById("userNameDiv"); 
+	UserName.innerHTML="游客："+Cookie;
+	}
+
+function checkCookie(){
+	cookie=getCookie("Visitor");
+	if (cookie){
+		//alert("test");
+		getUser(cookie);
+	}
+	else {
+			alert("null");
+  			window.open('Home.html','_self','width=200,height=100,,_left=0,_top=100');
+    	}
+	}
+function delCookie(name){
+var exp = new Date();
+exp.setTime(exp.getTime() - 10000);
+document.cookie=name+"=v; expires="+exp.toGMTString();
+}
+</script>
+
+<script type="text/javascript">
+var flag=0,flag2=0;//当flag/flag2为1时才能修改密码
+function travelsContent(){
+var tC=document.getElementById("travelsManagement");
+var aB=document.getElementById("accountBinding");
+var pI=document.getElementById("personalInformation");
+var eH=document.getElementById("editHTML");
+var cP=document.getElementById("changePasswordHTML");
+  cP.style.display="none";
+  eH.style.display="none";
+  aB.style.display="none";
+  pI.style.display="none";
+  tC.style.display="block";
+
+//动态加载游记列表
+var visitor=cookie;
+	$.ajax({
+					type : 'post',
+					url : encodeURI(encodeURI("checkTravelsUrl?Visitor="+visitor)),
+					contentType : 'application/json;charset=utf-8',
+					dataType : 'json',
+					success : function(data) {
+					var item=data.list;
+					var length=item.length;
+					//alert(length);
+					//清空 避免重复加载
+					$("#travelsContent").html("");
+					for(var i=0;i<length;i++){
+					$("#travelsContent").append("<br></br>"
+					+"<li class=\"jsonTravelsContent\">"+"景点： " +item[i].spot+ "</li>"
+					+"<li class=\"jsonTravelsContent\">"+"游记： "+item[i].text+"</li>"
+					+"<li class=\"jsonTravelsContent\">"+"时间： "+item[i].time+"</li>"
+					+"<HR style=\"FILTER: progid:DXImageTransform.Microsoft.Shadow(color:#987cb9,direction:145,strength:15)\""
+					+"width=\"500px\" color=#987cb9 SIZE=1>"
+					);
+					}
+              },
+              //请求出错的处理
+              error:function(){
+                        alert("请求出错");
+              }
+           });
+}
+function accountBinding(){
+var tC=document.getElementById("travelsManagement");
+var aB=document.getElementById("accountBinding");
+var pI=document.getElementById("personalInformation");
+var eH=document.getElementById("editHTML");
+var cP=document.getElementById("changePasswordHTML");
+document.getElementById("changPasswordTip").innerHTML=null;
+  cP.style.display="none";
+  eH.style.display="none";
+  pI.style.display="none";
+  tC.style.display="none";
+  aB.style.display="block";  
+}
+var Name;
+var Sex;
+function personalInformation(){
+var tC=document.getElementById("travelsManagement");
+var aB=document.getElementById("accountBinding");
+var pI=document.getElementById("personalInformation");
+var eH=document.getElementById("editHTML");
+var cP=document.getElementById("changePasswordHTML");
+  cP.style.display="none";
+  eH.style.display="none";
+  aB.style.display="none";
+  tC.style.display="none";
+  pI.style.display="block";
+var visitor=cookie;
+//动态加载个人信息
+$.ajax({
+		type : 'post',
+		url : encodeURI(encodeURI("checkInformationUrl?Visitor="+visitor)),
+		contentType : 'application/json;charset=utf-8',
+		dataType : 'json',
+		success : function(data) {
+		var item=data.list;
+		var name=document.getElementById("name");
+		var sex=document.getElementById("sex");
+		name.innerHTML=item[0].visitor;
+		Name=item[0].visitor;
+		if(item[0].gender=="1"){
+			sex.innerHTML="男";
+			Sex="男";
+		}
+		else {
+			sex.innerHTML="女";
+			Sex="女";
+		}
+           },
+           //请求出错的处理
+           error:function(){
+                     alert("请求出错");
+           }
+        });
+}
+function signOut(){
+var mymessage=confirm("是否确定退出？");
+    if(mymessage==true)
+    {	//传入的是cookie的名称不是cookie的值 应加引号“ ”
+    	delCookie("Visitor");
+    	window.open('Home.html','_self','width=200,height=100,,_left=0,_top=100');
+    }
+    else{}
+}
+function edit(){
+var tC=document.getElementById("travelsManagement");
+var aB=document.getElementById("accountBinding");
+var pI=document.getElementById("personalInformation");
+var eH=document.getElementById("editHTML");
+var cP=document.getElementById("changePasswordHTML");
+  cP.style.display="none";
+  aB.style.display="none";
+  tC.style.display="none";
+  pI.style.display="none";
+  eH.style.display="block";
+ 
+var Sex2=document.getElementById("Sex");
+var Visitor=document.getElementById("Visitor");
+Sex2.value=Sex;
+Visitor.value=Name;
+}
+
+function editSave(){
+//var xmlhttp;
+var visitor=document.getElementById("Visitor").value;
+var sex=document.getElementById("Sex").value;
+alert("test2"+sex+visitor);
+/*xmlhttp=null;
+if (window.XMLHttpRequest)
+{
+	xmlhttp=new XMLHttpRequest();
+}
+else if (window.ActiveXObject)
+{
+	xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+}
+	if (xmlhttp!=null)
+	{
+		 var json="Visitor=" + visitor + "&Gender=" + sex;
+		 xmlhttp.onreadystatechange=state_Change;
+		 xmlhttp.open("POST","changePersonalMessage.html",true);
+		 xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+		 xmlhttp.send(json);
+	}
+	else
+	{
+		alert("Your browser does not support XMLHTTP.");
+	}
+
+
+function state_Change()
+	{
+	if (xmlhttp.readyState==4)
+	  {
+	  if (xmlhttp.status==200)
+	    {
+	    	var result;
+
+	 		result=xmlhttp.responseText;
+	 		
+	 		if(result==1)
+	 			alert("success");
+	 		else if(result==0)
+	 			 alert("error");
+	 	}
+	    
+	  	else
+	    {
+	    	alert("Problem retrieving XML data:" + xmlhttp.statusText);
+	    }
+	  }
+	}*/
+}
+
+function changePassword(){
+var tC=document.getElementById("travelsManagement");
+var aB=document.getElementById("accountBinding");
+var pI=document.getElementById("personalInformation");
+var eH=document.getElementById("editHTML");
+var cP=document.getElementById("changePasswordHTML");
+//清空
+document.getElementById("oldPassword").value=null;
+document.getElementById("newPassword").value=null;
+document.getElementById("makeSurePassword").value=null;
+document.getElementById("changPasswordTip").innerHTML=null;
+	document.getElementById("oldPassword").placeholder="旧密码";
+	document.getElementById("newPassword").placeholder="新密码";
+	document.getElementById("makeSurePassword").placeholder="确认新密码";
+document.getElementById("oldPassword").style.borderColor="#a1a1a1";
+  aB.style.display="none";
+  tC.style.display="none";
+  pI.style.display="none";
+  eH.style.display="none";
+  cP.style.display="block";
+}
+
+
+var xmlhttp2;
+function checkPassword(){
+		var password=document.getElementById("oldPassword").value;
+		xmlhttp2=null;
+	if (window.XMLHttpRequest)
+	  {
+	  	xmlhttp2=new XMLHttpRequest();
+	  }
+	else if (window.ActiveXObject)
+	  {
+	  	xmlhttp2=new ActiveXObject("Microsoft.XMLHTTP");
+	  }
+	if (xmlhttp2!=null)
+	  {
+	  	var json="visitor="+cookie+"&password="+password;
+	  	xmlhttp2.onreadystatechange=state_Change;
+	  	xmlhttp2.open("POST","login.html",true);
+	  	xmlhttp2.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+	  	xmlhttp2.send(json);
+	  }
+	else
+	  {
+	  	alert("Your browser does not support XMLHTTP.");
+	  }
+	};
+	
+function state_Change()
+	{
+	if (xmlhttp2.readyState==4)
+	  {
+	  if (xmlhttp2.status==200)
+	    {
+	    	var result;
+	    	var loginsuccess=0;
+	    	var worry_password=2;
+	 		result=xmlhttp2.responseText;
+	 		
+	 		if(worry_password==result)
+	 		{
+	 			//alert("密码输入错误!");
+	 			document.getElementById("changPasswordTip").innerHTML="密码错误！";
+	 			document.getElementById("oldPassword").style.borderColor="#EE0000";
+	 		}
+	 			else if(result==loginsuccess)
+	 			{	
+	 				//alert("密码正确");
+	 				document.getElementById("oldPassword").style.borderColor="#76EE00";
+	 				document.getElementById("changPasswordTip").innerHTML=null;
+	 				flag=1;
+	 			}
+	 	}
+	    
+	  	else
+	    {
+	    	alert("Problem retrieving XML data:" + xmlhttp2.statusText);
+	    }
+	  }
+}
+
+function changePasswordSave(){
+alert("test");
+var op=document.getElementById("oldPassword").value;
+var np=document.getElementById("newPassword").value;
+var msp=document.getElementById("makeSurePassword").value;
+if(op&&np&&msp){
+	if(flag&&op!=np)
+	if(np!=msp){
+		document.getElementById("changPasswordTip").innerHTML="两次输入新密码不一致！";
+		document.getElementById("oldPassword").style.borderColor="#76EE00";
+		document.getElementById("newPassword").style.borderColor="#EE0000";
+		document.getElementById("makeSurePassword").style.borderColor="#EE0000";
+	}
+	else{
+	document.getElementById("changPasswordTip").innerHTML=null;
+	flag2=1;
+		if(flag&&flag2){
+		document.getElementById("newPassword").style.borderColor="#76EE00";
+		document.getElementById("oldPassword").style.borderColor="#76EE00";
+		document.getElementById("makeSurePassword").style.borderColor="#76EE00";
+		$.ajax({
+			type : 'post',
+			url : encodeURI(encodeURI("changePasswordUrl?Visitor=" + cookie+ "&Password=" + msp )),
+			contentType : 'application/json;charset=utf-8',
+			dataType : 'json',
+			success : function(data) {
+				alert("success");
+				if(data==1){
+				document.getElementById("changPasswordTip").innerHTML="修改密码成功!";
+				document.getElementById("newPassword").style.borderColor="#a1a1a1";
+				document.getElementById("oldPassword").style.borderColor="#a1a1a1";
+				document.getElementById("makeSurePassword").style.borderColor="#a1a1a1";
+				document.getElementById("oldPassword").value=null;
+				document.getElementById("newPassword").value=null;
+				document.getElementById("makeSurePassword").value=null;
+				}
+				else if(data==0)
+				{
+					alert("fail");
+					document.getElementById("changPasswordTip").innerHTML="修改密码失败!";
+				}
+			},
+			error : function() {
+				alert("error");
+			}
+		});
+		}
+	}
+	else{
+		document.getElementById("changPasswordTip").innerHTML="不能与原密码相同!";
+		document.getElementById("newPassword").style.borderColor="#EE0000";
+		document.getElementById("oldPassword").style.borderColor="#76EE00";
+		document.getElementById("makeSurePassword").style.borderColor="#a1a1a1";
+		}
+}
+else {
+	document.getElementById("oldPassword").placeholder="不能为空!";
+	document.getElementById("newPassword").placeholder="不能为空!";
+	document.getElementById("makeSurePassword").placeholder="不能为空!";
+	document.getElementById("newPassword").style.borderColor="#EE0000";
+	document.getElementById("oldPassword").style.borderColor="#EE0000";
+	document.getElementById("makeSurePassword").style.borderColor="#EE0000";
+	}
+}
+</script>
+
+
+  </head>
+  
+  <body onload="checkCookie()">
+    <div id="top" align="center">
+      <div class="head">
+        <div class="headContent" >
+          <p class="headtip">智慧导览</p>
+          <p id="userName">name</p>
+        </div>
+      </div>
+    </div>
+	
+	<div id="middle">
+		<div id="middle-left">
+			<div>
+				<h2 class="middle-tip1">游记管理</h2>
+				<ul class="menu-record">
+					<li>
+						<a class="m-a a1" href="#" onclick="travelsContent()">游记内容</a>
+					</li>
+				</ul>
+			</div>
+			<div class="setting-left-list">
+				<h2 class="middle-tip2">账号管理</h2>
+				<ul class="menu-account">
+					<li>
+						<a class="m-a a2" href="#" onclick="accountBinding()">账号绑定</a>
+					</li>
+					<li>
+						<a class="m-a a3" href="#" onclick="personalInformation()">个人信息</a>
+					</li>
+					<li>
+						<a class="m-a a4" href="#" onclick="signOut()">退出登录</a>
+					</li>
+				</ul>
+				<p class="p-null"></p>
+			</div>
+		</div>
+		
+		<div id="middle-right">
+			<div>
+				<div id="travelsManagement" style="display:none" >
+					<h3 class="travelsContentTip">游记内容</h3>
+					<ul id="travelsContent"></ul>
+				</div>
+			</div>	
+			<div>
+				<div id="accountBinding" style="display:none" >
+					<h3 class="accountBindingTip">账号管理</h3>
+					<div class="email">
+						<p>邮箱</p>
+					</div>
+					<div class="line1">
+						<HR style="FILTER: progid:DXImageTransform.Microsoft.Shadow(color:#987cb9,direction:145,strength:15)"
+					 	width="500px" color=#987cb9 SIZE=2>
+					</div>
+					<div class="telephone">
+						<p>手机</p>
+					</div>
+					<div class="line2">
+						<HR style="FILTER: progid:DXImageTransform.Microsoft.Shadow(color:#987cb9,direction:145,strength:15)"
+					 	width="500px" color=#987cb9 SIZE=2>
+					</div>
+					<div class="password">
+						<p>密码</p>
+						<input type="submit" name="changePassword" value="修改" 
+							   class="changePasswordbuttum" onclick="changePassword()">
+					</div>
+				</div>
+				<div id="personalInformation" style="display:none" >
+					<h3 class="personalInformationTip">个人信息
+					<a class="edit" href="#" onclick="edit()">编辑</a></h3>
+					<div class="namediv">
+						<div class="nameTip">
+							<h3 align="center">姓名</h3>
+						</div>		
+						<div class="nameContent">
+							<h3 id="name">name</h3>
+							<HR style="FILTER: progid:DXImageTransform.Microsoft.Shadow(color:#987cb9,direction:145,strength:15)"
+					 		width="400px" color=#987cb9 SIZE=1>
+						</div>			
+					</div>
+					<div class="lineFeed">  </div>
+					<div class="sexdiv">
+						<div class="sexTip">
+							<h3 align="center">性别</h3>
+						</div>
+						<div class="sexContent">
+							<h3 id="sex">男</h3>
+							<HR style="FILTER: progid:DXImageTransform.Microsoft.Shadow(color:#987cb9,direction:145,strength:15)"
+					 		width="400px" color=#987cb9 SIZE=1>
+						</div>
+					</div>
+				</div>
+				<!-- 编辑页面 -->
+				<div id="editHTML" style="display:none" align="center">
+					<h2>修改个人信息</h2>
+					<div class="editNameDiv">
+						<h3 class="editName">姓名</h3>
+						<input type="text" name="姓名" id="Visitor" />
+					</div>
+					<div class="lineFeed">  </div>
+					<div class="editSexDiv">
+						<h3 class="editSex">性别</h3>
+						<input type="text" name="性别" id="Sex"/>
+					</div>
+					<div class="lineFeed">  </div>
+					<div class="save">
+						<input type="submit" name="savebuttum" value="保 存" 
+							   class="savebuttum" align="center" onclick="editSave()"/>
+					</div>
+				</div>
+				<!--  修改密码 -->
+				<div id="changePasswordHTML" style="display:none" align="center">
+					<h2 algin="center">修改密码</h2>
+					<div class="oldPasswordDiv">
+						<input type="password" name="旧密码" id="oldPassword" placeholder="旧密码" onblur="checkPassword()"/>
+					</div>
+					<div class="lineFeed">  </div>
+					<div class="newPasswordDiv">
+						<input type="password" name="新密码" id="newPassword" placeholder="新密码"/>
+					</div>
+					<div class="lineFeed">  </div>
+					<div class="makeSurePasswordDiv">
+						<h6 id="changPasswordTip"></h6>
+						<input type="password" name="确认新密码" id="makeSurePassword" placeholder="确认新密码" />
+					</div>
+					<div class="save">
+						<input type="submit" name="savebuttum" value="保 存" 
+							   class="savebuttum" align="center"  onclick="changePasswordSave()"/>
+					</div>
+				</div>
+			</div>		
+		</div>
+	</div>
+  </body>
+</html>

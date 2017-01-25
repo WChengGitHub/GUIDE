@@ -9,10 +9,47 @@
 
 
 <style type="text/css">
-
 a{ text-decoration: none; color:black;}
-
 </style>
+
+<script type="text/javascript">
+var cookie;
+function getCookie(cname){
+	var name = cname + "=";
+	var ca = document.cookie.split(';');
+	for(var i=0; i<ca.length; i++) {
+		var c = ca[i].trim();
+		if (c.indexOf(name)==0) return c.substring(name.length,c.length);
+	}
+	return "";
+}
+
+
+function getUser(Cookie){
+alert(Cookie);
+	var InTip=document.getElementById("inTip");
+	var UserName=document.getElementById("userName"); 
+	var UserNameDiv=document.getElementById("userNameDiv"); 
+	UserName.innerHTML="欢迎您："+Cookie;
+	InTip.style.display="none";
+	UserNameDiv.style.display="block";
+	}
+
+function checkCookie(){
+	cookie=getCookie("Visitor");
+	if (cookie){
+		alert("test");
+		getUser(cookie);
+	}
+	else {
+			alert("null");
+  			//window.open('adminLogin.html','_self','width=200,height=100,,_left=0,_top=100');
+    	}
+	}
+
+
+
+</script>
 
 </head>
 	
@@ -21,14 +58,13 @@ a{ text-decoration: none; color:black;}
 	<div class="back_ground">
 
 		<div id="top" align="center">
-			<div id="top" align="center">
-			<div class="bg_">
-				<div>
-            		<a href="in.html"><pre>    登录</pre></a>
-            	</div>
+			<div class="bg_" id="inTip">
+            	<a href="in.html"><pre>    登录</pre></a>
         	</div>
-		</div>
-		</div>
+        	<div class="bg_" id="userNameDiv" style="display:none;">
+        		<a href="personalMessage.html"><pre id="userName" ></pre></a>
+        	</div>
+ 		</div>
 
 
 		<div id="logo">

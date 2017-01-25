@@ -103,7 +103,7 @@ public class CompleteVisitorInformationServiceImp implements
 		param.add(i);
 		param.add(Vid);
 		try {
-			visitorDao.update(sql, param);
+			visitorDao.update1(sql, param);
 			return true;
 		} catch (Exception e) {
 			// TODO: handle exception

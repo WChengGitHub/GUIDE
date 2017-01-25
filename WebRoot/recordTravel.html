@@ -147,7 +147,8 @@ function checkCookie(){
 		  	alert("Your browser does not support XMLHTTP.");
 		  }
 		
-		alert(1);
+function state_Change()
+	{
 		if (xmlhttp2.readyState==4)
 		  {
 		  if (xmlhttp2.status==200)
@@ -175,6 +176,7 @@ function checkCookie(){
 		    	alert("Problem retrieving XML data:" + xmlhttp2.statusText);
 		    }
 		  }
+	}
 	/*---------*/
        
        
@@ -240,7 +242,7 @@ function submit() {
 contents();
 alert("test2");
 	
-		xmlhttp=null;
+	xmlhttp=null;
 	if (window.XMLHttpRequest)
 	  {
 	  	xmlhttp=new XMLHttpRequest();
@@ -304,7 +306,7 @@ alert("here");
 <div class="Contest">
 	<h1 class="text-center btn-info size"> 记录游记 </h1>
 	<p></p>
-	<input class="form-control btn-info" id="disabledInput" type="text" placeholder="" disabled>
+	<input class="form-control btn-info" id="disabledInput" type="text" placeholder="" disabled/>
 	<p></p>
 	<textarea id="record"  class="form-control" rows="12"></textarea>
 	<p></p>

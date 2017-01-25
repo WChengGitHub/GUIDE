@@ -76,6 +76,8 @@
 	
 	
 	<!-- dao -->
+	<bean id="tb_travelsdao" class="com.data.dao.singleForm.tb_travelsDao"
+		p:jdbcTemplate-ref="jdbcTemplate" />
 	<bean id="tb_travelsdaoimp" class="com.data.dao.singleForm.tb_travelsDaoImp"
 		p:jdbcTemplate-ref="jdbcTemplate" />
 	<bean id="tb_visitordaoimp" class="com.data.dao.singleForm.tb_visitorDaoImp"
@@ -130,6 +132,12 @@
 		class="com.data.service.visitorService.recordTravelService.recordTravelServiceImp" />
 	<bean id="attractionsPositioningServiceImp"
 		class="com.data.service.visitorService.attractionsPositioningService.attractionsPositioningServiceImp" />
+	<bean id="checkTravelsServiceImp"
+		class="com.data.service.visitorService.checkTravelsService.checkTravelsServiceImp" />
+	<bean id="checkInformationServiceImp"
+		class="com.data.service.visitorService.checkInformationService.checkInformationServiceImp" />
+	<bean id="changePasswordServiceImp"
+		class="com.data.service.visitorService.changePasswordService.changePasswordServiceImp" />
 	
 	
 	<!-- adminService -->

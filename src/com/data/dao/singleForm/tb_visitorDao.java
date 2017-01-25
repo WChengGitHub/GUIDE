@@ -100,8 +100,22 @@ public class tb_visitorDao {
 		});
 
 	}
+	
+	
+	public void update(Object object,String Sql) { 
+		tb_visitorModel tb_visitormodel=(tb_visitorModel)object;
+		JdbcTemplate jt=this.getJdbcTemple();
+		try{
+			jt.update(Sql,tb_visitormodel.getPassword(),tb_visitormodel.getVid());
+		} catch (Exception e){
+			//输出出现的异常 e就是出现的异常
+		    System.out.println(e);
+			System.out.println("error update visitor");
+		}
+	}
+	
 
-	public void update(String sql, final List<Object> param) {
+	public void update1(String sql, final List<Object> param) {
 
 		jdbcTemplate.update(sql, new PreparedStatementSetter() {
 			public void setValues(PreparedStatement ps) throws SQLException {
