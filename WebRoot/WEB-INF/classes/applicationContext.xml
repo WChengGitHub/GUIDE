@@ -68,7 +68,7 @@
 	<!-- JdbcTemplate -->
 	<bean id="dataSource"
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource"
-		p:driverClassName="com.mysql.jdbc.Driver" p:url="jdbc:mysql://127.0.0.1:3306/guide"
+		p:driverClassName="com.mysql.jdbc.Driver" p:url="jdbc:mysql://127.0.0.1:3306/guide2"
 		p:username="root" p:password="1234" />
 
 	<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate"
@@ -138,6 +138,10 @@
 		class="com.data.service.visitorService.checkInformationService.checkInformationServiceImp" />
 	<bean id="changePasswordServiceImp"
 		class="com.data.service.visitorService.changePasswordService.changePasswordServiceImp" />
+	<bean id="sendmessageservice"
+		class="com.data.service.SendMsg_webchinese" />
+	<bean id="telephonebindingserviceimp"
+		class="com.data.service.visitorService.telephoneBindingService.telephoneBindingServiceImp" />
 	
 	
 	<!-- adminService -->
