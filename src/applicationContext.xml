@@ -138,7 +138,9 @@
 		class="com.data.service.visitorService.checkInformationService.checkInformationServiceImp" />
 	<bean id="changePasswordServiceImp"
 		class="com.data.service.visitorService.changePasswordService.changePasswordServiceImp" />
-	
+	<bean id="visitorBindingEmailService" class="com.data.service.visitorService.visitorBindingEmail.VisitorBindingEmailServiceImp">
+		<property name="visitorDao" ref="visitorDao"></property>
+	</bean>
 	
 	<!-- adminService -->
 	<bean id="adminloginservice"

@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>景点管理员管理</title>
+    <!-- ace styles -->
+	    <!--<link rel="stylesheet" href="assets/css/ace.css" class="ace-main-stylesheet" id="main-ace-style" />-->
+	      
+	
+	    <!-- Custom CSS -->
+	    
+	
+	
+		<script type="text/javascript" src="js/jquery-3.0.0.min.js"></script>
+	
+	
+		<!-- 导航栏右侧样式 -->
+		<link rel="stylesheet" href="css/font-awesome.min.css">
+	
+		<script src="css/jquery.js"></script>
+		
+		<!-- Pagination -->
+		
+	<script>
+	var Visitor="";
+	function setCookie() {
+		now = new Date();
+		now.setTime(now.getTime() + 5 * 60 * 1000);
+		document.cookie = "Visitor=1;expires=" + now.toGMTString();
+
+	}
+
+	function getCookie() {
+		var strCookie = document.cookie;
+		var arrCookie = strCookie.split(";");
+		for (var i = 0; i < arrCookie.length; i++) {
+			var arr = arrCookie[i].split("=");
+			arr[0] = $.trim(arr[0]);
+			if ("Visitor" == arr[0]) {
+				Visitor = arr[1];
+				break;
+			}
+		}
+		if (Visitor == "") {
+			//alert("Visitor:" + Visitor);
+			window.open("in.html", "_self");
+		} else {
+			
+			//alert(visitor);
+		}
+	}
+	//发送邮件和用户名
+	function sendBingingEamilInformation() {
+		var Email=$("#Email").val();
+		//alert("Visitor:"+Visitor+"Email:"+Email);
+		$
+				.ajax({
+					type : 'post',
+					url : encodeURI(encodeURI("VisitorBindingEmailController/sendBingingEamilInformation?Visitor="
+							+ Visitor+"&Email="+Email)),
+					contentType : 'application/json;charset=utf-8',
+					dataType : 'json',
+					success : function(data) {
+
+						alert("邮件已经成功发送，请查看邮箱");
+						//alert(data.length);
+						getSpotAdmins();
+						
+					},
+					error : function() {
+						alert("邮件发送失败，请检查邮箱是否正确");
+					}
+				});
+	}
+	</script>
+	    
+	</head> 
+	<body>
+		  邮箱:<input id="Email">
+		 <button onclick="sendBingingEamilInformation()">绑定</button>
+	</body>
+	<script>
+  setCookie();
+  getCookie();
+</script>
+</html>
