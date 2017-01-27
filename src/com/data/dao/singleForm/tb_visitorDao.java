@@ -101,7 +101,7 @@ public class tb_visitorDao {
 
 	}
 	
-	
+	//修改密码
 	public void update(Object object,String Sql) { 
 		tb_visitorModel tb_visitormodel=(tb_visitorModel)object;
 		JdbcTemplate jt=this.getJdbcTemple();
@@ -114,6 +114,18 @@ public class tb_visitorDao {
 		}
 	}
 	
+	//手机绑定
+	public void update2(Object object,String Sql) { 
+		tb_visitorModel tb_visitormodel=(tb_visitorModel)object;
+		JdbcTemplate jt=this.getJdbcTemple();
+		try{
+			jt.update(Sql,tb_visitormodel.getTelephone(),tb_visitormodel.getVid());
+		} catch (Exception e){
+			//输出出现的异常 e就是出现的异常
+		    System.out.println(e);
+			System.out.println("error update visitor");
+		}
+	}
 
 	public void update1(String sql, final List<Object> param) {
 

@@ -106,6 +106,14 @@ left:38%;
 #middle-right p{
 font-size:25px;
 }
+.line1{
+background:#987cb9;
+height:2px;
+}
+.line2{
+background:#987cb9;
+height:2px;
+}
 .travelsContentTip{
 font-size:30px;
 position:relative;
@@ -118,7 +126,19 @@ position:relative;
 left:-10%;
 top:-10px;
 }
-.changePasswordbuttum{
+#emailNumber{
+position:absolute;
+top:18.5%;
+left:24%;
+color:red;
+}
+#teleNumber{
+position:absolute;
+top:39%;
+left:20%;
+color:red;
+}
+.changebuttum{
 padding:10px;
 font-family:幼圆;
 background:white;
@@ -129,7 +149,7 @@ position:relative;
 float:right;
 top:-85px;
 }
-.changePasswordbuttum:hover{
+.changebuttum:hover{
 color:white;
 background:#87CEFF;
 }
@@ -196,14 +216,14 @@ overflow: auto;
 top:80%;
 }
 .savebuttum{
-font-family:幼圆;
+font-family:宋体;
 font-size:10px;
 width:50%;
 padding:8px;
 border:1px solid #a1a1a1;
 border-radius: 3px 3px 3px 3px;
 background:#7CCD7C;
-color:black;
+color:white;
 font-weight:bold;
 }
 .savebuttum:hover{
@@ -282,6 +302,55 @@ overflow: auto;
 top:72%;
 color:#EE0000;
 }
+.telephoneDiv{
+position:relative;
+top:30px;
+}
+.telephoneNumber{
+margin:0px;
+float:left;
+}
+#Telephone{
+position:relative;
+left:5%;
+width: 80%;
+height: 25px;
+font-family:幼圆;
+font-size: 15px;
+border:1px solid #a1a1a1;
+border-radius: 3px 3px 3px 3px;
+float:right;
+}
+.verificationCodeDiv{
+position:relative;
+top:60px;
+}
+.verificationCode{
+margin:0px;
+float:left;
+}
+.getVerificationCode{
+position:relative;
+left:5%;
+width: 20%;
+height: 25px;
+font-family:幼圆;
+font-size: 15px;
+border:1px solid #a1a1a1;
+border-radius: 3px 3px 3px 3px;
+float:right;
+}
+#VerificationCode{
+position:relative;
+left:13%;
+width: 50%;
+height: 25px;
+font-family:幼圆;
+font-size: 15px;
+border:1px solid #a1a1a1;
+border-radius: 3px 3px 3px 3px;
+float:left;
+}
 </style>
 
 <script type="text/javascript">
@@ -331,10 +400,12 @@ var aB=document.getElementById("accountBinding");
 var pI=document.getElementById("personalInformation");
 var eH=document.getElementById("editHTML");
 var cP=document.getElementById("changePasswordHTML");
+var tB=document.getElementById("telephoneBindingHTML");
   cP.style.display="none";
   eH.style.display="none";
   aB.style.display="none";
   pI.style.display="none";
+  tB.style.display="none";
   tC.style.display="block";
 
 //动态加载游记列表
@@ -372,12 +443,35 @@ var aB=document.getElementById("accountBinding");
 var pI=document.getElementById("personalInformation");
 var eH=document.getElementById("editHTML");
 var cP=document.getElementById("changePasswordHTML");
+var tB=document.getElementById("telephoneBindingHTML");
 document.getElementById("changPasswordTip").innerHTML=null;
   cP.style.display="none";
   eH.style.display="none";
   pI.style.display="none";
   tC.style.display="none";
+  tB.style.display="none";
   aB.style.display="block";  
+  
+//动态获取绑定情况（查询是否有邮箱、手机）
+$.ajax({
+		type : 'post',
+		url : encodeURI(encodeURI("checkInformationUrl?Visitor="+cookie)),
+		contentType : 'application/json;charset=utf-8',
+		dataType : 'json',
+		success : function(data) {
+		var item=data.list;
+		var ename=document.getElementById("emailNumber");
+		var tname=document.getElementById("teleNumber");
+		if(item[0].telephone)
+			tname.innerHTML=item[0].telephone;
+		ename.innerHTML=item[0].email;
+		tname.innerHTML=item[0].telephone;
+           },
+           //请求出错的处理
+           error:function(){
+                     alert("请求出错");
+           }
+        });
 }
 var Name;
 var Sex;
@@ -387,10 +481,12 @@ var aB=document.getElementById("accountBinding");
 var pI=document.getElementById("personalInformation");
 var eH=document.getElementById("editHTML");
 var cP=document.getElementById("changePasswordHTML");
+var tB=document.getElementById("telephoneBindingHTML");
   cP.style.display="none";
   eH.style.display="none";
   aB.style.display="none";
   tC.style.display="none";
+  tB.style.display="none";
   pI.style.display="block";
 var visitor=cookie;
 //动态加载个人信息
@@ -435,10 +531,12 @@ var aB=document.getElementById("accountBinding");
 var pI=document.getElementById("personalInformation");
 var eH=document.getElementById("editHTML");
 var cP=document.getElementById("changePasswordHTML");
+var tB=document.getElementById("telephoneBindingHTML");
   cP.style.display="none";
   aB.style.display="none";
   tC.style.display="none";
   pI.style.display="none";
+  tB.style.display="none";
   eH.style.display="block";
  
 var Sex2=document.getElementById("Sex");
@@ -505,6 +603,7 @@ var aB=document.getElementById("accountBinding");
 var pI=document.getElementById("personalInformation");
 var eH=document.getElementById("editHTML");
 var cP=document.getElementById("changePasswordHTML");
+var tB=document.getElementById("telephoneBindingHTML");
 //清空
 document.getElementById("oldPassword").value=null;
 document.getElementById("newPassword").value=null;
@@ -513,11 +612,12 @@ document.getElementById("changPasswordTip").innerHTML=null;
 	document.getElementById("oldPassword").placeholder="旧密码";
 	document.getElementById("newPassword").placeholder="新密码";
 	document.getElementById("makeSurePassword").placeholder="确认新密码";
-document.getElementById("oldPassword").style.borderColor="#a1a1a1";
+	document.getElementById("oldPassword").style.borderColor="#a1a1a1";
   aB.style.display="none";
   tC.style.display="none";
   pI.style.display="none";
   eH.style.display="none";
+  tB.style.display="none";
   cP.style.display="block";
 }
 
@@ -645,6 +745,78 @@ else {
 	document.getElementById("makeSurePassword").style.borderColor="#EE0000";
 	}
 }
+
+function changeTelephone(){
+
+var tC=document.getElementById("travelsManagement");
+var aB=document.getElementById("accountBinding");
+var pI=document.getElementById("personalInformation");
+var eH=document.getElementById("editHTML");
+var cP=document.getElementById("changePasswordHTML");
+var tB=document.getElementById("telephoneBindingHTML");
+  aB.style.display="none";
+  tC.style.display="none";
+  pI.style.display="none";
+  eH.style.display="none";
+  cP.style.display="none";
+  tB.style.display="block";
+}
+var VC;//后台传来的验证码
+function getVerificationCode(){
+var tele=document.getElementById("Telephone").value;
+alert(tele);
+if(tele=="")
+	document.getElementById("Telephone").style.borderColor="#EE0000";
+else{
+$.ajax({
+		type : 'post',
+		url : encodeURI(encodeURI("sendVerificationCodeUrl?Telephone="+tele)),
+		contentType : 'application/json;charset=utf-8',
+		dataType : 'json',
+		success : function(data) {
+				alert("已发送");
+				alert(data);
+				VC=data;
+           },
+           //请求出错的处理
+           error:function(){
+                alert("请求出错");
+           }
+        });
+	}
+}
+
+function telephoneBindingSave(){
+alert(0);
+var VerificationCode=document.getElementById("VerificationCode");
+var tele=document.getElementById("Telephone").value;
+if(VerificationCode=="")
+	document.getElementById("VerificationCode").style.borderColor="#EE0000";
+else
+	if(VC==VerificationCode){
+		$.ajax({
+			type : 'post',
+			url : encodeURI(encodeURI("telephoneBindingUrl?Telephone="+tele+"&Visitor="+cookie)),
+			contentType : 'application/json;charset=utf-8',
+			dataType : 'json',
+			success : function(data) {
+					alert(data);
+					if(data=="1"){
+						alert("绑定成功!");
+						accountBinding();}
+					else
+						alert("绑定失败！");
+	           },
+	           //请求出错的处理
+	           error:function(){
+	                alert("请求出错");
+	           }
+	        });
+	}
+	else
+		alert("验证码错误");
+		document.getElementById("VerificationCode").style.borderColor="#EE0000";
+}
 </script>
 
 
@@ -699,22 +871,22 @@ else {
 					<h3 class="accountBindingTip">账号管理</h3>
 					<div class="email">
 						<p>邮箱</p>
+						<h4 id="emailNumber">test</h4>
+						<input type="submit" name="changePassword" value="修改" 
+							   class="changebuttum" onclick="changeEmail()">
 					</div>
-					<div class="line1">
-						<HR style="FILTER: progid:DXImageTransform.Microsoft.Shadow(color:#987cb9,direction:145,strength:15)"
-					 	width="500px" color=#987cb9 SIZE=2>
-					</div>
+					<div class="line1"></div>
 					<div class="telephone">
 						<p>手机</p>
+						<h4 id="teleNumber">test2</h4>
+						<input type="submit" name="changePassword" value="修改" 
+							   class="changebuttum" onclick="changeTelephone()">
 					</div>
-					<div class="line2">
-						<HR style="FILTER: progid:DXImageTransform.Microsoft.Shadow(color:#987cb9,direction:145,strength:15)"
-					 	width="500px" color=#987cb9 SIZE=2>
-					</div>
+					<div class="line2"></div>
 					<div class="password">
 						<p>密码</p>
 						<input type="submit" name="changePassword" value="修改" 
-							   class="changePasswordbuttum" onclick="changePassword()">
+							   class="changebuttum" onclick="changePassword()">
 					</div>
 				</div>
 				<div id="personalInformation" style="display:none" >
@@ -760,7 +932,7 @@ else {
 							   class="savebuttum" align="center" onclick="editSave()"/>
 					</div>
 				</div>
-				<!--  修改密码 -->
+				<!--  修改密码页面 -->
 				<div id="changePasswordHTML" style="display:none" align="center">
 					<h2 algin="center">修改密码</h2>
 					<div class="oldPasswordDiv">
@@ -778,6 +950,26 @@ else {
 					<div class="save">
 						<input type="submit" name="savebuttum" value="保 存" 
 							   class="savebuttum" align="center"  onclick="changePasswordSave()"/>
+					</div>
+				</div>
+				<div id="telephoneBindingHTML" style="display:none" align="center">
+					<h2>绑定手机号码</h2>
+					<div>
+						<div class="telephoneDiv">
+							<h3 class="telephoneNumber">手机号码</h3>
+							<input type="text" name="手机号码" id="Telephone" placeholder="请输入手机号码"/>
+						</div>
+						<div class="lineFeed">  </div>
+						<div class="verificationCodeDiv">
+							<h3 class="verificationCode">验证码</h3>
+							<button class="getVerificationCode" onclick="getVerificationCode()">获取验证码</button>
+							<input type="text" name="验证码" id="VerificationCode" placeholder="请输入验证码"/>
+						</div>
+						<div class="lineFeed">  </div>
+						<div class="save">
+							<input type="submit" name="savebuttum" value="绑 定" 
+								   class="savebuttum" align="center" onclick="telephoneBindingSave()"/>
+						</div>
 					</div>
 				</div>
 			</div>		

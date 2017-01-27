@@ -141,6 +141,12 @@
 	<bean id="visitorBindingEmailService" class="com.data.service.visitorService.visitorBindingEmail.VisitorBindingEmailServiceImp">
 		<property name="visitorDao" ref="visitorDao"></property>
 	</bean>
+	<bean id="sendmessageservice"
+		class="com.data.service.SendMsg_webchinese" />
+	<bean id="telephonebindingserviceimp"
+		class="com.data.service.visitorService.telephoneBindingService.telephoneBindingServiceImp" />
+	
+
 	
 	<!-- adminService -->
 	<bean id="adminloginservice"
