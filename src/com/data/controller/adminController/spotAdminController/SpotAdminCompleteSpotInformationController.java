@@ -1,6 +1,9 @@
 package com.data.controller.adminController.spotAdminController;
 
 import java.io.IOException;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
+import java.util.UUID;
 
 import net.sf.json.JSONArray;
 
@@ -79,22 +82,28 @@ public class SpotAdminCompleteSpotInformationController {
 		return null;
 	}
 
-	public static void main(String[] args) {
-		ApplicationContext factory = new ClassPathXmlApplicationContext(
-				"applicationContext.xml");
-		SpotAdminCompleteSpotInformationService spotAdminCompleteSpotInformationService = (SpotAdminCompleteSpotInformationService) factory
-				.getBean("spotAdminCompleteSpotInformationService");
-		SpotAdminCompleteSpotInformationModel spotAdminCompleteSpotInformationModel = new SpotAdminCompleteSpotInformationModel();
-		spotAdminCompleteSpotInformationModel.setAccount("1");
-		spotAdminCompleteSpotInformationModel.setDescription("hello");
-		spotAdminCompleteSpotInformationModel.setVoice("World");
-		spotAdminCompleteSpotInformationModel.setRadius("100");
-		spotAdminCompleteSpotInformationService
-				.changeSpotInformation(spotAdminCompleteSpotInformationModel);
-		spotAdminCompleteSpotInformationModel = spotAdminCompleteSpotInformationService
-				.getSpotInformation(spotAdminCompleteSpotInformationModel);
-		JSONArray jsonArray = JSONArray
-				.fromObject(spotAdminCompleteSpotInformationModel);
-		System.out.println(jsonArray);
+	public static void main(String[] args) throws UnknownHostException {
+//		ApplicationContext factory = new ClassPathXmlApplicationContext(
+//				"applicationContext.xml");
+//		SpotAdminCompleteSpotInformationService spotAdminCompleteSpotInformationService = (SpotAdminCompleteSpotInformationService) factory
+//				.getBean("spotAdminCompleteSpotInformationService");
+//		SpotAdminCompleteSpotInformationModel spotAdminCompleteSpotInformationModel = new SpotAdminCompleteSpotInformationModel();
+//		spotAdminCompleteSpotInformationModel.setAccount("1");
+//		spotAdminCompleteSpotInformationModel.setDescription("hello");
+//		spotAdminCompleteSpotInformationModel.setVoice("World");
+//		spotAdminCompleteSpotInformationModel.setRadius("100");
+//		spotAdminCompleteSpotInformationService
+//				.changeSpotInformation(spotAdminCompleteSpotInformationModel);
+//		spotAdminCompleteSpotInformationModel = spotAdminCompleteSpotInformationService
+//				.getSpotInformation(spotAdminCompleteSpotInformationModel);
+//		JSONArray jsonArray = JSONArray
+//				.fromObject(spotAdminCompleteSpotInformationModel);
+//		System.out.println(jsonArray);
+//		InetAddress address=InetAddress.getLocalHost();  
+//        System.out.println("本机计算机名："+address.getHostName());  
+//        System.out.println("当前主机的IP地址："+address.getHostAddress());  
+//        System.out.println("直接输出InetAddress类的对象:"+address);//直接输出InetAddress类的对象  
+//        String secretKey = UUID.randomUUID().toString(); // 密钥
+//        System.out.println("secretKey:"+secretKey);
 	}
 }
