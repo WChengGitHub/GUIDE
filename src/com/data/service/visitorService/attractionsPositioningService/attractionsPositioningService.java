@@ -1,7 +1,7 @@
 package com.data.service.visitorService.attractionsPositioningService;
 
-import com.data.model.VisitorPositioningModel;
+import com.data.model.PositioningModel;
 
 public interface attractionsPositioningService {
-	public String AttractionsPositioning(VisitorPositioningModel visitorPositioningModel);
+	public String AttractionsPositioning(PositioningModel visitorPositioningModel);
 }

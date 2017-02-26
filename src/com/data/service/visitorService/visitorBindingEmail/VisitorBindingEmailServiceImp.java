@@ -54,7 +54,7 @@ public class VisitorBindingEmailServiceImp implements VisitorBindingEmailService
 		String UUID1=UUID.randomUUID().toString();
 		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd-HH:mm:ss");//设置日期格式
 		String Time=df.format(new Date());
-		String linkString="http://192.168.1.105:8080/GUIDE/";
+		
 		String linkAddress="http://"+Ip+":8080/GUIDE/VisitorBindingEmailController/checkBingingEamilInformation?Vid="+Vid+"&Email="+Email+"&UUID="+UUID1+"&CreateTime="+Time;
 		String emailContent = "点击下面的链接,验证邮箱<br/><a href="
                 + linkAddress + " target='_BLANK'>" + "邮箱验证"

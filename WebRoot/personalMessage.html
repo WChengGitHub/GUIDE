@@ -401,6 +401,8 @@ var pI=document.getElementById("personalInformation");
 var eH=document.getElementById("editHTML");
 var cP=document.getElementById("changePasswordHTML");
 var tB=document.getElementById("telephoneBindingHTML");
+var eBH=document.getElementById("emailBindingHTML");
+  eBH.style.display="none";
   cP.style.display="none";
   eH.style.display="none";
   aB.style.display="none";
@@ -444,6 +446,8 @@ var pI=document.getElementById("personalInformation");
 var eH=document.getElementById("editHTML");
 var cP=document.getElementById("changePasswordHTML");
 var tB=document.getElementById("telephoneBindingHTML");
+var eBH=document.getElementById("emailBindingHTML");
+  eBH.style.display="none";
 document.getElementById("changPasswordTip").innerHTML=null;
   cP.style.display="none";
   eH.style.display="none";
@@ -482,6 +486,8 @@ var pI=document.getElementById("personalInformation");
 var eH=document.getElementById("editHTML");
 var cP=document.getElementById("changePasswordHTML");
 var tB=document.getElementById("telephoneBindingHTML");
+var eBH=document.getElementById("emailBindingHTML");
+  eBH.style.display="none";
   cP.style.display="none";
   eH.style.display="none";
   aB.style.display="none";
@@ -532,6 +538,8 @@ var pI=document.getElementById("personalInformation");
 var eH=document.getElementById("editHTML");
 var cP=document.getElementById("changePasswordHTML");
 var tB=document.getElementById("telephoneBindingHTML");
+var eBH=document.getElementById("emailBindingHTML");
+  eBH.style.display="none";
   cP.style.display="none";
   aB.style.display="none";
   tC.style.display="none";
@@ -604,6 +612,7 @@ var pI=document.getElementById("personalInformation");
 var eH=document.getElementById("editHTML");
 var cP=document.getElementById("changePasswordHTML");
 var tB=document.getElementById("telephoneBindingHTML");
+var eBH=document.getElementById("emailBindingHTML");
 //清空
 document.getElementById("oldPassword").value=null;
 document.getElementById("newPassword").value=null;
@@ -613,6 +622,8 @@ document.getElementById("changPasswordTip").innerHTML=null;
 	document.getElementById("newPassword").placeholder="新密码";
 	document.getElementById("makeSurePassword").placeholder="确认新密码";
 	document.getElementById("oldPassword").style.borderColor="#a1a1a1";
+
+  eBH.style.display="none";
   aB.style.display="none";
   tC.style.display="none";
   pI.style.display="none";
@@ -745,7 +756,25 @@ else {
 	document.getElementById("makeSurePassword").style.borderColor="#EE0000";
 	}
 }
+function changeEmail(){
 
+var tC=document.getElementById("travelsManagement");
+var aB=document.getElementById("accountBinding");
+var pI=document.getElementById("personalInformation");
+var eH=document.getElementById("editHTML");
+var cP=document.getElementById("changePasswordHTML");
+var tB=document.getElementById("telephoneBindingHTML");
+var eBH=document.getElementById("emailBindingHTML");
+  aB.style.display="none";
+  tC.style.display="none";
+  pI.style.display="none";
+  eH.style.display="none";
+  cP.style.display="none";
+  tB.style.display="none";
+  eBH.style.display="block";
+
+
+}
 function changeTelephone(){
 
 var tC=document.getElementById("travelsManagement");
@@ -754,6 +783,8 @@ var pI=document.getElementById("personalInformation");
 var eH=document.getElementById("editHTML");
 var cP=document.getElementById("changePasswordHTML");
 var tB=document.getElementById("telephoneBindingHTML");
+var eBH=document.getElementById("emailBindingHTML");
+  eBH.style.display="none";
   aB.style.display="none";
   tC.style.display="none";
   pI.style.display="none";
@@ -817,6 +848,27 @@ else
 		alert("验证码错误");
 		document.getElementById("VerificationCode").style.borderColor="#EE0000";
 }
+
+//发送邮件和用户名
+function sendBingingEamilInformation() {
+var Email=$("#Email").val();
+$.ajax({
+	type : 'post',
+	url : encodeURI(encodeURI("VisitorBindingEmailController/sendBingingEamilInformation?Visitor="
+					+ cookie+"&Email="+Email)),
+	contentType : 'application/json;charset=utf-8',
+	dataType : 'json',
+	success : function(data) {
+
+	alert("邮件已经成功发送，请查看邮箱");
+	getSpotAdmins();
+	},
+	error : function() {
+			alert("邮件发送失败，请检查邮箱是否正确");
+	}
+	});
+}
+
 </script>
 
 
@@ -969,6 +1021,26 @@ else
 						<div class="save">
 							<input type="submit" name="savebuttum" value="绑 定" 
 								   class="savebuttum" align="center" onclick="telephoneBindingSave()"/>
+						</div>
+					</div>
+				</div>
+				<div id="emailBindingHTML" style="display:none" align="center">
+					<h2>绑定邮箱</h2>
+					<div>
+						<div class="emailDiv">
+							<h3 class="emailNumber">邮箱号码</h3>
+							<input type="text" name="邮箱号码" id="Email" placeholder="请输入邮箱号码"/>
+						</div>
+						<div class="lineFeed">  </div>
+						<div class="verificationCodeDiv">
+							<!-- <h3 class="verificationCode">验证码</h3> -->
+							<!-- <button class="getVerificationCode" onclick="sendBingingEamilInformation()">邮箱绑定</button> -->
+							<!-- <input type="text" name="验证码" id="VerificationCode" placeholder="请输入验证码"/> -->
+						</div>
+						<div class="lineFeed">  </div>
+						<div class="save">
+							<input type="submit" name="savebuttum" value="绑 定" 
+								   class="savebuttum" align="center" onclick="sendBingingEamilInformation()"/>
 						</div>
 					</div>
 				</div>

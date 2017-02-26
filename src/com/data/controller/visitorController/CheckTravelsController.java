@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.data.model.VisitorPositioningModel;
+import com.data.model.PositioningModel;
 import com.data.model.tb_visitorModel;
 import com.data.service.visitorService.attractionsPositioningService.attractionsPositioningServiceImp;
 import com.data.service.visitorService.checkTravelsService.checkTravelsService;

@@ -1,6 +1,6 @@
 package com.data.model;
 
-public class VisitorPositioningModel {
+public class PositioningModel {
 	private double latitude;
 	private double longitude;
 	private String city;

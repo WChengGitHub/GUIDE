@@ -8,7 +8,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import com.data.dao.singleForm.tb_areaDao;
 import com.data.dao.singleForm.tb_cityDao;
 import com.data.dao.singleForm.tb_spotDao;
-import com.data.model.VisitorPositioningModel;
+import com.data.model.PositioningModel;
 import com.data.model.tb_areaModel;
 import com.data.model.tb_cityModel;
 import com.data.model.tb_spotModel;
@@ -37,7 +37,7 @@ public class attractionsPositioningServiceImp implements attractionsPositioningS
 	String sid;
 	String spot;
 	@Override
-	public String AttractionsPositioning(VisitorPositioningModel visitorPositioningModel) {
+	public String AttractionsPositioning(PositioningModel positioningModel) {
 		// TODO Auto-generated method stub
 		
 		@SuppressWarnings("resource")
@@ -50,7 +50,7 @@ public class attractionsPositioningServiceImp implements attractionsPositioningS
 		 String sql=" select * from tb_city where City=? ";
 		 param=new LinkedList<Object>();
 		 //填sql语句参数的
-		 param.add(visitorPositioningModel.getCity());
+		 param.add(positioningModel.getCity());
 	
 		 tb_citymodellist=tb_citydao.query(sql, param);	
 		 
@@ -60,8 +60,8 @@ public class attractionsPositioningServiceImp implements attractionsPositioningS
 		 System.out.println(cid+"cid   test");
 		 
 		 //取游客当前经纬度值 vlat/vlon
-		 double vlat = visitorPositioningModel.getLatitude();
-		 double vlon = visitorPositioningModel.getLongitude();
+		 double vlat = positioningModel.getLatitude();
+		 double vlon = positioningModel.getLongitude();
 		 //根据Cid查景区
 		 String sql2=" select * from tb_area where Cid=? ";
 		 param2=new LinkedList<Object>();

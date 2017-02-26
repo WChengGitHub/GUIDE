@@ -116,7 +116,7 @@
 	<bean id="tb_adminmodel" class="com.data.model.tb_adminModel" />
 	<bean id="tb_travelsmodel" class="com.data.model.tb_travelsModel"/>
 	<bean id="tb_citymodel" class="com.data.model.tb_cityModel"/>
-	<bean id="visitorPositioningModel" class="com.data.model.VisitorPositioningModel"/>
+	<bean id="visitorPositioningModel" class="com.data.model.PositioningModel"/>
 	
 	<!-- visitorService -->
 	<bean id="loginservice"
