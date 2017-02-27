@@ -31,9 +31,11 @@
 	<!-- Pagination -->
 	<link rel="stylesheet" href="css/pagination.css" />
 	<script type="text/javascript" src="css/jquery.pagination.js"></script>
+	<script src="http://api.map.baidu.com/api?v=1.2" type="text/javascript"></script> 
 <script>
 	var Account = "";
 	var Privilege = "";
+	var longitude=null, latitude=null;
 	function setCookie() {
 		var now = new Date();
 		now.setTime(now.getTime() + 5 * 60 * 1000);
@@ -153,9 +155,73 @@
 	//定位
 	function lacation()
 	{
-		 Longitude=$("#Longitude").val(11);
-		 Latitude=$("#Latitude").val(11);
+		getLocation();
+		 Longitude=$("#Longitude").val();
+		 Latitude=$("#Latitude").val();
 	}
+	           function getLocation(){
+	               var options={
+	                   enableHighAccuracy:true, 
+	                   maximumAge:1000
+	               }
+	               if(navigator.geolocation){
+	                   //浏览器支持geolocation
+	                   navigator.geolocation.getCurrentPosition(onSuccess,onError,options);
+	               }else{
+	                   //浏览器不支持geolocation
+	                   alert('您的浏览器不支持地理位置定位');
+	               }
+	           }
+	           //成功时
+	           function onSuccess(position){
+	               //返回用户位置
+	               //经度
+	               longitude =position.coords.longitude;
+	               //纬度
+	               latitude = position.coords.latitude;
+	    alert('经度'+longitude+'，纬度'+latitude);
+	   $("#Longitude").val(longitude);
+		 $("#Latitude").val(latitude);
+	               
+	               //根据经纬度获取地理位置，不太准确，获取城市区域还是可以的
+	    /*var map = new BMap.Map("allmap");
+	    var point = new BMap.Point(longitude,latitude);
+	    var gc = new BMap.Geocoder();
+	    gc.getLocation(point, function(rs){
+	       var addComp = rs.addressComponents;
+	       province=addComp.province;
+	       city=addComp.city;
+	       district=addComp.district;
+	       street=addComp.street;
+	       streetNumber=addComp.streetNumber;
+	       alert(province + ", " + city + ", " + district + ", " + street + ", " + streetNumber);
+	       //在文本框显示地址信息
+	       document.getElementById('disabledInput').value=province + city +  district +  street +  streetNumber;*/
+	       
+	       
+	       
+	       
+	  
+	  
+	           }
+	           //失败时
+	           function onError(error){
+	               switch(error.code){
+	                   case 1:
+	                   alert("位置服务被拒绝");
+	                   break;
+	                   case 2:
+	                   alert("暂时获取不到位置信息");
+	                   break;
+	                   case 3:
+	                   alert("获取信息超时");
+	                   break;
+	                   case 4:
+	                    alert("未知错误");
+	                   break;
+	               }
+	           }
+
 	//添加景点：需要景区管理员和景点的名字，景点经纬度
 	function addSpot() {
 		var Spot=$("#Spot").val();

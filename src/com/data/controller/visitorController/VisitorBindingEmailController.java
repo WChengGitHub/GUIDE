@@ -53,7 +53,6 @@ public class VisitorBindingEmailController {
 	}
 	
 	@RequestMapping("/checkBingingEamilInformation")
-	@ResponseBody
 	public void checkBingingEamilInformation(HttpServletResponse response,
 			@RequestParam(value = "Vid", required = false) String Vid,@RequestParam(value = "UUID", required = false) String UUID1,@RequestParam(value = "Email", required = false) String Email,@RequestParam(value = "CreateTime", required = false) String CreateTime)
 			throws IOException {

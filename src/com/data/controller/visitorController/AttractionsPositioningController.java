@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.data.model.VisitorPositioningModel;
+import com.data.model.PositioningModel;
 import com.data.service.visitorService.attractionsPositioningService.attractionsPositioningServiceImp;
 
 @Controller //景点定位
@@ -40,21 +40,21 @@ public class AttractionsPositioningController {
 			@SuppressWarnings("resource")
 			//应用上下文
 			ClassPathXmlApplicationContext factory= new ClassPathXmlApplicationContext("applicationContext.xml");
-			VisitorPositioningModel visitorPositioningModel=(VisitorPositioningModel)factory.getBean("visitorPositioningModel");
+			PositioningModel positioningModel=(PositioningModel)factory.getBean("positioningModel");
 			attractionsPositioningServiceImp apServiceImp=(attractionsPositioningServiceImp)factory.getBean("attractionsPositioningServiceImp");
 			 //检查是否运行到这里
 			 System.out.println("test controller");
 	         
 	         //传给model
-			 visitorPositioningModel.setCity(city);
-			 visitorPositioningModel.setLatitude(lat);
-			 visitorPositioningModel.setLongitude(lon);
+			 positioningModel.setCity(city);
+			 positioningModel.setLatitude(lat);
+			 positioningModel.setLongitude(lon);
 			 //测试
-			 System.out.println(visitorPositioningModel.getCity()+"              test           test  ");
-			 System.out.println(visitorPositioningModel.getLatitude()+"      test lat");
+			 System.out.println(positioningModel.getCity()+"              test           test  ");
+			 System.out.println(positioningModel.getLatitude()+"      test lat");
 			 
 			 //发表情况state,成功与否1/0表示
-			 String state=apServiceImp.AttractionsPositioning(visitorPositioningModel);
+			 String state=apServiceImp.AttractionsPositioning(positioningModel);
 			 out.print(state);			 
 			 System.out.println(state+"        test    state      ");
 		} catch (Exception e) {
